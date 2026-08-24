@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/speeddial';
+import { style } from '@primus/primeuix/styles/speeddial';
 import { BaseStyle } from '@primus/core/base';
 
 /* Direction */

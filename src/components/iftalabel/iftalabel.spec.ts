@@ -198,7 +198,7 @@ describe('IftaLabel PassThrough Tests', () => {
     });
 
     describe('PT Case 4: Event binding', () => {
-        it('should handle onclick event through PT', (done) => {
+        it('should handle onclick event through PT', () => new Promise<void>((done) => {
             let clicked = false;
             fixture.componentRef.setInput('pt', {
                 root: {
@@ -212,7 +212,7 @@ describe('IftaLabel PassThrough Tests', () => {
 
             hostElement.click();
             expect(clicked).toBe(true);
-        });
+        }));
     });
 
     describe('PT Case 5: Global PT from PrimeNGConfig', () => {

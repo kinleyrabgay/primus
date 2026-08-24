@@ -5,7 +5,8 @@ import { SharedModule } from '@primus/core/api';
 import { Avatar, AvatarModule } from './avatar';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [AvatarModule, SharedModule],
     selector: 'test-basic-avatar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-avatar></p-avatar>`
@@ -13,7 +14,8 @@ import { Avatar, AvatarModule } from './avatar';
 class TestBasicAvatarComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [AvatarModule, SharedModule],
     selector: 'test-label-avatar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-avatar [label]="label"></p-avatar>`
@@ -23,7 +25,8 @@ class TestLabelAvatarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [AvatarModule, SharedModule],
     selector: 'test-icon-avatar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-avatar [icon]="icon"></p-avatar>`
@@ -33,7 +36,8 @@ class TestIconAvatarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [AvatarModule, SharedModule],
     selector: 'test-image-avatar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-avatar [image]="image" [ariaLabel]="ariaLabel" (onImageError)="onImageError($event)"></p-avatar>`
@@ -49,7 +53,8 @@ class TestImageAvatarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [AvatarModule, SharedModule],
     selector: 'test-size-avatar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-avatar [label]="label" [size]="size"></p-avatar>`
@@ -60,7 +65,8 @@ class TestSizeAvatarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [AvatarModule, SharedModule],
     selector: 'test-shape-avatar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-avatar [label]="label" [shape]="shape"></p-avatar>`
@@ -71,7 +77,8 @@ class TestShapeAvatarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [AvatarModule, SharedModule],
     selector: 'test-style-class-avatar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-avatar [label]="label" [styleClass]="styleClass"></p-avatar>`
@@ -82,7 +89,8 @@ class TestStyleClassAvatarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [AvatarModule, SharedModule],
     selector: 'test-aria-avatar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-avatar [label]="label" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy"></p-avatar>`
@@ -94,7 +102,8 @@ class TestAriaAvatarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [AvatarModule, SharedModule],
     selector: 'test-content-avatar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -106,7 +115,8 @@ class TestAriaAvatarComponent {
 class TestContentAvatarComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [AvatarModule, SharedModule],
     selector: 'test-dynamic-avatar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-avatar [label]="label" [icon]="icon" [image]="image" [size]="size" [shape]="shape" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" (onImageError)="onImageError($event)"> </p-avatar> `
@@ -146,8 +156,9 @@ class TestPTAvatarComponent {
 describe('Avatar', () => {
     beforeEach(async () => {
         TestBed.configureTestingModule({
-            imports: [AvatarModule, SharedModule],
-            declarations: [
+            imports: [
+                AvatarModule,
+                SharedModule,
                 TestBasicAvatarComponent,
                 TestLabelAvatarComponent,
                 TestIconAvatarComponent,
@@ -369,7 +380,7 @@ describe('Avatar', () => {
         });
 
         it('should emit onImageError event', () => {
-            spyOn(component, 'onImageError');
+            vi.spyOn(component, 'onImageError').mockImplementation(() => undefined);
             const imageElement = fixture.debugElement.query(By.css('img'));
             const errorEvent = new Event('error');
 
@@ -860,7 +871,7 @@ describe('Avatar', () => {
 
         it('should handle image error correctly', () => {
             const avatarComponent = fixture.debugElement.query(By.directive(Avatar)).componentInstance;
-            spyOn(avatarComponent.onImageError, 'emit');
+            vi.spyOn(avatarComponent.onImageError, 'emit').mockImplementation(() => undefined);
 
             const mockEvent = new Event('error');
             avatarComponent.imageError(mockEvent);

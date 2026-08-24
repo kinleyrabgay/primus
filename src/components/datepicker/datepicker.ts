@@ -23,8 +23,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MotionEvent, MotionOptions } from '@primeuix/motion';
-import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
+import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
+import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primus/primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@primus/core/api';
 import { AutoFocus } from '@primus/components/autofocus';
 import { PARENT_INSTANCE } from '@primus/core/basecomponent';

@@ -9,7 +9,8 @@ import { map, take } from 'rxjs/operators';
 import { Select } from './select';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-select
@@ -102,7 +103,8 @@ class TestBasicSelectComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <form [formGroup]="form">
@@ -126,7 +128,8 @@ class TestReactiveFormSelectComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-select [options]="groupedOptions" [(ngModel)]="selectedCity" optionLabel="cname" optionValue="code" [group]="true" optionGroupLabel="label" optionGroupChildren="items" placeholder="Select a city"> </p-select> `
 })
@@ -153,7 +156,8 @@ class TestGroupedSelectComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-select [options]="options" [(ngModel)]="selectedValue" optionLabel="name" optionValue="code" placeholder="Select with templates" [filter]="filter" [showClear]="showClear" [loading]="loading">
@@ -220,7 +224,8 @@ class TestSelectPTemplateComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-select [options]="options" [(ngModel)]="selectedValue" optionLabel="name" optionValue="code" placeholder="Select with template refs" [filter]="filter" [showClear]="showClear" [loading]="loading">
@@ -283,7 +288,8 @@ class TestSelectRefTemplateComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-select [options]="dynamicOptions()" [(ngModel)]="selectedValue" optionLabel="label" optionValue="value" [placeholder]="dynamicPlaceholder()" [disabled]="dynamicDisabled()" [loading]="dynamicLoading()"> </p-select> `
 })
@@ -321,7 +327,8 @@ class TestDynamicSelectComponent {
 
 // Dynamic data sources test component (signals, observables, async pipes)
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="dynamic-test-container">
@@ -556,7 +563,8 @@ class TestDynamicDataSourcesComponent {
 
 // Comprehensive FormControl test component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="form-test-container">
@@ -672,7 +680,8 @@ class TestComprehensiveFormComponent {
 
 // Comprehensive ViewChild properties test component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="viewchild-test-container">
@@ -705,7 +714,8 @@ class TestViewChildComponent {
 
 // Complex edge cases test component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="edge-cases-container">
@@ -818,8 +828,11 @@ describe('Select', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [
+            imports: [
+                CommonModule,
+                FormsModule,
+                ReactiveFormsModule,
+                Select,
                 TestBasicSelectComponent,
                 TestReactiveFormSelectComponent,
                 TestGroupedSelectComponent,
@@ -1054,7 +1067,7 @@ describe('Select', () => {
         });
 
         it('should focus programmatically', () => {
-            spyOn(selectInstance, 'applyFocus');
+            vi.spyOn(selectInstance, 'applyFocus').mockImplementation(() => undefined);
             selectInstance.focus();
 
             expect(selectInstance.applyFocus).toHaveBeenCalled();
@@ -1077,8 +1090,8 @@ describe('Select', () => {
 
             const clickEvent = {
                 target: mockTarget,
-                preventDefault: jasmine.createSpy('preventDefault'),
-                stopPropagation: jasmine.createSpy('stopPropagation')
+                preventDefault: vi.fn(),
+                stopPropagation: vi.fn()
             } as any;
 
             selectInstance.onContainerClick(clickEvent);
@@ -1384,8 +1397,8 @@ describe('Select', () => {
 
             const clickEvent = {
                 target: mockTarget,
-                preventDefault: jasmine.createSpy('preventDefault'),
-                stopPropagation: jasmine.createSpy('stopPropagation')
+                preventDefault: vi.fn(),
+                stopPropagation: vi.fn()
             } as any;
 
             selectInstance.onContainerClick(clickEvent);
@@ -1470,8 +1483,7 @@ describe('Select - Reactive Forms Integration', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestReactiveFormSelectComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestReactiveFormSelectComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1552,8 +1564,7 @@ describe('Select - Grouped Options', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestGroupedSelectComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestGroupedSelectComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1603,8 +1614,7 @@ describe('Select - pTemplate Content Projection', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestSelectPTemplateComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestSelectPTemplateComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1821,8 +1831,7 @@ describe('Select - #template Reference Content Projection', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestSelectRefTemplateComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestSelectRefTemplateComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1995,8 +2004,7 @@ describe('Select - Dynamic and Signal-based Properties', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestDynamicSelectComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestDynamicSelectComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2117,8 +2125,7 @@ describe('Select - Performance and Large Datasets', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestBasicSelectComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestBasicSelectComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2184,8 +2191,7 @@ describe('Select Dynamic Data Sources', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestDynamicDataSourcesComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestDynamicDataSourcesComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2401,8 +2407,7 @@ describe('Select Comprehensive Form Integration', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestComprehensiveFormComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestComprehensiveFormComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2641,8 +2646,7 @@ describe('Select ViewChild Properties', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, Select],
-            declarations: [TestViewChildComponent],
+            imports: [CommonModule, FormsModule, Select, TestViewChildComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2742,8 +2746,7 @@ describe('Select Complex Edge Cases', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, Select],
-            declarations: [TestComplexEdgeCasesComponent],
+            imports: [CommonModule, FormsModule, Select, TestComplexEdgeCasesComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2982,8 +2985,7 @@ describe('Select Advanced Accessibility', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestBasicSelectComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestBasicSelectComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -3095,7 +3097,7 @@ describe('Select Advanced Accessibility', () => {
             // Ensure overlay is open before testing close
 
             const escapeEvent = new KeyboardEvent('keydown', { code: 'Escape' });
-            spyOn(escapeEvent, 'preventDefault');
+            vi.spyOn(escapeEvent, 'preventDefault').mockImplementation(() => undefined);
             selectInstance.onKeyDown(escapeEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();

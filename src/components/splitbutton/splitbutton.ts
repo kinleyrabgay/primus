@@ -21,8 +21,8 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionOptions } from '@primeuix/motion';
-import { uuid } from '@primeuix/utils';
+import { MotionOptions } from '@primus/primeuix/motion';
+import { uuid } from '@primus/primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from '@primus/core/api';
 import { AutoFocus } from '@primus/components/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';

@@ -19,7 +19,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, find, findSingle, getAttribute, removeClass, setAttribute, uuid } from '@primeuix/utils';
+import { addClass, find, findSingle, getAttribute, removeClass, setAttribute, uuid } from '@primus/primeuix/utils';
 import { Footer, Header, PrimeTemplate, SharedModule } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind, BindModule } from '@primus/core/bind';

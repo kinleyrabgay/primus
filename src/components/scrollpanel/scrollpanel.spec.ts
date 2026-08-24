@@ -1,11 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component, DebugElement, Input, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { SharedModule } from '@primus/core/api';
 
 import { ScrollPanel } from './scrollpanel';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ScrollPanel, CommonModule, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-scrollpanel [styleClass]="styleClass" [step]="step" style="width: 400px; height: 200px;">
@@ -24,7 +27,8 @@ class TestScrollPanelComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ScrollPanel, CommonModule, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-scrollpanel style="width: 300px; height: 150px;">
@@ -40,7 +44,8 @@ class TestScrollPanelComponent {
 class TestTemplateScrollPanelComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ScrollPanel, CommonModule, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-scrollpanel style="width: 280px; height: 120px;">
@@ -56,7 +61,8 @@ class TestTemplateScrollPanelComponent {}
 class TestContentTemplateScrollPanelComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ScrollPanel, CommonModule, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-scrollpanel style="width: 250px; height: 100px;">
@@ -67,7 +73,8 @@ class TestContentTemplateScrollPanelComponent {}
 class TestNoScrollScrollPanelComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ScrollPanel, CommonModule, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-scrollpanel [pt]="pt" style="width: 400px; height: 200px;">
@@ -89,8 +96,7 @@ describe('ScrollPanel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ScrollPanel],
-            declarations: [TestScrollPanelComponent, TestTemplateScrollPanelComponent, TestContentTemplateScrollPanelComponent, TestNoScrollScrollPanelComponent, TestPTScrollPanelComponent],
+            imports: [ScrollPanel, TestScrollPanelComponent, TestTemplateScrollPanelComponent, TestContentTemplateScrollPanelComponent, TestNoScrollScrollPanelComponent, TestPTScrollPanelComponent],
             providers: [provideZonelessChangeDetection()]
         });
 
@@ -334,8 +340,8 @@ describe('ScrollPanel', () => {
             const arrowDownEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
             const arrowUpEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
 
-            spyOn(arrowDownEvent, 'preventDefault');
-            spyOn(arrowUpEvent, 'preventDefault');
+            vi.spyOn(arrowDownEvent, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(arrowUpEvent, 'preventDefault').mockImplementation(() => undefined);
 
             scrollPanel.onKeyDown(arrowDownEvent);
             expect(arrowDownEvent.preventDefault).toHaveBeenCalled();
@@ -353,8 +359,8 @@ describe('ScrollPanel', () => {
             const arrowRightEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
             const arrowLeftEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
 
-            spyOn(arrowRightEvent, 'preventDefault');
-            spyOn(arrowLeftEvent, 'preventDefault');
+            vi.spyOn(arrowRightEvent, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(arrowLeftEvent, 'preventDefault').mockImplementation(() => undefined);
 
             scrollPanel.onKeyDown(arrowRightEvent);
             expect(arrowRightEvent.preventDefault).toHaveBeenCalled();
@@ -407,8 +413,8 @@ describe('ScrollPanel', () => {
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'pageY', { value: 100, writable: false });
 
-            spyOn(yBar.nativeElement, 'focus');
-            spyOn(mouseEvent, 'preventDefault');
+            vi.spyOn(yBar.nativeElement, 'focus').mockImplementation(() => undefined);
+            vi.spyOn(mouseEvent, 'preventDefault').mockImplementation(() => undefined);
 
             scrollPanel.onYBarMouseDown(mouseEvent);
 
@@ -424,8 +430,8 @@ describe('ScrollPanel', () => {
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'pageX', { value: 150, writable: false });
 
-            spyOn(xBar.nativeElement, 'focus');
-            spyOn(mouseEvent, 'preventDefault');
+            vi.spyOn(xBar.nativeElement, 'focus').mockImplementation(() => undefined);
+            vi.spyOn(mouseEvent, 'preventDefault').mockImplementation(() => undefined);
 
             scrollPanel.onXBarMouseDown(mouseEvent);
 
@@ -574,7 +580,7 @@ describe('ScrollPanel', () => {
         });
 
         it('should refresh scrollbar position and size', async () => {
-            spyOn(scrollPanel, 'moveBar');
+            vi.spyOn(scrollPanel, 'moveBar').mockImplementation(() => undefined);
 
             scrollPanel.refresh();
 
@@ -721,21 +727,21 @@ describe('ScrollPanel', () => {
 
     describe('Memory Management', () => {
         it('should bind and unbind document mouse listeners', () => {
-            spyOn(document, 'addEventListener');
-            spyOn(document, 'removeEventListener');
+            vi.spyOn(document, 'addEventListener').mockImplementation(() => undefined);
+            vi.spyOn(document, 'removeEventListener').mockImplementation(() => undefined);
 
             scrollPanel.bindDocumentMouseListeners();
-            expect(document.addEventListener).toHaveBeenCalledWith('mousemove', jasmine.any(Function));
-            expect(document.addEventListener).toHaveBeenCalledWith('mouseup', jasmine.any(Function));
+            expect(document.addEventListener).toHaveBeenCalledWith('mousemove', expect.any(Function));
+            expect(document.addEventListener).toHaveBeenCalledWith('mouseup', expect.any(Function));
 
             scrollPanel.unbindDocumentMouseListeners();
-            expect(document.removeEventListener).toHaveBeenCalledWith('mousemove', jasmine.any(Function));
-            expect(document.removeEventListener).toHaveBeenCalledWith('mouseup', jasmine.any(Function));
+            expect(document.removeEventListener).toHaveBeenCalledWith('mousemove', expect.any(Function));
+            expect(document.removeEventListener).toHaveBeenCalledWith('mouseup', expect.any(Function));
         });
 
         it('should cleanup listeners on destroy', async () => {
             scrollPanel.initialized = true;
-            spyOn(scrollPanel, 'unbindListeners');
+            vi.spyOn(scrollPanel, 'unbindListeners').mockImplementation(() => undefined);
 
             fixture.destroy();
 

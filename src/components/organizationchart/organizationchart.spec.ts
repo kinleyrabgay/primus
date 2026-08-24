@@ -2,13 +2,14 @@ import { Component, provideZonelessChangeDetection, TemplateRef, ChangeDetection
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { TreeNode } from '@primus/core/api';
+import { SharedModule, TreeNode } from '@primus/core/api';
 import { providePrimus } from '@primus/core/config';
 import { OrganizationChart, OrganizationChartNode } from './organizationchart';
 
 // Test component for basic use cases
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [OrganizationChart, OrganizationChartNode, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-organizationChart
@@ -64,7 +65,8 @@ class TestBasicOrganizationChartComponent {
 
 // Test component for template testing
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [OrganizationChart, OrganizationChartNode, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-organizationChart [value]="data" [collapsible]="true">
@@ -109,7 +111,8 @@ class TestTemplateOrganizationChartComponent {
 
 // Test component for toggler icon template
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [OrganizationChart, OrganizationChartNode, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-organizationChart [value]="data" [collapsible]="true">
@@ -133,7 +136,8 @@ class TestTogglerIconTemplateComponent {
 
 // Test component for keyboard navigation
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [OrganizationChart, OrganizationChartNode, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-organizationChart [value]="data" [collapsible]="true" [selectionMode]="'single'"> </p-organizationChart> `
 })
@@ -154,8 +158,7 @@ describe('OrganizationChart', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicOrganizationChartComponent, TestTemplateOrganizationChartComponent, TestTogglerIconTemplateComponent, TestKeyboardNavigationComponent],
-            imports: [OrganizationChart, OrganizationChartNode],
+            imports: [TestBasicOrganizationChartComponent, TestTemplateOrganizationChartComponent, TestTogglerIconTemplateComponent, TestKeyboardNavigationComponent, OrganizationChart, OrganizationChartNode],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -483,7 +486,7 @@ describe('OrganizationChart', () => {
             organizationChart.initialized = true;
 
             const node = { label: 'Test' };
-            const spy = spyOn(organizationChart['selectionSource'], 'next');
+            const spy = vi.spyOn(organizationChart['selectionSource'], 'next').mockImplementation(() => undefined);
 
             organizationChart.selection = node;
 
@@ -589,7 +592,7 @@ describe('OrganizationChart', () => {
             fixture.detectChanges();
 
             const orgChart = fixture.debugElement.query(By.directive(OrganizationChart)).componentInstance;
-            spyOn(orgChart, 'ngAfterContentInit').and.callThrough();
+            vi.spyOn(orgChart, 'ngAfterContentInit');
 
             orgChart.ngAfterContentInit();
 
@@ -773,7 +776,7 @@ describe('OrganizationChart', () => {
             const nodeComponent = nodeElements[0].componentInstance as OrganizationChartNode;
 
             const event = new MouseEvent('click');
-            spyOn(event, 'preventDefault');
+            vi.spyOn(event, 'preventDefault').mockImplementation(() => undefined);
 
             nodeComponent.toggleNode(event, component.data[0]);
 
@@ -789,7 +792,7 @@ describe('OrganizationChart', () => {
             const nodeElements = fixture.debugElement.queryAll(By.css('[pOrganizationChartNode]'));
             const nodeComponent = nodeElements[0].componentInstance as OrganizationChartNode;
 
-            spyOn(nodeComponent.subscription, 'unsubscribe');
+            vi.spyOn(nodeComponent.subscription, 'unsubscribe').mockImplementation(() => undefined);
 
             nodeComponent.ngOnDestroy();
 
@@ -930,7 +933,7 @@ describe('OrganizationChart', () => {
                 ptFixture.componentRef.setInput('value', [{ label: 'Root' }]);
                 ptFixture.componentRef.setInput('pt', {
                     root: {
-                        onclick: jasmine.createSpy('onRootClick')
+                        onclick: vi.fn()
                     }
                 });
                 ptFixture.detectChanges();

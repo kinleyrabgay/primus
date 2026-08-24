@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style as iftalabel_style } from '@primeuix/styles/iftalabel';
+import { style as iftalabel_style } from '@primus/primeuix/styles/iftalabel';
 import { BaseStyle } from '@primus/core/base';
 
 const style = /*css*/ `

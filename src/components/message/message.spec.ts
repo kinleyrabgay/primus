@@ -7,7 +7,8 @@ import { providePrimus } from '@primus/core/config';
 import { Message } from './message';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Message, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-message
@@ -54,7 +55,8 @@ class TestBasicMessageComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Message, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-message [closable]="true">
@@ -70,7 +72,8 @@ class TestBasicMessageComponent {
 class TestContainerTemplateComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Message, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-message [closable]="true">
@@ -87,7 +90,8 @@ class TestContainerTemplateComponent {}
 class TestIconTemplatesComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Message, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-message [closable]="true">
@@ -109,7 +113,8 @@ class TestIconTemplatesComponent {}
 class TestPTemplateComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Message, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-message [closable]="true" [severity]="'error'">
@@ -129,8 +134,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -194,8 +198,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -208,7 +211,7 @@ describe('Message', () => {
 
         it('should close message programmatically', () => {
             const mockEvent = new MouseEvent('click');
-            spyOn(messageInstance.onClose, 'emit');
+            vi.spyOn(messageInstance.onClose, 'emit').mockImplementation(() => undefined);
 
             messageInstance.close(mockEvent);
 
@@ -235,8 +238,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -287,8 +289,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
         });
@@ -339,8 +340,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -388,8 +388,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -441,8 +440,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -483,8 +481,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestContainerTemplateComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestContainerTemplateComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -504,7 +501,7 @@ describe('Message', () => {
             const messageInstance = messageEl.componentInstance as Message;
 
             // Spy on close method before ngAfterContentInit
-            spyOn(messageInstance, 'close');
+            vi.spyOn(messageInstance, 'close').mockImplementation(() => undefined);
 
             // Trigger ngAfterContentInit to process templates
             messageInstance.ngAfterContentInit();
@@ -530,8 +527,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestIconTemplatesComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestIconTemplatesComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -559,8 +555,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestPTemplateComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestPTemplateComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -616,7 +611,7 @@ describe('Message', () => {
             const messageInstance = messageEl.componentInstance as Message;
 
             // Spy on close method before ngAfterContentInit
-            spyOn(messageInstance, 'close');
+            vi.spyOn(messageInstance, 'close').mockImplementation(() => undefined);
 
             // Trigger ngAfterContentInit to process templates
             messageInstance.ngAfterContentInit();
@@ -642,8 +637,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -713,8 +707,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestKeyboardNavigationComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestKeyboardNavigationComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -758,8 +751,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -794,7 +786,7 @@ describe('Message', () => {
 
             const messageEl = fixture.debugElement.query(By.css('p-message'));
             const messageInstance = messageEl.componentInstance as Message;
-            spyOn(messageInstance.onClose, 'emit');
+            vi.spyOn(messageInstance.onClose, 'emit').mockImplementation(() => undefined);
 
             const closeButton = fixture.debugElement.query(By.css('button'));
 
@@ -870,8 +862,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate, TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
         });
@@ -1445,21 +1436,22 @@ describe('Message', () => {
 
     describe('PassThrough - Case 6: Inline test', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Message, SharedModule, PrimeTemplate],
             template: `<p-message [pt]="{ root: 'INLINE_ROOT_CLASS' }" [text]="'Inline Test'"></p-message>`
         })
         class TestInlineStringComponent {}
 
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Message, SharedModule, PrimeTemplate],
             template: `<p-message [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid blue' } } }" [text]="'Inline Test'"></p-message>`
         })
         class TestInlineObjectComponent {}
 
         it('should apply inline pt with string class', async () => {
             await TestBed.configureTestingModule({
-                imports: [Message],
-                declarations: [TestInlineStringComponent],
+                imports: [Message, TestInlineStringComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1472,8 +1464,7 @@ describe('Message', () => {
 
         it('should apply inline pt with object', async () => {
             await TestBed.configureTestingModule({
-                imports: [Message],
-                declarations: [TestInlineObjectComponent],
+                imports: [Message, TestInlineObjectComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1488,7 +1479,8 @@ describe('Message', () => {
 
     describe('PassThrough - Case 7: Test from PrimeNGConfig', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Message, SharedModule, PrimeTemplate],
             template: `
                 <p-message [text]="'First Message'" [closable]="true"></p-message>
                 <p-message [text]="'Second Message'" [closable]="true"></p-message>
@@ -1498,8 +1490,7 @@ describe('Message', () => {
 
         it('should apply global pt configuration from PrimeNGConfig', async () => {
             await TestBed.configureTestingModule({
-                imports: [Message],
-                declarations: [TestGlobalPtComponent],
+                imports: [Message, TestGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimus({
@@ -1532,8 +1523,7 @@ describe('Message', () => {
 
         it('should apply global css from PrimeNGConfig', async () => {
             await TestBed.configureTestingModule({
-                imports: [Message],
-                declarations: [TestGlobalPtComponent],
+                imports: [Message, TestGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimus({
@@ -1560,14 +1550,14 @@ describe('Message', () => {
 
         it('should merge local pt with global pt configuration', async () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 template: `<p-message [pt]="{ root: 'LOCAL_ROOT_CLASS', content: 'LOCAL_CONTENT_CLASS' }" [text]="'Test'"></p-message>`
             })
             class TestMergedPtComponent {}
 
             await TestBed.configureTestingModule({
-                imports: [Message],
-                declarations: [TestMergedPtComponent],
+                imports: [Message, TestMergedPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimus({
@@ -1599,8 +1589,7 @@ describe('Message', () => {
 
         it('should apply multiple global attributes via pt', async () => {
             await TestBed.configureTestingModule({
-                imports: [Message],
-                declarations: [TestGlobalPtComponent],
+                imports: [Message, TestGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimus({

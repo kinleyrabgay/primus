@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style as radiobutton_style } from '@primeuix/styles/radiobutton';
+import { style as radiobutton_style } from '@primus/primeuix/styles/radiobutton';
 import { BaseStyle } from '@primus/core/base';
 
 const style = /*css*/ `

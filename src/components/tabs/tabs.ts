@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, input, model, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
-import { uuid } from '@primeuix/utils';
+import { uuid } from '@primus/primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind, BindModule } from '@primus/core/bind';
 import { TabsPassThrough } from '@primus/core/types/tabs';

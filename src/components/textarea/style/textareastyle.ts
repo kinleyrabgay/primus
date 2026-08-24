@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style as textarea_style } from '@primeuix/styles/textarea';
+import { style as textarea_style } from '@primus/primeuix/styles/textarea';
 import { BaseStyle } from '@primus/core/base';
 
 const style = /*css*/ `

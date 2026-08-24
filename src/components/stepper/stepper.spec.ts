@@ -5,7 +5,8 @@ import { By } from '@angular/platform-browser';
 import { Step, StepItem, StepList, StepPanel, StepPanels, Stepper } from './stepper';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-stepper [(value)]="value" [linear]="linear" [transitionOptions]="transitionOptions">
@@ -36,7 +37,8 @@ class TestStepperComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-stepper [value]="1">
@@ -60,7 +62,8 @@ class TestVerticalStepperComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-stepper [(value)]="value">
@@ -93,7 +96,8 @@ class TestTemplateStepperComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-stepper [value]="1" [pt]="pt">
@@ -124,8 +128,7 @@ describe('Stepper', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step],
-            declarations: [TestStepperComponent, TestVerticalStepperComponent, TestTemplateStepperComponent, TestPTStepperComponent],
+            imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step, TestStepperComponent, TestVerticalStepperComponent, TestTemplateStepperComponent, TestPTStepperComponent],
             providers: [provideZonelessChangeDetection()]
         });
 

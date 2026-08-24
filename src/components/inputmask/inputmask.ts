@@ -51,7 +51,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { getUserAgent, isClient } from '@primeuix/utils';
+import { getUserAgent, isClient } from '@primus/primeuix/utils';
 import { PrimeTemplate, SharedModule } from '@primus/core/api';
 import { AutoFocus } from '@primus/components/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';

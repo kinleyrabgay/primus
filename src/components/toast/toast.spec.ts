@@ -9,7 +9,8 @@ import { Toast, ToastItem } from './toast';
 
 // Test Components for different scenarios
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toast
@@ -53,7 +54,8 @@ class TestBasicToastComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toast [key]="'template-test'">
@@ -69,7 +71,8 @@ class TestBasicToastComponent {
 class TestMessageTemplateComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toast [key]="'headless-test'">
@@ -85,7 +88,8 @@ class TestMessageTemplateComponent {}
 class TestHeadlessTemplateComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toast [key]="'ptemplate-test'">
@@ -107,7 +111,8 @@ class TestHeadlessTemplateComponent {}
 class TestPTemplateComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-toast [key]="'position-test'" [position]="position"> </p-toast> `
 })
@@ -120,8 +125,7 @@ describe('Toast', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, Toast, SharedModule, PrimeTemplate],
-            declarations: [TestBasicToastComponent, TestMessageTemplateComponent, TestHeadlessTemplateComponent, TestPTemplateComponent, TestPositionComponent],
+            imports: [CommonModule, Toast, SharedModule, PrimeTemplate, TestBasicToastComponent, TestMessageTemplateComponent, TestHeadlessTemplateComponent, TestPTemplateComponent, TestPositionComponent],
             providers: [MessageService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -308,8 +312,8 @@ describe('Toast', () => {
         });
 
         it('should subscribe to messageService on init', () => {
-            spyOn(messageService.messageObserver, 'subscribe').and.callThrough();
-            spyOn(messageService.clearObserver, 'subscribe').and.callThrough();
+            vi.spyOn(messageService.messageObserver, 'subscribe');
+            vi.spyOn(messageService.clearObserver, 'subscribe');
 
             const newFixture = TestBed.createComponent(TestBasicToastComponent);
             newFixture.detectChanges();
@@ -352,7 +356,7 @@ describe('Toast', () => {
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.messages?.length).toBe(2);
-            expect(toastInstance.messages).toEqual(jasmine.arrayContaining(messages));
+            expect(toastInstance.messages).toEqual(expect.arrayContaining(messages));
         });
 
         it('should trigger clearAll when messageService clear is called', async () => {
@@ -372,7 +376,7 @@ describe('Toast', () => {
             const toastInstance = toastEl.componentInstance as Toast;
             expect(toastInstance.messages?.length).toBe(1);
 
-            spyOn(toastInstance, 'clearAll').and.callThrough();
+            vi.spyOn(toastInstance, 'clearAll');
             messageService.clear('test');
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -398,7 +402,7 @@ describe('Toast', () => {
             const toastInstance = toastEl.componentInstance as Toast;
             expect(toastInstance.messages?.length).toBe(1);
 
-            spyOn(toastInstance, 'clearAll').and.callThrough();
+            vi.spyOn(toastInstance, 'clearAll');
             messageService.clear();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -557,7 +561,7 @@ describe('Toast', () => {
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
-            spyOn(toastInstance, 'onMessageClose');
+            vi.spyOn(toastInstance, 'onMessageClose').mockImplementation(() => undefined);
 
             const closeButton = fixture.debugElement.query(By.css('.headless-close'));
             expect(closeButton).toBeTruthy();
@@ -679,8 +683,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Toast, SharedModule, PrimeTemplate],
-                declarations: [TestBasicToastComponent],
+                imports: [CommonModule, Toast, SharedModule, PrimeTemplate, TestBasicToastComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -693,7 +696,7 @@ describe('Toast', () => {
         it('should handle animation start events', () => {
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
-            spyOn(toastInstance, 'onAnimationStart');
+            vi.spyOn(toastInstance, 'onAnimationStart').mockImplementation(() => undefined);
 
             const mockAnimationEvent = {
                 fromState: 'void',
@@ -707,7 +710,7 @@ describe('Toast', () => {
         it('should handle animation end events', () => {
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
-            spyOn(toastInstance, 'onAnimationEnd');
+            vi.spyOn(toastInstance, 'onAnimationEnd').mockImplementation(() => undefined);
 
             toastInstance.onAnimationEnd();
             expect(toastInstance.onAnimationEnd).toHaveBeenCalledWith();
@@ -793,8 +796,8 @@ describe('Toast', () => {
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
-            spyOn(toastInstance.messageSubscription!, 'unsubscribe');
-            spyOn(toastInstance.clearSubscription!, 'unsubscribe');
+            vi.spyOn(toastInstance.messageSubscription!, 'unsubscribe').mockImplementation(() => undefined);
+            vi.spyOn(toastInstance.clearSubscription!, 'unsubscribe').mockImplementation(() => undefined);
 
             fixture.destroy();
 
@@ -812,7 +815,7 @@ describe('Toast', () => {
             const toastInstance = toastEl.componentInstance as Toast;
 
             toastInstance.ngAfterViewInit(); // This creates the style
-            spyOn(toastInstance, 'destroyStyle');
+            vi.spyOn(toastInstance, 'destroyStyle').mockImplementation(() => undefined);
 
             fixture.destroy();
 
@@ -840,7 +843,8 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 1: Simple string classes', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
         })
         class TestToastPtComponent {
@@ -853,8 +857,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastPtComponent],
+                imports: [Toast, TestToastPtComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -886,7 +889,8 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 2: Objects', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
         })
         class TestToastPtObjectComponent {
@@ -899,8 +903,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastPtObjectComponent],
+                imports: [Toast, TestToastPtObjectComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -948,7 +951,8 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 3: Mixed object and string values', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
         })
         class TestToastPtMixedComponent {
@@ -961,8 +965,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastPtMixedComponent],
+                imports: [Toast, TestToastPtMixedComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -992,7 +995,8 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 4: Use variables from instance', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [position]="position" [pt]="pt"></p-toast> `
         })
         class TestToastPtInstanceComponent {
@@ -1006,8 +1010,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastPtInstanceComponent],
+                imports: [Toast, TestToastPtInstanceComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1065,7 +1068,8 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 5: Event binding', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
         })
         class TestToastPtEventComponent {
@@ -1078,8 +1082,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastPtEventComponent],
+                imports: [Toast, TestToastPtEventComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1135,13 +1138,15 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 6: Inline test', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-toast> `
         })
         class TestToastInlineStringPtComponent {}
 
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-toast> `
         })
         class TestToastInlineObjectPtComponent {}
@@ -1149,8 +1154,7 @@ describe('Toast', () => {
         it('should apply inline pt with string class', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastInlineStringPtComponent],
+                imports: [Toast, TestToastInlineStringPtComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1164,8 +1168,7 @@ describe('Toast', () => {
         it('should apply inline pt with object', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastInlineObjectPtComponent],
+                imports: [Toast, TestToastInlineObjectPtComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1180,7 +1183,8 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 7: Test from PrimeNGConfig', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: `
                 <p-toast [key]="'toast1'"></p-toast>
                 <p-toast [key]="'toast2'"></p-toast>
@@ -1191,8 +1195,7 @@ describe('Toast', () => {
         it('should apply global pt configuration from PrimeNGConfig', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastGlobalPtComponent],
+                imports: [Toast, TestToastGlobalPtComponent],
                 providers: [
                     MessageService,
                     provideZonelessChangeDetection(),
@@ -1221,15 +1224,15 @@ describe('Toast', () => {
 
         it('should merge local pt with global pt configuration', async () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
                 template: ` <p-toast [key]="'pt-test'" [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-toast> `
             })
             class TestToastMergedPtComponent {}
 
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastMergedPtComponent],
+                imports: [Toast, TestToastMergedPtComponent],
                 providers: [
                     MessageService,
                     provideZonelessChangeDetection(),
@@ -1255,7 +1258,8 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 8: Test hooks', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
         })
         class TestToastPtHooksComponent {
@@ -1268,8 +1272,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastPtHooksComponent],
+                imports: [Toast, TestToastPtHooksComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1481,7 +1484,7 @@ describe('ToastItem', () => {
                 sticky: true
             };
 
-            spyOn(window, 'setTimeout');
+            vi.spyOn(window, 'setTimeout').mockImplementation(() => undefined as any);
             component.initTimeout();
 
             expect(window.setTimeout).not.toHaveBeenCalled();
@@ -1489,7 +1492,7 @@ describe('ToastItem', () => {
 
         it('should clear timeout', () => {
             component.timeout = setTimeout(() => {}, 1000);
-            spyOn(window, 'clearTimeout');
+            vi.spyOn(window, 'clearTimeout').mockImplementation(() => undefined);
 
             component.clearTimeout();
 
@@ -1498,20 +1501,20 @@ describe('ToastItem', () => {
         });
 
         it('should handle mouse enter to clear timeout', () => {
-            spyOn(component, 'clearTimeout');
+            vi.spyOn(component, 'clearTimeout').mockImplementation(() => undefined);
             component.onMouseEnter();
             expect(component.clearTimeout).toHaveBeenCalled();
         });
 
         it('should handle mouse leave to reinitialize timeout', () => {
-            spyOn(component, 'initTimeout');
+            vi.spyOn(component, 'initTimeout').mockImplementation(() => undefined);
             component.onMouseLeave();
             expect(component.initTimeout).toHaveBeenCalled();
         });
 
         it('should handle close icon click', () => {
-            spyOn(component, 'clearTimeout');
-            spyOn(Event.prototype, 'preventDefault');
+            vi.spyOn(component, 'clearTimeout').mockImplementation(() => undefined);
+            vi.spyOn(Event.prototype, 'preventDefault').mockImplementation(() => undefined);
 
             const mockEvent = new Event('click');
             component.onCloseIconClick(mockEvent);
@@ -1698,7 +1701,7 @@ describe('ToastItem', () => {
         });
 
         it('should clear timeout on destroy', () => {
-            spyOn(component, 'clearTimeout');
+            vi.spyOn(component, 'clearTimeout').mockImplementation(() => undefined);
 
             fixture.destroy();
 
@@ -1709,7 +1712,7 @@ describe('ToastItem', () => {
             component.message = { ...(component.message as any), sticky: false };
             component.life = 1000;
 
-            spyOn(component, 'clearTimeout').and.callThrough();
+            vi.spyOn(component, 'clearTimeout');
 
             // Initialize timeout multiple times
             component.initTimeout();
@@ -2071,7 +2074,8 @@ describe('ToastItem', () => {
 
     describe('PassThrough - Case 6: Inline test', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: `
                 <p-toastItem
                     [message]="message"
@@ -2088,7 +2092,8 @@ describe('ToastItem', () => {
         }
 
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: `
                 <p-toastItem
                     [message]="message"
@@ -2107,8 +2112,7 @@ describe('ToastItem', () => {
         it('should apply inline pt with string class', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [ToastItem],
-                declarations: [TestInlineStringPtComponent],
+                imports: [ToastItem, TestInlineStringPtComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -2122,8 +2126,7 @@ describe('ToastItem', () => {
         it('should apply inline pt with object', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [ToastItem],
-                declarations: [TestInlineObjectPtComponent],
+                imports: [ToastItem, TestInlineObjectPtComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 

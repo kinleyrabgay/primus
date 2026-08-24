@@ -6,14 +6,16 @@ import { providePrimus } from '@primus/core/config';
 import { Divider, DividerModule } from './divider';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [DividerModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-divider></p-divider> `
 })
 class TestBasicDividerComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [DividerModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-divider [layout]="layout" [type]="type" [align]="align" [styleClass]="styleClass">
@@ -29,7 +31,8 @@ class TestCustomDividerComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [DividerModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-divider layout="horizontal" type="solid" align="left">
@@ -46,7 +49,8 @@ class TestCustomDividerComponent {
 class TestHorizontalDividerComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [DividerModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div style="height: 200px; display: flex;">
@@ -69,7 +73,8 @@ class TestHorizontalDividerComponent {}
 class TestVerticalDividerComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [DividerModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-divider>
@@ -84,7 +89,8 @@ class TestVerticalDividerComponent {}
 class TestComplexContentDividerComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [DividerModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-divider [layout]="layout" [type]="type" [align]="align">
@@ -106,8 +112,7 @@ describe('Divider', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [DividerModule],
-            declarations: [TestBasicDividerComponent, TestCustomDividerComponent, TestHorizontalDividerComponent, TestVerticalDividerComponent, TestComplexContentDividerComponent, TestDynamicDividerComponent],
+            imports: [DividerModule, TestBasicDividerComponent, TestCustomDividerComponent, TestHorizontalDividerComponent, TestVerticalDividerComponent, TestComplexContentDividerComponent, TestDynamicDividerComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1080,15 +1085,15 @@ describe('Divider', () => {
         describe('Case 6: Inline test', () => {
             it('should apply inline PT with string class', async () => {
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [DividerModule],
                     template: `<p-divider [pt]="{ root: 'INLINE_ROOT_CLASS' }"></p-divider>`
                 })
                 class TestInlinePTStringComponent {}
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [DividerModule],
-                    declarations: [TestInlinePTStringComponent],
+                    imports: [DividerModule, TestInlinePTStringComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1102,15 +1107,15 @@ describe('Divider', () => {
 
             it('should apply inline PT with object class', async () => {
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [DividerModule],
                     template: `<p-divider [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }"></p-divider>`
                 })
                 class TestInlinePTObjectComponent {}
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [DividerModule],
-                    declarations: [TestInlinePTObjectComponent],
+                    imports: [DividerModule, TestInlinePTObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1125,7 +1130,8 @@ describe('Divider', () => {
 
         describe('Case 7: Test from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [DividerModule],
                 template: `
                     <p-divider></p-divider>
                     <p-divider></p-divider>
@@ -1136,8 +1142,7 @@ describe('Divider', () => {
             beforeEach(() => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [DividerModule],
-                    declarations: [TestGlobalPTComponent],
+                    imports: [DividerModule, TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimus({
@@ -1178,13 +1183,14 @@ describe('Divider', () => {
 
             it('should merge local PT with global PT', async () => {
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [DividerModule],
                     template: `<p-divider [pt]="{ root: { class: 'LOCAL_CLASS' } }"></p-divider>`
                 })
                 class TestMergedPTComponent {}
 
                 TestBed.configureTestingModule({
-                    declarations: [TestMergedPTComponent],
+                    imports: [TestMergedPTComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 

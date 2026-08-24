@@ -22,8 +22,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MotionOptions } from '@primeuix/motion';
-import { focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isNotEmpty, uuid } from '@primeuix/utils';
+import { MotionOptions } from '@primus/primeuix/motion';
+import { focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isNotEmpty, uuid } from '@primus/primeuix/utils';
 import { OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from '@primus/core/api';
 import { AutoFocus } from '@primus/components/autofocus';
 import { PARENT_INSTANCE } from '@primus/core/basecomponent';

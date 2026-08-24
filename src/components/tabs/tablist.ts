@@ -1,6 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, effect, ElementRef, forwardRef, inject, InjectionToken, QueryList, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
+import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primus/primeuix/utils';
 import { PrimeTemplate, SharedModule } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind, BindModule } from '@primus/core/bind';

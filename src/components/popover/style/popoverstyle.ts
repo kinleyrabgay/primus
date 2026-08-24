@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/popover';
+import { style } from '@primus/primeuix/styles/popover';
 import { BaseStyle } from '@primus/core/base';
 
 const inlineStyles = {

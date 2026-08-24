@@ -8,7 +8,8 @@ import { Terminal } from './terminal';
 import { TerminalService } from './terminalservice';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Terminal, FormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-terminal [welcomeMessage]="welcomeMessage" [prompt]="prompt" [styleClass]="styleClass" [style]="style"> </p-terminal> `
 })
@@ -20,14 +21,16 @@ class TestBasicTerminalComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Terminal, FormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-terminal welcomeMessage="System Ready" prompt="system> "> </p-terminal> `
 })
 class TestStaticPropsTerminalComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Terminal, FormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-terminal [style]="customStyle" styleClass="custom-terminal"> </p-terminal> `
 })
@@ -40,21 +43,24 @@ class TestStyledTerminalComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Terminal, FormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-terminal></p-terminal> `
 })
 class TestMinimalTerminalComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Terminal, FormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-terminal welcomeMessage="Interactive Terminal" prompt="cmd> "> </p-terminal> `
 })
 class TestInteractiveTerminalComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Terminal, FormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-terminal [welcomeMessage]="message" [prompt]="commandPrompt"> </p-terminal> `
 })
@@ -72,8 +78,7 @@ describe('Terminal', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicTerminalComponent, TestStaticPropsTerminalComponent, TestStyledTerminalComponent, TestMinimalTerminalComponent, TestInteractiveTerminalComponent, TestDynamicTerminalComponent],
-            imports: [Terminal, FormsModule],
+            imports: [Terminal, FormsModule, TestBasicTerminalComponent, TestStaticPropsTerminalComponent, TestStyledTerminalComponent, TestMinimalTerminalComponent, TestInteractiveTerminalComponent, TestDynamicTerminalComponent],
             providers: [TerminalService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -93,7 +98,7 @@ describe('Terminal', () => {
         it('should have required dependencies injected', () => {
             expect(terminalInstance.terminalService).toBeTruthy();
             expect(terminalInstance._componentStyle).toBeTruthy();
-            expect(terminalInstance.constructor.name).toBe('Terminal');
+            expect(terminalInstance.constructor.name.replace(/^_+/, '')).toBe('Terminal');
         });
 
         it('should have default values', () => {
@@ -298,8 +303,8 @@ describe('Terminal', () => {
 
     describe('Command Handling Tests', () => {
         it('should handle Enter key press', () => {
-            spyOn(terminalInstance, 'handleCommand').and.callThrough();
-            spyOn(terminalService, 'sendCommand');
+            vi.spyOn(terminalInstance, 'handleCommand');
+            vi.spyOn(terminalService, 'sendCommand').mockImplementation(() => undefined);
 
             const inputElement = fixture.debugElement.query(By.css('input'));
             terminalInstance.command = 'test command';
@@ -311,7 +316,7 @@ describe('Terminal', () => {
         });
 
         it('should add command to commands array on Enter', () => {
-            spyOn(terminalService, 'sendCommand');
+            vi.spyOn(terminalService, 'sendCommand').mockImplementation(() => undefined);
 
             terminalInstance.command = 'ls -la';
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
@@ -322,7 +327,7 @@ describe('Terminal', () => {
         });
 
         it('should send command to terminal service', () => {
-            spyOn(terminalService, 'sendCommand');
+            vi.spyOn(terminalService, 'sendCommand').mockImplementation(() => undefined);
 
             terminalInstance.command = 'pwd';
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
@@ -332,7 +337,7 @@ describe('Terminal', () => {
         });
 
         it('should clear command input after Enter', () => {
-            spyOn(terminalService, 'sendCommand');
+            vi.spyOn(terminalService, 'sendCommand').mockImplementation(() => undefined);
 
             terminalInstance.command = 'clear';
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
@@ -342,7 +347,7 @@ describe('Terminal', () => {
         });
 
         it('should not process command on other key press', () => {
-            spyOn(terminalService, 'sendCommand');
+            vi.spyOn(terminalService, 'sendCommand').mockImplementation(() => undefined);
             const initialCommandsLength = terminalInstance.commands.length;
 
             terminalInstance.command = 'test';
@@ -355,7 +360,7 @@ describe('Terminal', () => {
         });
 
         it('should handle empty command', () => {
-            spyOn(terminalService, 'sendCommand');
+            vi.spyOn(terminalService, 'sendCommand').mockImplementation(() => undefined);
 
             terminalInstance.command = '';
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
@@ -367,7 +372,7 @@ describe('Terminal', () => {
         });
 
         it('should handle multiple commands', () => {
-            spyOn(terminalService, 'sendCommand');
+            vi.spyOn(terminalService, 'sendCommand').mockImplementation(() => undefined);
 
             // First command
             terminalInstance.command = 'command1';
@@ -452,7 +457,7 @@ describe('Terminal', () => {
 
         it('should focus input element', () => {
             const inputElement = terminalInstance.inputRef.nativeElement;
-            spyOn(inputElement, 'focus');
+            vi.spyOn(inputElement, 'focus').mockImplementation(() => undefined);
 
             terminalInstance.focus(inputElement);
 
@@ -460,7 +465,7 @@ describe('Terminal', () => {
         });
 
         it('should focus on host click', () => {
-            spyOn(terminalInstance, 'focus');
+            vi.spyOn(terminalInstance, 'focus').mockImplementation(() => undefined);
 
             terminalElement.nativeElement.click();
 
@@ -469,7 +474,7 @@ describe('Terminal', () => {
 
         it('should handle focus when input ref is null', () => {
             const mockElement = document.createElement('input');
-            spyOn(mockElement, 'focus');
+            vi.spyOn(mockElement, 'focus').mockImplementation(() => undefined);
 
             terminalInstance.focus(mockElement);
 
@@ -479,7 +484,7 @@ describe('Terminal', () => {
 
     describe('Lifecycle Methods', () => {
         it('should call ngAfterViewInit', () => {
-            spyOn(terminalInstance, 'ngAfterViewInit').and.callThrough();
+            vi.spyOn(terminalInstance, 'ngAfterViewInit');
 
             terminalInstance.ngAfterViewInit();
 
@@ -517,7 +522,7 @@ describe('Terminal', () => {
         });
 
         it('should unsubscribe on destroy', () => {
-            spyOn(terminalInstance.subscription, 'unsubscribe');
+            vi.spyOn(terminalInstance.subscription, 'unsubscribe').mockImplementation(() => undefined);
 
             terminalInstance.ngOnDestroy();
 
@@ -659,7 +664,7 @@ describe('Terminal', () => {
             terminalInstance.command = longCommand;
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
 
-            spyOn(terminalService, 'sendCommand');
+            vi.spyOn(terminalService, 'sendCommand').mockImplementation(() => undefined);
             terminalInstance.handleCommand(enterEvent);
 
             expect(terminalInstance.commands[0].text).toBe(longCommand);
@@ -671,7 +676,7 @@ describe('Terminal', () => {
             terminalInstance.command = specialCommand;
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
 
-            spyOn(terminalService, 'sendCommand');
+            vi.spyOn(terminalService, 'sendCommand').mockImplementation(() => undefined);
             terminalInstance.handleCommand(enterEvent);
 
             expect(terminalInstance.commands[0].text).toBe(specialCommand);
@@ -679,7 +684,7 @@ describe('Terminal', () => {
         });
 
         it('should handle rapid command execution', () => {
-            spyOn(terminalService, 'sendCommand');
+            vi.spyOn(terminalService, 'sendCommand').mockImplementation(() => undefined);
 
             for (let i = 0; i < 10; i++) {
                 terminalInstance.command = `command${i}`;
@@ -799,7 +804,7 @@ describe('Terminal', () => {
         });
 
         it('should handle complete workflow', async () => {
-            spyOn(terminalService, 'sendCommand').and.callThrough();
+            vi.spyOn(terminalService, 'sendCommand');
 
             // Set up terminal
             component.welcomeMessage = 'Test Terminal';
@@ -836,7 +841,7 @@ describe('Terminal', () => {
         });
 
         it('should call handleCommand programmatically', () => {
-            spyOn(terminalService, 'sendCommand');
+            vi.spyOn(terminalService, 'sendCommand').mockImplementation(() => undefined);
 
             terminalInstance.command = 'programmatic command';
             const mockEvent = new KeyboardEvent('keydown', { keyCode: 13 });
@@ -848,7 +853,7 @@ describe('Terminal', () => {
 
         it('should call focus method programmatically', () => {
             const mockElement = document.createElement('input');
-            spyOn(mockElement, 'focus');
+            vi.spyOn(mockElement, 'focus').mockImplementation(() => undefined);
 
             terminalInstance.focus(mockElement);
 
@@ -887,7 +892,8 @@ describe('Terminal', () => {
     describe('PT (PassThrough) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Terminal, FormsModule],
                 template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
             })
             class TestPTCase1Component {
@@ -908,8 +914,7 @@ describe('Terminal', () => {
             it('should apply simple string classes to all PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase1Component],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase1Component],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -944,7 +949,8 @@ describe('Terminal', () => {
 
         describe('Case 2: Objects with class, style, data attributes and aria-label', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Terminal, FormsModule],
                 template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
             })
             class TestPTCase2Component {
@@ -970,8 +976,7 @@ describe('Terminal', () => {
             it('should apply object properties (class, style, data attributes) to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase2Component],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase2Component],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1001,7 +1006,8 @@ describe('Terminal', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Terminal, FormsModule],
                 template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
             })
             class TestPTCase3Component {
@@ -1020,8 +1026,7 @@ describe('Terminal', () => {
             it('should apply mixed object and string values correctly', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase3Component],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase3Component],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1050,7 +1055,8 @@ describe('Terminal', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Terminal, FormsModule],
                 template: `<p-terminal [pt]="pt" [welcomeMessage]="welcomeMsg" [prompt]="promptText"></p-terminal>`
             })
             class TestPTCase4Component {
@@ -1080,8 +1086,7 @@ describe('Terminal', () => {
             it('should use instance variables in PT functions', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase4Component],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase4Component],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1105,7 +1110,8 @@ describe('Terminal', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Terminal, FormsModule],
                 template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
             })
             class TestPTCase5Component {
@@ -1127,8 +1133,7 @@ describe('Terminal', () => {
             it('should bind click events through PT', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase5Component],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase5Component],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1152,13 +1157,15 @@ describe('Terminal', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Terminal, FormsModule],
                 template: `<p-terminal [pt]="{ root: 'INLINE_ROOT_CLASS', welcomeMessage: 'INLINE_WELCOME_CLASS' }" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
             })
             class TestPTCase6InlineComponent {}
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Terminal, FormsModule],
                 template: `<p-terminal [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, prompt: { class: 'INLINE_PROMPT_CLASS' } }" prompt="$ "></p-terminal>`
             })
             class TestPTCase6InlineObjectComponent {}
@@ -1166,8 +1173,7 @@ describe('Terminal', () => {
             it('should apply inline PT string classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineComponent],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase6InlineComponent],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1186,8 +1192,7 @@ describe('Terminal', () => {
             it('should apply inline PT object classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase6InlineObjectComponent],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1206,7 +1211,8 @@ describe('Terminal', () => {
 
         describe('Case 7: Test from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Terminal, FormsModule],
                 template: `
                     <p-terminal welcomeMessage="Terminal 1" prompt="1$ "></p-terminal>
                     <p-terminal welcomeMessage="Terminal 2" prompt="2$ "></p-terminal>
@@ -1217,8 +1223,7 @@ describe('Terminal', () => {
             it('should apply global PT configuration from PrimeNGConfig to multiple instances', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase7GlobalComponent],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase7GlobalComponent],
                     providers: [
                         TerminalService,
                         provideZonelessChangeDetection(),
@@ -1255,7 +1260,8 @@ describe('Terminal', () => {
 
         describe('Case 8: Test hooks', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Terminal, FormsModule],
                 template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
             })
             class TestPTCase8HooksComponent {
@@ -1282,8 +1288,7 @@ describe('Terminal', () => {
             it('should call PT hooks on Angular lifecycle events', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase8HooksComponent],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase8HooksComponent],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 

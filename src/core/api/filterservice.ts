@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { equals, removeAccents, resolveFieldData } from '@primeuix/utils';
+import { equals, removeAccents, resolveFieldData } from '@primus/primeuix/utils';
 
 @Injectable({ providedIn: 'root' })
 export class FilterService {

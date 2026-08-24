@@ -5,7 +5,8 @@ import { By } from '@angular/platform-browser';
 import { StyleClass } from './styleclass';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [StyleClass],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <button
@@ -43,7 +44,8 @@ class TestBasicStyleClassComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [StyleClass],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="container target-parent">
@@ -60,7 +62,8 @@ class TestSelectorStyleClassComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [StyleClass],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="grandparent">
@@ -75,7 +78,8 @@ class TestGrandparentSelectorComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [StyleClass],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <button pStyleClass="@next" enterActiveClass="slide-down-enter" leaveActiveClass="slide-up-leave" [hideOnOutsideClick]="true" [hideOnEscape]="true">Animated Toggle</button>
@@ -85,7 +89,8 @@ class TestGrandparentSelectorComponent {
 class TestAnimationStyleClassComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [StyleClass],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <button pStyleClass="@next" enterActiveClass="slidedown" enterFromClass="hidden" enterToClass="visible" leaveFromClass="visible" leaveActiveClass="slideup" leaveToClass="hidden">Slidedown Animation</button>
@@ -95,7 +100,8 @@ class TestAnimationStyleClassComponent {}
 class TestSlidedownStyleClassComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [StyleClass],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <button pStyleClass="#resize-target" [hideOnResize]="true" [toggleClass]="toggleClass">Resize Toggle</button>
@@ -114,8 +120,15 @@ describe('StyleClass', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicStyleClassComponent, TestSelectorStyleClassComponent, TestGrandparentSelectorComponent, TestAnimationStyleClassComponent, TestSlidedownStyleClassComponent, TestResizeStyleClassComponent],
-            imports: [StyleClass],
+            imports: [
+                StyleClass,
+                TestBasicStyleClassComponent,
+                TestSelectorStyleClassComponent,
+                TestGrandparentSelectorComponent,
+                TestAnimationStyleClassComponent,
+                TestSlidedownStyleClassComponent,
+                TestResizeStyleClassComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -134,7 +147,7 @@ describe('StyleClass', () => {
         it('should have required dependencies injected', () => {
             expect(styleClassInstance.el).toBeTruthy();
             expect(styleClassInstance.renderer).toBeTruthy();
-            expect(styleClassInstance.constructor.name).toBe('StyleClass');
+            expect(styleClassInstance.constructor.name.replace(/^_+/, '')).toBe('StyleClass');
         });
 
         it('should initialize with undefined values', () => {
@@ -260,7 +273,7 @@ describe('StyleClass', () => {
 
     describe('Click Handler Tests', () => {
         it('should handle click event', async () => {
-            spyOn(styleClassInstance, 'toggle');
+            vi.spyOn(styleClassInstance, 'toggle').mockImplementation(() => undefined);
             component.toggleClass = 'active';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -271,7 +284,7 @@ describe('StyleClass', () => {
         });
 
         it('should call enter method when target is hidden', async () => {
-            spyOn(styleClassInstance, 'enter');
+            vi.spyOn(styleClassInstance, 'enter').mockImplementation(() => undefined);
             component.enterActiveClass = 'slide-in';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -289,7 +302,7 @@ describe('StyleClass', () => {
         });
 
         it('should call leave method when target is visible', async () => {
-            spyOn(styleClassInstance, 'leave');
+            vi.spyOn(styleClassInstance, 'leave').mockImplementation(() => undefined);
             component.leaveActiveClass = 'slide-out';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -430,7 +443,7 @@ describe('StyleClass', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(styleClassInstance, 'bindDocumentClickListener');
+            vi.spyOn(styleClassInstance, 'bindDocumentClickListener').mockImplementation(() => undefined);
 
             styleClassInstance.enter();
 
@@ -442,7 +455,7 @@ describe('StyleClass', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(styleClassInstance, 'bindDocumentKeydownListener');
+            vi.spyOn(styleClassInstance, 'bindDocumentKeydownListener').mockImplementation(() => undefined);
 
             styleClassInstance.enter();
 
@@ -454,7 +467,7 @@ describe('StyleClass', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(styleClassInstance, 'bindResizeListener');
+            vi.spyOn(styleClassInstance, 'bindResizeListener').mockImplementation(() => undefined);
 
             styleClassInstance.enter();
 
@@ -517,7 +530,7 @@ describe('StyleClass', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(styleClassInstance, 'unbindDocumentClickListener');
+            vi.spyOn(styleClassInstance, 'unbindDocumentClickListener').mockImplementation(() => undefined);
 
             styleClassInstance.leave();
 
@@ -529,7 +542,7 @@ describe('StyleClass', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(styleClassInstance, 'unbindDocumentKeydownListener');
+            vi.spyOn(styleClassInstance, 'unbindDocumentKeydownListener').mockImplementation(() => undefined);
 
             styleClassInstance.leave();
 
@@ -541,7 +554,7 @@ describe('StyleClass', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(styleClassInstance, 'unbindResizeListener');
+            vi.spyOn(styleClassInstance, 'unbindResizeListener').mockImplementation(() => undefined);
 
             styleClassInstance.leave();
 
@@ -691,7 +704,7 @@ describe('StyleClass', () => {
                 configurable: true
             });
 
-            spyOn(styleClassInstance, 'leave');
+            vi.spyOn(styleClassInstance, 'leave').mockImplementation(() => undefined);
             styleClassInstance.bindDocumentKeydownListener();
 
             const escapeEvent = new KeyboardEvent('keydown', {
@@ -761,8 +774,8 @@ describe('StyleClass', () => {
             const resizeButton = resizeFixture.debugElement.query(By.directive(StyleClass));
             const resizeInstance = resizeButton.injector.get(StyleClass);
 
-            spyOn(resizeInstance, 'bindElementResizeListener');
-            spyOn(resizeInstance, 'bindWindowResizeListener');
+            vi.spyOn(resizeInstance, 'bindElementResizeListener').mockImplementation(() => undefined);
+            vi.spyOn(resizeInstance, 'bindWindowResizeListener').mockImplementation(() => undefined);
 
             resizeInstance.resizeSelector = '#resize-target';
             resizeInstance.bindResizeListener();
@@ -774,8 +787,8 @@ describe('StyleClass', () => {
             const resizeButton = resizeFixture.debugElement.query(By.directive(StyleClass));
             const resizeInstance = resizeButton.injector.get(StyleClass);
 
-            spyOn(resizeInstance, 'unbindElementResizeListener');
-            spyOn(resizeInstance, 'unbindWindowResizeListener');
+            vi.spyOn(resizeInstance, 'unbindElementResizeListener').mockImplementation(() => undefined);
+            vi.spyOn(resizeInstance, 'unbindWindowResizeListener').mockImplementation(() => undefined);
 
             resizeInstance.unbindResizeListener();
 
@@ -1040,7 +1053,7 @@ describe('StyleClass', () => {
         });
 
         it('should cleanup event listener if exists', () => {
-            const mockListener = jasmine.createSpy('eventListener');
+            const mockListener = vi.fn();
             styleClassInstance.eventListener = mockListener;
 
             styleClassInstance.ngOnDestroy();
@@ -1067,7 +1080,7 @@ describe('StyleClass', () => {
         });
 
         it('should call enter method programmatically', async () => {
-            spyOn(styleClassInstance, 'bindDocumentClickListener');
+            vi.spyOn(styleClassInstance, 'bindDocumentClickListener').mockImplementation(() => undefined);
             component.hideOnOutsideClick = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1078,7 +1091,7 @@ describe('StyleClass', () => {
         });
 
         it('should call leave method programmatically', async () => {
-            spyOn(styleClassInstance, 'unbindDocumentClickListener');
+            vi.spyOn(styleClassInstance, 'unbindDocumentClickListener').mockImplementation(() => undefined);
             component.hideOnOutsideClick = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();

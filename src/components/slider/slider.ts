@@ -1,7 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { addClass, getWindowScrollLeft, getWindowScrollTop, isRTL, removeClass } from '@primeuix/utils';
+import { addClass, getWindowScrollLeft, getWindowScrollTop, isRTL, removeClass } from '@primus/primeuix/utils';
 import { SharedModule } from '@primus/core/api';
 import { AutoFocus } from '@primus/components/autofocus';
 import { PARENT_INSTANCE } from '@primus/core/basecomponent';

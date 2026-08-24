@@ -29,8 +29,8 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { MotionEvent, MotionOptions } from '@primeuix/motion';
-import { absolutePosition, addStyle, appendChild, find, findSingle, focus, isTouchDevice, uuid } from '@primeuix/utils';
+import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
+import { absolutePosition, addStyle, appendChild, find, findSingle, focus, isTouchDevice, uuid } from '@primus/primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from '@primus/core/api';
 import { BadgeModule } from '@primus/components/badge';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';

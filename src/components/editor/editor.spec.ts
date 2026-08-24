@@ -10,7 +10,8 @@ import type { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEv
 import { Editor } from './editor';
 // Test Components for different scenarios
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-editor
@@ -80,7 +81,8 @@ class TestBasicEditorComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-editor [(ngModel)]="text">
@@ -98,7 +100,8 @@ class TestCustomToolbarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-editor [(ngModel)]="text">
@@ -117,7 +120,8 @@ class TestPTemplateComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-editor [(ngModel)]="text" [readonly]="true"> </p-editor> `
 })
@@ -126,7 +130,8 @@ class TestReadonlyComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-editor [(ngModel)]="text" [modules]="customModules" [formats]="customFormats"> </p-editor> `
 })
@@ -187,8 +192,7 @@ describe('Editor', () => {
         };
 
         await TestBed.configureTestingModule({
-            imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule],
-            declarations: [TestBasicEditorComponent, TestCustomToolbarComponent, TestPTemplateComponent, TestReadonlyComponent, TestCustomConfigurationComponent],
+            imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule, TestBasicEditorComponent, TestCustomToolbarComponent, TestPTemplateComponent, TestReadonlyComponent, TestCustomConfigurationComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -272,8 +276,8 @@ describe('Editor', () => {
 
         it('should handle readonly mode toggle', () => {
             if (editorInstance.quill) {
-                spyOn(editorInstance.quill, 'disable').and.stub();
-                spyOn(editorInstance.quill, 'enable').and.stub();
+                vi.spyOn(editorInstance.quill, 'disable').mockImplementation(() => undefined);
+                vi.spyOn(editorInstance.quill, 'enable').mockImplementation(() => undefined);
 
                 editorInstance.readonly = true;
                 expect(editorInstance.quill.disable).toHaveBeenCalled();
@@ -307,7 +311,7 @@ describe('Editor', () => {
         });
 
         it('should emit onInit event', () => {
-            spyOn(component, 'onInit');
+            vi.spyOn(component, 'onInit').mockImplementation(() => undefined);
 
             editorInstance.onEditorInit.emit({
                 editor: editorInstance.quill
@@ -317,7 +321,7 @@ describe('Editor', () => {
         });
 
         it('should emit onTextChange event with correct parameters', () => {
-            spyOn(component, 'onTextChange');
+            vi.spyOn(component, 'onTextChange').mockImplementation(() => undefined);
 
             const testEvent: EditorTextChangeEvent = {
                 htmlValue: '<div>New text</div>',
@@ -332,7 +336,7 @@ describe('Editor', () => {
         });
 
         it('should emit onSelectionChange event with correct parameters', () => {
-            spyOn(component, 'onSelectionChange');
+            vi.spyOn(component, 'onSelectionChange').mockImplementation(() => undefined);
 
             const testEvent: EditorSelectionChangeEvent = {
                 range: { index: 0, length: 5 },
@@ -346,7 +350,7 @@ describe('Editor', () => {
         });
 
         it('should emit onEditorChange event with correct parameters', () => {
-            spyOn(component, 'onEditorChange');
+            vi.spyOn(component, 'onEditorChange').mockImplementation(() => undefined);
 
             const testEvent: EditorChangeEvent = {
                 eventName: 'text-change',
@@ -359,7 +363,7 @@ describe('Editor', () => {
         });
 
         it('should emit onFocus event', () => {
-            spyOn(component, 'onFocus');
+            vi.spyOn(component, 'onFocus').mockImplementation(() => undefined);
 
             const testEvent: EditorFocusEvent = {
                 source: 'user'
@@ -371,7 +375,7 @@ describe('Editor', () => {
         });
 
         it('should emit onBlur event', () => {
-            spyOn(component, 'onBlur');
+            vi.spyOn(component, 'onBlur').mockImplementation(() => undefined);
 
             const testEvent: EditorBlurEvent = {
                 source: 'user'
@@ -515,7 +519,7 @@ describe('Editor', () => {
             const editorInstance = editorEl.componentInstance as Editor;
 
             if (editorInstance.quill) {
-                spyOn(editorInstance.quill, 'disable');
+                vi.spyOn(editorInstance.quill, 'disable').mockImplementation(() => undefined);
                 editorInstance.readonly = true;
                 expect(editorInstance.quill.disable).toHaveBeenCalled();
             } else {
@@ -655,7 +659,7 @@ describe('Editor', () => {
         it('should cleanup event listeners on destroy', () => {
             if (editorInstance.quill && editorInstance.quill.root) {
                 const mockElement = {
-                    removeEventListener: jasmine.createSpy('removeEventListener')
+                    removeEventListener: vi.fn()
                 };
 
                 // Mock the quill root element

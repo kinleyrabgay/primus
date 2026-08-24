@@ -1,11 +1,13 @@
 import { Component, PLATFORM_ID, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { FocusTrap, FocusTrapModule } from './focustrap';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FocusTrapModule],
     selector: 'test-basic-focus-trap',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -19,7 +21,8 @@ import { FocusTrap, FocusTrapModule } from './focustrap';
 class TestBasicFocusTrapComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FocusTrapModule],
     selector: 'test-disabled-focus-trap',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -34,7 +37,8 @@ class TestDisabledFocusTrapComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FocusTrapModule, CommonModule],
     selector: 'test-dynamic-focus-trap',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -58,7 +62,8 @@ class TestDynamicFocusTrapComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FocusTrapModule],
     selector: 'test-nested-focus-trap',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -78,7 +83,8 @@ class TestDynamicFocusTrapComponent {
 class TestNestedFocusTrapComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FocusTrapModule],
     selector: 'test-complex-focus-trap',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -104,7 +110,8 @@ class TestComplexFocusTrapComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FocusTrapModule],
     selector: 'test-empty-focus-trap',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -117,7 +124,8 @@ class TestComplexFocusTrapComponent {
 class TestEmptyFocusTrapComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FocusTrapModule, CommonModule],
     selector: 'test-conditional-focus-trap',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -136,8 +144,7 @@ class TestConditionalFocusTrapComponent {
 describe('FocusTrap', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [FocusTrapModule],
-            declarations: [TestBasicFocusTrapComponent, TestDisabledFocusTrapComponent, TestDynamicFocusTrapComponent, TestNestedFocusTrapComponent, TestComplexFocusTrapComponent, TestEmptyFocusTrapComponent, TestConditionalFocusTrapComponent],
+            imports: [FocusTrapModule, TestBasicFocusTrapComponent, TestDisabledFocusTrapComponent, TestDynamicFocusTrapComponent, TestNestedFocusTrapComponent, TestComplexFocusTrapComponent, TestEmptyFocusTrapComponent, TestConditionalFocusTrapComponent],
             providers: [{ provide: PLATFORM_ID, useValue: 'browser' }, provideZonelessChangeDetection()]
         });
     });
@@ -420,7 +427,7 @@ describe('FocusTrap', () => {
             const select = element.querySelector('.select') as HTMLElement;
             const firstHidden = directive.firstHiddenFocusableElement;
 
-            spyOn(select, 'focus');
+            vi.spyOn(select, 'focus').mockImplementation(() => undefined);
 
             const focusEvent = new FocusEvent('focus', {
                 relatedTarget: null,
@@ -566,7 +573,7 @@ describe('FocusTrap', () => {
             expect(textarea.readOnly).toBe(true);
 
             // Readonly elements should still be focusable
-            spyOn(textarea, 'focus');
+            vi.spyOn(textarea, 'focus').mockImplementation(() => undefined);
 
             const lastHidden = directive.lastHiddenFocusableElement;
             const focusEvent = new FocusEvent('focus', {
@@ -587,7 +594,7 @@ describe('FocusTrap', () => {
             expect(focusableDiv.getAttribute('tabindex')).toBe('0');
 
             // Should include div with tabindex in focus trap
-            spyOn(focusableDiv, 'focus');
+            vi.spyOn(focusableDiv, 'focus').mockImplementation(() => undefined);
 
             const focusEvent = new FocusEvent('focus', {
                 relatedTarget: null,
@@ -606,7 +613,7 @@ describe('FocusTrap', () => {
             expect(linkElement.href).toBeTruthy();
 
             // Links should be included in focus trap
-            spyOn(linkElement, 'focus');
+            vi.spyOn(linkElement, 'focus').mockImplementation(() => undefined);
 
             const focusEvent = new FocusEvent('focus', {
                 relatedTarget: null,
@@ -759,7 +766,9 @@ describe('FocusTrap', () => {
         it('should handle elements that cannot receive focus', () => {
             const nonFocusableElement = document.createElement('div');
             // Mock focus method that throws error
-            nonFocusableElement.focus = jasmine.createSpy('focus').and.throwError('Cannot focus');
+            nonFocusableElement.focus = vi.fn().mockImplementation(() => {
+                throw new Error('Cannot focus');
+            });
 
             // Should handle gracefully when focus fails
             expect(() => {
@@ -780,7 +789,7 @@ describe('FocusTrap', () => {
         });
 
         it('should call ngOnInit and create hidden elements', () => {
-            spyOn(directive, 'createHiddenFocusableElements').and.callThrough();
+            vi.spyOn(directive, 'createHiddenFocusableElements');
 
             directive.ngOnInit();
 
@@ -797,7 +806,7 @@ describe('FocusTrap', () => {
                 }
             };
 
-            spyOn(directive, 'removeHiddenFocusableElements');
+            vi.spyOn(directive, 'removeHiddenFocusableElements').mockImplementation(() => undefined);
 
             directive.ngOnChanges(changes);
 
@@ -814,7 +823,7 @@ describe('FocusTrap', () => {
                 }
             };
 
-            spyOn(directive, 'createHiddenFocusableElements');
+            vi.spyOn(directive, 'createHiddenFocusableElements').mockImplementation(() => undefined);
 
             directive.ngOnChanges(changes);
 

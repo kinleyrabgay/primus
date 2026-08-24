@@ -1,11 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { HttpEventType } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MessageService } from '@primus/core/api';
-import { BehaviorSubject, delay, of, timer } from 'rxjs';
+import { MessageService, PrimeTemplate } from '@primus/core/api';
+import { BehaviorSubject, delay, of, Subscription, timer } from 'rxjs';
 import { FileUpload } from './fileupload';
 
 describe('FileUpload', () => {
@@ -78,7 +79,7 @@ describe('FileUpload', () => {
             fixture.detectChanges();
 
             if (component.advancedFileInput?.nativeElement) {
-                spyOn(component.advancedFileInput.nativeElement, 'click');
+                vi.spyOn(component.advancedFileInput.nativeElement, 'click').mockImplementation(() => undefined);
                 component.choose();
                 expect(component.advancedFileInput.nativeElement.click).toHaveBeenCalled();
             } else {
@@ -89,7 +90,7 @@ describe('FileUpload', () => {
 
         it('should clear files programmatically', () => {
             component.files = [new File(['test'], 'test.txt', { type: 'text/plain' })];
-            spyOn(component.onClear, 'emit');
+            vi.spyOn(component.onClear, 'emit').mockImplementation(() => undefined);
 
             component.clear();
 
@@ -100,7 +101,7 @@ describe('FileUpload', () => {
         it('should remove file by index', () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
-            spyOn(component.onRemove, 'emit');
+            vi.spyOn(component.onRemove, 'emit').mockImplementation(() => undefined);
 
             const event = new Event('click');
             component.remove(event, 0);
@@ -115,7 +116,7 @@ describe('FileUpload', () => {
         it('should upload files when upload method called', async () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
-            spyOn(component, 'uploader');
+            vi.spyOn(component, 'uploader').mockImplementation(() => undefined);
 
             component.upload();
 
@@ -128,7 +129,7 @@ describe('FileUpload', () => {
             fixture.detectChanges();
 
             if (component.basicFileInput?.nativeElement) {
-                spyOn(component.basicFileInput.nativeElement, 'click');
+                vi.spyOn(component.basicFileInput.nativeElement, 'click').mockImplementation(() => undefined);
                 component.onBasicUploaderClick();
                 expect(component.basicFileInput.nativeElement.click).toHaveBeenCalled();
             } else {
@@ -206,7 +207,7 @@ describe('FileUpload', () => {
 
     describe('File Selection Events', () => {
         it('should emit onSelect event when files are selected', async () => {
-            spyOn(component.onSelect, 'emit');
+            vi.spyOn(component.onSelect, 'emit').mockImplementation(() => undefined);
             component.multiple = true;
 
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
@@ -254,7 +255,7 @@ describe('FileUpload', () => {
             component.auto = true;
             component.name = 'test';
             component.url = 'https://test.com/upload';
-            spyOn(component, 'upload');
+            vi.spyOn(component, 'upload').mockImplementation(() => undefined);
 
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             const event = {
@@ -280,8 +281,8 @@ describe('FileUpload', () => {
         it('should handle drag enter event', () => {
             component.disabled = false;
             const dragEvent = new DragEvent('dragenter');
-            spyOn(dragEvent, 'stopPropagation');
-            spyOn(dragEvent, 'preventDefault');
+            vi.spyOn(dragEvent, 'stopPropagation').mockImplementation(() => undefined);
+            vi.spyOn(dragEvent, 'preventDefault').mockImplementation(() => undefined);
 
             component.onDragEnter(dragEvent);
 
@@ -292,8 +293,8 @@ describe('FileUpload', () => {
         it('should handle drag over event', () => {
             component.disabled = false;
             const dragEvent = new DragEvent('dragover');
-            spyOn(dragEvent, 'stopPropagation');
-            spyOn(dragEvent, 'preventDefault');
+            vi.spyOn(dragEvent, 'stopPropagation').mockImplementation(() => undefined);
+            vi.spyOn(dragEvent, 'preventDefault').mockImplementation(() => undefined);
 
             component.onDragOver(dragEvent);
 
@@ -317,13 +318,13 @@ describe('FileUpload', () => {
         it('should handle drop event', async () => {
             component.disabled = false;
             component.multiple = true;
-            spyOn(component, 'onFileSelect');
+            vi.spyOn(component, 'onFileSelect').mockImplementation(() => undefined);
 
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             const dropEvent = {
                 dataTransfer: { files: [testFile] },
-                stopPropagation: jasmine.createSpy('stopPropagation'),
-                preventDefault: jasmine.createSpy('preventDefault')
+                stopPropagation: vi.fn(),
+                preventDefault: vi.fn()
             };
 
             component.onDrop(dropEvent);
@@ -337,7 +338,7 @@ describe('FileUpload', () => {
         it('should not handle drag events when disabled', () => {
             component.disabled = true;
             const dragEvent = new DragEvent('dragenter');
-            spyOn(dragEvent, 'stopPropagation');
+            vi.spyOn(dragEvent, 'stopPropagation').mockImplementation(() => undefined);
 
             component.onDragEnter(dragEvent);
 
@@ -363,9 +364,9 @@ describe('FileUpload', () => {
             const testFile = new File(['test content'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
 
-            spyOn(component.onBeforeUpload, 'emit');
-            spyOn(component.onSend, 'emit');
-            spyOn(component.onUpload, 'emit');
+            vi.spyOn(component.onBeforeUpload, 'emit').mockImplementation(() => undefined);
+            vi.spyOn(component.onSend, 'emit').mockImplementation(() => undefined);
+            vi.spyOn(component.onUpload, 'emit').mockImplementation(() => undefined);
 
             component.uploader();
             await fixture.whenStable();
@@ -396,7 +397,7 @@ describe('FileUpload', () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
 
-            spyOn(component.onError, 'emit');
+            vi.spyOn(component.onError, 'emit').mockImplementation(() => undefined);
 
             component.uploader();
             await fixture.whenStable();
@@ -413,7 +414,7 @@ describe('FileUpload', () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
 
-            spyOn(component.uploadHandler, 'emit');
+            vi.spyOn(component.uploadHandler, 'emit').mockImplementation(() => undefined);
 
             component.uploader();
             await fixture.whenStable();
@@ -485,10 +486,10 @@ describe('FileUpload', () => {
         });
 
         it('should handle keyboard navigation in basic mode', () => {
-            spyOn(component, 'onBasicUploaderClick');
+            vi.spyOn(component, 'onBasicUploaderClick').mockImplementation(() => undefined);
 
             const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
-            spyOn(spaceEvent, 'preventDefault');
+            vi.spyOn(spaceEvent, 'preventDefault').mockImplementation(() => undefined);
 
             component.onBasicKeydown(spaceEvent);
 
@@ -497,10 +498,10 @@ describe('FileUpload', () => {
         });
 
         it('should handle Enter key in basic mode', () => {
-            spyOn(component, 'onBasicUploaderClick');
+            vi.spyOn(component, 'onBasicUploaderClick').mockImplementation(() => undefined);
 
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
-            spyOn(enterEvent, 'preventDefault');
+            vi.spyOn(enterEvent, 'preventDefault').mockImplementation(() => undefined);
 
             component.onBasicKeydown(enterEvent);
 
@@ -713,10 +714,10 @@ describe('FileUpload', () => {
 
     describe('Memory Management', () => {
         it('should clean up resources on destroy', () => {
-            const mockSubscription = jasmine.createSpyObj('Subscription', ['unsubscribe']);
-            const mockListener = jasmine.createSpy('dragOverListener');
+            const mockSubscription = { unsubscribe: vi.fn() };
+            const mockListener = vi.fn();
 
-            component.translationSubscription = mockSubscription;
+            component.translationSubscription = mockSubscription as unknown as Subscription;
             component.dragOverListener = mockListener;
 
             component.ngOnDestroy();
@@ -726,7 +727,7 @@ describe('FileUpload', () => {
         });
 
         it('should revoke object URLs on image load', () => {
-            spyOn(window.URL, 'revokeObjectURL');
+            vi.spyOn(window.URL, 'revokeObjectURL').mockImplementation(() => undefined);
             const mockImg = { src: 'blob:test-url' };
 
             component.onImageLoad(mockImg);
@@ -738,8 +739,9 @@ describe('FileUpload', () => {
 
 // Test Components for Template Testing
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
@@ -755,8 +757,9 @@ describe('FileUpload', () => {
 class TestPTemplateHeaderComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template #header let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
@@ -772,8 +775,9 @@ class TestPTemplateHeaderComponent {}
 class TestHashHeaderComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback">
@@ -790,8 +794,9 @@ class TestHashHeaderComponent {}
 class TestPTemplateContentComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template #content let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback">
@@ -808,8 +813,9 @@ class TestPTemplateContentComponent {}
 class TestHashContentComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="file" let-file let-index="index">
@@ -823,8 +829,9 @@ class TestHashContentComponent {}
 class TestPTemplateFileComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="empty">
@@ -836,8 +843,9 @@ class TestPTemplateFileComponent {}
 class TestPTemplateEmptyComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
     template: `
         <p-fileupload mode="basic" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="filelabel" let-files>
@@ -851,8 +859,9 @@ class TestPTemplateEmptyComponent {}
 class TestPTemplateFileLabelComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="chooseicon">
@@ -870,8 +879,9 @@ class TestPTemplateFileLabelComponent {}
 class TestPTemplateIconsComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="toolbar">
@@ -886,8 +896,9 @@ class TestPTemplateIconsComponent {}
 class TestPTemplateToolbarComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload" [files]="files">
             <ng-template pTemplate="file" let-file let-index="index">
@@ -911,8 +922,9 @@ class TestFileRemoveIconComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
@@ -941,8 +953,9 @@ class TestContextObjectsComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback" let-removeUploadedFileCallback="removeUploadedFileCallback" let-progress="progress" let-messages="messages">
@@ -973,8 +986,9 @@ class TestContentContextComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
     template: `
         <p-fileupload mode="basic" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="filelabel" let-files>
@@ -999,8 +1013,7 @@ describe('FileUpload Template Tests', () => {
     describe('pTemplate Tests', () => {
         it('should render pTemplate="header" with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateHeaderComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateHeaderComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1027,8 +1040,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate="content" with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateContentComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateContentComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1053,8 +1065,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate="file" with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateFileComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateFileComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1074,8 +1085,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate="empty" when no files', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateEmptyComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateEmptyComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1094,8 +1104,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate="filelabel" in basic mode', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateFileLabelComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateFileLabelComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1113,8 +1122,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate icons', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateIconsComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateIconsComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1132,8 +1140,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate="toolbar"', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateToolbarComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateToolbarComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1156,8 +1163,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render fileRemoveIconTemplate with context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestFileRemoveIconComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestFileRemoveIconComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1185,8 +1191,7 @@ describe('FileUpload Template Tests', () => {
     describe('#template Tests', () => {
         it('should render #header template with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestHashHeaderComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestHashHeaderComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1206,8 +1211,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render #content template with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestHashContentComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestHashContentComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1227,8 +1231,7 @@ describe('FileUpload Template Tests', () => {
     describe('Comprehensive Context Object Testing', () => {
         it('should provide correct header context objects', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestContextObjectsComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestContextObjectsComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1264,8 +1267,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should provide correct content context objects', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestContentContextComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestContentContextComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1309,8 +1311,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should provide correct file label context objects', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestFileLabelContextComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestFileLabelContextComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1352,8 +1353,7 @@ describe('FileUpload Template Tests', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateHeaderComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateHeaderComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1364,7 +1364,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should execute chooseCallback from template context', () => {
             if (fileUploadComponent) {
-                spyOn(fileUploadComponent, 'choose');
+                vi.spyOn(fileUploadComponent, 'choose').mockImplementation(() => undefined);
 
                 const chooseBtn = testFixture.debugElement.query(By.css('.choose-btn'));
                 if (chooseBtn) {
@@ -1382,7 +1382,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should execute clearCallback from template context', () => {
             if (fileUploadComponent) {
-                spyOn(fileUploadComponent, 'clear');
+                vi.spyOn(fileUploadComponent, 'clear').mockImplementation(() => undefined);
 
                 const clearBtn = testFixture.debugElement.query(By.css('.clear-btn'));
                 if (clearBtn) {
@@ -1400,7 +1400,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should execute uploadCallback from template context', () => {
             if (fileUploadComponent) {
-                spyOn(fileUploadComponent, 'upload');
+                vi.spyOn(fileUploadComponent, 'upload').mockImplementation(() => undefined);
 
                 const uploadBtn = testFixture.debugElement.query(By.css('.upload-btn'));
                 if (uploadBtn) {
@@ -1503,8 +1503,8 @@ describe('FileUpload CSS Classes and Styling', () => {
     it('should show drag highlight class on drag over', () => {
         component.disabled = false;
         const dragEvent = new DragEvent('dragover');
-        spyOn(dragEvent, 'stopPropagation');
-        spyOn(dragEvent, 'preventDefault');
+        vi.spyOn(dragEvent, 'stopPropagation').mockImplementation(() => undefined);
+        vi.spyOn(dragEvent, 'preventDefault').mockImplementation(() => undefined);
 
         component.onDragOver(dragEvent);
 
@@ -1545,7 +1545,7 @@ describe('FileUpload Accessibility', () => {
         component.mode = 'basic';
         fixture.detectChanges();
 
-        spyOn(component, 'onBasicUploaderClick');
+        vi.spyOn(component, 'onBasicUploaderClick').mockImplementation(() => undefined);
 
         const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
         component.onBasicKeydown(spaceEvent);
@@ -1607,7 +1607,7 @@ describe('FileUpload Performance and Edge Cases', () => {
 
     it('should handle browser compatibility issues', () => {
         // Mock the isIE11 method to return true
-        spyOn(component, 'isIE11').and.returnValue(true);
+        vi.spyOn(component, 'isIE11').mockReturnValue(true);
 
         const result = component.isIE11();
         expect(result).toBe(true);
@@ -1643,7 +1643,8 @@ describe('FileUpload Advanced Template Combinations', () => {
 
     describe('Mixed Template Usage', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
             template: `
                 <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
                     <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
@@ -1714,8 +1715,7 @@ describe('FileUpload Advanced Template Combinations', () => {
 
         it('should render all mixed templates correctly', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestMixedTemplatesComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestMixedTemplatesComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1758,8 +1758,7 @@ describe('FileUpload Advanced Template Combinations', () => {
 
         it('should handle mixed template interactions', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestMixedTemplatesComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestMixedTemplatesComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1807,7 +1806,8 @@ describe('FileUpload Advanced Template Combinations', () => {
 
     describe('Template Context Validation', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
             template: `
                 <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
                     <ng-template
@@ -1866,8 +1866,7 @@ describe('FileUpload Advanced Template Combinations', () => {
 
         it('should validate all content template context variables', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestAdvancedContextValidationComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestAdvancedContextValidationComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -2712,7 +2711,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
     describe('PT (PassThrough) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
             })
             class TestPTCase1Component {
@@ -2730,8 +2730,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should apply simple string classes to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase1Component],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase1Component],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -2757,7 +2756,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
             })
             class TestPTCase2Component {
@@ -2781,8 +2781,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should apply object properties to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase2Component],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase2Component],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -2812,7 +2811,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
             })
             class TestPTCase3Component {
@@ -2830,8 +2830,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should apply mixed object and string values correctly', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase3Component],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase3Component],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -2857,7 +2856,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="pt" [name]="fileName" url="./upload" [disabled]="isDisabled"></p-fileupload>`
             })
             class TestPTCase4Component {
@@ -2882,8 +2882,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should use instance variables in PT functions', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase4Component],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase4Component],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -2904,7 +2903,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
             })
             class TestPTCase5Component {
@@ -2926,8 +2926,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should bind click events through PT', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase5Component],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase5Component],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -2951,13 +2950,15 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="{ root: 'INLINE_ROOT_CLASS', header: 'INLINE_HEADER_CLASS' }" name="test" url="./upload"></p-fileupload>`
             })
             class TestPTCase6InlineComponent {}
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" name="test" url="./upload"></p-fileupload>`
             })
             class TestPTCase6InlineObjectComponent {}
@@ -2965,8 +2966,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should apply inline PT string classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineComponent],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase6InlineComponent],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -2987,8 +2987,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should apply inline PT object classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase6InlineObjectComponent],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -3009,7 +3008,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 7: Test from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `
                     <p-fileupload name="file1" url="./upload"></p-fileupload>
                     <p-fileupload name="file2" url="./upload"></p-fileupload>
@@ -3020,8 +3020,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should apply global PT configuration from PrimeNGConfig to multiple instances', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase7GlobalComponent],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase7GlobalComponent],
                     providers: [
                         MessageService,
                         {
@@ -3056,7 +3055,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 8: Test hooks', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
             })
             class TestPTCase8HooksComponent {
@@ -3083,8 +3083,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should call PT hooks on Angular lifecycle events', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase8HooksComponent],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase8HooksComponent],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 

@@ -25,7 +25,8 @@ interface Country {
 
 // Basic test component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-multiselect
@@ -191,7 +192,8 @@ class TestBasicMultiSelectComponent {
 
 // Form integration test component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <form [formGroup]="form">
@@ -225,7 +227,8 @@ class TestFormMultiSelectComponent {
 
 // Template test component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-multiselect [options]="options" [(ngModel)]="selectedCities" optionLabel="name">
@@ -277,7 +280,8 @@ class TestTemplateMultiSelectComponent {
 
 // Grouped options test component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-multiselect [options]="groupedOptions" [(ngModel)]="selectedCities" [group]="true" optionLabel="name" optionGroupLabel="label" optionGroupChildren="items" placeholder="Select Cities"></p-multiselect> `
 })
@@ -308,7 +312,8 @@ class TestGroupedMultiSelectComponent {
 
 // Content child test component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-multiselect [options]="options" [(ngModel)]="selectedCities" optionLabel="name">
@@ -351,7 +356,8 @@ class TestContentChildMultiSelectComponent {
 
 // Virtual scroll test component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-multiselect [options]="options" [(ngModel)]="selectedCities" optionLabel="name" [virtualScroll]="true" [virtualScrollItemSize]="40" [scrollHeight]="'200px'" [lazy]="lazy" (onLazyLoad)="onLazyLoad($event)"></p-multiselect> `
 })
@@ -385,7 +391,11 @@ describe('MultiSelect', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
+                CommonModule,
+                FormsModule,
+                ReactiveFormsModule,
+                MultiSelectModule,
                 TestBasicMultiSelectComponent,
                 TestFormMultiSelectComponent,
                 TestTemplateMultiSelectComponent,
@@ -397,7 +407,6 @@ describe('MultiSelect', () => {
                 TestViewChildMultiSelectComponent,
                 TestComplexEdgeCasesMultiSelectComponent
             ],
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
             providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -562,7 +571,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onChange event when selection changes', async () => {
-            spyOn(component, 'onSelectionChange');
+            vi.spyOn(component, 'onSelectionChange').mockImplementation(() => undefined);
 
             const option = component.options[0];
             multiSelect.onOptionSelect({
@@ -576,7 +585,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onFilter event when filtering', async () => {
-            spyOn(component, 'onFilter');
+            vi.spyOn(component, 'onFilter').mockImplementation(() => undefined);
 
             const event = { target: { value: 'test' } } as any;
             multiSelect.onFilterInputChange(event);
@@ -585,7 +594,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onFocus event', () => {
-            spyOn(component, 'onFocus');
+            vi.spyOn(component, 'onFocus').mockImplementation(() => undefined);
 
             multiSelect.onInputFocus(new FocusEvent('focus'));
 
@@ -593,7 +602,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onBlur event', () => {
-            spyOn(component, 'onBlur');
+            vi.spyOn(component, 'onBlur').mockImplementation(() => undefined);
 
             multiSelect.onInputBlur(new FocusEvent('blur'));
 
@@ -601,7 +610,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onClick event', () => {
-            spyOn(component, 'onClick');
+            vi.spyOn(component, 'onClick').mockImplementation(() => undefined);
 
             const clickEvent = new MouseEvent('click');
             multiSelect.onContainerClick(clickEvent);
@@ -610,7 +619,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onClear event', () => {
-            spyOn(component, 'onClear');
+            vi.spyOn(component, 'onClear').mockImplementation(() => undefined);
 
             multiSelect.clear(new Event('click'));
 
@@ -618,7 +627,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onSelectAllChange event', () => {
-            spyOn(component, 'onSelectAllChange');
+            vi.spyOn(component, 'onSelectAllChange').mockImplementation(() => undefined);
             multiSelect.selectAll = true;
 
             multiSelect.onToggleAll({
@@ -654,7 +663,7 @@ describe('MultiSelect', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(component, 'onRemove');
+            vi.spyOn(component, 'onRemove').mockImplementation(() => undefined);
 
             multiSelect.removeOption(component.options[0], new Event('click'));
 
@@ -673,8 +682,8 @@ describe('MultiSelect', () => {
 
         it('should handle arrow down key', async () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(keyEvent, 'stopPropagation');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(keyEvent, 'stopPropagation').mockImplementation(() => undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -687,8 +696,8 @@ describe('MultiSelect', () => {
             multiSelect.focusedOptionIndex.set(1);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(keyEvent, 'stopPropagation');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(keyEvent, 'stopPropagation').mockImplementation(() => undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -701,7 +710,7 @@ describe('MultiSelect', () => {
             multiSelect.focusedOptionIndex.set(0);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -713,7 +722,7 @@ describe('MultiSelect', () => {
             multiSelect.focusedOptionIndex.set(0);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Space' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -725,8 +734,8 @@ describe('MultiSelect', () => {
             expect(multiSelect.overlayVisible).toBe(true);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Escape' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(keyEvent, 'stopPropagation');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(keyEvent, 'stopPropagation').mockImplementation(() => undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -757,7 +766,7 @@ describe('MultiSelect', () => {
                 code: 'KeyA',
                 ctrlKey: true
             });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -771,7 +780,7 @@ describe('MultiSelect', () => {
             multiSelect.focusedOptionIndex.set(2);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Home' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -783,7 +792,7 @@ describe('MultiSelect', () => {
             multiSelect.focusedOptionIndex.set(0);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'End' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -795,7 +804,7 @@ describe('MultiSelect', () => {
 
         it('should handle page down key', async () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'PageDown' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -804,7 +813,7 @@ describe('MultiSelect', () => {
 
         it('should handle page up key', async () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'PageUp' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -813,7 +822,7 @@ describe('MultiSelect', () => {
 
         it('should handle character search', async () => {
             const keyEvent = new KeyboardEvent('keydown', { key: 'L' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -998,7 +1007,7 @@ describe('MultiSelect', () => {
             const filterInput = fixture.debugElement.query(By.css('.p-multiselect-filter input'));
 
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
-            spyOn(enterEvent, 'preventDefault');
+            vi.spyOn(enterEvent, 'preventDefault').mockImplementation(() => undefined);
 
             multiSelect.onFilterKeyDown(enterEvent);
 
@@ -1145,7 +1154,7 @@ describe('MultiSelect', () => {
 
         it('should handle rapid click events', async () => {
             let clickCount = 0;
-            spyOn(multiSelect, 'onContainerClick').and.callFake(() => {
+            vi.spyOn(multiSelect, 'onContainerClick').mockImplementation(() => {
                 clickCount++;
                 return true;
             });
@@ -1216,8 +1225,7 @@ describe('MultiSelect Form Integration', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestFormMultiSelectComponent],
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule, TestFormMultiSelectComponent],
             providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1324,8 +1332,7 @@ describe('MultiSelect Templates', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestTemplateMultiSelectComponent],
-            imports: [CommonModule, FormsModule, MultiSelectModule],
+            imports: [CommonModule, FormsModule, MultiSelectModule, TestTemplateMultiSelectComponent],
             providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1430,7 +1437,7 @@ describe('MultiSelect Templates', () => {
         component.selectedCities = [component.options[0], component.options[1]];
         fixture.detectChanges();
 
-        spyOn(multiSelect, 'removeOption');
+        vi.spyOn(multiSelect, 'removeOption').mockImplementation(() => undefined);
 
         const removeButton = fixture.debugElement.query(By.css('.remove-chip'));
         if (removeButton) {
@@ -1450,8 +1457,7 @@ describe('MultiSelect Content Child Templates', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestContentChildMultiSelectComponent],
-            imports: [CommonModule, FormsModule, MultiSelectModule],
+            imports: [CommonModule, FormsModule, MultiSelectModule, TestContentChildMultiSelectComponent],
             providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1575,8 +1581,7 @@ describe('MultiSelect Grouped Options', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestGroupedMultiSelectComponent],
-            imports: [CommonModule, FormsModule, MultiSelectModule],
+            imports: [CommonModule, FormsModule, MultiSelectModule, TestGroupedMultiSelectComponent],
             providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1659,8 +1664,7 @@ describe('MultiSelect Virtual Scrolling', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestVirtualScrollMultiSelectComponent],
-            imports: [CommonModule, FormsModule, MultiSelectModule],
+            imports: [CommonModule, FormsModule, MultiSelectModule, TestVirtualScrollMultiSelectComponent],
             providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1692,7 +1696,7 @@ describe('MultiSelect Virtual Scrolling', () => {
         component.lazy = true;
         fixture.detectChanges();
 
-        spyOn(component, 'onLazyLoad');
+        vi.spyOn(component, 'onLazyLoad').mockImplementation(() => undefined);
 
         multiSelect.show();
         await fixture.whenStable();
@@ -1719,7 +1723,7 @@ describe('MultiSelect Virtual Scrolling', () => {
 
         // First check if scroller exists and if scrollInView method exists
         if (multiSelect.scroller && typeof multiSelect.scroller.scrollToIndex === 'function') {
-            const scrollSpy = spyOn(multiSelect.scroller, 'scrollToIndex');
+            const scrollSpy = vi.spyOn(multiSelect.scroller, 'scrollToIndex').mockImplementation(() => undefined);
 
             if (typeof multiSelect.scrollInView === 'function') {
                 // scrollInView uses setTimeout(0) internally, so we need to wait
@@ -1727,7 +1731,7 @@ describe('MultiSelect Virtual Scrolling', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                if (scrollSpy.calls.count() > 0) {
+                if (scrollSpy.mock.calls.length > 0) {
                     expect(scrollSpy).toHaveBeenCalledWith(500);
                 } else {
                     // scrollInView might not call scrollToIndex if element is found via scrollIntoView
@@ -1751,7 +1755,8 @@ describe('MultiSelect Virtual Scrolling', () => {
 
 // Dynamic Data Sources Test Component - Tests signals, observables, getters, async pipes, late-loading
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="test-dynamic-data">
@@ -1977,7 +1982,8 @@ class TestDynamicDataSourcesMultiSelectComponent {
 
 // Comprehensive Form Integration Test Component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="comprehensive-form-tests">
@@ -2137,7 +2143,8 @@ class TestComprehensiveFormMultiSelectComponent {
 
 // ViewChild Properties Test Component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="viewchild-tests">
@@ -2257,7 +2264,8 @@ class TestViewChildMultiSelectComponent {
 
 // Complex Edge Cases Test Component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="edge-cases-tests">
@@ -2469,8 +2477,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestDynamicDataSourcesMultiSelectComponent],
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule, TestDynamicDataSourcesMultiSelectComponent],
             providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2698,8 +2705,7 @@ describe('MultiSelect Comprehensive Form Integration', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestComprehensiveFormMultiSelectComponent],
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiSelectModule, TestComprehensiveFormMultiSelectComponent],
             providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2933,8 +2939,7 @@ describe('MultiSelect ViewChild Properties', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestViewChildMultiSelectComponent],
-            imports: [CommonModule, FormsModule, MultiSelectModule],
+            imports: [CommonModule, FormsModule, MultiSelectModule, TestViewChildMultiSelectComponent],
             providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -3081,8 +3086,7 @@ describe('MultiSelect Complex Edge Cases', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestComplexEdgeCasesMultiSelectComponent],
-            imports: [CommonModule, FormsModule, MultiSelectModule],
+            imports: [CommonModule, FormsModule, MultiSelectModule, TestComplexEdgeCasesMultiSelectComponent],
             providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -3464,7 +3468,7 @@ describe('MultiSelect Complex Edge Cases', () => {
         });
 
         it('PT Case 5: should support event handlers in PT options', async () => {
-            const clickSpy = jasmine.createSpy('clickHandler');
+            const clickSpy = vi.fn();
 
             await TestBed.configureTestingModule({
                 imports: [MultiSelectModule, FormsModule],
@@ -3554,7 +3558,7 @@ describe('MultiSelect Complex Edge Cases', () => {
         });
 
         it('PT Case 8: should test hooks - onAfterViewInit', async () => {
-            const hookSpy = jasmine.createSpy('onAfterViewInit');
+            const hookSpy = vi.fn();
 
             await TestBed.configureTestingModule({
                 imports: [MultiSelectModule, FormsModule],

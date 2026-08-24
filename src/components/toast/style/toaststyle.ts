@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/toast';
+import { style } from '@primus/primeuix/styles/toast';
 import { BaseStyle } from '@primus/core/base';
 
 // Position

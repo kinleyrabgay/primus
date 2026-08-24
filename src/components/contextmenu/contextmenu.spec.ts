@@ -1,13 +1,15 @@
 import { Component, DebugElement, ViewChild, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem, SharedModule } from '@primus/core/api';
 import { ContextMenu } from './contextmenu';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ContextMenu, SharedModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-contextmenu
@@ -56,7 +58,8 @@ class TestBasicContextMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ContextMenu, SharedModule, CommonModule],
     selector: 'test-target-contextmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -74,7 +77,8 @@ class TestTargetContextMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ContextMenu, SharedModule, CommonModule],
     selector: 'test-global-contextmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-contextmenu [model]="model" [global]="true"></p-contextmenu> `
@@ -84,7 +88,8 @@ class TestGlobalContextMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ContextMenu, SharedModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-contextmenu [model]="nestedModel">
@@ -112,7 +117,8 @@ class TestItemTemplateContextMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ContextMenu, SharedModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-contextmenu [model]="model">
@@ -127,7 +133,8 @@ class TestPTemplateContextMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ContextMenu, SharedModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-contextmenu [model]="model">
@@ -147,7 +154,8 @@ class TestSubmenuIconTemplateComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ContextMenu, SharedModule, CommonModule],
     selector: 'test-router-contextmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-contextmenu [model]="routerModel"></p-contextmenu> `
@@ -165,7 +173,8 @@ class TestRouterContextMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ContextMenu, SharedModule, CommonModule],
     selector: 'test-styled-contextmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-contextmenu [style]="customStyle" styleClass="custom-contextmenu"></p-contextmenu> `
@@ -179,7 +188,8 @@ class TestStyledContextMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ContextMenu, SharedModule, CommonModule],
     selector: 'test-minimal-contextmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-contextmenu></p-contextmenu>`
@@ -187,7 +197,8 @@ class TestStyledContextMenuComponent {
 class TestMinimalContextMenuComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ContextMenu, SharedModule, CommonModule],
     selector: 'test-dynamic-contextmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-contextmenu [model]="dynamicModel"></p-contextmenu> `
@@ -209,7 +220,8 @@ class TestDynamicContextMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ContextMenu, SharedModule, CommonModule],
     selector: 'test-disabled-items-contextmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-contextmenu [model]="disabledModel"></p-contextmenu> `
@@ -234,7 +246,7 @@ describe('ContextMenu', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
                 TestBasicContextMenuComponent,
                 TestTargetContextMenuComponent,
                 TestGlobalContextMenuComponent,
@@ -245,13 +257,12 @@ describe('ContextMenu', () => {
                 TestStyledContextMenuComponent,
                 TestMinimalContextMenuComponent,
                 TestDynamicContextMenuComponent,
-                TestDisabledItemsComponent
-            ],
-            imports: [
+                TestDisabledItemsComponent,
                 ContextMenu,
                 TestTargetComponent,
 
                 SharedModule,
+                CommonModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: TestTargetComponent },
                     { path: 'products', component: TestTargetComponent },
@@ -276,7 +287,7 @@ describe('ContextMenu', () => {
         it('should have required dependencies injected', () => {
             expect(contextMenuInstance.overlayService).toBeTruthy();
             expect(contextMenuInstance._componentStyle).toBeTruthy();
-            expect(contextMenuInstance.constructor.name).toBe('ContextMenu');
+            expect(contextMenuInstance.constructor.name.replace(/^_+/, '')).toBe('ContextMenu');
         });
 
         it('should have default values', async () => {
@@ -433,8 +444,8 @@ describe('ContextMenu', () => {
             const mockEvent = {
                 pageX: 100,
                 pageY: 150,
-                stopPropagation: jasmine.createSpy(),
-                preventDefault: jasmine.createSpy()
+                stopPropagation: vi.fn(),
+                preventDefault: vi.fn()
             };
 
             contextMenuInstance.show(mockEvent);
@@ -457,8 +468,8 @@ describe('ContextMenu', () => {
             const mockEvent = {
                 pageX: 100,
                 pageY: 150,
-                stopPropagation: jasmine.createSpy(),
-                preventDefault: jasmine.createSpy()
+                stopPropagation: vi.fn(),
+                preventDefault: vi.fn()
             };
 
             expect(contextMenuInstance.visible()).toBe(false);
@@ -471,13 +482,13 @@ describe('ContextMenu', () => {
         });
 
         it('should emit onShow when showing', () => {
-            spyOn(contextMenuInstance.onShow, 'emit');
+            vi.spyOn(contextMenuInstance.onShow, 'emit').mockImplementation(() => undefined);
 
             const mockEvent = {
                 pageX: 100,
                 pageY: 150,
-                stopPropagation: jasmine.createSpy(),
-                preventDefault: jasmine.createSpy()
+                stopPropagation: vi.fn(),
+                preventDefault: vi.fn()
             };
 
             contextMenuInstance.show(mockEvent);
@@ -486,7 +497,7 @@ describe('ContextMenu', () => {
         });
 
         it('should emit onHide when hiding', () => {
-            spyOn(contextMenuInstance.onHide, 'emit');
+            vi.spyOn(contextMenuInstance.onHide, 'emit').mockImplementation(() => undefined);
             contextMenuInstance.visible.set(true);
 
             contextMenuInstance.hide();
@@ -498,8 +509,8 @@ describe('ContextMenu', () => {
             const mockEvent = {
                 pageX: 100,
                 pageY: 150,
-                stopPropagation: jasmine.createSpy(),
-                preventDefault: jasmine.createSpy()
+                stopPropagation: vi.fn(),
+                preventDefault: vi.fn()
             };
 
             contextMenuInstance.show(mockEvent);
@@ -517,7 +528,7 @@ describe('ContextMenu', () => {
             const targetContextMenu = targetFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
 
             // Mock the bindTriggerEventListener BEFORE detecting changes
-            spyOn(targetContextMenu, 'bindTriggerEventListener');
+            vi.spyOn(targetContextMenu, 'bindTriggerEventListener').mockImplementation(() => undefined);
 
             // Now detect changes to trigger ngOnInit
             await targetFixture.whenStable();
@@ -537,7 +548,7 @@ describe('ContextMenu', () => {
         });
 
         it('should bind trigger event listener on init', () => {
-            spyOn(contextMenuInstance, 'bindTriggerEventListener');
+            vi.spyOn(contextMenuInstance, 'bindTriggerEventListener').mockImplementation(() => undefined);
 
             // Set up a proper target before calling ngOnInit
             const mockTarget = document.createElement('div');
@@ -698,10 +709,10 @@ describe('ContextMenu', () => {
 
         it('should handle arrow down key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             // Mock the changeFocusedItemIndex method to prevent rootmenu access errors
-            spyOn(contextMenuInstance, 'changeFocusedItemIndex');
+            vi.spyOn(contextMenuInstance, 'changeFocusedItemIndex').mockImplementation(() => undefined);
 
             contextMenuInstance.onKeyDown(keyEvent);
 
@@ -710,7 +721,7 @@ describe('ContextMenu', () => {
 
         it('should handle arrow up key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             contextMenuInstance.onKeyDown(keyEvent);
 
@@ -719,8 +730,8 @@ describe('ContextMenu', () => {
 
         it('should handle escape key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Escape' });
-            spyOn(contextMenuInstance, 'hide');
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(contextMenuInstance, 'hide').mockImplementation(() => undefined);
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             contextMenuInstance.onKeyDown(keyEvent);
 
@@ -730,10 +741,10 @@ describe('ContextMenu', () => {
 
         it('should handle enter key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             // Mock the onEnterKey method to prevent rootmenu access errors
-            spyOn(contextMenuInstance, 'onEnterKey');
+            vi.spyOn(contextMenuInstance, 'onEnterKey').mockImplementation(() => undefined);
 
             contextMenuInstance.onKeyDown(keyEvent);
 
@@ -742,7 +753,7 @@ describe('ContextMenu', () => {
 
         it('should handle space key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Space' });
-            spyOn(contextMenuInstance, 'onEnterKey');
+            vi.spyOn(contextMenuInstance, 'onEnterKey').mockImplementation(() => undefined);
 
             contextMenuInstance.onKeyDown(keyEvent);
 
@@ -751,7 +762,7 @@ describe('ContextMenu', () => {
 
         it('should handle home key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Home' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             contextMenuInstance.onKeyDown(keyEvent);
 
@@ -760,10 +771,10 @@ describe('ContextMenu', () => {
 
         it('should handle end key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'End' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             // Mock the onEndKey method to prevent rootmenu access errors
-            spyOn(contextMenuInstance, 'onEndKey');
+            vi.spyOn(contextMenuInstance, 'onEndKey').mockImplementation(() => undefined);
 
             contextMenuInstance.onKeyDown(keyEvent);
 
@@ -772,7 +783,7 @@ describe('ContextMenu', () => {
 
         it('should handle tab key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Tab' });
-            spyOn(contextMenuInstance, 'hide');
+            vi.spyOn(contextMenuInstance, 'hide').mockImplementation(() => undefined);
 
             contextMenuInstance.onKeyDown(keyEvent);
 
@@ -781,7 +792,7 @@ describe('ContextMenu', () => {
 
         it('should handle printable character search', () => {
             const keyEvent = new KeyboardEvent('keydown', { key: 'f' });
-            spyOn(contextMenuInstance, 'searchItems');
+            vi.spyOn(contextMenuInstance as any, 'searchItems').mockImplementation(() => undefined as any);
 
             contextMenuInstance.onKeyDown(keyEvent);
 
@@ -932,8 +943,8 @@ describe('ContextMenu', () => {
             const mockEvent = {
                 pageX: 250,
                 pageY: 300,
-                stopPropagation: jasmine.createSpy(),
-                preventDefault: jasmine.createSpy()
+                stopPropagation: vi.fn(),
+                preventDefault: vi.fn()
             };
 
             contextMenuInstance.show(mockEvent);
@@ -1010,8 +1021,8 @@ describe('ContextMenu', () => {
             const mockEvent = {
                 pageX: 100,
                 pageY: 150,
-                stopPropagation: jasmine.createSpy(),
-                preventDefault: jasmine.createSpy()
+                stopPropagation: vi.fn(),
+                preventDefault: vi.fn()
             };
 
             expect(() => {
@@ -1150,13 +1161,13 @@ describe('ContextMenu', () => {
         });
 
         it('should call show method programmatically', () => {
-            spyOn(contextMenuInstance.onShow, 'emit');
+            vi.spyOn(contextMenuInstance.onShow, 'emit').mockImplementation(() => undefined);
 
             const mockEvent = {
                 pageX: 200,
                 pageY: 250,
-                stopPropagation: jasmine.createSpy(),
-                preventDefault: jasmine.createSpy()
+                stopPropagation: vi.fn(),
+                preventDefault: vi.fn()
             };
 
             contextMenuInstance.show(mockEvent);
@@ -1166,7 +1177,7 @@ describe('ContextMenu', () => {
         });
 
         it('should call hide method programmatically', () => {
-            spyOn(contextMenuInstance.onHide, 'emit');
+            vi.spyOn(contextMenuInstance.onHide, 'emit').mockImplementation(() => undefined);
             contextMenuInstance.visible.set(true);
 
             contextMenuInstance.hide();
@@ -1179,8 +1190,8 @@ describe('ContextMenu', () => {
             const mockEvent = {
                 pageX: 150,
                 pageY: 200,
-                stopPropagation: jasmine.createSpy(),
-                preventDefault: jasmine.createSpy()
+                stopPropagation: vi.fn(),
+                preventDefault: vi.fn()
             };
 
             expect(contextMenuInstance.visible()).toBe(false);

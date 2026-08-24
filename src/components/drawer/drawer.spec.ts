@@ -6,7 +6,7 @@ import { PrimeTemplate } from '@primus/core/api';
 import { Drawer } from './drawer';
 
 @Component({
-    standalone: false,
+    standalone: true,
     imports: [Drawer],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -81,8 +81,8 @@ class TestDrawerBasicComponent {
 }
 
 @Component({
-    standalone: false,
-    imports: [Drawer],
+    standalone: true,
+    imports: [Drawer, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-drawer [(visible)]="visible" [header]="header">
@@ -107,7 +107,7 @@ class TestDrawerTemplatesComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     imports: [Drawer],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -132,8 +132,8 @@ class TestDrawerTemplateRefsComponent {
 }
 
 @Component({
-    standalone: false,
-    imports: [Drawer],
+    standalone: true,
+    imports: [Drawer, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-drawer [(visible)]="visible">
@@ -152,7 +152,7 @@ class TestDrawerHeadlessComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     imports: [Drawer],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -167,7 +167,7 @@ class TestDrawerPositionComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     imports: [Drawer],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -182,7 +182,7 @@ class TestDrawerFullScreenComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     imports: [Drawer],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -198,7 +198,7 @@ class TestDrawerModalComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     imports: [Drawer],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -220,8 +220,9 @@ describe('Drawer', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [Drawer, PrimeTemplate],
-            declarations: [
+            imports: [
+                Drawer,
+                PrimeTemplate,
                 TestDrawerBasicComponent,
                 TestDrawerTemplatesComponent,
                 TestDrawerTemplateRefsComponent,
@@ -417,8 +418,8 @@ describe('Drawer', () => {
         });
 
         // TODO: This test requires BrowserAnimationsModule as show() is called in onAnimationStart
-        xit('should call show method when drawer becomes visible', async () => {
-            const showSpy = spyOn(drawerComponent, 'show').and.callThrough();
+        it.skip('should call show method when drawer becomes visible', async () => {
+            const showSpy = vi.spyOn(drawerComponent, 'show');
             testComponent.visible = true;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -429,14 +430,14 @@ describe('Drawer', () => {
         });
 
         it('should call hide method with emit parameter', () => {
-            spyOn(drawerComponent, 'hide');
+            vi.spyOn(drawerComponent, 'hide').mockImplementation(() => undefined);
             drawerComponent.hide(false);
             expect(drawerComponent.hide).toHaveBeenCalledWith(false);
         });
 
         it('should call close method with event parameter', () => {
             const mockEvent = new Event('click');
-            spyOn(drawerComponent, 'close');
+            vi.spyOn(drawerComponent, 'close').mockImplementation(() => undefined);
             drawerComponent.close(mockEvent);
             expect(drawerComponent.close).toHaveBeenCalledWith(mockEvent);
         });
@@ -456,7 +457,7 @@ describe('Drawer', () => {
         });
 
         // TODO: This test requires BrowserAnimationsModule as onShow is emitted in show() which is called in onAnimationStart
-        xit('should emit onShow event when drawer is shown', async () => {
+        it.skip('should emit onShow event when drawer is shown', async () => {
             testComponent.visible = true;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -482,7 +483,7 @@ describe('Drawer', () => {
         });
 
         // TODO: This test requires BrowserAnimationsModule as visibleChange is emitted in show() which is called in onAnimationStart
-        xit('should emit visibleChange event when visibility changes', async () => {
+        it.skip('should emit visibleChange event when visibility changes', async () => {
             testComponent.visible = true;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1012,7 +1013,7 @@ describe('Drawer', () => {
         });
 
         // TODO: This test fails with ExpressionChangedAfterItHasBeenCheckedError in zoneless mode due to two-way binding
-        xit('should handle multiple drawer instances', async () => {
+        it.skip('should handle multiple drawer instances', async () => {
             const fixture1 = TestBed.createComponent(TestDrawerBasicComponent);
             const component1 = fixture1.componentInstance;
             fixture1.changeDetectorRef.markForCheck();
@@ -1070,7 +1071,8 @@ describe('Drawer', () => {
     describe('PT (PassThrough) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Drawer],
                 template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
             })
             class TestPTCase1Component {
@@ -1088,8 +1090,7 @@ describe('Drawer', () => {
             it('should apply simple string classes to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase1Component],
-                    imports: [Drawer],
+                    imports: [TestPTCase1Component, Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1117,7 +1118,8 @@ describe('Drawer', () => {
 
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Drawer],
                 template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
             })
             class TestPTCase2Component {
@@ -1142,8 +1144,7 @@ describe('Drawer', () => {
             it('should apply object properties to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase2Component],
-                    imports: [Drawer],
+                    imports: [TestPTCase2Component, Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1175,7 +1176,8 @@ describe('Drawer', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Drawer],
                 template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
             })
             class TestPTCase3Component {
@@ -1194,8 +1196,7 @@ describe('Drawer', () => {
             it('should apply mixed object and string values correctly', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase3Component],
-                    imports: [Drawer],
+                    imports: [TestPTCase3Component, Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1223,7 +1224,8 @@ describe('Drawer', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Drawer],
                 template: `<p-drawer [pt]="pt" [(visible)]="visible" [position]="position" header="Test Drawer">Content</p-drawer>`
             })
             class TestPTCase4Component {
@@ -1248,8 +1250,7 @@ describe('Drawer', () => {
             it('should use instance variables in PT functions', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase4Component],
-                    imports: [Drawer],
+                    imports: [TestPTCase4Component, Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1272,7 +1273,8 @@ describe('Drawer', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Drawer],
                 template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
             })
             class TestPTCase5Component {
@@ -1295,8 +1297,7 @@ describe('Drawer', () => {
             it('should bind click events through PT', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase5Component],
-                    imports: [Drawer],
+                    imports: [TestPTCase5Component, Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1322,7 +1323,8 @@ describe('Drawer', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Drawer],
                 template: `<p-drawer [pt]="{ root: 'INLINE_ROOT_CLASS', header: 'INLINE_HEADER_CLASS' }" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
             })
             class TestPTCase6InlineComponent {
@@ -1330,7 +1332,8 @@ describe('Drawer', () => {
             }
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Drawer],
                 template: `<p-drawer [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
             })
             class TestPTCase6InlineObjectComponent {
@@ -1340,8 +1343,7 @@ describe('Drawer', () => {
             it('should apply inline PT string classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineComponent],
-                    imports: [Drawer],
+                    imports: [TestPTCase6InlineComponent, Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1364,8 +1366,7 @@ describe('Drawer', () => {
             it('should apply inline PT object classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [Drawer],
+                    imports: [TestPTCase6InlineObjectComponent, Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1388,7 +1389,8 @@ describe('Drawer', () => {
 
         describe('Case 7: Test from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Drawer],
                 template: `
                     <p-drawer [(visible)]="visible1" header="Drawer 1">Content 1</p-drawer>
                     <p-drawer [(visible)]="visible2" header="Drawer 2">Content 2</p-drawer>
@@ -1402,8 +1404,7 @@ describe('Drawer', () => {
             it('should apply global PT configuration from PrimeNGConfig', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase7GlobalComponent],
-                    imports: [Drawer],
+                    imports: [TestPTCase7GlobalComponent, Drawer],
                     providers: [
                         provideZonelessChangeDetection(),
                         {
@@ -1432,7 +1433,8 @@ describe('Drawer', () => {
 
         describe('Case 8: Test hooks', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Drawer],
                 template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
             })
             class TestPTCase8HooksComponent {
@@ -1460,8 +1462,7 @@ describe('Drawer', () => {
             it('should call PT hooks on Angular lifecycle events', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase8HooksComponent],
-                    imports: [Drawer],
+                    imports: [TestPTCase8HooksComponent, Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 

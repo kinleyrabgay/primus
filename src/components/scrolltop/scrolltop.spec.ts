@@ -1,6 +1,7 @@
 import { Component, DebugElement, PLATFORM_ID, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { BaseComponent } from '@primus/core/basecomponent';
 import { Button } from '@primus/components/button';
@@ -8,7 +9,8 @@ import { ZIndexUtils } from '@primus/core/utils';
 import { ScrollTop, ScrollTopModule } from './scrolltop';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ScrollTopModule],
     selector: 'test-basic-scrolltop',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-scrolltop [threshold]="threshold" [target]="target"></p-scrolltop>`
@@ -19,7 +21,8 @@ class TestBasicScrollTopComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ScrollTopModule],
     selector: 'test-scrolltop-with-parent',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -34,7 +37,8 @@ class TestBasicScrollTopComponent {
 class TestScrollTopWithParentComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ScrollTopModule],
     selector: 'test-scrolltop-with-icon',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-scrolltop [icon]="icon" [threshold]="threshold" [buttonAriaLabel]="buttonAriaLabel"> </p-scrolltop> `
@@ -46,7 +50,8 @@ class TestScrollTopWithIconComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ScrollTopModule, CommonModule],
     selector: 'test-scrolltop-with-template',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -60,7 +65,8 @@ class TestScrollTopWithIconComponent {
 class TestScrollTopWithTemplateComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ScrollTopModule],
     selector: 'test-scrolltop-with-styles',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -79,7 +85,8 @@ class TestScrollTopWithStylesComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ScrollTopModule, CommonModule],
     selector: 'test-scrolltop-dynamic',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -102,8 +109,7 @@ class TestScrollTopDynamicComponent {
 describe('ScrollTop', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ScrollTopModule],
-            declarations: [TestBasicScrollTopComponent, TestScrollTopWithParentComponent, TestScrollTopWithIconComponent, TestScrollTopWithTemplateComponent, TestScrollTopWithStylesComponent, TestScrollTopDynamicComponent],
+            imports: [ScrollTopModule, TestBasicScrollTopComponent, TestScrollTopWithParentComponent, TestScrollTopWithIconComponent, TestScrollTopWithTemplateComponent, TestScrollTopWithStylesComponent, TestScrollTopDynamicComponent],
             providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
         });
     });
@@ -157,7 +163,7 @@ describe('ScrollTop', () => {
         });
 
         it('should initialize with window target', () => {
-            spyOn(scrollTop, 'bindDocumentScrollListener');
+            vi.spyOn(scrollTop, 'bindDocumentScrollListener').mockImplementation(() => undefined);
             scrollTop.ngOnInit();
             expect(scrollTop.bindDocumentScrollListener).toHaveBeenCalled();
         });
@@ -168,7 +174,7 @@ describe('ScrollTop', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            spyOn(scrollTop, 'bindParentScrollListener');
+            vi.spyOn(scrollTop, 'bindParentScrollListener').mockImplementation(() => undefined);
             scrollTop.target = 'parent';
             scrollTop.ngOnInit();
             expect(scrollTop.bindParentScrollListener).toHaveBeenCalled();
@@ -244,9 +250,9 @@ describe('ScrollTop', () => {
         });
 
         it('should scroll to top when clicked (window target)', () => {
-            const scrollSpy = jasmine.createSpy('scroll');
+            const scrollSpy = vi.fn();
             const mockWindow = { scroll: scrollSpy };
-            spyOnProperty(scrollTop.document, 'defaultView').and.returnValue(mockWindow as any);
+            vi.spyOn(scrollTop.document, 'defaultView', 'get').mockReturnValue(mockWindow as any);
 
             scrollTop.onClick();
 
@@ -258,9 +264,9 @@ describe('ScrollTop', () => {
 
         it('should scroll to top with auto behavior', () => {
             scrollTop.behavior = 'auto';
-            const scrollSpy = jasmine.createSpy('scroll');
+            const scrollSpy = vi.fn();
             const mockWindow = { scroll: scrollSpy };
-            spyOnProperty(scrollTop.document, 'defaultView').and.returnValue(mockWindow as any);
+            vi.spyOn(scrollTop.document, 'defaultView', 'get').mockReturnValue(mockWindow as any);
 
             scrollTop.onClick();
 
@@ -273,10 +279,10 @@ describe('ScrollTop', () => {
         it('should scroll parent element when target is parent', () => {
             scrollTop.target = 'parent';
             const parentElement = document.createElement('div');
-            const scrollSpy = jasmine.createSpy('scroll');
+            const scrollSpy = vi.fn();
             parentElement.scroll = scrollSpy;
 
-            spyOnProperty(scrollTop.el.nativeElement, 'parentElement').and.returnValue(parentElement);
+            vi.spyOn(scrollTop.el.nativeElement, 'parentElement', 'get').mockReturnValue(parentElement);
 
             scrollTop.onClick();
 
@@ -298,27 +304,27 @@ describe('ScrollTop', () => {
         });
 
         it('should bind document scroll listener for window target', () => {
-            const listenerSpy = jasmine.createSpy('listener');
-            spyOn(scrollTop.renderer, 'listen').and.returnValue(listenerSpy);
+            const listenerSpy = vi.fn();
+            vi.spyOn(scrollTop.renderer, 'listen').mockReturnValue(listenerSpy);
 
             scrollTop.bindDocumentScrollListener();
 
-            expect(scrollTop.renderer.listen).toHaveBeenCalledWith(scrollTop.document.defaultView, 'scroll', jasmine.any(Function));
+            expect(scrollTop.renderer.listen).toHaveBeenCalledWith(scrollTop.document.defaultView, 'scroll', expect.any(Function));
             expect(scrollTop.documentScrollListener).toBe(listenerSpy);
         });
 
         it('should bind parent scroll listener for parent target', () => {
-            const listenerSpy = jasmine.createSpy('listener');
-            spyOn(scrollTop.renderer, 'listen').and.returnValue(listenerSpy);
+            const listenerSpy = vi.fn();
+            vi.spyOn(scrollTop.renderer, 'listen').mockReturnValue(listenerSpy);
 
             scrollTop.bindParentScrollListener();
 
-            expect(scrollTop.renderer.listen).toHaveBeenCalledWith(scrollTop.el.nativeElement.parentElement, 'scroll', jasmine.any(Function));
+            expect(scrollTop.renderer.listen).toHaveBeenCalledWith(scrollTop.el.nativeElement.parentElement, 'scroll', expect.any(Function));
             expect(scrollTop.parentScrollListener).toBe(listenerSpy);
         });
 
         it('should unbind document scroll listener', () => {
-            const listenerSpy = jasmine.createSpy('listener');
+            const listenerSpy = vi.fn();
             scrollTop.documentScrollListener = listenerSpy;
 
             scrollTop.unbindDocumentScrollListener();
@@ -328,7 +334,7 @@ describe('ScrollTop', () => {
         });
 
         it('should unbind parent scroll listener', () => {
-            const listenerSpy = jasmine.createSpy('listener');
+            const listenerSpy = vi.fn();
             scrollTop.parentScrollListener = listenerSpy;
 
             scrollTop.unbindParentScrollListener();
@@ -340,8 +346,7 @@ describe('ScrollTop', () => {
         it('should not bind listeners on server platform', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestBasicScrollTopComponent],
+                imports: [ScrollTopModule, TestBasicScrollTopComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'server' }]
             });
 
@@ -349,7 +354,7 @@ describe('ScrollTop', () => {
             serverFixture.detectChanges();
             const serverScrollTop = serverFixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
 
-            spyOn(serverScrollTop.renderer, 'listen');
+            vi.spyOn(serverScrollTop.renderer, 'listen').mockImplementation(() => undefined);
 
             serverScrollTop.bindDocumentScrollListener();
             serverScrollTop.bindParentScrollListener();
@@ -459,7 +464,7 @@ describe('ScrollTop', () => {
             // Check if the component received the button props
             if (scrollTop.buttonProps && scrollTop.buttonProps.severity === 'danger') {
                 expect(scrollTop.buttonProps).toEqual(
-                    jasmine.objectContaining({
+                    expect.objectContaining({
                         rounded: false,
                         severity: 'danger'
                     })
@@ -514,10 +519,10 @@ describe('ScrollTop', () => {
         });
 
         it('should monitor parent scroll', async () => {
-            const checkVisibilitySpy = spyOn(scrollTop, 'checkVisibility');
+            const checkVisibilitySpy = vi.spyOn(scrollTop, 'checkVisibility').mockImplementation(() => undefined);
 
             // Set up the parent element relationship
-            spyOnProperty(scrollTop.el.nativeElement, 'parentElement').and.returnValue(scrollContainer);
+            vi.spyOn(scrollTop.el.nativeElement, 'parentElement', 'get').mockReturnValue(scrollContainer);
 
             // Mock the parent scroll listener functionality
             const mockScrollListener = () => {
@@ -536,9 +541,9 @@ describe('ScrollTop', () => {
         });
 
         it('should scroll parent to top when clicked', () => {
-            const scrollSpy = jasmine.createSpy('scroll');
+            const scrollSpy = vi.fn();
             scrollContainer.scroll = scrollSpy;
-            spyOnProperty(scrollTop.el.nativeElement, 'parentElement').and.returnValue(scrollContainer);
+            vi.spyOn(scrollTop.el.nativeElement, 'parentElement', 'get').mockReturnValue(scrollContainer);
 
             scrollTop.onClick();
 
@@ -609,10 +614,10 @@ describe('ScrollTop', () => {
         });
 
         it('should clean up on destroy for window target', () => {
-            spyOn(scrollTop, 'unbindDocumentScrollListener');
+            vi.spyOn(scrollTop, 'unbindDocumentScrollListener').mockImplementation(() => undefined);
             const overlayElement = document.createElement('div');
             scrollTop.overlay = overlayElement;
-            spyOn(ZIndexUtils, 'clear');
+            vi.spyOn(ZIndexUtils, 'clear').mockImplementation(() => undefined);
 
             scrollTop.ngOnDestroy();
 
@@ -623,7 +628,7 @@ describe('ScrollTop', () => {
 
         it('should clean up on destroy for parent target', () => {
             scrollTop.target = 'parent';
-            spyOn(scrollTop, 'unbindParentScrollListener');
+            vi.spyOn(scrollTop, 'unbindParentScrollListener').mockImplementation(() => undefined);
 
             scrollTop.ngOnDestroy();
 
@@ -631,13 +636,13 @@ describe('ScrollTop', () => {
         });
 
         it('should call super.ngOnInit', () => {
-            spyOn(BaseComponent.prototype, 'ngOnInit');
+            vi.spyOn(BaseComponent.prototype, 'ngOnInit').mockImplementation(() => undefined);
             scrollTop.ngOnInit();
             expect(BaseComponent.prototype.ngOnInit).toHaveBeenCalled();
         });
 
         it('should call super.ngOnDestroy', () => {
-            spyOn(BaseComponent.prototype, 'ngOnDestroy');
+            vi.spyOn(BaseComponent.prototype, 'ngOnDestroy').mockImplementation(() => undefined);
             scrollTop.ngOnDestroy();
             expect(BaseComponent.prototype.ngOnDestroy).toHaveBeenCalled();
         });
@@ -685,10 +690,10 @@ describe('ScrollTop', () => {
 
         it('should handle missing parent element', () => {
             scrollTop.target = 'parent';
-            spyOnProperty(scrollTop.el.nativeElement, 'parentElement').and.returnValue(null);
+            vi.spyOn(scrollTop.el.nativeElement, 'parentElement', 'get').mockReturnValue(null);
 
             // Mock the scroll method on parent element to avoid null access
-            spyOn(scrollTop, 'onClick').and.callFake(() => {
+            vi.spyOn(scrollTop, 'onClick').mockImplementation(() => {
                 // Simulate safe onClick behavior when parent is null
                 if (!scrollTop.el.nativeElement.parentElement) {
                     return;
@@ -699,11 +704,11 @@ describe('ScrollTop', () => {
         });
 
         it('should handle null document.defaultView', () => {
-            spyOnProperty(scrollTop.document, 'defaultView').and.returnValue(null as any);
+            vi.spyOn(scrollTop.document, 'defaultView', 'get').mockReturnValue(null as any);
 
             // Mock onClick to safely handle null defaultView
             const originalOnClick = scrollTop.onClick;
-            spyOn(scrollTop, 'onClick').and.callFake(() => {
+            vi.spyOn(scrollTop, 'onClick').mockImplementation(() => {
                 try {
                     const defaultView = scrollTop.document.defaultView;
                     if (defaultView) {
@@ -718,7 +723,7 @@ describe('ScrollTop', () => {
         });
 
         it('should handle multiple unbind calls', () => {
-            const listenerSpy = jasmine.createSpy('listener');
+            const listenerSpy = vi.fn();
             scrollTop.documentScrollListener = listenerSpy;
 
             scrollTop.unbindDocumentScrollListener();
@@ -777,7 +782,7 @@ describe('ScrollTop', () => {
         });
 
         it('should not create multiple listeners', () => {
-            spyOn(scrollTop.renderer, 'listen').and.returnValue(() => {});
+            vi.spyOn(scrollTop.renderer, 'listen').mockReturnValue(() => {});
 
             scrollTop.bindDocumentScrollListener();
             scrollTop.bindDocumentScrollListener();
@@ -847,7 +852,8 @@ describe('ScrollTop', () => {
     describe('Complex Scenarios', () => {
         it('should handle multiple ScrollTop instances', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [ScrollTopModule],
                 template: `
                     <p-scrolltop [threshold]="100"></p-scrolltop>
                     <p-scrolltop [threshold]="200"></p-scrolltop>
@@ -856,8 +862,7 @@ describe('ScrollTop', () => {
             class MultipleScrollTopsComponent {}
 
             TestBed.configureTestingModule({
-                declarations: [MultipleScrollTopsComponent],
-                imports: [ScrollTopModule]
+                imports: [ScrollTopModule, MultipleScrollTopsComponent]
             });
 
             const fixture = TestBed.createComponent(MultipleScrollTopsComponent);
@@ -871,7 +876,8 @@ describe('ScrollTop', () => {
 
         it('should work with nested scrollable containers', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [ScrollTopModule],
                 template: `
                     <div class="outer" style="height: 300px; overflow: auto;">
                         <div style="height: 1000px;">
@@ -887,8 +893,7 @@ describe('ScrollTop', () => {
             class NestedScrollableComponent {}
 
             TestBed.configureTestingModule({
-                declarations: [NestedScrollableComponent],
-                imports: [ScrollTopModule]
+                imports: [ScrollTopModule, NestedScrollableComponent]
             });
 
             const fixture = TestBed.createComponent(NestedScrollableComponent);
@@ -903,7 +908,8 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 1: Simple string classes', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [ScrollTopModule],
             template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
         })
         class TestScrollTopPtComponent {
@@ -917,8 +923,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopPtComponent],
+                imports: [ScrollTopModule, TestScrollTopPtComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
@@ -953,7 +958,8 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 2: Objects', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [ScrollTopModule],
             template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
         })
         class TestScrollTopPtObjectComponent {
@@ -966,8 +972,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopPtObjectComponent],
+                imports: [ScrollTopModule, TestScrollTopPtObjectComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
@@ -1012,7 +1017,8 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 3: Mixed object and string values', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [ScrollTopModule],
             template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
         })
         class TestScrollTopPtMixedComponent {
@@ -1025,8 +1031,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopPtMixedComponent],
+                imports: [ScrollTopModule, TestScrollTopPtMixedComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
@@ -1054,7 +1059,8 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 4: Use variables from instance', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [ScrollTopModule],
             template: ` <p-scrolltop [threshold]="threshold" [target]="target" [pt]="pt"></p-scrolltop> `
         })
         class TestScrollTopPtInstanceComponent {
@@ -1069,8 +1075,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopPtInstanceComponent],
+                imports: [ScrollTopModule, TestScrollTopPtInstanceComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
@@ -1121,7 +1126,8 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 5: Event binding', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [ScrollTopModule],
             template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
         })
         class TestScrollTopPtEventComponent {
@@ -1134,8 +1140,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopPtEventComponent],
+                imports: [ScrollTopModule, TestScrollTopPtEventComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
@@ -1188,13 +1193,15 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 6: Inline test', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [ScrollTopModule],
             template: ` <p-scrolltop [threshold]="100" [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-scrolltop> `
         })
         class TestScrollTopInlineStringPtComponent {}
 
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [ScrollTopModule],
             template: ` <p-scrolltop [threshold]="100" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-scrolltop> `
         })
         class TestScrollTopInlineObjectPtComponent {}
@@ -1202,8 +1209,7 @@ describe('ScrollTop', () => {
         it('should apply inline pt with string class', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopInlineStringPtComponent],
+                imports: [ScrollTopModule, TestScrollTopInlineStringPtComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
@@ -1218,8 +1224,7 @@ describe('ScrollTop', () => {
         it('should apply inline pt with object', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopInlineObjectPtComponent],
+                imports: [ScrollTopModule, TestScrollTopInlineObjectPtComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
@@ -1238,7 +1243,8 @@ describe('ScrollTop', () => {
             const { providePrimus } = require('@primus/core/config');
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [ScrollTopModule],
                 template: `
                     <p-scrolltop [threshold]="100"></p-scrolltop>
                     <p-scrolltop [threshold]="200"></p-scrolltop>
@@ -1248,8 +1254,7 @@ describe('ScrollTop', () => {
 
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopGlobalPtComponent],
+                imports: [ScrollTopModule, TestScrollTopGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     { provide: PLATFORM_ID, useValue: 'browser' },
@@ -1281,15 +1286,15 @@ describe('ScrollTop', () => {
             const { providePrimus } = require('@primus/core/config');
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [ScrollTopModule],
                 template: ` <p-scrolltop [threshold]="100" [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-scrolltop> `
             })
             class TestScrollTopMergedPtComponent {}
 
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopMergedPtComponent],
+                imports: [ScrollTopModule, TestScrollTopMergedPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     { provide: PLATFORM_ID, useValue: 'browser' },
@@ -1316,7 +1321,8 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 8: Test hooks', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [ScrollTopModule],
             template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
         })
         class TestScrollTopPtHooksComponent {
@@ -1329,8 +1335,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopPtHooksComponent],
+                imports: [ScrollTopModule, TestScrollTopPtHooksComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 

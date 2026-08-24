@@ -26,8 +26,8 @@ import {
     viewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionEvent, MotionOptions } from '@primeuix/motion';
-import { absolutePosition, addClass, appendChild, findSingle, focus, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
+import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
+import { absolutePosition, addClass, appendChild, findSingle, focus, getOffset, isIOS, isTouchDevice } from '@primus/primeuix/utils';
 import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind } from '@primus/core/bind';

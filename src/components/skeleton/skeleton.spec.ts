@@ -1,4 +1,5 @@
 import { Component, DebugElement, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -6,7 +7,8 @@ import { BaseComponent } from '@primus/core/basecomponent';
 import { Skeleton, SkeletonModule } from './skeleton';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SkeletonModule],
     selector: 'test-basic-skeleton',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-skeleton [shape]="shape" [animation]="animation" [width]="width" [height]="height"></p-skeleton>`
@@ -19,7 +21,8 @@ class TestBasicSkeletonComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SkeletonModule],
     selector: 'test-skeleton-shapes',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-skeleton [shape]="shape" [size]="size" [borderRadius]="borderRadius" [animation]="animation"> </p-skeleton> `
@@ -32,7 +35,8 @@ class TestSkeletonShapesComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SkeletonModule],
     selector: 'test-skeleton-dimensions',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-skeleton [width]="width" [height]="height" [size]="size" [shape]="shape"> </p-skeleton> `
@@ -45,7 +49,8 @@ class TestSkeletonDimensionsComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SkeletonModule],
     selector: 'test-skeleton-animations',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-skeleton [animation]="animation" [shape]="shape"> </p-skeleton> `
@@ -56,7 +61,8 @@ class TestSkeletonAnimationsComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SkeletonModule],
     selector: 'test-skeleton-styling',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-skeleton [styleClass]="styleClass" [shape]="shape" [borderRadius]="borderRadius"> </p-skeleton> `
@@ -68,7 +74,8 @@ class TestSkeletonStylingComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SkeletonModule],
     selector: 'test-skeleton-card-layout',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -85,7 +92,8 @@ class TestSkeletonStylingComponent {
 class TestSkeletonCardLayoutComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SkeletonModule, CommonModule],
     selector: 'test-skeleton-data-table',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -113,7 +121,8 @@ class TestSkeletonDataTableComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SkeletonModule],
     selector: 'test-skeleton-empty',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-skeleton></p-skeleton>`
@@ -121,7 +130,8 @@ class TestSkeletonDataTableComponent {
 class TestSkeletonEmptyComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SkeletonModule],
     selector: 'test-skeleton-dynamic',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-skeleton [shape]="dynamicShape" [animation]="dynamicAnimation" [width]="dynamicWidth" [height]="dynamicHeight" [size]="dynamicSize" [borderRadius]="dynamicBorderRadius" [styleClass]="dynamicStyleClass"> </p-skeleton> `
@@ -139,8 +149,8 @@ class TestSkeletonDynamicComponent {
 describe('Skeleton', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [SkeletonModule],
-            declarations: [
+            imports: [
+                SkeletonModule,
                 TestBasicSkeletonComponent,
                 TestSkeletonShapesComponent,
                 TestSkeletonDimensionsComponent,
@@ -734,7 +744,8 @@ describe('Skeleton', () => {
     describe('Performance', () => {
         it('should handle multiple skeletons efficiently', async () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [SkeletonModule, CommonModule],
                 template: `
                     <div *ngFor="let item of items; trackBy: trackByFn">
                         <p-skeleton [width]="item.width" [height]="item.height"></p-skeleton>
@@ -755,8 +766,7 @@ describe('Skeleton', () => {
             }
 
             TestBed.configureTestingModule({
-                declarations: [TestMultipleSkeletonsComponent],
-                imports: [SkeletonModule],
+                imports: [SkeletonModule, TestMultipleSkeletonsComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -795,7 +805,8 @@ describe('Skeleton', () => {
     describe('Complex Scenarios', () => {
         it('should handle nested skeleton layouts', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [SkeletonModule],
                 template: `
                     <div class="container">
                         <div class="header">
@@ -818,8 +829,7 @@ describe('Skeleton', () => {
             class TestNestedSkeletonsComponent {}
 
             TestBed.configureTestingModule({
-                declarations: [TestNestedSkeletonsComponent],
-                imports: [SkeletonModule],
+                imports: [SkeletonModule, TestNestedSkeletonsComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -839,7 +849,8 @@ describe('Skeleton', () => {
 
         it('should work with conditional rendering', async () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [SkeletonModule, CommonModule],
                 template: `
                     <div *ngIf="showSkeletons">
                         <p-skeleton *ngFor="let item of skeletonItems" [width]="item.width" [height]="item.height" [shape]="item.shape"> </p-skeleton>
@@ -856,8 +867,7 @@ describe('Skeleton', () => {
             }
 
             TestBed.configureTestingModule({
-                declarations: [TestConditionalSkeletonsComponent],
-                imports: [SkeletonModule],
+                imports: [SkeletonModule, TestConditionalSkeletonsComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -902,13 +912,13 @@ describe('Skeleton', () => {
         });
 
         it('should call super.ngOnInit', () => {
-            spyOn(BaseComponent.prototype, 'ngOnInit');
+            vi.spyOn(BaseComponent.prototype, 'ngOnInit').mockImplementation(() => undefined);
             skeleton.ngOnInit();
             expect(BaseComponent.prototype.ngOnInit).toHaveBeenCalled();
         });
 
         it('should call super.ngOnDestroy', () => {
-            spyOn(BaseComponent.prototype, 'ngOnDestroy');
+            vi.spyOn(BaseComponent.prototype, 'ngOnDestroy').mockImplementation(() => undefined);
             skeleton.ngOnDestroy();
             expect(BaseComponent.prototype.ngOnDestroy).toHaveBeenCalled();
         });
@@ -949,7 +959,8 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 1: Simple string classes', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [SkeletonModule],
             template: ` <p-skeleton [pt]="pt"></p-skeleton> `
         })
         class TestSkeletonPtComponent {
@@ -962,8 +973,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonPtComponent],
+                imports: [SkeletonModule, TestSkeletonPtComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -992,7 +1002,8 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 2: Objects', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [SkeletonModule],
             template: ` <p-skeleton [pt]="pt"></p-skeleton> `
         })
         class TestSkeletonPtObjectComponent {
@@ -1005,8 +1016,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonPtObjectComponent],
+                imports: [SkeletonModule, TestSkeletonPtObjectComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -1051,7 +1061,8 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 3: Mixed object and string values', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [SkeletonModule],
             template: ` <p-skeleton [pt]="pt"></p-skeleton> `
         })
         class TestSkeletonPtMixedComponent {
@@ -1064,8 +1075,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonPtMixedComponent],
+                imports: [SkeletonModule, TestSkeletonPtMixedComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -1093,7 +1103,8 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 4: Use variables from instance', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [SkeletonModule],
             template: ` <p-skeleton [shape]="shape" [animation]="animation" [pt]="pt"></p-skeleton> `
         })
         class TestSkeletonPtInstanceComponent {
@@ -1108,8 +1119,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonPtInstanceComponent],
+                imports: [SkeletonModule, TestSkeletonPtInstanceComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -1164,7 +1174,8 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 5: Event binding', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [SkeletonModule],
             template: ` <p-skeleton [pt]="pt"></p-skeleton> `
         })
         class TestSkeletonPtEventComponent {
@@ -1177,8 +1188,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonPtEventComponent],
+                imports: [SkeletonModule, TestSkeletonPtEventComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -1231,13 +1241,15 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 6: Inline test', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [SkeletonModule],
             template: ` <p-skeleton [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-skeleton> `
         })
         class TestSkeletonInlineStringPtComponent {}
 
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [SkeletonModule],
             template: ` <p-skeleton [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-skeleton> `
         })
         class TestSkeletonInlineObjectPtComponent {}
@@ -1245,8 +1257,7 @@ describe('Skeleton', () => {
         it('should apply inline pt with string class', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonInlineStringPtComponent],
+                imports: [SkeletonModule, TestSkeletonInlineStringPtComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -1261,8 +1272,7 @@ describe('Skeleton', () => {
         it('should apply inline pt with object', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonInlineObjectPtComponent],
+                imports: [SkeletonModule, TestSkeletonInlineObjectPtComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -1281,7 +1291,8 @@ describe('Skeleton', () => {
             const { providePrimus } = require('@primus/core/config');
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [SkeletonModule],
                 template: `
                     <p-skeleton></p-skeleton>
                     <p-skeleton></p-skeleton>
@@ -1291,8 +1302,7 @@ describe('Skeleton', () => {
 
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonGlobalPtComponent],
+                imports: [SkeletonModule, TestSkeletonGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimus({
@@ -1323,15 +1333,15 @@ describe('Skeleton', () => {
             const { providePrimus } = require('@primus/core/config');
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [SkeletonModule],
                 template: ` <p-skeleton [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-skeleton> `
             })
             class TestSkeletonMergedPtComponent {}
 
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonMergedPtComponent],
+                imports: [SkeletonModule, TestSkeletonMergedPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimus({
@@ -1357,7 +1367,8 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 8: Test hooks', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [SkeletonModule],
             template: ` <p-skeleton [pt]="pt"></p-skeleton> `
         })
         class TestSkeletonPtHooksComponent {
@@ -1370,8 +1381,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonPtHooksComponent],
+                imports: [SkeletonModule, TestSkeletonPtHooksComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 

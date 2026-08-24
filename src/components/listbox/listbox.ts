@@ -25,7 +25,7 @@ import {
     signal
 } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
+import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primus/primeuix/utils';
 import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from '@primus/core/api';
 import { PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { BaseEditableHolder } from '@primus/core/baseeditableholder';

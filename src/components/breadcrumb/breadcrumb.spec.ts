@@ -1,5 +1,6 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
 import { By } from '@angular/platform-browser';
 
 import { Router } from '@angular/router';
@@ -9,7 +10,8 @@ import { BreadcrumbItemClickEvent } from '@primus/core/types/breadcrumb';
 import { Breadcrumb } from './breadcrumb';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Breadcrumb],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-breadcrumb [model]="model" [home]="home" [style]="style" [styleClass]="styleClass" [homeAriaLabel]="homeAriaLabel" (onItemClick)="onItemClick($event)"> </p-breadcrumb> `
 })
@@ -31,7 +33,8 @@ class TestBasicBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Breadcrumb],
     selector: 'test-static-breadcrumb',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-breadcrumb [model]="model" [home]="home"> </p-breadcrumb> `
@@ -45,7 +48,8 @@ class TestStaticBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Breadcrumb, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-breadcrumb [model]="model" [home]="home">
@@ -67,7 +71,8 @@ class TestItemTemplateBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Breadcrumb],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-breadcrumb [model]="model" [home]="home">
@@ -83,7 +88,8 @@ class TestPTemplateItemBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Breadcrumb],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-breadcrumb [model]="model" [home]="home">
@@ -99,7 +105,8 @@ class TestSeparatorTemplateBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Breadcrumb],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-breadcrumb [model]="model" [home]="home">
@@ -115,7 +122,8 @@ class TestPTemplateSeparatorBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Breadcrumb],
     selector: 'test-router-breadcrumb',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-breadcrumb [model]="routerModel" [home]="routerHome"> </p-breadcrumb> `
@@ -129,7 +137,8 @@ class TestRouterBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Breadcrumb],
     selector: 'test-styled-breadcrumb',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-breadcrumb [style]="customStyle" styleClass="custom-breadcrumb"> </p-breadcrumb> `
@@ -143,7 +152,8 @@ class TestStyledBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Breadcrumb],
     selector: 'test-minimal-breadcrumb',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-breadcrumb></p-breadcrumb> `
@@ -151,7 +161,8 @@ class TestStyledBreadcrumbComponent {
 class TestMinimalBreadcrumbComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Breadcrumb],
     selector: 'test-dynamic-breadcrumb',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-breadcrumb [model]="dynamicModel" [home]="dynamicHome"> </p-breadcrumb> `
@@ -186,7 +197,16 @@ describe('Breadcrumb', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
+                Breadcrumb,
+                TestTargetComponent,
+
+                RouterTestingModule.withRoutes([
+                    { path: '', component: TestTargetComponent },
+                    { path: 'products', component: TestTargetComponent },
+                    { path: 'products/category', component: TestTargetComponent }
+                ]),
+
                 TestBasicBreadcrumbComponent,
                 TestStaticBreadcrumbComponent,
                 TestItemTemplateBreadcrumbComponent,
@@ -197,16 +217,6 @@ describe('Breadcrumb', () => {
                 TestStyledBreadcrumbComponent,
                 TestMinimalBreadcrumbComponent,
                 TestDynamicBreadcrumbComponent
-            ],
-            imports: [
-                Breadcrumb,
-                TestTargetComponent,
-
-                RouterTestingModule.withRoutes([
-                    { path: '', component: TestTargetComponent },
-                    { path: 'products', component: TestTargetComponent },
-                    { path: 'products/category', component: TestTargetComponent }
-                ])
             ],
             providers: [provideZonelessChangeDetection()],
             schemas: [NO_ERRORS_SCHEMA]
@@ -228,7 +238,7 @@ describe('Breadcrumb', () => {
         it('should have required dependencies injected', () => {
             expect(breadcrumbInstance.router).toBeTruthy();
             expect(breadcrumbInstance._componentStyle).toBeTruthy();
-            expect(breadcrumbInstance.constructor.name).toBe('Breadcrumb');
+            expect(breadcrumbInstance.constructor.name.replace(/^_+/, '')).toBe('Breadcrumb');
         });
 
         it('should have default values', () => {
@@ -550,7 +560,7 @@ describe('Breadcrumb', () => {
 
     describe('Navigation Tests', () => {
         it('should handle item click', async () => {
-            spyOn(breadcrumbInstance, 'onClick').and.callThrough();
+            vi.spyOn(breadcrumbInstance, 'onClick');
             component.model = [{ label: 'Clickable', url: '/click' }];
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -564,7 +574,7 @@ describe('Breadcrumb', () => {
         });
 
         it('should emit onItemClick event', () => {
-            spyOn(breadcrumbInstance.onItemClick, 'emit');
+            vi.spyOn(breadcrumbInstance.onItemClick, 'emit').mockImplementation(() => undefined);
             const testItem: MenuItem = { label: 'Test', url: '/test' };
             const clickEvent = new MouseEvent('click');
 
@@ -577,7 +587,7 @@ describe('Breadcrumb', () => {
         });
 
         it('should execute item command when clicked', () => {
-            const commandSpy = jasmine.createSpy('command');
+            const commandSpy = vi.fn();
             const testItem: MenuItem = { label: 'Command Item', command: commandSpy };
             const clickEvent = new MouseEvent('click');
 
@@ -591,7 +601,7 @@ describe('Breadcrumb', () => {
 
         it('should prevent default for disabled items', () => {
             const clickEvent = new MouseEvent('click');
-            spyOn(clickEvent, 'preventDefault');
+            vi.spyOn(clickEvent, 'preventDefault').mockImplementation(() => undefined);
             const disabledItem: MenuItem = { label: 'Disabled', disabled: true };
 
             breadcrumbInstance.onClick(clickEvent, disabledItem);
@@ -601,7 +611,7 @@ describe('Breadcrumb', () => {
 
         it('should prevent default for items without url or routerLink', () => {
             const clickEvent = new MouseEvent('click');
-            spyOn(clickEvent, 'preventDefault');
+            vi.spyOn(clickEvent, 'preventDefault').mockImplementation(() => undefined);
             const noLinkItem: MenuItem = { label: 'No Link' };
 
             breadcrumbInstance.onClick(clickEvent, noLinkItem);
@@ -611,7 +621,7 @@ describe('Breadcrumb', () => {
 
         it('should not prevent default for items with url', () => {
             const clickEvent = new MouseEvent('click');
-            spyOn(clickEvent, 'preventDefault');
+            vi.spyOn(clickEvent, 'preventDefault').mockImplementation(() => undefined);
             const urlItem: MenuItem = { label: 'URL Item', url: '/url' };
 
             breadcrumbInstance.onClick(clickEvent, urlItem);
@@ -1119,7 +1129,7 @@ describe('Breadcrumb', () => {
         });
 
         it('should call onClick programmatically', () => {
-            spyOn(breadcrumbInstance.onItemClick, 'emit');
+            vi.spyOn(breadcrumbInstance.onItemClick, 'emit').mockImplementation(() => undefined);
 
             const testItem: MenuItem = { label: 'Test', url: '/test' };
             const mockEvent = new MouseEvent('click');
@@ -1132,7 +1142,7 @@ describe('Breadcrumb', () => {
         });
 
         it('should handle onClick with item command', () => {
-            const commandSpy = jasmine.createSpy('commandSpy');
+            const commandSpy = vi.fn();
             const testItem: MenuItem = { label: 'Command Item', command: commandSpy };
             const mockEvent = new MouseEvent('click');
 
@@ -1161,7 +1171,7 @@ describe('Breadcrumb', () => {
 
         it('should handle preventDefault in onClick for disabled items', () => {
             const mockEvent = new MouseEvent('click');
-            spyOn(mockEvent, 'preventDefault');
+            vi.spyOn(mockEvent, 'preventDefault').mockImplementation(() => undefined);
             const disabledItem: MenuItem = { label: 'Disabled', disabled: true };
 
             breadcrumbInstance.onClick(mockEvent, disabledItem);
@@ -1170,7 +1180,7 @@ describe('Breadcrumb', () => {
         });
 
         it('should return early for disabled items in onClick', () => {
-            spyOn(breadcrumbInstance.onItemClick, 'emit');
+            vi.spyOn(breadcrumbInstance.onItemClick, 'emit').mockImplementation(() => undefined);
             const mockEvent = new MouseEvent('click');
             const disabledItem: MenuItem = { label: 'Disabled', disabled: true };
 
@@ -1315,7 +1325,7 @@ describe('Breadcrumb', () => {
                 { label: 'Item 2', url: '/item2' }
             ];
 
-            spyOn(ptBreadcrumb, 'getPTOptions').and.callThrough();
+            vi.spyOn(ptBreadcrumb, 'getPTOptions');
             ptFixture.detectChanges();
 
             // Verify getPTOptions is called with correct parameters

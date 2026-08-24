@@ -26,8 +26,8 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { MotionEvent, MotionOptions } from '@primeuix/motion';
-import { addStyle, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
+import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
+import { addStyle, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primus/primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind } from '@primus/core/bind';

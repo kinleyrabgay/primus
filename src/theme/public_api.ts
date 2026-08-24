@@ -9,13 +9,11 @@
 //   providePrimus({ theme: { preset: AppPreset, options: {...} }, ripple: true });
 
 // engine + helpers: definePreset, palette, updatePreset, $dt, usePreset, ...
-export * from '@primeuix/themes';
+export * from '@primus/primeuix/themes';
 
-// base presets to extend
-export { default as Aura } from '@primeuix/themes/aura';
-export { default as Lara } from '@primeuix/themes/lara';
-export { default as Material } from '@primeuix/themes/material';
-export { default as Nora } from '@primeuix/themes/nora';
+// NOTE: PrimeUIX base presets (Aura/Lara/Material/Nora) intentionally NOT
+// re-exported. primus vendors only the theming engine; its design system is
+// AppPreset (below), built from primus's own primitives/semantic/components.
 
 // the design system — everything, so `@primus/theme` is the single import site
 export * from './preset'; // AppPreset, AppDarkPreset

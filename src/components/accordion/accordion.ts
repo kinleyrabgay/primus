@@ -19,8 +19,8 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionOptions } from '@primeuix/motion';
-import { findSingle, focus, getAttribute, uuid } from '@primeuix/utils';
+import { MotionOptions } from '@primus/primeuix/motion';
+import { findSingle, focus, getAttribute, uuid } from '@primus/primeuix/utils';
 import { BlockableUI, SharedModule } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind, BindModule } from '@primus/core/bind';

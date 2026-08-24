@@ -9,8 +9,9 @@ import { ConfirmPopup } from './confirmpopup';
 
 // Basic ConfirmPopup Component Test
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ConfirmPopup, ButtonModule, FocusTrap],
     template: `
         <p-confirmpopup
             [key]="key"
@@ -60,8 +61,9 @@ class TestBasicConfirmPopupComponent {
 
 // ConfirmPopup with pTemplate Templates
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ConfirmPopup, ButtonModule, FocusTrap],
     template: `
         <p-confirmpopup>
             <ng-template pTemplate="content" let-message>
@@ -104,8 +106,9 @@ class TestTemplatePConfirmPopupComponent {
 
 // ConfirmPopup with #template Templates
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ConfirmPopup, ButtonModule, FocusTrap],
     template: `
         <p-confirmpopup>
             <ng-template #content let-message>
@@ -148,8 +151,9 @@ class TestContentTemplateConfirmPopupComponent {
 
 // ConfirmPopup with Multiple Keys
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ConfirmPopup, ButtonModule, FocusTrap],
     template: `
         <p-confirmpopup key="popup1"></p-confirmpopup>
         <p-confirmpopup key="popup2"></p-confirmpopup>
@@ -188,8 +192,9 @@ class TestMultipleKeysComponent {
 
 // ConfirmPopup Focus Test
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ConfirmPopup, ButtonModule, FocusTrap],
     template: `
         <p-confirmpopup [defaultFocus]="defaultFocus"></p-confirmpopup>
         <button (click)="confirm($event)" class="trigger-btn">Trigger</button>
@@ -210,9 +215,10 @@ class TestFocusConfirmPopupComponent {
 
 // ConfirmPopup Button Properties Test
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-button-properties-confirmpopup',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ConfirmPopup, ButtonModule, FocusTrap],
     template: `
         <p-confirmpopup></p-confirmpopup>
         <button (click)="confirm($event)" class="trigger-btn">Trigger</button>
@@ -237,8 +243,9 @@ class TestButtonPropertiesComponent {
 
 // ConfirmPopup Position Test
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ConfirmPopup, ButtonModule, FocusTrap],
     template: `
         <p-confirmpopup></p-confirmpopup>
         <div style="height: 400px; display: flex; align-items: center; justify-content: center;">
@@ -259,9 +266,10 @@ class TestPositionConfirmPopupComponent {
 
 // ConfirmPopup Accessibility Test
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-accessibility-confirmpopup',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [ConfirmPopup, ButtonModule, FocusTrap],
     template: `
         <p-confirmpopup></p-confirmpopup>
         <button (click)="confirm($event)" class="trigger-btn">Trigger</button>
@@ -292,7 +300,10 @@ describe('ConfirmPopup', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
+                ConfirmPopup,
+                ButtonModule,
+                FocusTrap,
                 TestBasicConfirmPopupComponent,
                 TestTemplatePConfirmPopupComponent,
                 TestContentTemplateConfirmPopupComponent,
@@ -302,7 +313,6 @@ describe('ConfirmPopup', () => {
                 TestPositionConfirmPopupComponent,
                 TestAccessibilityConfirmPopupComponent
             ],
-            imports: [ConfirmPopup, ButtonModule, FocusTrap],
             providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -501,7 +511,7 @@ describe('ConfirmPopup', () => {
             await focusFixture.whenStable();
 
             const confirmPopupInstance = focusFixture.debugElement.query(By.directive(ConfirmPopup)).componentInstance;
-            const handleFocusSpy = spyOn(confirmPopupInstance, 'handleFocus').and.callThrough();
+            const handleFocusSpy = vi.spyOn(confirmPopupInstance, 'handleFocus');
 
             const triggerBtn = focusFixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
@@ -527,7 +537,7 @@ describe('ConfirmPopup', () => {
             await focusFixture.whenStable();
 
             const confirmPopupInstance = focusFixture.debugElement.query(By.directive(ConfirmPopup)).componentInstance;
-            const handleFocusSpy = spyOn(confirmPopupInstance, 'handleFocus').and.callThrough();
+            const handleFocusSpy = vi.spyOn(confirmPopupInstance, 'handleFocus');
 
             const triggerBtn = focusFixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
@@ -650,7 +660,7 @@ describe('ConfirmPopup', () => {
 
                 // @ContentChild('content') should set contentTemplate
                 expect(confirmPopupInstance.contentTemplate).toBeDefined();
-                expect(confirmPopupInstance.contentTemplate?.constructor.name).toBe('TemplateRef');
+                expect(confirmPopupInstance.contentTemplate?.constructor.name.replace(/^_+/, '')).toBe('TemplateRef');
             });
 
             it("should process acceptIconTemplate from @ContentChild('accepticon')", async () => {
@@ -662,7 +672,7 @@ describe('ConfirmPopup', () => {
 
                 // @ContentChild('accepticon') should set acceptIconTemplate
                 expect(confirmPopupInstance.acceptIconTemplate).toBeDefined();
-                expect(confirmPopupInstance.acceptIconTemplate?.constructor.name).toBe('TemplateRef');
+                expect(confirmPopupInstance.acceptIconTemplate?.constructor.name.replace(/^_+/, '')).toBe('TemplateRef');
             });
 
             it("should process rejectIconTemplate from @ContentChild('rejecticon')", async () => {
@@ -674,7 +684,7 @@ describe('ConfirmPopup', () => {
 
                 // @ContentChild('rejecticon') should set rejectIconTemplate
                 expect(confirmPopupInstance.rejectIconTemplate).toBeDefined();
-                expect(confirmPopupInstance.rejectIconTemplate?.constructor.name).toBe('TemplateRef');
+                expect(confirmPopupInstance.rejectIconTemplate?.constructor.name.replace(/^_+/, '')).toBe('TemplateRef');
             });
 
             it("should process headlessTemplate from @ContentChild('headless')", async () => {
@@ -686,7 +696,7 @@ describe('ConfirmPopup', () => {
 
                 // @ContentChild('headless') should set headlessTemplate
                 expect(confirmPopupInstance.headlessTemplate).toBeDefined();
-                expect(confirmPopupInstance.headlessTemplate?.constructor.name).toBe('TemplateRef');
+                expect(confirmPopupInstance.headlessTemplate?.constructor.name.replace(/^_+/, '')).toBe('TemplateRef');
             });
         });
 
@@ -775,7 +785,7 @@ describe('ConfirmPopup', () => {
             await positionFixture.whenStable();
 
             const confirmPopupInstance = positionFixture.debugElement.query(By.directive(ConfirmPopup)).componentInstance;
-            const alignSpy = spyOn(confirmPopupInstance, 'alignOverlay').and.callThrough();
+            const alignSpy = vi.spyOn(confirmPopupInstance, 'alignOverlay');
 
             const triggerBtn = positionFixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
@@ -792,8 +802,8 @@ describe('ConfirmPopup', () => {
         });
 
         it('should handle window resize', async () => {
-            const hideSpy = spyOn(confirmPopupInstance, 'hide').and.callThrough();
-            const onWindowResizeSpy = spyOn(confirmPopupInstance, 'onWindowResize').and.callThrough();
+            const hideSpy = vi.spyOn(confirmPopupInstance, 'hide');
+            const onWindowResizeSpy = vi.spyOn(confirmPopupInstance, 'onWindowResize');
 
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
@@ -894,7 +904,7 @@ describe('ConfirmPopup', () => {
 
             const acceptButton = fixture.debugElement.query(By.css('p-button[label="Yes"]'));
             if (acceptButton) {
-                spyOn(confirmPopupInstance, 'onAccept');
+                vi.spyOn(confirmPopupInstance, 'onAccept').mockImplementation(() => undefined);
 
                 const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
                 acceptButton.nativeElement.dispatchEvent(enterEvent);
@@ -1052,7 +1062,7 @@ describe('ConfirmPopup', () => {
 
             // Test the onEscapeKeydown method directly
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-            spyOn(confirmPopupInstance, 'onReject');
+            vi.spyOn(confirmPopupInstance, 'onReject').mockImplementation(() => undefined);
 
             confirmPopupInstance.onEscapeKeydown(escapeEvent);
 
@@ -1075,7 +1085,7 @@ describe('ConfirmPopup', () => {
 
             // Test the onEscapeKeydown method directly
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-            spyOn(confirmPopupInstance, 'onReject');
+            vi.spyOn(confirmPopupInstance, 'onReject').mockImplementation(() => undefined);
 
             confirmPopupInstance.onEscapeKeydown(escapeEvent);
 
@@ -1097,7 +1107,7 @@ describe('ConfirmPopup', () => {
 
             // Test the onEscapeKeydown method directly
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-            spyOn(confirmPopupInstance, 'onReject');
+            vi.spyOn(confirmPopupInstance, 'onReject').mockImplementation(() => undefined);
 
             confirmPopupInstance.onEscapeKeydown(escapeEvent);
 
@@ -1108,7 +1118,7 @@ describe('ConfirmPopup', () => {
         it('should not handle Escape key when confirmation is null', () => {
             confirmPopupInstance.confirmation = null as any;
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-            spyOn(confirmPopupInstance, 'onReject');
+            vi.spyOn(confirmPopupInstance, 'onReject').mockImplementation(() => undefined);
 
             confirmPopupInstance.onEscapeKeydown(escapeEvent);
 
@@ -1192,7 +1202,7 @@ describe('ConfirmPopup', () => {
                 cancelable: true
             });
 
-            spyOn(confirmPopupInstance, 'onReject');
+            vi.spyOn(confirmPopupInstance, 'onReject').mockImplementation(() => undefined);
 
             // Dispatch event on document
             document.dispatchEvent(escapeKeyEvent);
@@ -1286,7 +1296,7 @@ describe('ConfirmPopup', () => {
         });
 
         it('should clean up on destroy', () => {
-            const unsubscribeSpy = spyOn(confirmPopupInstance.subscription, 'unsubscribe');
+            const unsubscribeSpy = vi.spyOn(confirmPopupInstance.subscription, 'unsubscribe').mockImplementation(() => undefined);
 
             fixture.destroy();
 
@@ -1332,7 +1342,7 @@ describe('ConfirmPopup', () => {
 
         it('should unsubscribe on destroy', () => {
             const subscription = confirmPopupInstance.subscription;
-            spyOn(subscription, 'unsubscribe');
+            vi.spyOn(subscription, 'unsubscribe').mockImplementation(() => undefined);
 
             confirmPopupInstance.ngOnDestroy();
 
@@ -1377,7 +1387,8 @@ describe('ConfirmPopup', () => {
     describe('PT (PassThrough) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [ConfirmPopup, ButtonModule, FocusTrap],
                 template: `
                     <p-confirmpopup [pt]="pt" key="test"></p-confirmpopup>
                     <button #btn (click)="confirm($event)">Confirm</button>
@@ -1409,8 +1420,7 @@ describe('ConfirmPopup', () => {
             it('should apply simple string classes to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase1Component],
-                    imports: [ConfirmPopup, ButtonModule],
+                    imports: [ConfirmPopup, ButtonModule, TestPTCase1Component],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1437,7 +1447,8 @@ describe('ConfirmPopup', () => {
 
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [ConfirmPopup, ButtonModule, FocusTrap],
                 template: `
                     <p-confirmpopup [pt]="pt" key="test"></p-confirmpopup>
                     <button #btn (click)="confirm($event)">Confirm</button>
@@ -1475,8 +1486,7 @@ describe('ConfirmPopup', () => {
             it('should apply object properties to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase2Component],
-                    imports: [ConfirmPopup, ButtonModule],
+                    imports: [ConfirmPopup, ButtonModule, TestPTCase2Component],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1506,7 +1516,8 @@ describe('ConfirmPopup', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [ConfirmPopup, ButtonModule, FocusTrap],
                 template: `
                     <p-confirmpopup [pt]="pt" key="test"></p-confirmpopup>
                     <button #btn (click)="confirm($event)">Confirm</button>
@@ -1538,8 +1549,7 @@ describe('ConfirmPopup', () => {
             it('should apply mixed object and string values correctly', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase3Component],
-                    imports: [ConfirmPopup, ButtonModule],
+                    imports: [ConfirmPopup, ButtonModule, TestPTCase3Component],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1566,7 +1576,8 @@ describe('ConfirmPopup', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [ConfirmPopup, ButtonModule, FocusTrap],
                 template: `
                     <p-confirmpopup [pt]="pt" key="test" [visible]="isVisible"></p-confirmpopup>
                     <button #btn (click)="confirm($event)">Confirm</button>
@@ -1604,8 +1615,7 @@ describe('ConfirmPopup', () => {
             it('should use instance variables in PT functions', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase4Component],
-                    imports: [ConfirmPopup, ButtonModule],
+                    imports: [ConfirmPopup, ButtonModule, TestPTCase4Component],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1628,7 +1638,8 @@ describe('ConfirmPopup', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [ConfirmPopup, ButtonModule, FocusTrap],
                 template: `
                     <p-confirmpopup [pt]="pt" key="test"></p-confirmpopup>
                     <button #btn (click)="confirm($event)">Confirm</button>
@@ -1664,8 +1675,7 @@ describe('ConfirmPopup', () => {
             it('should bind click events through PT', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase5Component],
-                    imports: [ConfirmPopup, ButtonModule],
+                    imports: [ConfirmPopup, ButtonModule, TestPTCase5Component],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1689,7 +1699,8 @@ describe('ConfirmPopup', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [ConfirmPopup, ButtonModule, FocusTrap],
                 template: `
                     <p-confirmpopup [pt]="{ root: 'INLINE_ROOT_CLASS', content: 'INLINE_CONTENT_CLASS' }" key="test"></p-confirmpopup>
                     <button #btn (click)="confirm($event)">Confirm</button>
@@ -1709,7 +1720,8 @@ describe('ConfirmPopup', () => {
             }
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [ConfirmPopup, ButtonModule, FocusTrap],
                 template: `
                     <p-confirmpopup [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, message: { class: 'INLINE_MESSAGE_CLASS' } }" key="test"></p-confirmpopup>
                     <button #btn (click)="confirm($event)">Confirm</button>
@@ -1731,8 +1743,7 @@ describe('ConfirmPopup', () => {
             it('should apply inline PT string classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineComponent],
-                    imports: [ConfirmPopup, ButtonModule],
+                    imports: [ConfirmPopup, ButtonModule, TestPTCase6InlineComponent],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1754,8 +1765,7 @@ describe('ConfirmPopup', () => {
             it('should apply inline PT object classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [ConfirmPopup, ButtonModule],
+                    imports: [ConfirmPopup, ButtonModule, TestPTCase6InlineObjectComponent],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1777,7 +1787,8 @@ describe('ConfirmPopup', () => {
 
         describe('Case 7: Test from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [ConfirmPopup, ButtonModule, FocusTrap],
                 template: `
                     <p-confirmpopup key="test1"></p-confirmpopup>
                     <button #btn1 (click)="confirm($event, 'test1')">Confirm 1</button>
@@ -1801,8 +1812,7 @@ describe('ConfirmPopup', () => {
             it('should apply global PT configuration from PrimeNGConfig', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase7GlobalComponent],
-                    imports: [ConfirmPopup, ButtonModule],
+                    imports: [ConfirmPopup, ButtonModule, TestPTCase7GlobalComponent],
                     providers: [
                         ConfirmationService,
                         OverlayService,
@@ -1831,7 +1841,8 @@ describe('ConfirmPopup', () => {
 
         describe('Case 8: Test hooks', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [ConfirmPopup, ButtonModule, FocusTrap],
                 template: `
                     <p-confirmpopup [pt]="pt" key="test"></p-confirmpopup>
                     <button #btn (click)="confirm($event)">Confirm</button>
@@ -1872,8 +1883,7 @@ describe('ConfirmPopup', () => {
             it('should call PT hooks on Angular lifecycle events', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase8HooksComponent],
-                    imports: [ConfirmPopup, ButtonModule],
+                    imports: [ConfirmPopup, ButtonModule, TestPTCase8HooksComponent],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 

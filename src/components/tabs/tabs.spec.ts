@@ -6,7 +6,8 @@ import { Tabs } from './tabs';
 import { TabsModule } from './tabs.module';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [TabsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-tabs [(value)]="value" [scrollable]="scrollable" [lazy]="lazy" [selectOnFocus]="selectOnFocus" [showNavigators]="showNavigators" [tabindex]="tabindex">
@@ -40,7 +41,8 @@ class TestTabsComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [TabsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-tabs [(value)]="value" [scrollable]="true">
@@ -86,7 +88,8 @@ class TestScrollableTabsComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [TabsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-tabs [(value)]="value" [lazy]="true">
@@ -114,7 +117,8 @@ class TestLazyTabsComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [TabsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-tabs [(value)]="value" [scrollable]="true">
@@ -160,7 +164,8 @@ class TestContentChildIconsTabsComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [TabsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-tabs [value]="1" [pt]="pt">
@@ -191,8 +196,7 @@ describe('Tabs', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [TabsModule],
-            declarations: [TestTabsComponent, TestScrollableTabsComponent, TestLazyTabsComponent, TestContentChildIconsTabsComponent, TestPTTabsComponent],
+            imports: [TabsModule, TestTabsComponent, TestScrollableTabsComponent, TestLazyTabsComponent, TestContentChildIconsTabsComponent, TestPTTabsComponent],
             providers: [provideZonelessChangeDetection()]
         });
 
@@ -441,7 +445,7 @@ describe('Tabs', () => {
 
         it('should handle right arrow key navigation', () => {
             const rightArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
-            spyOn(rightArrowEvent, 'preventDefault');
+            vi.spyOn(rightArrowEvent, 'preventDefault').mockImplementation(() => undefined);
 
             tabs[0].nativeElement.dispatchEvent(rightArrowEvent);
             fixture.detectChanges();
@@ -451,7 +455,7 @@ describe('Tabs', () => {
 
         it('should handle left arrow key navigation', () => {
             const leftArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
-            spyOn(leftArrowEvent, 'preventDefault');
+            vi.spyOn(leftArrowEvent, 'preventDefault').mockImplementation(() => undefined);
 
             tabs[1].nativeElement.focus();
             tabs[1].nativeElement.dispatchEvent(leftArrowEvent);
@@ -462,7 +466,7 @@ describe('Tabs', () => {
 
         it('should handle Home key navigation', () => {
             const homeEvent = new KeyboardEvent('keydown', { code: 'Home' });
-            spyOn(homeEvent, 'preventDefault');
+            vi.spyOn(homeEvent, 'preventDefault').mockImplementation(() => undefined);
 
             tabs[2].nativeElement.focus();
             tabs[2].nativeElement.dispatchEvent(homeEvent);
@@ -473,7 +477,7 @@ describe('Tabs', () => {
 
         it('should handle End key navigation', () => {
             const endEvent = new KeyboardEvent('keydown', { code: 'End' });
-            spyOn(endEvent, 'preventDefault');
+            vi.spyOn(endEvent, 'preventDefault').mockImplementation(() => undefined);
 
             tabs[0].nativeElement.dispatchEvent(endEvent);
             fixture.detectChanges();
@@ -483,7 +487,7 @@ describe('Tabs', () => {
 
         it('should handle Enter key activation', () => {
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
-            spyOn(enterEvent, 'preventDefault');
+            vi.spyOn(enterEvent, 'preventDefault').mockImplementation(() => undefined);
 
             tabs[1].nativeElement.focus();
             tabs[1].nativeElement.dispatchEvent(enterEvent);
@@ -495,7 +499,7 @@ describe('Tabs', () => {
 
         it('should handle Space key activation', () => {
             const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
-            spyOn(spaceEvent, 'preventDefault');
+            vi.spyOn(spaceEvent, 'preventDefault').mockImplementation(() => undefined);
 
             tabs[1].nativeElement.focus();
             tabs[1].nativeElement.dispatchEvent(spaceEvent);
@@ -597,7 +601,7 @@ describe('Tabs', () => {
 
         it('should handle previous button click', () => {
             const tabListComponent = scrollableFixture.debugElement.query(By.directive(TabList)).componentInstance;
-            spyOn(tabListComponent, 'onPrevButtonClick');
+            vi.spyOn(tabListComponent, 'onPrevButtonClick').mockImplementation(() => undefined);
 
             const prevButton = scrollableFixture.debugElement.query(By.css('.p-tablist-prev-button'));
             if (prevButton) {
@@ -611,7 +615,7 @@ describe('Tabs', () => {
 
         it('should handle next button click', () => {
             const tabListComponent = scrollableFixture.debugElement.query(By.directive(TabList)).componentInstance;
-            spyOn(tabListComponent, 'onNextButtonClick');
+            vi.spyOn(tabListComponent, 'onNextButtonClick').mockImplementation(() => undefined);
 
             const nextButton = scrollableFixture.debugElement.query(By.css('.p-tablist-next-button'));
             if (nextButton) {

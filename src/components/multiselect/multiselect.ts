@@ -26,8 +26,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MotionOptions } from '@primeuix/motion';
-import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isArray, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
+import { MotionOptions } from '@primus/primeuix/motion';
+import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isArray, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primus/primeuix/utils';
 import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from '@primus/core/api';
 import { AutoFocus } from '@primus/components/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';

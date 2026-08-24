@@ -22,8 +22,8 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionEvent, MotionOptions } from '@primeuix/motion';
-import { isEmpty, setAttribute, uuid } from '@primeuix/utils';
+import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
+import { isEmpty, setAttribute, uuid } from '@primus/primeuix/utils';
 import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind } from '@primus/core/bind';

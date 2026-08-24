@@ -22,8 +22,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { MotionEvent, MotionOptions } from '@primeuix/motion';
-import { appendChild, focus } from '@primeuix/utils';
+import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
+import { appendChild, focus } from '@primus/primeuix/utils';
 import { PrimeTemplate, SharedModule } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind, BindModule } from '@primus/core/bind';

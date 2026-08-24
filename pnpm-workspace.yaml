@@ -1,14 +1,6 @@
 packages:
     - '.'
 
-catalog:
-    '@primeuix/styled': 0.7.4
-    '@primeuix/utils': 0.7.2
-    '@primeuix/styles': 2.0.3
-    '@primeuix/themes': 2.0.3
-    '@primeuix/motion': 0.0.10
-    'primeicons': ^7.0.0
-
 catalogs:
     angular22:
         "@angular-devkit/build-angular": "^22.1.5"

@@ -2,10 +2,12 @@ import { Component, input, provideZonelessChangeDetection, ChangeDetectionStrate
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { CommonModule } from '@angular/common';
 import { Fluid, FluidModule } from './fluid';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FluidModule, CommonModule],
     selector: 'test-basic-fluid',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-fluid></p-fluid>`
@@ -13,7 +15,8 @@ import { Fluid, FluidModule } from './fluid';
 class TestBasicFluidComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FluidModule, CommonModule],
     selector: 'test-fluid-with-content',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -25,7 +28,8 @@ class TestBasicFluidComponent {}
 class TestFluidWithContentComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FluidModule, CommonModule],
     selector: 'test-fluid-with-form-controls',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -51,7 +55,8 @@ class TestFluidWithContentComponent {}
 class TestFluidWithFormControlsComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FluidModule, CommonModule],
     selector: 'test-nested-fluid',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -69,7 +74,8 @@ class TestFluidWithFormControlsComponent {}
 class TestNestedFluidComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FluidModule, CommonModule],
     selector: 'test-fluid-with-primeng-components',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -96,7 +102,8 @@ class TestNestedFluidComponent {}
 class TestFluidWithPrimeNGComponentsComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FluidModule, CommonModule],
     selector: 'test-fluid-responsive',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -120,7 +127,8 @@ class TestFluidWithPrimeNGComponentsComponent {}
 class TestFluidResponsiveComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FluidModule, CommonModule],
     selector: 'test-fluid-dynamic-content',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -152,7 +160,8 @@ class TestFluidDynamicContentComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FluidModule, CommonModule],
     selector: 'test-fluid-complex-layout',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -188,8 +197,8 @@ class TestFluidComplexLayoutComponent {}
 describe('Fluid', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [FluidModule],
-            declarations: [
+            imports: [
+                FluidModule,
                 TestBasicFluidComponent,
                 TestFluidWithContentComponent,
                 TestFluidWithFormControlsComponent,

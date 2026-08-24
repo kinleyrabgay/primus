@@ -2,7 +2,7 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "outDir": "./out-tsc/spec",
-        "types": ["jasmine", "node"]
+        "types": ["vitest/globals", "node"]
     },
     "angularCompilerOptions": {
         /* The base config is a library config: it emits a flat module in partial
@@ -13,6 +13,6 @@
     },
     /* The base config excludes *.spec.ts (they must never ship in the package);
        for the test build they are the entry points. */
-    "include": ["src/**/*.spec.ts", "src/**/*.d.ts"],
+    "include": ["src/**/*.spec.ts", "src/**/*.d.ts", "src/test-setup.ts"],
     "exclude": ["node_modules"]
 }

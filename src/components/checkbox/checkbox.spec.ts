@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -15,7 +16,8 @@ const mockIngredients = [
 ];
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-checkbox
@@ -88,7 +90,8 @@ class TestBasicCheckboxComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -118,7 +121,8 @@ class TestReactiveFormCheckboxComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-checkbox [(ngModel)]="selectedIngredients" *ngFor="let ingredient of ingredients; let i = index" [value]="ingredient.value" [inputId]="'ingredient-' + i" [name]="'pizza'" (onChange)="onSelectionChange($event)"> </p-checkbox> `
 })
@@ -134,7 +138,8 @@ class TestMultipleCheckboxComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-checkbox [(ngModel)]="value" [binary]="true" [disabled]="disabled" (onChange)="onSelectionChange($event)">
@@ -156,7 +161,8 @@ class TestTemplateCheckboxComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-checkbox [(ngModel)]="value" [binary]="true" [indeterminate]="indeterminate" [trueValue]="customTrueValue" [falseValue]="customFalseValue" (onChange)="onSelectionChange($event)"> </p-checkbox> `
 })
@@ -174,7 +180,8 @@ class TestIndeterminateCheckboxComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-checkbox [(ngModel)]="value" [binary]="true" [variant]="variant" [size]="size" inputId="styled-checkbox" [styleClass]="styleClass" [inputStyle]="inputStyle" [inputClass]="inputClass" (onChange)="onSelectionChange($event)"> </p-checkbox>
@@ -197,7 +204,8 @@ class TestStyledCheckboxComponent {
 
 // Checkbox pTemplate component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-checkbox [(ngModel)]="checked" [binary]="true" [value]="value">
@@ -218,7 +226,8 @@ class TestCheckboxPTemplateComponent {
 
 // Checkbox #template reference component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-checkbox [(ngModel)]="checked" [binary]="true" [value]="value">
@@ -240,8 +249,11 @@ class TestCheckboxRefTemplateComponent {
 describe('Checkbox', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule],
-            declarations: [
+            imports: [
+                FormsModule,
+                ReactiveFormsModule,
+                Checkbox,
+                SharedModule,
                 TestBasicCheckboxComponent,
                 TestReactiveFormCheckboxComponent,
                 TestMultipleCheckboxComponent,
@@ -483,7 +495,7 @@ describe('Checkbox', () => {
         });
 
         it('should focus programmatically', async () => {
-            spyOn(checkboxInstance.inputViewChild.nativeElement, 'focus');
+            vi.spyOn(checkboxInstance.inputViewChild.nativeElement, 'focus').mockImplementation(() => undefined);
 
             checkboxInstance.focus();
 

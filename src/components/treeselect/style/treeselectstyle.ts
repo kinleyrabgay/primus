@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style as treeselect_style } from '@primeuix/styles/treeselect';
+import { style as treeselect_style } from '@primus/primeuix/styles/treeselect';
 import { BaseStyle } from '@primus/core/base';
 
 const style = /*css*/ `

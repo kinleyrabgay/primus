@@ -20,7 +20,8 @@ const mockProducts = [
 
 // Test Components for different scenarios
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-carousel
@@ -85,7 +86,8 @@ class TestBasicCarouselComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true">
@@ -100,7 +102,8 @@ class TestCircularCarouselComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-carousel [value]="products" [orientation]="'vertical'" [verticalViewPortHeight]="'400px'">
@@ -115,7 +118,8 @@ class TestVerticalCarouselComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-carousel [value]="products" [responsiveOptions]="responsiveOptions">
@@ -135,7 +139,8 @@ class TestResponsiveCarouselComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-carousel [value]="products" [autoplayInterval]="1000">
@@ -150,7 +155,8 @@ class TestAutoplayCarouselComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-carousel [value]="products" [numVisible]="3">
@@ -171,7 +177,8 @@ class TestTemplateCarouselComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-carousel [value]="products">
@@ -201,8 +208,20 @@ describe('Carousel', () => {
         });
 
         await TestBed.configureTestingModule({
-            imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
-            declarations: [TestBasicCarouselComponent, TestCircularCarouselComponent, TestVerticalCarouselComponent, TestResponsiveCarouselComponent, TestAutoplayCarouselComponent, TestTemplateCarouselComponent, TestPTemplateCarouselComponent],
+            imports: [
+                CommonModule,
+                Carousel,
+                SharedModule,
+                PrimeTemplate,
+                ButtonModule,
+                TestBasicCarouselComponent,
+                TestCircularCarouselComponent,
+                TestVerticalCarouselComponent,
+                TestResponsiveCarouselComponent,
+                TestAutoplayCarouselComponent,
+                TestTemplateCarouselComponent,
+                TestPTemplateCarouselComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -350,7 +369,7 @@ describe('Carousel', () => {
 
         it('should navigate forward', () => {
             const mockEvent = new MouseEvent('click');
-            spyOn(component, 'onPage');
+            vi.spyOn(component, 'onPage').mockImplementation(() => undefined);
 
             carouselInstance.navForward(mockEvent);
 
@@ -359,7 +378,7 @@ describe('Carousel', () => {
 
         it('should navigate backward', () => {
             const mockEvent = new MouseEvent('click');
-            spyOn(component, 'onPage');
+            vi.spyOn(component, 'onPage').mockImplementation(() => undefined);
 
             // Move to page 1 first
             carouselInstance._page = 1;
@@ -370,7 +389,7 @@ describe('Carousel', () => {
 
         it('should handle dot click navigation', () => {
             const mockEvent = new MouseEvent('click');
-            spyOn(carouselInstance, 'navForward');
+            vi.spyOn(carouselInstance, 'navForward').mockImplementation(() => undefined);
 
             carouselInstance.onDotClick(mockEvent, 1);
 
@@ -379,7 +398,7 @@ describe('Carousel', () => {
 
         it('should prevent default on navigation events', () => {
             const mockEvent = {
-                preventDefault: jasmine.createSpy('preventDefault'),
+                preventDefault: vi.fn(),
                 cancelable: true
             } as any;
 
@@ -484,7 +503,7 @@ describe('Carousel', () => {
         });
 
         it('should bind document listeners for responsive mode', () => {
-            spyOn(carouselInstance, 'bindDocumentListeners').and.callThrough();
+            vi.spyOn(carouselInstance, 'bindDocumentListeners');
 
             carouselInstance.ngAfterContentInit();
 
@@ -633,7 +652,7 @@ describe('Carousel', () => {
         it('should handle touch move event', () => {
             const mockTouchEvent = {
                 cancelable: true,
-                preventDefault: jasmine.createSpy('preventDefault')
+                preventDefault: vi.fn()
             } as any;
 
             carouselInstance.onTouchMove(mockTouchEvent);
@@ -649,7 +668,7 @@ describe('Carousel', () => {
                 changedTouches: [{ pageX: 50, pageY: 50 }]
             } as any;
 
-            spyOn(carouselInstance, 'changePageOnTouch');
+            vi.spyOn(carouselInstance, 'changePageOnTouch').mockImplementation(() => undefined);
 
             carouselInstance.onTouchEnd(mockTouchEvent);
 
@@ -677,7 +696,7 @@ describe('Carousel', () => {
                 code: 'ArrowRight'
             } as KeyboardEvent;
 
-            spyOn(carouselInstance, 'onRightKey');
+            vi.spyOn(carouselInstance, 'onRightKey').mockImplementation(() => undefined);
 
             carouselInstance.onIndicatorKeydown(mockKeyboardEvent);
 
@@ -689,7 +708,7 @@ describe('Carousel', () => {
                 code: 'ArrowLeft'
             } as KeyboardEvent;
 
-            spyOn(carouselInstance, 'onLeftKey');
+            vi.spyOn(carouselInstance, 'onLeftKey').mockImplementation(() => undefined);
 
             carouselInstance.onIndicatorKeydown(mockKeyboardEvent);
 
@@ -765,7 +784,7 @@ describe('Carousel', () => {
         });
 
         it('should emit onPage event when page changes', () => {
-            spyOn(component, 'onPage');
+            vi.spyOn(component, 'onPage').mockImplementation(() => undefined);
 
             carouselInstance.onPage.emit({ page: 1 });
 
@@ -773,7 +792,7 @@ describe('Carousel', () => {
         });
 
         it('should emit onPage event with correct parameters during navigation', () => {
-            spyOn(carouselInstance.onPage, 'emit');
+            vi.spyOn(carouselInstance.onPage, 'emit').mockImplementation(() => undefined);
 
             carouselInstance.step(-1, 1);
 
@@ -847,7 +866,7 @@ describe('Carousel', () => {
         });
 
         it('should cleanup document listeners on destroy', () => {
-            spyOn(carouselInstance, 'unbindDocumentListeners');
+            vi.spyOn(carouselInstance, 'unbindDocumentListeners').mockImplementation(() => undefined);
 
             carouselInstance.ngOnDestroy();
 
@@ -858,7 +877,7 @@ describe('Carousel', () => {
             carouselInstance.autoplayInterval = 1000;
             carouselInstance.startAutoplay();
 
-            spyOn(carouselInstance, 'stopAutoplay').and.callThrough();
+            vi.spyOn(carouselInstance, 'stopAutoplay');
 
             carouselInstance.ngOnDestroy();
 
@@ -925,7 +944,7 @@ describe('Carousel', () => {
         });
 
         it('should handle step with different directions', () => {
-            spyOn(carouselInstance.onPage, 'emit');
+            vi.spyOn(carouselInstance.onPage, 'emit').mockImplementation(() => undefined);
 
             carouselInstance.step(1); // Backward
             expect(carouselInstance.onPage.emit).toHaveBeenCalled();

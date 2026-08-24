@@ -47,7 +47,7 @@ import {
     removeClass,
     reorderArray,
     resolveFieldData
-} from '@primeuix/utils';
+} from '@primus/primeuix/utils';
 import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from '@primus/core/api';
 import { BadgeModule } from '@primus/components/badge';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';

@@ -23,7 +23,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { findSingle, setAttribute, uuid } from '@primeuix/utils';
+import { findSingle, setAttribute, uuid } from '@primus/primeuix/utils';
 import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind } from '@primus/core/bind';

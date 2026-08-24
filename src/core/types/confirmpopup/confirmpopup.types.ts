@@ -1,7 +1,7 @@
 import type { Confirmation, PassThrough, PassThroughOption } from '@primus/core/api';
 import type { ButtonPassThrough } from '@primus/core/types/button';
 import { TemplateRef } from '@angular/core';
-import type { MotionOptions } from '@primeuix/motion';
+import type { MotionOptions } from '@primus/primeuix/motion';
 
 /**
  * Custom pass-through(pt) options.

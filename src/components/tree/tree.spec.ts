@@ -1,6 +1,7 @@
 import { Component, ViewChild, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
 import { TreeDragDropService, TreeNode } from '@primus/core/api';
@@ -8,8 +9,9 @@ import { Tree, UITreeNode } from './tree';
 
 // Test component for basic use cases
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [Tree, UITreeNode, FormsModule],
     template: `
         <p-tree
             [value]="nodes"
@@ -124,8 +126,9 @@ class TestBasicTreeComponent {
 
 // Test component for pTemplate testing
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [Tree, UITreeNode, FormsModule],
     template: `
         <p-tree [value]="nodes" [filter]="true" [loading]="loading">
             <ng-template pTemplate="default" let-node>
@@ -190,8 +193,9 @@ class TestPTemplateTreeComponent {
 
 // Test component for #template testing (new approach)
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [Tree, UITreeNode, FormsModule, CommonModule],
     template: `
         <p-tree [value]="nodes" [filter]="true" [loading]="loading">
             <ng-template #node let-node>
@@ -244,8 +248,9 @@ class TestTemplateRefTreeComponent {
 
 // Test component for context testing
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [Tree, UITreeNode, FormsModule],
     template: `
         <p-tree [value]="nodes" [selectionMode]="'checkbox'">
             <ng-template pTemplate="default" let-node let-index="index" let-first="first" let-last="last">
@@ -283,8 +288,9 @@ class TestContextTreeComponent {
 
 // Dedicated Template Test Components (originally in tree-templates.spec.ts)
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [Tree, UITreeNode, FormsModule, CommonModule],
     template: `
         <p-tree [value]="nodes" [filter]="true" [loading]="loading" [selectionMode]="'checkbox'">
             <ng-template pTemplate="default" let-node>
@@ -336,8 +342,9 @@ class TestPTemplateComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [Tree, UITreeNode, FormsModule],
     template: `
         <p-tree [value]="nodes" [filter]="true" [loading]="loading">
             <ng-template #node let-node>
@@ -378,8 +385,7 @@ describe('Tree', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicTreeComponent, TestPTemplateTreeComponent, TestTemplateRefTreeComponent, TestContextTreeComponent, TestPTemplateComponent, TestTemplateRefComponent, TestDynamicTreeComponent],
-            imports: [Tree, UITreeNode, FormsModule],
+            imports: [Tree, UITreeNode, FormsModule, TestBasicTreeComponent, TestPTemplateTreeComponent, TestTemplateRefTreeComponent, TestContextTreeComponent, TestPTemplateComponent, TestTemplateRefComponent, TestDynamicTreeComponent],
             providers: [TreeDragDropService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1102,7 +1108,7 @@ describe('Tree', () => {
                 const pTemplateFixture = TestBed.createComponent(TestPTemplateTreeComponent);
                 const tree = pTemplateFixture.debugElement.query(By.directive(Tree)).componentInstance;
 
-                spyOn(tree, 'ngAfterContentInit').and.callThrough();
+                vi.spyOn(tree, 'ngAfterContentInit');
 
                 pTemplateFixture.detectChanges();
 
@@ -1461,7 +1467,7 @@ describe('Tree', () => {
             });
 
             it('should process pTemplate templates in ngAfterContentInit', async () => {
-                spyOn(tree, 'ngAfterContentInit').and.callThrough();
+                vi.spyOn(tree, 'ngAfterContentInit');
 
                 tree.ngAfterContentInit();
                 await fixture.whenStable();
@@ -2473,8 +2479,7 @@ describe('Tree', () => {
         beforeEach(async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                declarations: [TestBasicTreeComponent],
-                imports: [Tree, FormsModule],
+                imports: [Tree, FormsModule, TestBasicTreeComponent],
                 providers: [TreeDragDropService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -2484,7 +2489,7 @@ describe('Tree', () => {
 
             // Mock context menu
             mockContextMenu = {
-                show: jasmine.createSpy('show')
+                show: vi.fn()
             };
 
             component.nodes = [
@@ -2720,7 +2725,7 @@ describe('Tree', () => {
         });
 
         it('should emit onNodeContextMenuSelect event on right click', async () => {
-            spyOn(tree.onNodeContextMenuSelect, 'emit');
+            vi.spyOn(tree.onNodeContextMenuSelect, 'emit').mockImplementation(() => undefined);
 
             const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
             const rightClickEvent = new MouseEvent('contextmenu', {
@@ -2733,9 +2738,9 @@ describe('Tree', () => {
             await fixture.whenStable();
 
             expect(tree.onNodeContextMenuSelect.emit).toHaveBeenCalledWith(
-                jasmine.objectContaining({
-                    originalEvent: jasmine.any(MouseEvent),
-                    node: jasmine.objectContaining({ label: 'Documents' })
+                expect.objectContaining({
+                    originalEvent: expect.any(MouseEvent),
+                    node: expect.objectContaining({ label: 'Documents' })
                 })
             );
         });
@@ -2820,8 +2825,9 @@ describe('Tree', () => {
 
 // Test component for dynamic values
 @Component({
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [Tree, UITreeNode, FormsModule],
     template: `
         <p-tree
             #tree

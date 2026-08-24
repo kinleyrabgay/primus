@@ -1,11 +1,13 @@
 import { Component, DebugElement, Input, TemplateRef, ViewChild, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { Toolbar, ToolbarModule } from './toolbar';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToolbarModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toolbar [ariaLabelledBy]="ariaLabelledBy">
@@ -18,7 +20,8 @@ class TestBasicToolbarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToolbarModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toolbar>
@@ -37,7 +40,8 @@ class TestBasicToolbarComponent {
 class TestTemplateToolbarComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToolbarModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toolbar>
@@ -56,7 +60,8 @@ class TestTemplateToolbarComponent {}
 class TestLegacyTemplateToolbarComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToolbarModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toolbar>
@@ -79,7 +84,8 @@ class TestContentChildToolbarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToolbarModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toolbar>
@@ -99,7 +105,8 @@ class TestContentChildToolbarComponent {
 class TestComplexToolbarComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToolbarModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toolbar>
@@ -112,7 +119,8 @@ class TestComplexToolbarComponent {}
 class TestStartOnlyToolbarComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToolbarModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toolbar>
@@ -125,7 +133,8 @@ class TestStartOnlyToolbarComponent {}
 class TestCenterOnlyToolbarComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToolbarModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toolbar>
@@ -138,7 +147,8 @@ class TestCenterOnlyToolbarComponent {}
 class TestEndOnlyToolbarComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToolbarModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toolbar [ariaLabelledBy]="ariaLabel">
@@ -168,7 +178,8 @@ class TestDynamicToolbarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToolbarModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-toolbar [pt]="pt">
@@ -196,8 +207,8 @@ describe('Toolbar', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ToolbarModule],
-            declarations: [
+            imports: [
+                ToolbarModule,
                 TestBasicToolbarComponent,
                 TestTemplateToolbarComponent,
                 TestLegacyTemplateToolbarComponent,

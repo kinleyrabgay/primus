@@ -1,4 +1,5 @@
 import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -6,8 +7,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem, SharedModule } from '@primus/core/api';
 import { PanelMenu } from './panelmenu';
 
+const TEST_IMPORTS = [PanelMenu, SharedModule, RouterTestingModule, CommonModule];
+
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: TEST_IMPORTS,
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-panelmenu [id]="id" [model]="model" [multiple]="multiple" [transitionOptions]="transitionOptions" [styleClass]="styleClass" [tabindex]="tabindex"> </p-panelmenu> `
 })
@@ -40,7 +44,8 @@ class TestBasicPanelMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: TEST_IMPORTS,
     selector: 'test-multiple-panelmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-panelmenu [model]="model" [multiple]="true"> </p-panelmenu> `
@@ -61,7 +66,8 @@ class TestMultiplePanelMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: TEST_IMPORTS,
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-panelmenu [model]="model">
@@ -81,7 +87,8 @@ class TestTemplatePanelMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: TEST_IMPORTS,
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-panelmenu [model]="model">
@@ -104,7 +111,8 @@ class TestIconTemplatePanelMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: TEST_IMPORTS,
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-panelmenu [model]="model">
@@ -127,7 +135,8 @@ class TestContentItemTemplatePanelMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: TEST_IMPORTS,
     selector: 'test-router-panelmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-panelmenu [model]="model"> </p-panelmenu> `
@@ -152,7 +161,8 @@ class TestRouterPanelMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: TEST_IMPORTS,
     selector: 'test-disabled-panelmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-panelmenu [model]="model"> </p-panelmenu> `
@@ -173,7 +183,8 @@ class TestDisabledPanelMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: TEST_IMPORTS,
     selector: 'test-styled-panelmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-panelmenu [model]="model" styleClass="custom-panel" [transitionOptions]="transitionOptions"> </p-panelmenu> `
@@ -190,7 +201,8 @@ class TestStyledPanelMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: TEST_IMPORTS,
     selector: 'test-empty-panelmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-panelmenu [model]="[]"> </p-panelmenu> `
@@ -198,7 +210,8 @@ class TestStyledPanelMenuComponent {
 class TestEmptyPanelMenuComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: TEST_IMPORTS,
     selector: 'test-dynamic-panelmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-panelmenu [model]="model"> </p-panelmenu> `
@@ -217,7 +230,8 @@ class TestDynamicPanelMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: TEST_IMPORTS,
     selector: 'test-command-panelmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-panelmenu [model]="model"> </p-panelmenu> `
@@ -242,7 +256,8 @@ class TestCommandPanelMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: TEST_IMPORTS,
     selector: 'test-keyboard-panelmenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-panelmenu [model]="model" [tabindex]="0"> </p-panelmenu> `
@@ -264,7 +279,10 @@ describe('PanelMenu', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
+                PanelMenu,
+                SharedModule,
+                RouterTestingModule,
                 TestBasicPanelMenuComponent,
                 TestMultiplePanelMenuComponent,
                 TestTemplatePanelMenuComponent,
@@ -278,7 +296,6 @@ describe('PanelMenu', () => {
                 TestCommandPanelMenuComponent,
                 TestKeyboardPanelMenuComponent
             ],
-            imports: [PanelMenu, SharedModule, RouterTestingModule],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 

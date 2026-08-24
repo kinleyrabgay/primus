@@ -6,7 +6,8 @@ import { TooltipOptions } from '@primus/core/api';
 import { Tooltip } from './tooltip';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Tooltip],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <input
@@ -55,7 +56,8 @@ class TestBasicTooltipComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Tooltip],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <input #templateElement [pTooltip]="tooltipTemplate" type="text" placeholder="Template tooltip" />
@@ -73,7 +75,8 @@ class TestTemplateTooltipComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Tooltip],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <button #buttonElement pTooltip="Button tooltip" [tooltipOptions]="options" type="button">Click me</button> `
 })
@@ -94,8 +97,7 @@ class TestTooltipOptionsComponent {
 describe('Tooltip', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [Tooltip],
-            declarations: [TestBasicTooltipComponent, TestTemplateTooltipComponent, TestTooltipOptionsComponent],
+            imports: [Tooltip, TestBasicTooltipComponent, TestTemplateTooltipComponent, TestTooltipOptionsComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -179,7 +181,7 @@ describe('Tooltip', () => {
         });
 
         it('should show tooltip on activation', () => {
-            spyOn(tooltipDirective, 'show').and.callThrough();
+            vi.spyOn(tooltipDirective, 'show');
 
             tooltipDirective.activate();
 
@@ -188,7 +190,7 @@ describe('Tooltip', () => {
         });
 
         it('should hide tooltip on deactivation', () => {
-            spyOn(tooltipDirective, 'hide').and.callThrough();
+            vi.spyOn(tooltipDirective, 'hide');
 
             tooltipDirective.activate();
             tooltipDirective.deactivate();
@@ -241,7 +243,7 @@ describe('Tooltip', () => {
         });
 
         it('should activate on mouse enter for hover event', () => {
-            spyOn(tooltipDirective, 'activate');
+            vi.spyOn(tooltipDirective, 'activate').mockImplementation(() => undefined);
 
             tooltipDirective.onMouseEnter(new MouseEvent('mouseenter'));
 
@@ -249,7 +251,7 @@ describe('Tooltip', () => {
         });
 
         it('should deactivate on mouse leave for hover event', () => {
-            spyOn(tooltipDirective, 'deactivate');
+            vi.spyOn(tooltipDirective, 'deactivate').mockImplementation(() => undefined);
 
             tooltipDirective.onMouseLeave(new MouseEvent('mouseleave') as any);
 
@@ -257,7 +259,7 @@ describe('Tooltip', () => {
         });
 
         it('should activate on focus for focus event', () => {
-            spyOn(tooltipDirective, 'activate');
+            vi.spyOn(tooltipDirective, 'activate').mockImplementation(() => undefined);
 
             tooltipDirective.onFocus(new FocusEvent('focus'));
 
@@ -265,7 +267,7 @@ describe('Tooltip', () => {
         });
 
         it('should deactivate on blur for focus event', () => {
-            spyOn(tooltipDirective, 'deactivate');
+            vi.spyOn(tooltipDirective, 'deactivate').mockImplementation(() => undefined);
 
             tooltipDirective.onBlur(new FocusEvent('blur'));
 
@@ -273,7 +275,7 @@ describe('Tooltip', () => {
         });
 
         it('should deactivate on input click', () => {
-            spyOn(tooltipDirective, 'deactivate');
+            vi.spyOn(tooltipDirective, 'deactivate').mockImplementation(() => undefined);
 
             tooltipDirective.onInputClick(new MouseEvent('click'));
 
@@ -351,7 +353,7 @@ describe('Tooltip', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            spyOn(tooltipDirective, 'show');
+            vi.spyOn(tooltipDirective, 'show').mockImplementation(() => undefined);
 
             tooltipDirective.activate();
             await new Promise((resolve) => setTimeout(resolve, 300));
@@ -371,7 +373,7 @@ describe('Tooltip', () => {
 
             tooltipDirective.activate();
 
-            spyOn(tooltipDirective, 'hide');
+            vi.spyOn(tooltipDirective, 'hide').mockImplementation(() => undefined);
             tooltipDirective.deactivate();
 
             await new Promise((resolve) => setTimeout(resolve, 200));
@@ -409,7 +411,7 @@ describe('Tooltip', () => {
         });
 
         it('should handle escape key when hideOnEscape is true', async () => {
-            spyOn(tooltipDirective, 'deactivate');
+            vi.spyOn(tooltipDirective, 'deactivate').mockImplementation(() => undefined);
             tooltipDirective.setOption({ hideOnEscape: true });
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -474,7 +476,7 @@ describe('Tooltip', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            spyOn(document, 'createTextNode').and.callThrough();
+            vi.spyOn(document, 'createTextNode');
 
             tooltipDirective.setOption({ tooltipLabel: 'Test content' });
             fixture.changeDetectorRef.markForCheck();
@@ -572,7 +574,7 @@ describe('Tooltip', () => {
         });
 
         it('should prevent multiple activations during interaction', () => {
-            spyOn(tooltipDirective, 'show');
+            vi.spyOn(tooltipDirective, 'show').mockImplementation(() => undefined);
 
             tooltipDirective.activate();
             tooltipDirective.activate(); // Second activation should be ignored
@@ -587,7 +589,7 @@ describe('Tooltip', () => {
         });
 
         it('should handle window resize events', () => {
-            spyOn(tooltipDirective, 'hide');
+            vi.spyOn(tooltipDirective, 'hide').mockImplementation(() => undefined);
 
             tooltipDirective.onWindowResize(new Event('resize'));
 
@@ -595,7 +597,7 @@ describe('Tooltip', () => {
         });
 
         it('should unbind all event listeners on destroy', () => {
-            spyOn(tooltipDirective, 'unbindEvents');
+            vi.spyOn(tooltipDirective, 'unbindEvents').mockImplementation(() => undefined);
 
             tooltipDirective.ngOnDestroy();
 
@@ -605,14 +607,14 @@ describe('Tooltip', () => {
         it('should clear all timeouts on destroy', () => {
             tooltipDirective.showTimeout = setTimeout(() => {}, 500);
 
-            spyOn(tooltipDirective, 'clearTimeouts').and.callThrough();
+            vi.spyOn(tooltipDirective, 'clearTimeouts');
             tooltipDirective.ngOnDestroy();
 
             expect(tooltipDirective.clearTimeouts).toHaveBeenCalled();
         });
 
         it('should handle mouseenter without existing container', () => {
-            spyOn(tooltipDirective, 'activate');
+            vi.spyOn(tooltipDirective, 'activate').mockImplementation(() => undefined);
 
             tooltipDirective.container = null as any;
             tooltipDirective.showTimeout = null as any;
@@ -623,7 +625,7 @@ describe('Tooltip', () => {
         });
 
         it('should handle mouseleave with non-autoHide tooltip', () => {
-            spyOn(tooltipDirective, 'deactivate');
+            vi.spyOn(tooltipDirective, 'deactivate').mockImplementation(() => undefined);
 
             const mouseLeaveEvent = new MouseEvent('mouseleave', {
                 relatedTarget: document.createElement('div')
@@ -649,7 +651,8 @@ describe('Tooltip', () => {
 
     describe('PassThrough', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [Tooltip],
             template: ` <input #inputElement pTooltip="PT Test Tooltip" [pt]="pt" type="text" /> `
         })
         class TestPTTooltipComponent {
@@ -665,8 +668,7 @@ describe('Tooltip', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Tooltip],
-                declarations: [TestPTTooltipComponent],
+                imports: [Tooltip, TestPTTooltipComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 

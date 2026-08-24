@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/tooltip';
+import { style } from '@primus/primeuix/styles/tooltip';
 import { BaseStyle } from '@primus/core/base';
 
 const classes = {

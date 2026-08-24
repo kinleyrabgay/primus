@@ -19,7 +19,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { findSingle, getHeight, getWidth, isTouchDevice, isVisible } from '@primeuix/utils';
+import { findSingle, getHeight, getWidth, isTouchDevice, isVisible } from '@primus/primeuix/utils';
 import { PrimeTemplate, ScrollerOptions, SharedModule } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind } from '@primus/core/bind';

@@ -23,8 +23,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
-import { MotionOptions } from '@primeuix/motion';
-import { find, findIndexInList, uuid } from '@primeuix/utils';
+import { MotionOptions } from '@primus/primeuix/motion';
+import { find, findIndexInList, uuid } from '@primus/primeuix/utils';
 import { PrimeTemplate, SharedModule } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind, BindModule } from '@primus/core/bind';

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style as inputnumber_style } from '@primeuix/styles/inputnumber';
+import { style as inputnumber_style } from '@primus/primeuix/styles/inputnumber';
 import { BaseStyle } from '@primus/core/base';
 
 const style = /*css*/ `

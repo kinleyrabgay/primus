@@ -4,7 +4,8 @@ import { By } from '@angular/platform-browser';
 import { ProgressBar } from './progressbar';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ProgressBar],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-progressbar [value]="value" [showValue]="showValue" [unit]="unit" [mode]="mode" [color]="color" [valueStyleClass]="valueStyleClass" [styleClass]="styleClass"> </p-progressbar>`
 })
@@ -19,7 +20,8 @@ class TestBasicProgressBarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ProgressBar],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-progressbar [value]="value">
@@ -34,7 +36,8 @@ class TestPTemplateProgressBarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ProgressBar],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-progressbar [value]="value">
@@ -49,7 +52,8 @@ class TestContentTemplateProgressBarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ProgressBar],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-progressbar [value]="value" mode="indeterminate"></p-progressbar>`
 })
@@ -58,7 +62,8 @@ class TestIndeterminateProgressBarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ProgressBar],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-progressbar [value]="value" [style]="style" [styleClass]="styleClass"></p-progressbar>`
 })
@@ -76,8 +81,7 @@ describe('ProgressBar', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicProgressBarComponent, TestPTemplateProgressBarComponent, TestContentTemplateProgressBarComponent, TestIndeterminateProgressBarComponent, TestStyleProgressBarComponent],
-            imports: [ProgressBar],
+            imports: [ProgressBar, TestBasicProgressBarComponent, TestPTemplateProgressBarComponent, TestContentTemplateProgressBarComponent, TestIndeterminateProgressBarComponent, TestStyleProgressBarComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 

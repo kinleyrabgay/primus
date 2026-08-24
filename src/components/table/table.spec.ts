@@ -13,7 +13,8 @@ describe('Table', () => {
     let fixture: ComponentFixture<Table>;
 
     @Component({
-        standalone: false,
+        standalone: true,
+        imports: [CommonModule, FormsModule, TableModule, SharedModule, Select],
         template: `
             <p-table [value]="products" [dataKey]="'id'">
                 <ng-template #header>
@@ -58,7 +59,8 @@ describe('Table', () => {
     }
 
     @Component({
-        standalone: false,
+        standalone: true,
+        imports: [CommonModule, FormsModule, TableModule, SharedModule, Select],
         template: `
             <p-table [value]="products" [selection]="selectedProducts" [selectionMode]="'multiple'" [dataKey]="'id'">
                 <ng-template #header>
@@ -89,7 +91,8 @@ describe('Table', () => {
     }
 
     @Component({
-        standalone: false,
+        standalone: true,
+        imports: [CommonModule, FormsModule, TableModule, SharedModule, Select],
         template: `
             <p-table [value]="products" [sortMode]="'multiple'">
                 <ng-template #header>
@@ -118,7 +121,8 @@ describe('Table', () => {
     }
 
     @Component({
-        standalone: false,
+        standalone: true,
+        imports: [CommonModule, FormsModule, TableModule, SharedModule, Select],
         template: `
             <p-table [value]="products" [globalFilterFields]="['name', 'category']">
                 <ng-template #header>
@@ -163,7 +167,8 @@ describe('Table', () => {
     }
 
     @Component({
-        standalone: false,
+        standalone: true,
+        imports: [CommonModule, FormsModule, TableModule, SharedModule, Select],
         template: `
             <p-table [value]="products" [virtualScroll]="true" [virtualScrollItemSize]="46" [scrollHeight]="'400px'">
                 <ng-template #header>
@@ -192,7 +197,8 @@ describe('Table', () => {
     }
 
     @Component({
-        standalone: false,
+        standalone: true,
+        imports: [CommonModule, FormsModule, TableModule, SharedModule, Select],
         template: `
             <p-table [value]="products" [lazy]="true" [totalRecords]="totalRecords" [paginator]="true" [rows]="10" (onLazyLoad)="loadProducts($event)">
                 <ng-template #header>
@@ -227,7 +233,8 @@ describe('Table', () => {
     }
 
     @Component({
-        standalone: false,
+        standalone: true,
+        imports: [CommonModule, FormsModule, TableModule, SharedModule, Select],
         template: `
             <p-table [value]="products">
                 <ng-template #caption>
@@ -264,8 +271,8 @@ describe('Table', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [Table, TestBasicTableComponent, TestSelectionTableComponent, TestSortingTableComponent, TestFilteringTableComponent, TestVirtualScrollTableComponent, TestLazyLoadTableComponent, TestTemplatesTableComponent],
-            imports: [CommonModule, FormsModule, TableModule, SharedModule, Select],
+            declarations: [Table],
+            imports: [CommonModule, FormsModule, TableModule, SharedModule, Select, TestBasicTableComponent, TestSelectionTableComponent, TestSortingTableComponent, TestFilteringTableComponent, TestVirtualScrollTableComponent, TestLazyLoadTableComponent, TestTemplatesTableComponent],
             providers: [TableService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -435,7 +442,7 @@ describe('Table', () => {
         });
 
         it('should emit lazy load event', () => {
-            spyOn(testComponent, 'loadProducts');
+            vi.spyOn(testComponent, 'loadProducts').mockImplementation(() => undefined);
             const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
 
             tableInstance.onLazyLoad.emit({ first: 0, rows: 10 });
@@ -529,7 +536,7 @@ describe('Table', () => {
 
         it('should support CSV export for external analysis', () => {
             const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
-            spyOn(tableInstance, 'exportCSV');
+            vi.spyOn(tableInstance, 'exportCSV').mockImplementation(() => undefined);
 
             tableInstance.exportCSV({ selectionOnly: false });
             expect(tableInstance.exportCSV).toHaveBeenCalledWith({ selectionOnly: false });
@@ -575,7 +582,7 @@ describe('Table', () => {
             });
 
             it('should export data in multiple formats', () => {
-                spyOn(component, 'exportCSV');
+                vi.spyOn(component, 'exportCSV').mockImplementation(() => undefined);
                 component.exportCSV();
                 expect(component.exportCSV).toHaveBeenCalled();
             });
@@ -647,7 +654,8 @@ describe('Table', () => {
         };
 
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, FormsModule, TableModule, SharedModule, Select],
             template: `
                 <p-table
                     [value]="products"
@@ -724,8 +732,7 @@ describe('Table', () => {
 
         it('PT Section 1: host - should apply PT to host DOM element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -739,8 +746,7 @@ describe('Table', () => {
 
         it('PT Section 2: root - should apply PT to root DOM element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -754,8 +760,7 @@ describe('Table', () => {
 
         it('PT Section 3: mask - should apply PT to loading mask element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -773,8 +778,7 @@ describe('Table', () => {
 
         it('PT Section 4: loadingIcon - should apply PT to loading icon element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -792,8 +796,7 @@ describe('Table', () => {
 
         it('PT Section 5: header - should apply PT to header (caption) element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -807,8 +810,7 @@ describe('Table', () => {
 
         it('PT Section 6: pcPaginator - should apply PT to paginator component', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -822,8 +824,7 @@ describe('Table', () => {
 
         it('PT Section 7: tableContainer - should apply PT to table container element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -837,8 +838,7 @@ describe('Table', () => {
 
         it('PT Section 8: virtualScroller - should apply PT to virtual scroller component', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -856,8 +856,7 @@ describe('Table', () => {
 
         it('PT Section 9: table - should apply PT to table element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -871,8 +870,7 @@ describe('Table', () => {
 
         it('PT Section 10: thead - should apply PT to thead element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -886,8 +884,7 @@ describe('Table', () => {
 
         it('PT Section 11: tbody - should apply PT to tbody element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -901,8 +898,7 @@ describe('Table', () => {
 
         it('PT Section 12: virtualScrollerSpacer - should apply PT to virtual scroller spacer element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -923,8 +919,7 @@ describe('Table', () => {
 
         it('PT Section 13: tfoot - should apply PT to tfoot element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -938,8 +933,7 @@ describe('Table', () => {
 
         it('PT Section 14: footer - should apply PT to footer element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -953,8 +947,7 @@ describe('Table', () => {
 
         it('PT Section 15: columnResizeIndicator - should apply PT to column resize indicator element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -968,8 +961,7 @@ describe('Table', () => {
 
         it('PT Section 16: rowReorderIndicatorUp - should apply PT to row reorder indicator up element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -983,8 +975,7 @@ describe('Table', () => {
 
         it('PT Section 17: rowReorderIndicatorDown - should apply PT to row reorder indicator down element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -998,8 +989,7 @@ describe('Table', () => {
 
         it('PT Section 18: reorderableRow - should apply PT to reorderable row element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1013,8 +1003,7 @@ describe('Table', () => {
 
         it('PT Section 19: reorderableRowHandle - should apply PT to reorderable row handle element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1028,8 +1017,7 @@ describe('Table', () => {
 
         it('PT Section 20: headerCheckbox - should apply PT to header checkbox component', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1043,8 +1031,7 @@ describe('Table', () => {
 
         it('PT Section 21: pcCheckbox - should apply PT to checkbox component', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1058,8 +1045,7 @@ describe('Table', () => {
 
         it('PT Section 22: columnFilter.filter - should apply PT to filter container element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1073,8 +1059,7 @@ describe('Table', () => {
 
         it('PT Section 23: columnFilterFormElement - should apply PT to column filter form element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestComprehensivePTComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1093,7 +1078,8 @@ describe('Table', () => {
         });
 
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [CommonModule, FormsModule, TableModule, SharedModule, Select],
             template: `
                 <p-table [value]="products" [dataKey]="'id'" editMode="cell">
                     <ng-template #header>
@@ -1141,8 +1127,7 @@ describe('Table', () => {
 
         it('should render editable columns with proper data attributes', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestCellNavigationComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestCellNavigationComponent],
                 providers: [TableService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1156,8 +1141,7 @@ describe('Table', () => {
 
         it('should open cell editor on click and show input for correct field', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestCellNavigationComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestCellNavigationComponent],
                 providers: [TableService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1187,8 +1171,7 @@ describe('Table', () => {
 
         it('should navigate from name cell to price cell on arrow right key', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestCellNavigationComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestCellNavigationComponent],
                 providers: [TableService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1229,8 +1212,7 @@ describe('Table', () => {
 
         it('should navigate from price cell to name cell on arrow left key', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestCellNavigationComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestCellNavigationComponent],
                 providers: [TableService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1271,8 +1253,7 @@ describe('Table', () => {
 
         it('should navigate to next row when pressing arrow right on last column', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestCellNavigationComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestCellNavigationComponent],
                 providers: [TableService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1316,8 +1297,7 @@ describe('Table', () => {
 
         it('should navigate to previous row when pressing arrow left on first column', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestCellNavigationComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestCellNavigationComponent],
                 providers: [TableService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1358,7 +1338,8 @@ describe('Table', () => {
 
         it('should not navigate when disabled', async () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [CommonModule, FormsModule, TableModule, SharedModule, Select],
                 template: `
                     <p-table [value]="products" [dataKey]="'id'" editMode="cell">
                         <ng-template #header>
@@ -1399,8 +1380,7 @@ describe('Table', () => {
             }
 
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestDisabledCellComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestDisabledCellComponent],
                 providers: [TableService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1427,8 +1407,7 @@ describe('Table', () => {
 
         it('findCell should traverse up DOM tree to find cell with editing attribute', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule],
-                declarations: [TestCellNavigationComponent],
+                imports: [TableModule, CommonModule, FormsModule, TestCellNavigationComponent],
                 providers: [TableService, provideZonelessChangeDetection()]
             }).compileComponents();
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style as accordion_style } from '@primeuix/styles/accordion';
+import { style as accordion_style } from '@primus/primeuix/styles/accordion';
 import { BaseStyle } from '@primus/core/base';
 
 const style = /*css*/ `

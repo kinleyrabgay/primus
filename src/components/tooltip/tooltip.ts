@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, Input, NgModule, NgZone, numberAttribute, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
+import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primus/primeuix/utils';
 import { TooltipOptions } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { BindModule } from '@primus/core/bind';

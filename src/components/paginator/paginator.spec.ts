@@ -12,7 +12,8 @@ import { PaginatorState } from '@primus/core/types/paginator';
 
 // Test component for basic paginator functionality
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, PaginatorModule, Select, InputNumber, Ripple, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-paginator
@@ -75,7 +76,8 @@ class TestBasicPaginatorComponent {
 
 // Test component for template testing with pTemplate
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, PaginatorModule, Select, InputNumber, Ripple, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-paginator [rows]="10" [totalRecords]="100" [first]="0">
@@ -107,7 +109,8 @@ class TestPTemplatePaginatorComponent {
 
 // Test component for ContentChild template references
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, PaginatorModule, Select, InputNumber, Ripple, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-paginator [rows]="10" [totalRecords]="100" [first]="0" [rowsPerPageOptions]="[5, 10, 20]">
@@ -139,7 +142,8 @@ class TestContentChildPaginatorComponent {
 
 // Test component for jump to page and dropdown templates
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, PaginatorModule, Select, InputNumber, Ripple, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-paginator [rows]="10" [totalRecords]="100" [first]="0" [showJumpToPageDropdown]="true" [jumpToPageItemTemplate]="jumpTemplate" [dropdownItemTemplate]="dropdownTemplate" [rowsPerPageOptions]="rowsPerPageOptions">
@@ -164,8 +168,20 @@ describe('Paginator', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, PaginatorModule, Select, InputNumber, Ripple, SharedModule],
-            declarations: [TestBasicPaginatorComponent, TestPTemplatePaginatorComponent, TestContentChildPaginatorComponent, TestDropdownPaginatorComponent, TestDynamicPaginatorComponent],
+            imports: [
+                CommonModule,
+                FormsModule,
+                PaginatorModule,
+                Select,
+                InputNumber,
+                Ripple,
+                SharedModule,
+                TestBasicPaginatorComponent,
+                TestPTemplatePaginatorComponent,
+                TestContentChildPaginatorComponent,
+                TestDropdownPaginatorComponent,
+                TestDynamicPaginatorComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -323,7 +339,7 @@ describe('Paginator', () => {
 
     describe('Event Handling', () => {
         it('should emit onPageChange when changing page', async () => {
-            spyOn(paginator.onPageChange, 'emit');
+            vi.spyOn(paginator.onPageChange, 'emit').mockImplementation(() => undefined);
 
             paginator.changePage(2);
             await fixture.whenStable();
@@ -420,8 +436,8 @@ describe('Paginator', () => {
         });
 
         it('should handle rows per page change', async () => {
-            spyOn(paginator, 'onRppChange').and.callThrough();
-            spyOn(paginator, 'changePage').and.callThrough();
+            vi.spyOn(paginator, 'onRppChange');
+            vi.spyOn(paginator, 'changePage');
 
             paginator.onRppChange(new Event('change'));
             await fixture.whenStable();
@@ -435,7 +451,7 @@ describe('Paginator', () => {
             fixture.detectChanges();
             paginator.updatePageLinks();
 
-            spyOn(paginator, 'changePage').and.callThrough();
+            vi.spyOn(paginator, 'changePage');
 
             paginator.onPageDropdownChange({ value: 3, originalEvent: new Event('change') });
             await fixture.whenStable();
@@ -455,7 +471,7 @@ describe('Paginator', () => {
         });
 
         it('should handle invalid page numbers', () => {
-            spyOn(paginator.onPageChange, 'emit');
+            vi.spyOn(paginator.onPageChange, 'emit').mockImplementation(() => undefined);
 
             paginator.changePage(-1);
             expect(paginator.onPageChange.emit).not.toHaveBeenCalled();
@@ -803,7 +819,7 @@ describe('Paginator', () => {
             const pageLink = fixture.debugElement.query(By.css('.p-paginator-page'));
             const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
 
-            spyOn(paginator, 'onPageLinkClick').and.callThrough();
+            vi.spyOn(paginator, 'onPageLinkClick');
 
             pageLink.nativeElement.dispatchEvent(enterEvent);
             pageLink.nativeElement.click();
@@ -903,7 +919,7 @@ describe('Paginator', () => {
             component.showJumpToPageInput = true;
             fixture.detectChanges();
 
-            spyOn(paginator, 'changePage').and.callThrough();
+            vi.spyOn(paginator, 'changePage');
 
             const input = fixture.debugElement.query(By.directive(InputNumber));
             const inputComponent = input.componentInstance as InputNumber;
@@ -1332,7 +1348,8 @@ describe('Paginator', () => {
 
 // Test component for dynamic values
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, PaginatorModule, Select, InputNumber, Ripple, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-paginator

@@ -10,7 +10,8 @@ const mockImageSrc = 'https://primefaces.org/cdn/primeng/images/galleria/galleri
 const mockPreviewImageSrc = 'https://primefaces.org/cdn/primeng/images/galleria/galleria2.jpg';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ImageModule, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-image [src]="src" [alt]="alt" [width]="width" [height]="height" [srcSet]="srcSet" [sizes]="sizes" [loading]="loading" [imageClass]="imageClass" [imageStyle]="imageStyle" [styleClass]="styleClass" (onImageError)="onImageError($event)">
@@ -36,7 +37,8 @@ class TestBasicImageComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ImageModule, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-image
@@ -77,7 +79,8 @@ class TestPreviewImageComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ImageModule, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-image [src]="src" [alt]="alt" [width]="width" [preview]="true">
@@ -116,7 +119,8 @@ class TestTemplateImageComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ImageModule, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-image [src]="src" [alt]="alt" [width]="width" [preview]="true">
@@ -160,8 +164,7 @@ describe('Image', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ImageModule, SharedModule],
-            declarations: [TestBasicImageComponent, TestPreviewImageComponent, TestTemplateImageComponent, TestPTemplateImageComponent],
+            imports: [ImageModule, SharedModule, TestBasicImageComponent, TestPreviewImageComponent, TestTemplateImageComponent, TestPTemplateImageComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -368,7 +371,7 @@ describe('Image', () => {
         });
 
         it('should emit onShow event when preview is opened', () => {
-            spyOn(imageInstance.onShow, 'emit');
+            vi.spyOn(imageInstance.onShow, 'emit').mockImplementation(() => undefined);
 
             // onShow is now emitted in onAnimationStart, not onAnimationEnd
             const mockElement = document.createElement('div');
@@ -380,7 +383,7 @@ describe('Image', () => {
         });
 
         it('should emit onHide event when preview is closed', () => {
-            spyOn(imageInstance.onHide, 'emit');
+            vi.spyOn(imageInstance.onHide, 'emit').mockImplementation(() => undefined);
 
             imageInstance.previewVisible = false;
             imageInstance.wrapper = document.createElement('div');
@@ -405,7 +408,7 @@ describe('Image', () => {
 
         it('should handle toolbar click', () => {
             const mockEvent = new MouseEvent('click');
-            spyOn(mockEvent, 'stopPropagation');
+            vi.spyOn(mockEvent, 'stopPropagation').mockImplementation(() => undefined);
 
             imageInstance.handleToolbarClick(mockEvent);
             expect(mockEvent.stopPropagation).toHaveBeenCalled();
@@ -542,7 +545,7 @@ describe('Image', () => {
 
         it('should handle image error', () => {
             const errorEvent = new Event('error');
-            spyOn(imageInstance.onImageError, 'emit');
+            vi.spyOn(imageInstance.onImageError, 'emit').mockImplementation(() => undefined);
 
             imageInstance.imageError(errorEvent);
 
@@ -564,7 +567,7 @@ describe('Image', () => {
             imageInstance.wrapper = mockWrapper;
 
             // Mock the appendTo computed signal
-            spyOn(imageInstance, '$appendTo').and.returnValue('body');
+            vi.spyOn(imageInstance, '$appendTo').mockReturnValue('body');
 
             imageInstance.appendContainer();
 
@@ -584,7 +587,7 @@ describe('Image', () => {
 
         it('should close preview on document escape key', () => {
             imageInstance.previewVisible = true;
-            spyOn(imageInstance, 'closePreview');
+            vi.spyOn(imageInstance, 'closePreview').mockImplementation(() => undefined);
 
             imageInstance.onKeydownHandler();
 
@@ -593,7 +596,7 @@ describe('Image', () => {
 
         it('should not close preview on escape if not visible', () => {
             imageInstance.previewVisible = false;
-            spyOn(imageInstance, 'closePreview');
+            vi.spyOn(imageInstance, 'closePreview').mockImplementation(() => undefined);
 
             imageInstance.onKeydownHandler();
 
@@ -920,7 +923,8 @@ describe('Image', () => {
 
             it('should accept inline PT with string class', () => {
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [ImageModule, SharedModule],
                     template: `<p-image [src]="src" [pt]="{ root: 'TEST_INLINE_CLASS' }" />`
                 })
                 class TestInlineComponent {
@@ -928,8 +932,7 @@ describe('Image', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [ImageModule],
-                    declarations: [TestInlineComponent],
+                    imports: [ImageModule, TestInlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -942,7 +945,8 @@ describe('Image', () => {
 
             it('should accept inline PT with object class', () => {
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [ImageModule, SharedModule],
                     template: `<p-image [src]="src" [pt]="{ root: { class: 'TEST_INLINE_OBJECT_CLASS' } }" />`
                 })
                 class TestInlineObjectComponent {
@@ -950,8 +954,7 @@ describe('Image', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [ImageModule],
-                    declarations: [TestInlineObjectComponent],
+                    imports: [ImageModule, TestInlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -972,7 +975,8 @@ describe('Image', () => {
                 const { providePrimus } = await import('@primus/core/config');
 
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [ImageModule, SharedModule],
                     template: `
                         <p-image [src]="src1" />
                         <p-image [src]="src2" />
@@ -984,8 +988,7 @@ describe('Image', () => {
                 }
 
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule],
-                    declarations: [TestGlobalPTComponent],
+                    imports: [ImageModule, TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimus({

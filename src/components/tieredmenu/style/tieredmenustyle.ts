@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/tieredmenu';
+import { style } from '@primus/primeuix/styles/tieredmenu';
 import { BaseStyle } from '@primus/core/base';
 
 const inlineStyles = {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style as listbox_style } from '@primeuix/styles/listbox';
+import { style as listbox_style } from '@primus/primeuix/styles/listbox';
 import { BaseStyle } from '@primus/core/base';
 
 const style = /*css*/ `

@@ -24,8 +24,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MotionOptions } from '@primeuix/motion';
-import { equals, findLast, findSingle, focus, getAttribute, isEmpty, isNotEmpty, isPrintableCharacter, resolve, uuid } from '@primeuix/utils';
+import { MotionOptions } from '@primus/primeuix/motion';
+import { equals, findLast, findSingle, focus, getAttribute, isEmpty, isNotEmpty, isPrintableCharacter, resolve, uuid } from '@primus/primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind, BindModule } from '@primus/core/bind';

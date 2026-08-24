@@ -236,7 +236,7 @@ describe('RadioButton', () => {
         });
 
         it('should programmatically focus', () => {
-            spyOn(radioInstance.inputViewChild.nativeElement, 'focus');
+            vi.spyOn(radioInstance.inputViewChild.nativeElement, 'focus').mockImplementation(() => undefined);
 
             radioInstance.focus();
 
@@ -264,7 +264,7 @@ describe('RadioButton', () => {
         });
 
         it('should handle change event', () => {
-            spyOn(radioInstance, 'select');
+            vi.spyOn(radioInstance, 'select').mockImplementation(() => undefined);
             const inputElement = fixture.debugElement.query(By.css('input'));
 
             const changeEvent = new Event('change');
@@ -675,7 +675,7 @@ describe('RadioButton', () => {
         });
 
         it('should prevent interaction when disabled', () => {
-            spyOn(radioInstance, 'select');
+            vi.spyOn(radioInstance, 'select').mockImplementation(() => undefined);
             component.isDisabled = true;
             fixture.detectChanges();
 
@@ -742,7 +742,8 @@ describe('RadioButton', () => {
     describe('PassThrough (PT) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [RadioButton, FormsModule],
                 template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
             })
             class TestPTCase1Component {
@@ -758,8 +759,7 @@ describe('RadioButton', () => {
             it('should apply simple string classes to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase1Component],
+                    imports: [RadioButton, FormsModule, TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -782,7 +782,8 @@ describe('RadioButton', () => {
 
         describe('Case 2: Object with class, style, data attributes', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [RadioButton, FormsModule],
                 template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
             })
             class TestPTCase2Component {
@@ -803,8 +804,7 @@ describe('RadioButton', () => {
             it('should apply object properties to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase2Component],
+                    imports: [RadioButton, FormsModule, TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -824,7 +824,8 @@ describe('RadioButton', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [RadioButton, FormsModule],
                 template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
             })
             class TestPTCase3Component {
@@ -841,8 +842,7 @@ describe('RadioButton', () => {
             it('should apply mixed object and string values', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase3Component],
+                    imports: [RadioButton, FormsModule, TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -860,7 +860,8 @@ describe('RadioButton', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [RadioButton, FormsModule],
                 template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
             })
             class TestPTCase4Component {
@@ -884,8 +885,7 @@ describe('RadioButton', () => {
             it('should use instance variables in PT functions', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase4Component],
+                    imports: [RadioButton, FormsModule, TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -905,7 +905,8 @@ describe('RadioButton', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [RadioButton, FormsModule],
                 template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
             })
             class TestPTCase5Component {
@@ -928,8 +929,7 @@ describe('RadioButton', () => {
             it('should bind click events through PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase5Component],
+                    imports: [RadioButton, FormsModule, TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -951,7 +951,8 @@ describe('RadioButton', () => {
 
         describe('Case 6: Inline PT', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [RadioButton, FormsModule],
                 template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="{ root: 'INLINE_ROOT_CLASS', box: 'INLINE_BOX_CLASS' }"></p-radiobutton>`
             })
             class TestPTCase6InlineComponent {
@@ -961,8 +962,7 @@ describe('RadioButton', () => {
             it('should apply inline PT as string', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase6InlineComponent],
+                    imports: [RadioButton, FormsModule, TestPTCase6InlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -978,7 +978,8 @@ describe('RadioButton', () => {
             });
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [RadioButton, FormsModule],
                 template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' }, box: { class: 'BOX_INLINE_CLASS' } }"></p-radiobutton>`
             })
             class TestPTCase6InlineObjectComponent {
@@ -988,8 +989,7 @@ describe('RadioButton', () => {
             it('should apply inline PT as object', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase6InlineObjectComponent],
+                    imports: [RadioButton, FormsModule, TestPTCase6InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1007,7 +1007,8 @@ describe('RadioButton', () => {
 
         describe('Case 7: Global PT from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [RadioButton, FormsModule],
                 template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue"></p-radiobutton>`
             })
             class TestPTCase7GlobalComponent {
@@ -1017,8 +1018,7 @@ describe('RadioButton', () => {
             it('should apply global PT from config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase7GlobalComponent],
+                    imports: [RadioButton, FormsModule, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimus({
@@ -1046,7 +1046,8 @@ describe('RadioButton', () => {
 
         describe('Case 8: PT Hooks', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [RadioButton, FormsModule],
                 template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
             })
             class TestPTCase8HooksComponent {
@@ -1070,8 +1071,7 @@ describe('RadioButton', () => {
             it('should call PT hooks', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase8HooksComponent],
+                    imports: [RadioButton, FormsModule, TestPTCase8HooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1091,7 +1091,8 @@ describe('RadioButton', () => {
 
         describe('PT Section Coverage', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [RadioButton, FormsModule],
                 template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
             })
             class TestPTCoverageComponent {
@@ -1107,8 +1108,7 @@ describe('RadioButton', () => {
             it('should apply PT to all sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCoverageComponent],
+                    imports: [RadioButton, FormsModule, TestPTCoverageComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 

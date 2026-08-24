@@ -8,7 +8,8 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from '@primus/core/type
 import { Panel } from './panel';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Panel, ButtonModule, PlusIcon, MinusIcon],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-panel
@@ -58,7 +59,8 @@ class TestBasicPanelComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Panel, ButtonModule, PlusIcon, MinusIcon],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-panel header="Template Panel" [toggleable]="true">
@@ -83,7 +85,8 @@ class TestBasicPanelComponent {
 class TestTemplatesPanelComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Panel, ButtonModule, PlusIcon, MinusIcon],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-panel header="Facet Panel" [toggleable]="true">
@@ -100,7 +103,8 @@ class TestTemplatesPanelComponent {}
 class TestFacetsPanelComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Panel, ButtonModule, PlusIcon, MinusIcon],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-panel header="Keyboard Panel" [toggleable]="true" [collapsed]="false">
@@ -127,9 +131,17 @@ describe('Panel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [Panel, ButtonModule, PlusIcon, MinusIcon],
-            providers: [provideNoopAnimations(), provideZonelessChangeDetection()],
-            declarations: [TestBasicPanelComponent, TestTemplatesPanelComponent, TestFacetsPanelComponent, TestKeyboardNavigationComponent]
+            imports: [
+                Panel,
+                ButtonModule,
+                PlusIcon,
+                MinusIcon,
+                TestBasicPanelComponent,
+                TestTemplatesPanelComponent,
+                TestFacetsPanelComponent,
+                TestKeyboardNavigationComponent
+            ],
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         });
 
         testFixture = TestBed.createComponent(TestBasicPanelComponent);
@@ -291,7 +303,7 @@ describe('Panel', () => {
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
 
-            spyOn(panelInstance, 'toggle');
+            vi.spyOn(panelInstance, 'toggle').mockImplementation(() => undefined);
             toggleButton.nativeElement.dispatchEvent(enterEvent);
 
             expect(panelInstance.toggle).toHaveBeenCalled();
@@ -305,7 +317,7 @@ describe('Panel', () => {
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));
             const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
 
-            spyOn(panelInstance, 'toggle');
+            vi.spyOn(panelInstance, 'toggle').mockImplementation(() => undefined);
             toggleButton.nativeElement.dispatchEvent(spaceEvent);
 
             expect(panelInstance.toggle).toHaveBeenCalled();
@@ -318,7 +330,7 @@ describe('Panel', () => {
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));
             const escEvent = new KeyboardEvent('keydown', { code: 'Escape' });
 
-            spyOn(panelInstance, 'toggle');
+            vi.spyOn(panelInstance, 'toggle').mockImplementation(() => undefined);
             toggleButton.nativeElement.dispatchEvent(escEvent);
 
             expect(panelInstance.toggle).not.toHaveBeenCalled();
@@ -461,7 +473,7 @@ describe('Panel', () => {
 
             const panelComp = fixture.debugElement.query(By.directive(Panel)).componentInstance;
 
-            spyOn(panelComp, 'updateTabIndex');
+            vi.spyOn(panelComp, 'updateTabIndex').mockImplementation(() => undefined);
 
             // Collapse panel
             panelComp.collapse();
@@ -559,7 +571,7 @@ describe('Panel', () => {
             testFixture.detectChanges();
 
             const event = new MouseEvent('click');
-            spyOn(event, 'preventDefault');
+            vi.spyOn(event, 'preventDefault').mockImplementation(() => undefined);
 
             panelInstance.toggle(event);
             expect(event.preventDefault).toHaveBeenCalled();
@@ -614,13 +626,13 @@ describe('Panel', () => {
         });
 
         it('should call updateTabIndex when expanding', () => {
-            spyOn(panelInstance, 'updateTabIndex');
+            vi.spyOn(panelInstance, 'updateTabIndex').mockImplementation(() => undefined);
             panelInstance.expand();
             expect(panelInstance.updateTabIndex).toHaveBeenCalled();
         });
 
         it('should call updateTabIndex when collapsing', () => {
-            spyOn(panelInstance, 'updateTabIndex');
+            vi.spyOn(panelInstance, 'updateTabIndex').mockImplementation(() => undefined);
             panelInstance.collapse();
             expect(panelInstance.updateTabIndex).toHaveBeenCalled();
         });
@@ -631,7 +643,7 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            spyOn(panelInstance, 'toggle');
+            vi.spyOn(panelInstance, 'toggle').mockImplementation(() => undefined);
             panelInstance.onHeaderClick(new MouseEvent('click'));
 
             expect(panelInstance.toggle).not.toHaveBeenCalled();
@@ -643,7 +655,7 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            spyOn(panelInstance, 'toggle');
+            vi.spyOn(panelInstance, 'toggle').mockImplementation(() => undefined);
             panelInstance.onHeaderClick(new MouseEvent('click'));
 
             expect(panelInstance.toggle).toHaveBeenCalled();
@@ -654,7 +666,7 @@ describe('Panel', () => {
             testComponent.toggler = 'icon';
             testFixture.detectChanges();
 
-            spyOn(panelInstance, 'toggle');
+            vi.spyOn(panelInstance, 'toggle').mockImplementation(() => undefined);
             panelInstance.onIconClick(new MouseEvent('click'));
 
             expect(panelInstance.toggle).toHaveBeenCalled();
@@ -662,8 +674,8 @@ describe('Panel', () => {
 
         it('should handle onKeyDown with Enter key', () => {
             const event = new KeyboardEvent('keydown', { code: 'Enter' });
-            spyOn(event, 'preventDefault');
-            spyOn(panelInstance, 'toggle');
+            vi.spyOn(event, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(panelInstance, 'toggle').mockImplementation(() => undefined);
 
             panelInstance.onKeyDown(event);
 
@@ -673,8 +685,8 @@ describe('Panel', () => {
 
         it('should handle onKeyDown with Space key', () => {
             const event = new KeyboardEvent('keydown', { code: 'Space' });
-            spyOn(event, 'preventDefault');
-            spyOn(panelInstance, 'toggle');
+            vi.spyOn(event, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(panelInstance, 'toggle').mockImplementation(() => undefined);
 
             panelInstance.onKeyDown(event);
 
@@ -684,7 +696,7 @@ describe('Panel', () => {
 
         it('should not handle onKeyDown with other keys', () => {
             const event = new KeyboardEvent('keydown', { code: 'Tab' });
-            spyOn(panelInstance, 'toggle');
+            vi.spyOn(panelInstance, 'toggle').mockImplementation(() => undefined);
 
             panelInstance.onKeyDown(event);
 
@@ -1130,7 +1142,7 @@ describe('Panel', () => {
         });
 
         describe('Case 2: Object Values with Attributes and Styles', () => {
-            xit('should apply PT object with class, style and data attributes to root', () => {
+            it.skip('should apply PT object with class, style and data attributes to root', () => {
                 // Skipped: PT style and attribute binding to host causes infinite loop with current implementation
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;

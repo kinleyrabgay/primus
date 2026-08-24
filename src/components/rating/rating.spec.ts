@@ -1076,7 +1076,8 @@ describe('Rating', () => {
     describe('PassThrough (PT) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Rating, FormsModule],
                 template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
             })
             class TestPTCase1Component {
@@ -1095,8 +1096,7 @@ describe('Rating', () => {
             it('should apply simple string classes to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase1Component],
+                    imports: [Rating, FormsModule, TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1120,7 +1120,8 @@ describe('Rating', () => {
 
         describe('Case 2: Object with class, style, data attributes', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Rating, FormsModule],
                 template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
             })
             class TestPTCase2Component {
@@ -1141,8 +1142,7 @@ describe('Rating', () => {
             it('should apply object properties to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase2Component],
+                    imports: [Rating, FormsModule, TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1162,7 +1162,8 @@ describe('Rating', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Rating, FormsModule],
                 template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
             })
             class TestPTCase3Component {
@@ -1179,8 +1180,7 @@ describe('Rating', () => {
             it('should apply mixed object and string values', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase3Component],
+                    imports: [Rating, FormsModule, TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1198,7 +1198,8 @@ describe('Rating', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Rating, FormsModule],
                 template: `<p-rating [(ngModel)]="value" [stars]="5" [pt]="pt"></p-rating>`
             })
             class TestPTCase4Component {
@@ -1222,8 +1223,7 @@ describe('Rating', () => {
             it('should use instance variables in PT functions', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase4Component],
+                    imports: [Rating, FormsModule, TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1243,7 +1243,8 @@ describe('Rating', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Rating, FormsModule],
                 template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
             })
             class TestPTCase5Component {
@@ -1266,8 +1267,7 @@ describe('Rating', () => {
             it('should bind click events through PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase5Component],
+                    imports: [Rating, FormsModule, TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1289,7 +1289,8 @@ describe('Rating', () => {
 
         describe('Case 6: Inline PT', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Rating, FormsModule],
                 template: `<p-rating [(ngModel)]="value" [pt]="{ host: 'INLINE_HOST_CLASS', option: 'INLINE_OPTION_CLASS' }"></p-rating>`
             })
             class TestPTCase6InlineComponent {
@@ -1299,8 +1300,7 @@ describe('Rating', () => {
             it('should apply inline PT as string', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase6InlineComponent],
+                    imports: [Rating, FormsModule, TestPTCase6InlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1316,7 +1316,8 @@ describe('Rating', () => {
             });
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Rating, FormsModule],
                 template: `<p-rating [(ngModel)]="value" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS' }, option: { class: 'OPTION_INLINE_CLASS' } }"></p-rating>`
             })
             class TestPTCase6InlineObjectComponent {
@@ -1326,8 +1327,7 @@ describe('Rating', () => {
             it('should apply inline PT as object', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase6InlineObjectComponent],
+                    imports: [Rating, FormsModule, TestPTCase6InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1345,7 +1345,8 @@ describe('Rating', () => {
 
         describe('Case 7: Global PT from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Rating, FormsModule],
                 template: `<p-rating [(ngModel)]="value"></p-rating>`
             })
             class TestPTCase7GlobalComponent {
@@ -1355,8 +1356,7 @@ describe('Rating', () => {
             it('should apply global PT from config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase7GlobalComponent],
+                    imports: [Rating, FormsModule, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimus({
@@ -1384,7 +1384,8 @@ describe('Rating', () => {
 
         describe('Case 8: PT Hooks', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Rating, FormsModule],
                 template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
             })
             class TestPTCase8HooksComponent {
@@ -1408,8 +1409,7 @@ describe('Rating', () => {
             it('should call PT hooks', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase8HooksComponent],
+                    imports: [Rating, FormsModule, TestPTCase8HooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1429,7 +1429,8 @@ describe('Rating', () => {
 
         describe('PT Section Coverage', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Rating, FormsModule],
                 template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
             })
             class TestPTCoverageComponent {
@@ -1448,8 +1449,7 @@ describe('Rating', () => {
             it('should apply PT to all sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCoverageComponent],
+                    imports: [Rating, FormsModule, TestPTCoverageComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 

@@ -1,5 +1,6 @@
 import { Component, DebugElement, input, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
@@ -8,7 +9,8 @@ import { ButtonModule } from '@primus/components/button';
 import { Inplace, InplaceContent, InplaceDisplay, InplaceModule } from './inplace';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
     selector: 'test-basic-inplace',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -25,7 +27,8 @@ import { Inplace, InplaceContent, InplaceDisplay, InplaceModule } from './inplac
 class TestBasicInplaceComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
     selector: 'test-inplace-with-events',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -53,7 +56,8 @@ class TestInplaceWithEventsComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
     selector: 'test-inplace-disabled',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -72,7 +76,8 @@ class TestInplaceDisabledComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
     selector: 'test-inplace-closable',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -93,7 +98,8 @@ class TestInplaceClosableComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
     selector: 'test-inplace-prevent-click',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -112,7 +118,8 @@ class TestInplacePreventClickComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
     selector: 'test-inplace-active-state',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -131,7 +138,8 @@ class TestInplaceActiveStateComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
     selector: 'test-inplace-style-class',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -150,7 +158,8 @@ class TestInplaceStyleClassComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
     selector: 'test-inplace-templates',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -173,7 +182,8 @@ class TestInplaceStyleClassComponent {
 class TestInplaceTemplatesComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
     selector: 'test-inplace-primeng-templates',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -196,7 +206,8 @@ class TestInplaceTemplatesComponent {}
 class TestInplacePrimeNGTemplatesComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
     selector: 'test-inplace-keyboard',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -213,7 +224,8 @@ class TestInplacePrimeNGTemplatesComponent {}
 class TestInplaceKeyboardComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule, CommonModule],
     selector: 'test-inplace-complex-content',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -252,7 +264,8 @@ class TestInplaceComplexContentComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
     selector: 'test-inplace-dynamic',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -278,8 +291,11 @@ class TestInplaceDynamicComponent {
 describe('Inplace', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
-            declarations: [
+            imports: [
+                InplaceModule,
+                SharedModule,
+                ButtonModule,
+                FormsModule,
                 TestBasicInplaceComponent,
                 TestInplaceWithEventsComponent,
                 TestInplaceDisabledComponent,
@@ -422,7 +438,7 @@ describe('Inplace', () => {
         });
 
         it('should emit onActivate event', async () => {
-            spyOn(component, 'onActivate');
+            vi.spyOn(component, 'onActivate').mockImplementation(() => undefined);
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
 
             displayDiv.click();
@@ -460,7 +476,7 @@ describe('Inplace', () => {
         });
 
         it('should emit onDeactivate event', async () => {
-            spyOn(component, 'onDeactivate');
+            vi.spyOn(component, 'onDeactivate').mockImplementation(() => undefined);
 
             // Activate first
             inplaceComponent.activate();
@@ -949,7 +965,7 @@ describe('Inplace', () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
             if (displayDiv) {
                 const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
-                spyOn(enterEvent, 'preventDefault');
+                vi.spyOn(enterEvent, 'preventDefault').mockImplementation(() => undefined);
 
                 displayDiv.dispatchEvent(enterEvent);
 

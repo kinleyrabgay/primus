@@ -20,7 +20,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { find, findSingle, focus, hasClass, uuid } from '@primeuix/utils';
+import { find, findSingle, focus, hasClass, uuid } from '@primus/primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind } from '@primus/core/bind';

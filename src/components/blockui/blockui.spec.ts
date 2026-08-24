@@ -6,7 +6,8 @@ import { SharedModule } from '@primus/core/api';
 import { BlockUI, BlockUIModule } from './blockui';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, SharedModule],
     selector: 'test-basic-blockui',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-blockui></p-blockui>`
@@ -14,7 +15,8 @@ import { BlockUI, BlockUIModule } from './blockui';
 class TestBasicBlockUIComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, SharedModule],
     selector: 'test-blocked-blockui',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-blockui [blocked]="blocked"></p-blockui>`
@@ -24,7 +26,8 @@ class TestBlockedBlockUIComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, SharedModule],
     selector: 'test-auto-zindex-blockui',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-blockui [blocked]="blocked" [autoZIndex]="autoZIndex" [baseZIndex]="baseZIndex"></p-blockui>`
@@ -36,7 +39,8 @@ class TestAutoZIndexBlockUIComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, SharedModule],
     selector: 'test-style-class-blockui',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-blockui [blocked]="blocked" [styleClass]="styleClass"></p-blockui>`
@@ -47,7 +51,8 @@ class TestStyleClassBlockUIComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, SharedModule],
     selector: 'test-content-blockui',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -61,7 +66,8 @@ class TestContentBlockUIComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, SharedModule],
     selector: 'test-template-blockui',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -77,7 +83,8 @@ class TestTemplateBlockUIComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, SharedModule],
     selector: 'test-target-blockui',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -94,7 +101,8 @@ class TestTargetBlockUIComponent {
 
 // Mock component that implements BlockableUI interface
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, SharedModule],
     selector: 'mock-blockable',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<div #blockableElement class="blockable-content"><ng-content></ng-content></div>`
@@ -108,7 +116,8 @@ class MockBlockableComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, SharedModule, MockBlockableComponent],
     selector: 'test-blockable-target-blockui',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -124,7 +133,8 @@ class TestBlockableTargetBlockUIComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, SharedModule],
     selector: 'test-invalid-target-blockui',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -138,7 +148,8 @@ class TestInvalidTargetBlockUIComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, SharedModule],
     selector: 'test-dynamic-blockui',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -158,8 +169,9 @@ class TestDynamicBlockUIComponent {
 describe('BlockUI', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [BlockUIModule, SharedModule],
-            declarations: [
+            imports: [
+                BlockUIModule,
+                SharedModule,
                 TestBasicBlockUIComponent,
                 TestBlockedBlockUIComponent,
                 TestAutoZIndexBlockUIComponent,

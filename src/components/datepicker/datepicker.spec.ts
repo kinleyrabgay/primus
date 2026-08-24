@@ -7,7 +7,8 @@ import { CommonModule } from '@angular/common';
 import type { DatePickerMonthChangeEvent, DatePickerYearChangeEvent } from '@primus/core/types/datepicker';
 import { DatePicker } from './datepicker';
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [DatePicker, FormsModule, ReactiveFormsModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-datepicker
@@ -135,7 +136,8 @@ class TestDatePickerComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [DatePicker, FormsModule, ReactiveFormsModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <form [formGroup]="form">
@@ -151,7 +153,8 @@ class TestReactiveFormDatePickerComponent {
 
 // pTemplate only - Comprehensive template test component with all 12 ContentChild projections
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [DatePicker, FormsModule, ReactiveFormsModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-datepicker [(ngModel)]="selectedDate" [showTime]="showTime" [showIcon]="showIcon" [showClear]="showClear" [view]="view" [dateFormat]="dateFormat" [touchUI]="touchUI">
@@ -243,7 +246,8 @@ class TestPTemplatesDatePickerComponent {
 
 // #template references only - Comprehensive template test component with all 12 ContentChild projections
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [DatePicker, FormsModule, ReactiveFormsModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-datepicker [(ngModel)]="selectedDate" [showTime]="showTime" [showIcon]="showIcon" [showClear]="showClear" [view]="view" [dateFormat]="dateFormat" [touchUI]="touchUI">
@@ -335,7 +339,8 @@ class TestRefTemplatesDatePickerComponent {
 
 // Legacy component for backward compatibility (deprecated - use separated versions above)
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [DatePicker, FormsModule, ReactiveFormsModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-datepicker [(ngModel)]="selectedDate" [showTime]="showTime" [showIcon]="showIcon" [showClear]="showClear" [view]="view" [dateFormat]="dateFormat" [touchUI]="touchUI">
@@ -365,8 +370,7 @@ describe('DatePicker', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [DatePicker, FormsModule, ReactiveFormsModule, CommonModule],
-            declarations: [TestDatePickerComponent, TestReactiveFormDatePickerComponent, TestTemplatesDatePickerComponent, TestPTemplatesDatePickerComponent, TestRefTemplatesDatePickerComponent],
+            imports: [DatePicker, FormsModule, ReactiveFormsModule, CommonModule, TestDatePickerComponent, TestReactiveFormDatePickerComponent, TestTemplatesDatePickerComponent, TestPTemplatesDatePickerComponent, TestRefTemplatesDatePickerComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -437,8 +441,8 @@ describe('DatePicker', () => {
         });
 
         it('should handle date selection', async () => {
-            spyOn(testComponent, 'onDateSelect');
-            spyOn(testComponent, 'onDateChange');
+            vi.spyOn(testComponent, 'onDateSelect').mockImplementation(() => undefined);
+            vi.spyOn(testComponent, 'onDateChange').mockImplementation(() => undefined);
 
             const testDate = new Date(2023, 5, 15); // June 15, 2023
             testComponent.selectedDate = testDate;
@@ -520,7 +524,7 @@ describe('DatePicker', () => {
         });
 
         it('should emit onFocus event', () => {
-            spyOn(testComponent, 'onDateFocus');
+            vi.spyOn(testComponent, 'onDateFocus').mockImplementation(() => undefined);
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.dispatchEvent(new FocusEvent('focus'));
@@ -529,7 +533,7 @@ describe('DatePicker', () => {
         });
 
         it('should emit onBlur event', () => {
-            spyOn(testComponent, 'onDateBlur');
+            vi.spyOn(testComponent, 'onDateBlur').mockImplementation(() => undefined);
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.dispatchEvent(new FocusEvent('blur'));
@@ -933,7 +937,7 @@ describe('DatePicker', () => {
             const currentMonth = datePickerComponent.currentMonth;
             const currentYear = datePickerComponent.currentYear;
 
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn() };
             datePickerComponent.navForward(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -956,7 +960,7 @@ describe('DatePicker', () => {
             const currentMonth = datePickerComponent.currentMonth;
             const currentYear = datePickerComponent.currentYear;
 
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn() };
             datePickerComponent.navBackward(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1021,7 +1025,7 @@ describe('DatePicker', () => {
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn() };
             datePickerComponent.switchToMonthView(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1037,7 +1041,7 @@ describe('DatePicker', () => {
 
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn() };
             datePickerComponent.switchToYearView(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1055,7 +1059,7 @@ describe('DatePicker', () => {
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             const initialHour = datePickerComponent.currentHour;
 
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn() };
             datePickerComponent.incrementHour(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1077,7 +1081,7 @@ describe('DatePicker', () => {
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
             const initialMinute = datePickerComponent.currentMinute;
 
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn() };
             datePickerComponent.incrementMinute(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1156,7 +1160,7 @@ describe('DatePicker', () => {
             const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
 
             // Test Today button
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn() };
             datePickerComponent.onTodayButtonClick(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();

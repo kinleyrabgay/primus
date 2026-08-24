@@ -6,7 +6,8 @@ import { MeterItem } from '@primus/core/types/metergroup';
 import { MeterGroup, MeterGroupLabel, MeterGroupModule } from './metergroup';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MeterGroupModule],
     selector: 'test-basic-metergroup',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-metergroup [value]="value" [min]="min" [max]="max"></p-metergroup>`
@@ -23,7 +24,8 @@ class TestBasicMeterGroupComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MeterGroupModule],
     selector: 'test-metergroup-orientations',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-metergroup [value]="value" [orientation]="orientation" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation"> </p-metergroup> `
@@ -39,7 +41,8 @@ class TestMeterGroupOrientationsComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MeterGroupModule],
     selector: 'test-metergroup-templates',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -74,7 +77,8 @@ class TestMeterGroupTemplatesComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MeterGroupModule],
     selector: 'test-metergroup-with-icons',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-metergroup [value]="value" [min]="min" [max]="max"> </p-metergroup> `
@@ -90,7 +94,8 @@ class TestMeterGroupWithIconsComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MeterGroupModule],
     selector: 'test-metergroup-empty',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-metergroup [value]="value"></p-metergroup>`
@@ -100,7 +105,8 @@ class TestMeterGroupEmptyComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MeterGroupModule],
     selector: 'test-metergroup-dynamic',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-metergroup [value]="value" [min]="min" [max]="max" [styleClass]="styleClass"> </p-metergroup> `
@@ -115,8 +121,7 @@ class TestMeterGroupDynamicComponent {
 describe('MeterGroup', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [MeterGroupModule],
-            declarations: [TestBasicMeterGroupComponent, TestMeterGroupOrientationsComponent, TestMeterGroupTemplatesComponent, TestMeterGroupWithIconsComponent, TestMeterGroupEmptyComponent, TestMeterGroupDynamicComponent],
+            imports: [MeterGroupModule, TestBasicMeterGroupComponent, TestMeterGroupOrientationsComponent, TestMeterGroupTemplatesComponent, TestMeterGroupWithIconsComponent, TestMeterGroupEmptyComponent, TestMeterGroupDynamicComponent],
             providers: [provideZonelessChangeDetection()]
         });
     });
@@ -798,13 +803,13 @@ describe('MeterGroup', () => {
         });
 
         it('should call ngAfterViewInit', () => {
-            spyOn(meterGroup, 'ngAfterViewInit').and.callThrough();
+            vi.spyOn(meterGroup, 'ngAfterViewInit');
             meterGroup.ngAfterViewInit();
             expect(meterGroup.ngAfterViewInit).toHaveBeenCalled();
         });
 
         it('should call ngAfterContentInit', () => {
-            spyOn(meterGroup, 'ngAfterContentInit').and.callThrough();
+            vi.spyOn(meterGroup, 'ngAfterContentInit');
             meterGroup.ngAfterContentInit();
             expect(meterGroup.ngAfterContentInit).toHaveBeenCalled();
         });

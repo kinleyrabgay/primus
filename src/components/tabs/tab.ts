@@ -1,6 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, HostListener, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
-import { equals, focus, getAttribute } from '@primeuix/utils';
+import { equals, focus, getAttribute } from '@primus/primeuix/utils';
 import { SharedModule } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind, BindModule } from '@primus/core/bind';

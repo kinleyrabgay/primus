@@ -1,18 +1,21 @@
 import { Component, DebugElement, provideZonelessChangeDetection, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { Card, CardModule } from './card';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CardModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-card></p-card>`
 })
 class TestBasicCardComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CardModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-card [header]="header" [subheader]="subheader" [styleClass]="styleClass" [style]="style">
@@ -28,7 +31,8 @@ class TestCustomCardComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CardModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-card>
@@ -53,7 +57,8 @@ class TestCustomCardComponent {
 class TestTemplateCardComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CardModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-card>
@@ -70,7 +75,8 @@ class TestTemplateCardComponent {}
 class TestFacetCardComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CardModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-card>
@@ -101,7 +107,8 @@ class TestContentChildCardComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CardModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-card header="Simple Header" subheader="Simple Subheader">
@@ -112,7 +119,8 @@ class TestContentChildCardComponent {
 class TestSimpleTextCardComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CardModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-card [header]="header" [subheader]="subheader">
@@ -129,7 +137,8 @@ class TestDynamicCardComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CardModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-card>
@@ -159,7 +168,8 @@ class TestDynamicCardComponent {
 class TestComplexCardComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CardModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-card header="Header Only">
@@ -170,7 +180,8 @@ class TestComplexCardComponent {}
 class TestHeaderOnlyCardComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CardModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-card subheader="Subheader Only">
@@ -181,7 +192,8 @@ class TestHeaderOnlyCardComponent {}
 class TestSubheaderOnlyCardComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CardModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-card>
@@ -202,8 +214,8 @@ describe('Card', () => {
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
-            imports: [CardModule],
-            declarations: [
+            imports: [
+                CardModule,
                 TestBasicCardComponent,
                 TestCustomCardComponent,
                 TestTemplateCardComponent,
@@ -842,7 +854,7 @@ describe('Card', () => {
 
             const cardInstance = templateFixture.debugElement.query(By.directive(Card)).componentInstance;
 
-            spyOn(cardInstance, 'ngAfterContentInit').and.callThrough();
+            vi.spyOn(cardInstance, 'ngAfterContentInit');
 
             // Trigger ngAfterContentInit manually
             cardInstance.ngAfterContentInit();
@@ -1071,7 +1083,7 @@ describe('Card', () => {
         });
 
         describe('Case 2: Object Values with Attributes and Styles', () => {
-            xit('should apply PT object with class, style and data attributes to root', async () => {
+            it.skip('should apply PT object with class, style and data attributes to root', async () => {
                 // Skipped: PT style binding causes infinite loop with current implementation
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('pt', {
@@ -1089,7 +1101,7 @@ describe('Card', () => {
                 expect(hostElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
             });
 
-            xit('should apply PT object with attributes to header', async () => {
+            it.skip('should apply PT object with attributes to header', async () => {
                 // Skipped: PT style binding causes infinite loop
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('header', 'Test');
@@ -1166,7 +1178,7 @@ describe('Card', () => {
             });
         });
 
-        xdescribe('Case 4: Instance-based Functions', () => {
+        describe.skip('Case 4: Instance-based Functions', () => {
             it('should apply PT function using instance header state', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('header', 'Test Header');
@@ -1286,7 +1298,8 @@ describe('Card', () => {
         describe('PT with Footer Section', () => {
             it('should apply PT class to footer section when footer content exists', async () => {
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [CardModule],
                     template: `
                         <p-card [pt]="pt">
                             <ng-template pTemplate="footer">
@@ -1301,8 +1314,7 @@ describe('Card', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [CardModule],
-                    declarations: [TestPTFooterComponent],
+                    imports: [CardModule, TestPTFooterComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1316,7 +1328,8 @@ describe('Card', () => {
 
             it('should apply PT class to header section', async () => {
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [CardModule],
                     template: `
                         <p-card [pt]="pt">
                             <ng-template pTemplate="header">
@@ -1331,8 +1344,7 @@ describe('Card', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [CardModule],
-                    declarations: [TestPTHeaderComponent],
+                    imports: [CardModule, TestPTHeaderComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1348,7 +1360,8 @@ describe('Card', () => {
         describe('Case 7: Global PT from PrimeNGConfig', () => {
             it('should apply global PT configuration from PrimeNGConfig', async () => {
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [CardModule],
                     template: `
                         <p-card header="Card 1"></p-card>
                         <p-card header="Card 2"></p-card>
@@ -1358,8 +1371,7 @@ describe('Card', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [CardModule],
-                    declarations: [TestGlobalPTComponent],
+                    imports: [CardModule, TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         {
@@ -1385,7 +1397,8 @@ describe('Card', () => {
 
             it('should merge local PT with global PT', async () => {
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [CardModule],
                     template: `<p-card [pt]="localPt" header="Test"></p-card>`
                 })
                 class TestMergePTComponent {
@@ -1394,8 +1407,7 @@ describe('Card', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [CardModule],
-                    declarations: [TestMergePTComponent],
+                    imports: [CardModule, TestMergePTComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1410,13 +1422,14 @@ describe('Card', () => {
             });
         });
 
-        xdescribe('Case 8: PT Hooks', () => {
+        describe.skip('Case 8: PT Hooks', () => {
             // Skipped: Card component hooks support needs to be verified
-            xit('should execute onAfterViewInit hook from PT', async () => {
+            it.skip('should execute onAfterViewInit hook from PT', async () => {
                 let hookExecuted = false;
 
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [CardModule],
                     template: `<p-card [pt]="pt"></p-card>`
                 })
                 class TestPTHooksComponent {
@@ -1432,8 +1445,7 @@ describe('Card', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [CardModule],
-                    declarations: [TestPTHooksComponent],
+                    imports: [CardModule, TestPTHooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1443,11 +1455,12 @@ describe('Card', () => {
                 expect(hookExecuted).toBe(true);
             });
 
-            xit('should execute onBeforeMount hook from PT', async () => {
+            it.skip('should execute onBeforeMount hook from PT', async () => {
                 let beforeMountExecuted = false;
 
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [CardModule],
                     template: `<p-card [pt]="pt"></p-card>`
                 })
                 class TestPTBeforeMountComponent {
@@ -1462,8 +1475,7 @@ describe('Card', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [CardModule],
-                    declarations: [TestPTBeforeMountComponent],
+                    imports: [CardModule, TestPTBeforeMountComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1473,11 +1485,12 @@ describe('Card', () => {
                 expect(beforeMountExecuted).toBe(true);
             });
 
-            xit('should execute onAfterContentInit hook from PT', async () => {
+            it.skip('should execute onAfterContentInit hook from PT', async () => {
                 let contentInitExecuted = false;
 
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [CardModule],
                     template: `<p-card [pt]="pt"></p-card>`
                 })
                 class TestPTContentInitComponent {
@@ -1492,8 +1505,7 @@ describe('Card', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [CardModule],
-                    declarations: [TestPTContentInitComponent],
+                    imports: [CardModule, TestPTContentInitComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1503,11 +1515,12 @@ describe('Card', () => {
                 expect(contentInitExecuted).toBe(true);
             });
 
-            xit('should execute multiple lifecycle hooks from PT', async () => {
+            it.skip('should execute multiple lifecycle hooks from PT', async () => {
                 const executedHooks: string[] = [];
 
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [CardModule],
                     template: `<p-card [pt]="pt"></p-card>`
                 })
                 class TestMultiplePTHooksComponent {
@@ -1528,8 +1541,7 @@ describe('Card', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [CardModule],
-                    declarations: [TestMultiplePTHooksComponent],
+                    imports: [CardModule, TestMultiplePTHooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1543,7 +1555,8 @@ describe('Card', () => {
         describe('Advanced PT Scenarios', () => {
             it('should apply PT with all sections', async () => {
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [CardModule],
                     template: `
                         <p-card [pt]="pt" [header]="'Test Header'" [subheader]="'Test Subheader'">
                             <ng-template pTemplate="header">
@@ -1570,8 +1583,7 @@ describe('Card', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [CardModule],
-                    declarations: [TestAllSectionsPTComponent],
+                    imports: [CardModule, TestAllSectionsPTComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1602,7 +1614,8 @@ describe('Card', () => {
 
             it('should handle PT with function returning classes based on instance', async () => {
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [CardModule],
                     template: `<p-card [pt]="pt" [header]="header"></p-card>`
                 })
                 class TestPTFunctionComponent {
@@ -1616,8 +1629,7 @@ describe('Card', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [CardModule],
-                    declarations: [TestPTFunctionComponent],
+                    imports: [CardModule, TestPTFunctionComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1630,7 +1642,8 @@ describe('Card', () => {
 
             it('should handle dynamic PT updates', async () => {
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [CardModule],
                     template: `<p-card [pt]="pt"></p-card>`
                 })
                 class TestDynamicPTComponent {
@@ -1639,8 +1652,7 @@ describe('Card', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [CardModule],
-                    declarations: [TestDynamicPTComponent],
+                    imports: [CardModule, TestDynamicPTComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1720,7 +1732,8 @@ describe('Card', () => {
 
             it('should handle PT function with instance-based styles', async () => {
                 @Component({
-                    standalone: false,
+                    standalone: true,
+                    imports: [CardModule],
                     template: `<p-card [pt]="pt" [header]="header" [subheader]="subheader"></p-card>`
                 })
                 class TestPTInstanceStyleComponent {
@@ -1737,8 +1750,7 @@ describe('Card', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [CardModule],
-                    declarations: [TestPTInstanceStyleComponent],
+                    imports: [CardModule, TestPTInstanceStyleComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 

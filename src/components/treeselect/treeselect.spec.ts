@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, provideZonelessChangeDetection, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -47,7 +48,8 @@ const mockTreeNodes: TreeNode[] = [
 ];
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [TreeSelectModule, SharedModule, FormsModule, ReactiveFormsModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-treeselect
@@ -331,7 +333,8 @@ class TestTreeSelectComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [TreeSelectModule, SharedModule, FormsModule, ReactiveFormsModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-treeselect [(ngModel)]="selectedValue" [options]="options" [placeholder]="placeholder" [disabled]="disabled" [showClear]="showClear" [filter]="filter">
@@ -433,8 +436,7 @@ describe('TreeSelect', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TreeSelectModule, SharedModule, FormsModule, ReactiveFormsModule],
-            declarations: [TestTreeSelectComponent, TestPTemplateTreeSelectComponent],
+            imports: [TreeSelectModule, SharedModule, FormsModule, ReactiveFormsModule, TestTreeSelectComponent, TestPTemplateTreeSelectComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -804,7 +806,7 @@ describe('TreeSelect', () => {
         it('should emit onShow event', async () => {
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
 
-            spyOn(treeSelectInstance.onShow, 'emit');
+            vi.spyOn(treeSelectInstance.onShow, 'emit').mockImplementation(() => undefined);
 
             // Manually call show to make overlay visible
             treeSelectInstance.show();
@@ -822,7 +824,7 @@ describe('TreeSelect', () => {
         it('should emit onHide event', async () => {
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
 
-            spyOn(treeSelectInstance.onHide, 'emit');
+            vi.spyOn(treeSelectInstance.onHide, 'emit').mockImplementation(() => undefined);
 
             // Open dropdown first
             treeSelectInstance.show();
@@ -1483,7 +1485,7 @@ describe('TreeSelect', () => {
         });
 
         it('PT: should support event handlers in PT options', async () => {
-            const clickSpy = jasmine.createSpy('clickHandler');
+            const clickSpy = vi.fn();
 
             await TestBed.configureTestingModule({
                 imports: [TreeSelectModule, FormsModule],

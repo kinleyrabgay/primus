@@ -22,9 +22,9 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { MotionEvent, MotionOptions } from '@primeuix/motion';
-import { $dt } from '@primeuix/styled';
-import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
+import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
+import { $dt } from '@primus/primeuix/styled';
+import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primus/primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind } from '@primus/core/bind';

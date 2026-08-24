@@ -1,6 +1,7 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem, SharedModule } from '@primus/core/api';
@@ -8,7 +9,8 @@ import { providePrimus } from '@primus/core/config';
 import { Dock } from './dock';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dock, SharedModule, RouterTestingModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-dock [id]="id" [model]="model" [position]="position" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" [breakpoint]="breakpoint" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)"> </p-dock> `
 })
@@ -34,7 +36,8 @@ class TestBasicDockComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dock, SharedModule, RouterTestingModule],
     selector: 'test-position-dock',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-dock [model]="model" [position]="position"></p-dock> `
@@ -48,7 +51,8 @@ class TestPositionDockComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dock, SharedModule, RouterTestingModule],
     selector: 'test-router-dock',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-dock [model]="routerModel"></p-dock> `
@@ -67,7 +71,8 @@ class TestRouterDockComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dock, SharedModule, RouterTestingModule, CommonModule],
     selector: 'test-item-template-dock',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -89,7 +94,8 @@ class TestItemTemplateDockComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dock, SharedModule, RouterTestingModule],
     selector: 'test-ptemplate-dock',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -105,7 +111,8 @@ class TestPTemplateDockComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dock, SharedModule, RouterTestingModule],
     selector: 'test-disabled-items-dock',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-dock [model]="disabledModel"></p-dock> `
@@ -115,7 +122,8 @@ class TestDisabledItemsDockComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dock, SharedModule, RouterTestingModule],
     selector: 'test-styled-dock',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-dock [model]="model" [styleClass]="customStyleClass"></p-dock> `
@@ -126,7 +134,8 @@ class TestStyledDockComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dock, SharedModule, RouterTestingModule],
     selector: 'test-minimal-dock',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-dock></p-dock>`
@@ -134,7 +143,8 @@ class TestStyledDockComponent {
 class TestMinimalDockComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dock, SharedModule, RouterTestingModule],
     selector: 'test-dynamic-dock',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-dock [model]="dynamicModel"></p-dock> `
@@ -156,7 +166,8 @@ class TestDynamicDockComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dock, SharedModule, RouterTestingModule],
     selector: 'test-command-dock',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-dock [model]="commandModel"></p-dock> `
@@ -190,7 +201,7 @@ describe('Dock', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
                 TestBasicDockComponent,
                 TestPositionDockComponent,
                 TestRouterDockComponent,
@@ -200,9 +211,8 @@ describe('Dock', () => {
                 TestStyledDockComponent,
                 TestMinimalDockComponent,
                 TestDynamicDockComponent,
-                TestCommandDockComponent
-            ],
-            imports: [
+                TestCommandDockComponent,
+
                 Dock,
                 TestTargetComponent,
 
@@ -233,7 +243,7 @@ describe('Dock', () => {
         it('should have required dependencies injected', () => {
             expect(dockInstance.cd).toBeTruthy();
             expect(dockInstance._componentStyle).toBeTruthy();
-            expect(dockInstance.constructor.name).toBe('Dock');
+            expect(dockInstance.constructor.name.replace(/^_+/, '')).toBe('Dock');
         });
 
         it('should have default values', async () => {
@@ -449,7 +459,7 @@ describe('Dock', () => {
         });
 
         it('should handle mouse enter on item', () => {
-            spyOn(dockInstance, 'onItemMouseEnter');
+            vi.spyOn(dockInstance, 'onItemMouseEnter').mockImplementation(() => undefined);
 
             const itemElement = fixture.debugElement.query(By.css('li[role="menuitem"]'));
             itemElement.triggerEventHandler('mouseenter', {});
@@ -458,7 +468,7 @@ describe('Dock', () => {
         });
 
         it('should handle mouse leave on list', () => {
-            spyOn(dockInstance, 'onListMouseLeave');
+            vi.spyOn(dockInstance, 'onListMouseLeave').mockImplementation(() => undefined);
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
             listElement.triggerEventHandler('mouseleave', {});
@@ -562,8 +572,8 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(dockInstance, 'onArrowDownKey');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(dockInstance, 'onArrowDownKey').mockImplementation(() => undefined);
 
             dockInstance.onListKeyDown(keyEvent);
 
@@ -577,8 +587,8 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(dockInstance, 'onArrowUpKey');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(dockInstance, 'onArrowUpKey').mockImplementation(() => undefined);
 
             dockInstance.onListKeyDown(keyEvent);
 
@@ -592,8 +602,8 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(dockInstance, 'onArrowDownKey');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(dockInstance, 'onArrowDownKey').mockImplementation(() => undefined);
 
             dockInstance.onListKeyDown(keyEvent);
 
@@ -607,8 +617,8 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(dockInstance, 'onArrowUpKey');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(dockInstance, 'onArrowUpKey').mockImplementation(() => undefined);
 
             dockInstance.onListKeyDown(keyEvent);
 
@@ -618,8 +628,8 @@ describe('Dock', () => {
 
         it('should handle home key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Home' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(dockInstance, 'onHomeKey');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(dockInstance, 'onHomeKey').mockImplementation(() => undefined);
 
             dockInstance.onListKeyDown(keyEvent);
 
@@ -629,8 +639,8 @@ describe('Dock', () => {
 
         it('should handle end key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'End' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(dockInstance, 'onEndKey');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(dockInstance, 'onEndKey').mockImplementation(() => undefined);
 
             dockInstance.onListKeyDown(keyEvent);
 
@@ -640,8 +650,8 @@ describe('Dock', () => {
 
         it('should handle enter key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(dockInstance, 'onSpaceKey');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(dockInstance, 'onSpaceKey').mockImplementation(() => undefined);
 
             dockInstance.onListKeyDown(keyEvent);
 
@@ -651,8 +661,8 @@ describe('Dock', () => {
 
         it('should handle space key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Space' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(dockInstance, 'onSpaceKey');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
+            vi.spyOn(dockInstance, 'onSpaceKey').mockImplementation(() => undefined);
 
             dockInstance.onListKeyDown(keyEvent);
 
@@ -663,7 +673,7 @@ describe('Dock', () => {
 
     describe('Focus Management Tests', () => {
         it('should emit onFocus when list gains focus', () => {
-            spyOn(dockInstance.onFocus, 'emit');
+            vi.spyOn(dockInstance.onFocus, 'emit').mockImplementation(() => undefined);
             const focusEvent = new FocusEvent('focus');
 
             dockInstance.onListFocus(focusEvent);
@@ -673,7 +683,7 @@ describe('Dock', () => {
         });
 
         it('should emit onBlur when list loses focus', () => {
-            spyOn(dockInstance.onBlur, 'emit');
+            vi.spyOn(dockInstance.onBlur, 'emit').mockImplementation(() => undefined);
             const blurEvent = new FocusEvent('blur');
             dockInstance.focused = true;
 
@@ -687,8 +697,8 @@ describe('Dock', () => {
         it('should handle focus and blur events from template', () => {
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
 
-            spyOn(component, 'onFocus');
-            spyOn(component, 'onBlur');
+            vi.spyOn(component, 'onFocus').mockImplementation(() => undefined);
+            vi.spyOn(component, 'onBlur').mockImplementation(() => undefined);
 
             listElement.triggerEventHandler('focus', new FocusEvent('focus'));
             expect(component.onFocus).toHaveBeenCalled();
@@ -957,7 +967,7 @@ describe('Dock', () => {
         });
 
         it('should handle memory cleanup on destroy', () => {
-            spyOn(dockInstance, 'unbindMatchMediaListener');
+            vi.spyOn(dockInstance, 'unbindMatchMediaListener').mockImplementation(() => undefined);
 
             dockInstance.ngOnDestroy();
 
@@ -974,7 +984,7 @@ describe('Dock', () => {
         });
 
         it('should bind match media listener on init', () => {
-            spyOn(dockInstance, 'bindMatchMediaListener');
+            vi.spyOn(dockInstance, 'bindMatchMediaListener').mockImplementation(() => undefined);
 
             dockInstance.ngOnInit();
 
@@ -982,7 +992,7 @@ describe('Dock', () => {
         });
 
         it('should unbind match media listener on destroy', () => {
-            spyOn(dockInstance, 'unbindMatchMediaListener');
+            vi.spyOn(dockInstance, 'unbindMatchMediaListener').mockImplementation(() => undefined);
 
             dockInstance.ngOnDestroy();
 
@@ -1198,7 +1208,7 @@ describe('Dock', () => {
                 { label: 'Item 2', icon: 'pi pi-pencil' }
             ];
 
-            spyOn(ptDock, 'getPTOptions').and.callThrough();
+            vi.spyOn(ptDock, 'getPTOptions');
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 

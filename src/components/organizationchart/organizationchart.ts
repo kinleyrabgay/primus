@@ -19,7 +19,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { hasClass, isAttributeEquals } from '@primeuix/utils';
+import { hasClass, isAttributeEquals } from '@primus/primeuix/utils';
 import { PrimeTemplate, SharedModule, TreeNode } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind, BindModule } from '@primus/core/bind';

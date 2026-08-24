@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { find, findSingle } from '@primeuix/utils';
+import { find, findSingle } from '@primus/primeuix/utils';
 import { MenuItem, SharedModule } from '@primus/core/api';
 import { BaseComponent } from '@primus/core/basecomponent';
 import { TooltipModule } from '@primus/components/tooltip';

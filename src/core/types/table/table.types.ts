@@ -8,7 +8,7 @@ import type { InputTextPassThrough } from '@primus/core/types/inputtext';
 import type { SelectPassThrough } from '@primus/core/types/select';
 import type { InputNumberPassThrough } from '@primus/core/types/inputnumber';
 import type { DatePickerPassThrough } from '@primus/core/types/datepicker';
-import type { MotionOptions } from '@primeuix/motion';
+import type { MotionOptions } from '@primus/primeuix/motion';
 
 /**
  * Custom pass-through(pt) options for ColumnFilter.

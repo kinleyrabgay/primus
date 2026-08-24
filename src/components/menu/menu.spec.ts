@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, DebugElement, provideZonelessChangeDetection, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -8,7 +9,8 @@ import { providePrimus } from '@primus/core/config';
 import { Menu } from './menu';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menu, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-menu
@@ -71,7 +73,8 @@ class TestBasicMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menu, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-menu #menu [model]="popupItems" [popup]="true"></p-menu>
@@ -108,7 +111,8 @@ class TestPopupMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menu, SharedModule],
     selector: 'test-router-menu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-menu [model]="routerModel"></p-menu> `
@@ -127,7 +131,8 @@ class TestRouterMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menu, SharedModule],
     selector: 'test-submenu-menu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-menu [model]="submenuModel"></p-menu> `
@@ -152,7 +157,8 @@ class TestSubmenuMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menu, SharedModule, CommonModule],
     selector: 'test-item-template-menu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -174,7 +180,8 @@ class TestItemTemplateMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menu, SharedModule],
     selector: 'test-ptemplate-menu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -196,7 +203,8 @@ class TestPTemplateMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menu, SharedModule],
     selector: 'test-disabled-items-menu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-menu [model]="disabledModel"></p-menu> `
@@ -206,7 +214,8 @@ class TestDisabledItemsMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menu, SharedModule],
     selector: 'test-styled-menu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-menu [model]="model" [styleClass]="customStyleClass" [style]="customStyle"></p-menu> `
@@ -218,7 +227,8 @@ class TestStyledMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menu, SharedModule],
     selector: 'test-minimal-menu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-menu></p-menu>`
@@ -226,7 +236,8 @@ class TestStyledMenuComponent {
 class TestMinimalMenuComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menu, SharedModule],
     selector: 'test-dynamic-menu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-menu [model]="dynamicModel"></p-menu> `
@@ -248,7 +259,8 @@ class TestDynamicMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menu, SharedModule],
     selector: 'test-command-menu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-menu [model]="commandModel"></p-menu> `
@@ -283,7 +295,7 @@ describe('Menu', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
                 TestBasicMenuComponent,
                 TestPopupMenuComponent,
                 TestRouterMenuComponent,
@@ -294,9 +306,7 @@ describe('Menu', () => {
                 TestStyledMenuComponent,
                 TestMinimalMenuComponent,
                 TestDynamicMenuComponent,
-                TestCommandMenuComponent
-            ],
-            imports: [
+                TestCommandMenuComponent,
                 Menu,
                 TestTargetComponent,
 
@@ -327,7 +337,7 @@ describe('Menu', () => {
         it('should have required dependencies injected', () => {
             expect(menuInstance.overlayService).toBeTruthy();
             expect(menuInstance._componentStyle).toBeTruthy();
-            expect(menuInstance.constructor.name).toBe('Menu');
+            expect(menuInstance.constructor.name.replace(/^_+/, '')).toBe('Menu');
         });
 
         it('should have default values', () => {
@@ -694,7 +704,7 @@ describe('Menu', () => {
         });
 
         it('should handle arrow down key', () => {
-            spyOn(menuInstance, 'onArrowDownKey');
+            vi.spyOn(menuInstance, 'onArrowDownKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
 
             menuInstance.onListKeyDown(keyEvent);
@@ -703,7 +713,7 @@ describe('Menu', () => {
         });
 
         it('should handle arrow up key', () => {
-            spyOn(menuInstance, 'onArrowUpKey');
+            vi.spyOn(menuInstance, 'onArrowUpKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
 
             menuInstance.onListKeyDown(keyEvent);
@@ -712,7 +722,7 @@ describe('Menu', () => {
         });
 
         it('should handle home key', () => {
-            spyOn(menuInstance, 'onHomeKey');
+            vi.spyOn(menuInstance, 'onHomeKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'Home' });
 
             menuInstance.onListKeyDown(keyEvent);
@@ -721,7 +731,7 @@ describe('Menu', () => {
         });
 
         it('should handle end key', () => {
-            spyOn(menuInstance, 'onEndKey');
+            vi.spyOn(menuInstance, 'onEndKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'End' });
 
             menuInstance.onListKeyDown(keyEvent);
@@ -730,7 +740,7 @@ describe('Menu', () => {
         });
 
         it('should handle enter key', () => {
-            spyOn(menuInstance, 'onEnterKey');
+            vi.spyOn(menuInstance, 'onEnterKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
 
             menuInstance.onListKeyDown(keyEvent);
@@ -739,7 +749,7 @@ describe('Menu', () => {
         });
 
         it('should handle space key', () => {
-            spyOn(menuInstance, 'onSpaceKey');
+            vi.spyOn(menuInstance, 'onSpaceKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'Space' });
 
             menuInstance.onListKeyDown(keyEvent);
@@ -752,7 +762,7 @@ describe('Menu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(menuInstance, 'hide');
+            vi.spyOn(menuInstance, 'hide').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'Escape' });
 
             menuInstance.onListKeyDown(keyEvent);
@@ -763,7 +773,7 @@ describe('Menu', () => {
 
     describe('Focus Management Tests', () => {
         it('should emit onFocus when list gains focus', () => {
-            spyOn(menuInstance.onFocus, 'emit');
+            vi.spyOn(menuInstance.onFocus, 'emit').mockImplementation(() => undefined);
             const focusEvent = new FocusEvent('focus');
 
             menuInstance.onListFocus(focusEvent);
@@ -773,7 +783,7 @@ describe('Menu', () => {
         });
 
         it('should emit onBlur when list loses focus', () => {
-            spyOn(menuInstance.onBlur, 'emit');
+            vi.spyOn(menuInstance.onBlur, 'emit').mockImplementation(() => undefined);
             const blurEvent = new FocusEvent('blur');
             menuInstance.focused = true;
 
@@ -787,8 +797,8 @@ describe('Menu', () => {
         it('should handle focus and blur events from template', () => {
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
 
-            spyOn(component, 'onFocus');
-            spyOn(component, 'onBlur');
+            vi.spyOn(component, 'onFocus').mockImplementation(() => undefined);
+            vi.spyOn(component, 'onBlur').mockImplementation(() => undefined);
 
             listElement.triggerEventHandler('focus', new FocusEvent('focus'));
             expect(component.onFocus).toHaveBeenCalled();
@@ -811,7 +821,7 @@ describe('Menu', () => {
 
             // Mock the DOM query results
             const mockElement = { getAttribute: () => 'test_id' };
-            spyOn(menuInstance, 'changeFocusedOptionIndex').and.callThrough();
+            vi.spyOn(menuInstance, 'changeFocusedOptionIndex');
 
             // Test the method exists and can be called
             expect(typeof menuInstance.changeFocusedOptionIndex).toBe('function');
@@ -978,8 +988,8 @@ describe('Menu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(menuInstance.onShow, 'emit');
-            spyOn(menuInstance.onHide, 'emit');
+            vi.spyOn(menuInstance.onShow, 'emit').mockImplementation(() => undefined);
+            vi.spyOn(menuInstance.onHide, 'emit').mockImplementation(() => undefined);
 
             // Show menu
             const mockEvent = { currentTarget: document.createElement('button') };
@@ -1019,7 +1029,7 @@ describe('Menu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(overlayService, 'add');
+            vi.spyOn(overlayService, 'add').mockImplementation(() => undefined);
             const mockEvent = new Event('click');
 
             menuInstance.onOverlayClick(mockEvent);
@@ -1033,7 +1043,7 @@ describe('Menu', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(menuInstance, 'bindDocumentClickListener');
+            vi.spyOn(menuInstance, 'bindDocumentClickListener').mockImplementation(() => undefined);
 
             menuInstance.ngOnInit();
 
@@ -1219,7 +1229,7 @@ describe('Menu', () => {
             expect(popupMenuInstance.visible).toBe(true);
 
             // Simulate overlay click
-            spyOn(popupMenuInstance, 'hide');
+            vi.spyOn(popupMenuInstance, 'hide').mockImplementation(() => undefined);
 
             // Find overlay and trigger click
             const overlay = popupFixture.debugElement.query(By.css('[data-pc-section="root"]'));
@@ -1288,7 +1298,7 @@ describe('Menu', () => {
         });
 
         it('should handle memory cleanup on destroy', () => {
-            spyOn(menuInstance, 'unbindDocumentClickListener');
+            vi.spyOn(menuInstance, 'unbindDocumentClickListener').mockImplementation(() => undefined);
 
             menuInstance.ngOnDestroy();
 
@@ -1319,7 +1329,7 @@ describe('Menu', () => {
             await fixture.whenStable();
 
             const mockEvent = {
-                originalEvent: { preventDefault: jasmine.createSpy('preventDefault') },
+                originalEvent: { preventDefault: vi.fn() },
                 item: { disabled: true }
             };
 
@@ -1892,7 +1902,7 @@ describe('Menu', () => {
             fixture.componentRef.setInput('model', [testItem]);
             fixture.detectChanges();
 
-            spyOn(menu, 'ptm').and.callThrough();
+            vi.spyOn(menu, 'ptm');
 
             menu.getPTOptions('item', testItem, testIndex, testId);
 
@@ -1900,8 +1910,8 @@ describe('Menu', () => {
                 context: {
                     item: testItem,
                     index: testIndex,
-                    focused: jasmine.any(Boolean),
-                    disabled: jasmine.any(Boolean)
+                    focused: expect.any(Boolean),
+                    disabled: expect.any(Boolean)
                 }
             });
         });
@@ -1930,14 +1940,14 @@ describe('Menu', () => {
             fixture.componentRef.setInput('id', 'menu');
             fixture.detectChanges();
 
-            spyOn(menu, 'isItemFocused').and.returnValue(true);
-            spyOn(menu, 'ptm').and.callThrough();
+            vi.spyOn(menu, 'isItemFocused').mockReturnValue(true);
+            vi.spyOn(menu, 'ptm');
 
             menu.getPTOptions('item', testItem, 0, testId);
 
             expect(menu.isItemFocused).toHaveBeenCalledWith(testId);
             expect(menu.ptm).toHaveBeenCalledWith('item', {
-                context: jasmine.objectContaining({
+                context: expect.objectContaining({
                     focused: true
                 })
             });
@@ -1952,14 +1962,14 @@ describe('Menu', () => {
             fixture.componentRef.setInput('model', [disabledItem]);
             fixture.detectChanges();
 
-            spyOn(menu, 'disabled').and.returnValue(true);
-            spyOn(menu, 'ptm').and.callThrough();
+            vi.spyOn(menu, 'disabled').mockReturnValue(true);
+            vi.spyOn(menu, 'ptm');
 
             menu.getPTOptions('item', disabledItem, 0, testId);
 
             expect(menu.disabled).toHaveBeenCalledWith(true);
             expect(menu.ptm).toHaveBeenCalledWith('item', {
-                context: jasmine.objectContaining({
+                context: expect.objectContaining({
                     disabled: true
                 })
             });
@@ -1975,14 +1985,14 @@ describe('Menu', () => {
             fixture.componentRef.setInput('model', [testItem]);
             fixture.detectChanges();
 
-            spyOn(menu, 'disabled').and.returnValue(true);
-            spyOn(menu, 'ptm').and.callThrough();
+            vi.spyOn(menu, 'disabled').mockReturnValue(true);
+            vi.spyOn(menu, 'ptm');
 
             menu.getPTOptions('item', testItem, 0, testId);
 
             expect(menu.disabled).toHaveBeenCalledWith(disabledFn);
             expect(menu.ptm).toHaveBeenCalledWith('item', {
-                context: jasmine.objectContaining({
+                context: expect.objectContaining({
                     disabled: true
                 })
             });
@@ -1997,16 +2007,16 @@ describe('Menu', () => {
             fixture.componentRef.setInput('model', [testItem]);
             fixture.detectChanges();
 
-            spyOn(menu, 'ptm').and.callThrough();
+            vi.spyOn(menu, 'ptm');
 
             menu.getPTOptions('item', testItem, 0, testId);
-            expect(menu.ptm).toHaveBeenCalledWith('item', jasmine.any(Object));
+            expect(menu.ptm).toHaveBeenCalledWith('item', expect.any(Object));
 
             menu.getPTOptions('itemLink', testItem, 0, testId);
-            expect(menu.ptm).toHaveBeenCalledWith('itemLink', jasmine.any(Object));
+            expect(menu.ptm).toHaveBeenCalledWith('itemLink', expect.any(Object));
 
             menu.getPTOptions('itemContent', testItem, 0, testId);
-            expect(menu.ptm).toHaveBeenCalledWith('itemContent', jasmine.any(Object));
+            expect(menu.ptm).toHaveBeenCalledWith('itemContent', expect.any(Object));
         });
 
         it('should pass correct index for multiple items', () => {
@@ -2017,29 +2027,29 @@ describe('Menu', () => {
             fixture.componentRef.setInput('model', items);
             fixture.detectChanges();
 
-            spyOn(menu, 'ptm').and.callThrough();
+            vi.spyOn(menu, 'ptm');
 
             menu.getPTOptions('item', items[0], 0, 'menu_0');
             expect(menu.ptm).toHaveBeenCalledWith(
                 'item',
-                jasmine.objectContaining({
-                    context: jasmine.objectContaining({ index: 0 })
+                expect.objectContaining({
+                    context: expect.objectContaining({ index: 0 })
                 })
             );
 
             menu.getPTOptions('item', items[1], 1, 'menu_1');
             expect(menu.ptm).toHaveBeenCalledWith(
                 'item',
-                jasmine.objectContaining({
-                    context: jasmine.objectContaining({ index: 1 })
+                expect.objectContaining({
+                    context: expect.objectContaining({ index: 1 })
                 })
             );
 
             menu.getPTOptions('item', items[2], 2, 'menu_2');
             expect(menu.ptm).toHaveBeenCalledWith(
                 'item',
-                jasmine.objectContaining({
-                    context: jasmine.objectContaining({ index: 2 })
+                expect.objectContaining({
+                    context: expect.objectContaining({ index: 2 })
                 })
             );
         });
@@ -2055,24 +2065,24 @@ describe('Menu', () => {
             fixture.detectChanges();
 
             menu.focusedOptionIndex.set(id1);
-            spyOn(menu, 'ptm').and.callThrough();
+            vi.spyOn(menu, 'ptm');
 
             menu.getPTOptions('item', testItem, 0, id1);
             expect(menu.ptm).toHaveBeenCalledWith(
                 'item',
-                jasmine.objectContaining({
-                    context: jasmine.objectContaining({ focused: true })
+                expect.objectContaining({
+                    context: expect.objectContaining({ focused: true })
                 })
             );
 
-            (menu.ptm as jasmine.Spy).calls.reset();
+            (menu.ptm as ReturnType<typeof vi.fn>).mockClear();
             menu.focusedOptionIndex.set(id2);
 
             menu.getPTOptions('item', testItem, 0, id1);
             expect(menu.ptm).toHaveBeenCalledWith(
                 'item',
-                jasmine.objectContaining({
-                    context: jasmine.objectContaining({ focused: false })
+                expect.objectContaining({
+                    context: expect.objectContaining({ focused: false })
                 })
             );
         });

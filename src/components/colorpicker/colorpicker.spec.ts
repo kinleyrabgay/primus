@@ -7,7 +7,8 @@ import { ColorPickerChangeEvent } from '@primus/core/types/colorpicker';
 import { ColorPicker } from './colorpicker';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, ColorPicker],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-colorpicker
@@ -60,7 +61,8 @@ class TestBasicColorPickerComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, ColorPicker],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -88,7 +90,8 @@ class TestReactiveFormColorPickerComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, ColorPicker],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div>
@@ -109,7 +112,8 @@ class TestFormatColorPickerComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, ColorPicker],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-colorpicker [(ngModel)]="color" [inline]="true" [disabled]="disabled" (onChange)="onColorChange($event)"> </p-colorpicker> `
 })
@@ -125,7 +129,8 @@ class TestInlineColorPickerComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, ColorPicker],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-colorpicker [(ngModel)]="color" [disabled]="disabled" [autofocus]="autofocus" [inputId]="inputId" [tabindex]="tabindex" [defaultColor]="defaultColor" (onChange)="onColorChange($event)"> </p-colorpicker> `
 })
@@ -147,8 +152,7 @@ class TestStyledColorPickerComponent {
 describe('ColorPicker', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FormsModule, ReactiveFormsModule, ColorPicker],
-            declarations: [TestBasicColorPickerComponent, TestReactiveFormColorPickerComponent, TestFormatColorPickerComponent, TestInlineColorPickerComponent, TestStyledColorPickerComponent],
+            imports: [FormsModule, ReactiveFormsModule, ColorPicker, TestBasicColorPickerComponent, TestReactiveFormColorPickerComponent, TestFormatColorPickerComponent, TestInlineColorPickerComponent, TestStyledColorPickerComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });

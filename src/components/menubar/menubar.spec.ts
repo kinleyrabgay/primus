@@ -1,4 +1,5 @@
 import { Component, DebugElement, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -7,7 +8,8 @@ import { MenuItem, SharedModule } from '@primus/core/api';
 import { Menubar, MenubarSub } from './menubar';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-menubar
@@ -54,7 +56,8 @@ class TestBasicMenubarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule],
     selector: 'test-nested-menubar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-menubar [model]="nestedModel"> </p-menubar> `
@@ -78,7 +81,8 @@ class TestNestedMenubarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule],
     selector: 'test-router-menubar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-menubar [model]="routerModel"> </p-menubar> `
@@ -97,7 +101,8 @@ class TestRouterMenubarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-menubar [model]="model">
@@ -115,7 +120,8 @@ class TestTemplateMenubarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-menubar [model]="model">
@@ -136,7 +142,8 @@ class TestItemTemplateMenubarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-menubar [model]="model">
@@ -151,7 +158,8 @@ class TestPTemplateMenubarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-menubar [model]="model">
@@ -171,7 +179,8 @@ class TestSubmenuIconTemplateComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-menubar [model]="model">
@@ -186,7 +195,8 @@ class TestMenuIconTemplateComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule],
     selector: 'test-disabled-items',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-menubar [model]="disabledModel"> </p-menubar> `
@@ -196,7 +206,8 @@ class TestDisabledItemsComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule],
     selector: 'test-styled-menubar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-menubar [styleClass]="customStyleClass"> </p-menubar> `
@@ -206,7 +217,8 @@ class TestStyledMenubarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule],
     selector: 'test-minimal-menubar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-menubar></p-menubar>`
@@ -214,7 +226,8 @@ class TestStyledMenubarComponent {
 class TestMinimalMenubarComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule],
     selector: 'test-dynamic-menubar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-menubar [model]="dynamicModel"> </p-menubar> `
@@ -236,7 +249,8 @@ class TestDynamicMenubarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule],
     selector: 'test-command-menubar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-menubar [model]="commandModel"> </p-menubar> `
@@ -256,7 +270,8 @@ class TestCommandMenubarComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Menubar, SharedModule],
     selector: 'test-autohide-menubar',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-menubar [model]="model" [autoHide]="autoHide" [autoHideDelay]="autoHideDelay"> </p-menubar> `
@@ -282,7 +297,7 @@ describe('Menubar', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
                 TestBasicMenubarComponent,
                 TestNestedMenubarComponent,
                 TestRouterMenubarComponent,
@@ -296,9 +311,7 @@ describe('Menubar', () => {
                 TestMinimalMenubarComponent,
                 TestDynamicMenubarComponent,
                 TestCommandMenubarComponent,
-                TestAutoHideMenubarComponent
-            ],
-            imports: [
+                TestAutoHideMenubarComponent,
                 Menubar,
                 TestTargetComponent,
 
@@ -512,7 +525,7 @@ describe('Menubar', () => {
         it('should handle item click', () => {
             const firstItem = fixture.debugElement.query(By.css('li[data-pc-section="item"] div[data-pc-section="itemcontent"]'));
 
-            spyOn(menubarInstance, 'onItemClick');
+            vi.spyOn(menubarInstance, 'onItemClick').mockImplementation(() => undefined);
 
             firstItem.nativeElement.click();
 
@@ -534,7 +547,7 @@ describe('Menubar', () => {
         it('should handle mouse enter on item', () => {
             const firstItemContent = fixture.debugElement.query(By.css('li[data-pc-section="item"] div[data-pc-section="itemcontent"]'));
 
-            spyOn(menubarInstance, 'onItemMouseEnter');
+            vi.spyOn(menubarInstance, 'onItemMouseEnter').mockImplementation(() => undefined);
 
             // Trigger mouseenter on the content div which has the actual handler
             firstItemContent.triggerEventHandler('mouseenter', new MouseEvent('mouseenter'));
@@ -635,9 +648,9 @@ describe('Menubar', () => {
 
         it('should handle arrow right key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
-            spyOn(menubarInstance, 'changeFocusedItemIndex');
+            vi.spyOn(menubarInstance, 'changeFocusedItemIndex').mockImplementation(() => undefined);
 
             menubarInstance.onKeyDown(keyEvent);
 
@@ -646,9 +659,9 @@ describe('Menubar', () => {
 
         it('should handle arrow left key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
-            spyOn(menubarInstance, 'changeFocusedItemIndex');
+            vi.spyOn(menubarInstance, 'changeFocusedItemIndex').mockImplementation(() => undefined);
 
             menubarInstance.onKeyDown(keyEvent);
 
@@ -658,7 +671,7 @@ describe('Menubar', () => {
         it('should handle arrow down key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
 
-            spyOn(menubarInstance, 'onArrowDownKey');
+            vi.spyOn(menubarInstance, 'onArrowDownKey').mockImplementation(() => undefined);
 
             menubarInstance.onKeyDown(keyEvent);
 
@@ -668,7 +681,7 @@ describe('Menubar', () => {
         it('should handle arrow up key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
 
-            spyOn(menubarInstance, 'onArrowUpKey');
+            vi.spyOn(menubarInstance, 'onArrowUpKey').mockImplementation(() => undefined);
 
             menubarInstance.onKeyDown(keyEvent);
 
@@ -677,9 +690,9 @@ describe('Menubar', () => {
 
         it('should handle home key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Home' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
-            spyOn(menubarInstance, 'changeFocusedItemIndex');
+            vi.spyOn(menubarInstance, 'changeFocusedItemIndex').mockImplementation(() => undefined);
 
             menubarInstance.onKeyDown(keyEvent);
 
@@ -689,9 +702,9 @@ describe('Menubar', () => {
 
         it('should handle end key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'End' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
-            spyOn(menubarInstance, 'changeFocusedItemIndex');
+            vi.spyOn(menubarInstance, 'changeFocusedItemIndex').mockImplementation(() => undefined);
 
             menubarInstance.onKeyDown(keyEvent);
 
@@ -701,7 +714,7 @@ describe('Menubar', () => {
 
         it('should handle enter key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             menubarInstance.onKeyDown(keyEvent);
 
@@ -710,7 +723,7 @@ describe('Menubar', () => {
 
         it('should handle space key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Space' });
-            spyOn(menubarInstance, 'onEnterKey');
+            vi.spyOn(menubarInstance, 'onEnterKey').mockImplementation(() => undefined);
 
             menubarInstance.onKeyDown(keyEvent);
 
@@ -719,8 +732,8 @@ describe('Menubar', () => {
 
         it('should handle escape key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Escape' });
-            spyOn(menubarInstance, 'hide');
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(menubarInstance, 'hide').mockImplementation(() => undefined);
+            vi.spyOn(keyEvent, 'preventDefault').mockImplementation(() => undefined);
 
             menubarInstance.onKeyDown(keyEvent);
 
@@ -730,7 +743,7 @@ describe('Menubar', () => {
 
         it('should handle tab key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Tab' });
-            spyOn(menubarInstance, 'hide');
+            vi.spyOn(menubarInstance, 'hide').mockImplementation(() => undefined);
 
             menubarInstance.onKeyDown(keyEvent);
 
@@ -739,7 +752,7 @@ describe('Menubar', () => {
 
         it('should handle printable character search', () => {
             const keyEvent = new KeyboardEvent('keydown', { key: 'f' });
-            spyOn(menubarInstance, 'searchItems');
+            vi.spyOn(menubarInstance, 'searchItems').mockImplementation(() => undefined as any);
 
             menubarInstance.onKeyDown(keyEvent);
 
@@ -792,8 +805,8 @@ describe('Menubar', () => {
         it('should handle focus and blur events', () => {
             const rootMenu = fixture.debugElement.query(By.css('ul[pMenubarSub]'));
 
-            spyOn(menubarInstance, 'onMenuFocus');
-            spyOn(menubarInstance, 'onMenuBlur');
+            vi.spyOn(menubarInstance, 'onMenuFocus').mockImplementation(() => undefined);
+            vi.spyOn(menubarInstance, 'onMenuBlur').mockImplementation(() => undefined);
 
             rootMenu.triggerEventHandler('focus', new FocusEvent('focus'));
             expect(menubarInstance.onMenuFocus).toHaveBeenCalled();
@@ -858,7 +871,7 @@ describe('Menubar', () => {
         });
 
         it('should bind match media listener on init', () => {
-            spyOn(menubarInstance, 'bindMatchMediaListener');
+            vi.spyOn(menubarInstance, 'bindMatchMediaListener').mockImplementation(() => undefined);
 
             menubarInstance.ngOnInit();
 
@@ -866,7 +879,7 @@ describe('Menubar', () => {
         });
 
         it('should unbind match media listener on destroy', () => {
-            spyOn(menubarInstance, 'unbindMatchMediaListener');
+            vi.spyOn(menubarInstance, 'unbindMatchMediaListener').mockImplementation(() => undefined);
 
             menubarInstance.ngOnDestroy();
 
@@ -897,7 +910,7 @@ describe('Menubar', () => {
         it('should handle mouse leave with autoHide', () => {
             const rootMenu = fixture.debugElement.query(By.css('ul[pMenubarSub]'));
 
-            spyOn(menubarInstance, 'onMouseLeave');
+            vi.spyOn(menubarInstance, 'onMouseLeave').mockImplementation(() => undefined);
 
             rootMenu.triggerEventHandler('mouseleave', new MouseEvent('mouseleave'));
 
@@ -1003,8 +1016,8 @@ describe('Menubar', () => {
         });
 
         it('should call show method programmatically', () => {
-            spyOn(menubarInstance, 'findFirstFocusedItemIndex').and.returnValue(0);
-            spyOn(menubarInstance, 'findVisibleItem').and.returnValue({ item: { label: 'Test' } });
+            vi.spyOn(menubarInstance, 'findFirstFocusedItemIndex').mockReturnValue(0);
+            vi.spyOn(menubarInstance, 'findVisibleItem').mockReturnValue({ item: { label: 'Test' } });
 
             menubarInstance.show();
 
@@ -1023,7 +1036,7 @@ describe('Menubar', () => {
 
         it('should call toggle method programmatically', () => {
             const mockEvent = new MouseEvent('click');
-            spyOn(mockEvent, 'preventDefault');
+            vi.spyOn(mockEvent, 'preventDefault').mockImplementation(() => undefined);
 
             expect(menubarInstance.mobileActive).toBeFalsy();
 
@@ -1083,7 +1096,7 @@ describe('Menubar', () => {
                 index: 0
             };
 
-            spyOn(menubarSub, 'ptm').and.callThrough();
+            vi.spyOn(menubarSub, 'ptm');
 
             menubarSub.getPTOptions(processedItem, 0, 'item');
 
@@ -1091,9 +1104,9 @@ describe('Menubar', () => {
                 context: {
                     item: processedItem.item,
                     index: 0,
-                    active: jasmine.any(Boolean),
-                    focused: jasmine.any(Boolean),
-                    disabled: jasmine.any(Boolean),
+                    active: expect.any(Boolean),
+                    focused: expect.any(Boolean),
+                    disabled: expect.any(Boolean),
                     level: menubarSub.level
                 }
             });
@@ -1132,14 +1145,14 @@ describe('Menubar', () => {
                 index: 0
             };
 
-            spyOn(menubarSub, 'isItemActive').and.returnValue(true);
-            spyOn(menubarSub, 'ptm').and.callThrough();
+            vi.spyOn(menubarSub, 'isItemActive').mockReturnValue(true);
+            vi.spyOn(menubarSub, 'ptm');
 
             menubarSub.getPTOptions(processedItem, 0, 'item');
 
             expect(menubarSub.isItemActive).toHaveBeenCalledWith(processedItem);
             expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
-                context: jasmine.objectContaining({
+                context: expect.objectContaining({
                     active: true
                 })
             });
@@ -1159,14 +1172,14 @@ describe('Menubar', () => {
                 index: 0
             };
 
-            spyOn(menubarSub, 'isItemFocused').and.returnValue(true);
-            spyOn(menubarSub, 'ptm').and.callThrough();
+            vi.spyOn(menubarSub, 'isItemFocused').mockReturnValue(true);
+            vi.spyOn(menubarSub, 'ptm');
 
             menubarSub.getPTOptions(processedItem, 0, 'item');
 
             expect(menubarSub.isItemFocused).toHaveBeenCalledWith(processedItem);
             expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
-                context: jasmine.objectContaining({
+                context: expect.objectContaining({
                     focused: true
                 })
             });
@@ -1186,14 +1199,14 @@ describe('Menubar', () => {
                 index: 0
             };
 
-            spyOn(menubarSub, 'isItemDisabled').and.returnValue(true);
-            spyOn(menubarSub, 'ptm').and.callThrough();
+            vi.spyOn(menubarSub, 'isItemDisabled').mockReturnValue(true);
+            vi.spyOn(menubarSub, 'ptm');
 
             menubarSub.getPTOptions(processedItem, 0, 'item');
 
             expect(menubarSub.isItemDisabled).toHaveBeenCalledWith(processedItem);
             expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
-                context: jasmine.objectContaining({
+                context: expect.objectContaining({
                     disabled: true
                 })
             });
@@ -1213,11 +1226,11 @@ describe('Menubar', () => {
                 index: 0
             };
 
-            spyOn(menubarSub, 'ptm').and.callThrough();
+            vi.spyOn(menubarSub, 'ptm');
 
             menubarSub.getPTOptions(processedItem, 0, 'itemLink');
 
-            expect(menubarSub.ptm).toHaveBeenCalledWith('itemLink', jasmine.any(Object));
+            expect(menubarSub.ptm).toHaveBeenCalledWith('itemLink', expect.any(Object));
         });
 
         it('should include level in context', () => {
@@ -1234,12 +1247,12 @@ describe('Menubar', () => {
                 index: 0
             };
 
-            spyOn(menubarSub, 'ptm').and.callThrough();
+            vi.spyOn(menubarSub, 'ptm');
 
             menubarSub.getPTOptions(processedItem, 0, 'item');
 
             expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
-                context: jasmine.objectContaining({
+                context: expect.objectContaining({
                     level: menubarSub.level
                 })
             });
@@ -1259,12 +1272,12 @@ describe('Menubar', () => {
                 index: 1
             };
 
-            spyOn(menubarSub, 'ptm').and.callThrough();
+            vi.spyOn(menubarSub, 'ptm');
 
             menubarSub.getPTOptions(processedItem, 1, 'item');
 
             expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
-                context: jasmine.objectContaining({
+                context: expect.objectContaining({
                     index: 1
                 })
             });

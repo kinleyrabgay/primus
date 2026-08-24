@@ -24,8 +24,9 @@ pnpm test      # karma (needs Chrome; set CHROME_BIN if not auto-detected)
 ```
 
 ## Use in the app
-See **INTEGRATION.md** — copy `src/*` into the Nx app's `libs/primus/`, add three
-tsconfig paths, install `@primeuix/*`, swap `primeng/*` imports for `@primus/*`.
+See **INTEGRATION.md** — copy `src/*` into the Nx app's `libs/primus/`, add the
+tsconfig paths, swap `primeng/*` imports for `@primus/*`. No `@primeuix/*` install
+needed — the theming engine is vendored in-tree (see below).
 
 ```ts
 import { providePrimus } from '@primus/core/config';
@@ -36,8 +37,11 @@ providePrimus({ theme: { preset: AppPreset, options: {...} }, ripple: true });
 ## Design system
 Components are brand-neutral — their CSS references design tokens (`dt('button.primary.color')`),
 never literal colors. Token values live in `src/theme` (`definePreset` → `AppPreset` /
-`AppDarkPreset`). Edit tokens there; every component restyles. The theming engine is
-`@primeuix/*` (MIT, pinned — an engine peer like Angular, not vendored).
+`AppDarkPreset`). Edit tokens there; every component restyles. The theming engine
+(`utils` / `styled` / `styles` / `motion` / `themes`) is **vendored in-tree** under
+`src/primeuix/` as `@primus/primeuix/*` secondary entry points — forked from the
+now-archived MIT PrimeUIX (see each dir's `LICENSE`). No external `@primeuix/*`
+runtime dependency; primus owns the full stack.
 
 ## License
 MIT. See `LICENSE.md` and `NOTICE.md` (retain both on redistribution, including internal copies).

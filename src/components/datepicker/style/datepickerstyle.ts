@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style as datepicker_style } from '@primeuix/styles/datepicker';
+import { style as datepicker_style } from '@primus/primeuix/styles/datepicker';
 import { BaseStyle } from '@primus/core/base';
 
 const style = /*css*/ `

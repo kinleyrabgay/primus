@@ -10,7 +10,8 @@ import { ToggleButtonChangeEvent } from '@primus/core/types/togglebutton';
 import { ToggleButton } from './togglebutton';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-togglebutton
@@ -58,7 +59,8 @@ class TestBasicToggleButtonComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <form [formGroup]="toggleForm">
@@ -80,7 +82,8 @@ class TestReactiveToggleButtonComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-togglebutton [(ngModel)]="checked">
@@ -95,7 +98,8 @@ class TestTemplateToggleButtonComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule, SharedModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-togglebutton [(ngModel)]="checked">
@@ -110,7 +114,8 @@ class TestIconTemplateToggleButtonComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-togglebutton [(ngModel)]="checked" [onIcon]="onIcon" [offIcon]="offIcon" [iconPos]="iconPos"> </p-togglebutton> `
 })
@@ -179,8 +184,18 @@ describe('ToggleButton', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent],
-            declarations: [TestBasicToggleButtonComponent, TestReactiveToggleButtonComponent, TestTemplateToggleButtonComponent, TestIconTemplateToggleButtonComponent, TestIconToggleButtonComponent],
+            imports: [
+                ToggleButton,
+                FormsModule,
+                ReactiveFormsModule,
+                TestToggleButtonPTemplateComponent,
+                TestToggleButtonRefTemplateComponent,
+                TestBasicToggleButtonComponent,
+                TestReactiveToggleButtonComponent,
+                TestTemplateToggleButtonComponent,
+                TestIconTemplateToggleButtonComponent,
+                TestIconToggleButtonComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -263,7 +278,7 @@ describe('ToggleButton', () => {
         });
 
         it('should emit onChange event on toggle', () => {
-            spyOn(toggleButtonInstance.onChange, 'emit');
+            vi.spyOn(toggleButtonInstance.onChange, 'emit').mockImplementation(() => undefined);
 
             toggleButtonElement.nativeElement.click();
             fixture.detectChanges();
@@ -447,7 +462,7 @@ describe('ToggleButton', () => {
 
         it('should emit onChange event in reactive forms', () => {
             const formToggleButtonInstance = formToggleButton.componentInstance;
-            spyOn(formToggleButtonInstance.onChange, 'emit');
+            vi.spyOn(formToggleButtonInstance.onChange, 'emit').mockImplementation(() => undefined);
 
             formToggleButton.nativeElement.click();
             testFixture.detectChanges();
@@ -535,7 +550,7 @@ describe('ToggleButton', () => {
 
         it('should toggle on Enter key', () => {
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
-            spyOn(enterEvent, 'preventDefault');
+            vi.spyOn(enterEvent, 'preventDefault').mockImplementation(() => undefined);
 
             toggleButtonElement.nativeElement.dispatchEvent(enterEvent);
             fixture.detectChanges();
@@ -546,7 +561,7 @@ describe('ToggleButton', () => {
 
         it('should toggle on Space key', () => {
             const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
-            spyOn(spaceEvent, 'preventDefault');
+            vi.spyOn(spaceEvent, 'preventDefault').mockImplementation(() => undefined);
 
             toggleButtonElement.nativeElement.dispatchEvent(spaceEvent);
             fixture.detectChanges();

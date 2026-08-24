@@ -5,7 +5,8 @@ import { By } from '@angular/platform-browser';
 import { Tag } from './tag';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Tag],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-tag [value]="value" [icon]="icon" [severity]="severity" [rounded]="rounded" [styleClass]="styleClass"> </p-tag> `
 })
@@ -18,14 +19,16 @@ class TestBasicTagComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Tag],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-tag value="Icon Tag" icon="pi pi-check"></p-tag> `
 })
 class TestIconTagComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Tag],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-tag value="Template Tag">
@@ -38,7 +41,8 @@ class TestIconTagComponent {}
 class TestIconTemplateTagComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Tag],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-tag value="PTemplate Tag">
@@ -51,7 +55,8 @@ class TestIconTemplateTagComponent {}
 class TestPTemplateTagComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Tag],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-tag>
@@ -62,14 +67,16 @@ class TestPTemplateTagComponent {}
 class TestContentProjectionTagComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Tag],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-tag value="Success Tag" severity="success" icon="pi pi-check" [rounded]="true"> </p-tag> `
 })
 class TestSeverityTagComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Tag],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-tag [value]="value" [severity]="severity" [style]="style" [styleClass]="styleClass"> </p-tag> `
 })
@@ -81,7 +88,8 @@ class TestStyleTagComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Tag],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-tag value="Multiple Icons">
@@ -104,8 +112,7 @@ describe('Tag', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicTagComponent, TestIconTagComponent, TestIconTemplateTagComponent, TestPTemplateTagComponent, TestContentProjectionTagComponent, TestSeverityTagComponent, TestStyleTagComponent, TestMultipleIconTemplatesComponent],
-            imports: [Tag],
+            imports: [Tag, TestBasicTagComponent, TestIconTagComponent, TestIconTemplateTagComponent, TestPTemplateTagComponent, TestContentProjectionTagComponent, TestSeverityTagComponent, TestStyleTagComponent, TestMultipleIconTemplatesComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -159,7 +166,7 @@ describe('Tag', () => {
 
         it('should have required dependencies injected', () => {
             expect(tagInstance._componentStyle).toBeTruthy();
-            expect(tagInstance.constructor.name).toBe('Tag');
+            expect(tagInstance.constructor.name.replace(/^_+/, '')).toBe('Tag');
         });
 
         it('should initialize templates properties', () => {

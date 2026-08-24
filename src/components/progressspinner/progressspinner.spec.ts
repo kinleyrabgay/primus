@@ -4,7 +4,8 @@ import { By } from '@angular/platform-browser';
 import { ProgressSpinner } from './progressspinner';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ProgressSpinner],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-progressspinner [strokeWidth]="strokeWidth" [fill]="fill" [animationDuration]="animationDuration" [ariaLabel]="ariaLabel" [styleClass]="styleClass"> </p-progressspinner>`
 })
@@ -17,7 +18,8 @@ class TestBasicProgressSpinnerComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ProgressSpinner],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-progressspinner [style]="style" [styleClass]="styleClass"></p-progressspinner>`
 })
@@ -27,7 +29,8 @@ class TestStyleProgressSpinnerComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ProgressSpinner],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-progressspinner strokeWidth="4" fill="red" animationDuration="3s" ariaLabel="Loading content"> </p-progressspinner>`
 })
@@ -41,8 +44,7 @@ describe('ProgressSpinner', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicProgressSpinnerComponent, TestStyleProgressSpinnerComponent, TestCustomPropertiesComponent],
-            imports: [ProgressSpinner],
+            imports: [ProgressSpinner, TestBasicProgressSpinnerComponent, TestStyleProgressSpinnerComponent, TestCustomPropertiesComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 

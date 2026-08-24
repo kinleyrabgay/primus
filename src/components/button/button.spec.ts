@@ -6,7 +6,8 @@ import { Button, ButtonDirective, ButtonIcon, ButtonLabel } from './button';
 
 // Basic Button Component Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-button
@@ -82,7 +83,8 @@ class TestBasicButtonComponent {
 
 // Button with Templates
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-button [loading]="loading">
@@ -106,7 +108,8 @@ class TestTemplatePButtonComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-button>
@@ -129,7 +132,8 @@ class TestContentTemplateButtonComponent {}
 
 // Button Directive Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <button
@@ -174,7 +178,8 @@ class TestButtonDirectiveComponent {
 
 // Button with pButtonIcon and pButtonLabel directives
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <button pButton>
@@ -187,7 +192,8 @@ class TestButtonWithIconLabelDirectiveComponent {}
 
 // Loading Button Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-button [label]="label" [loading]="loading" [loadingIcon]="loadingIcon" (onClick)="toggleLoading()"> </p-button> `
 })
@@ -203,7 +209,8 @@ class TestLoadingButtonComponent {
 
 // Severity Button Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="button-group">
@@ -222,7 +229,8 @@ class TestSeverityButtonComponent {}
 
 // Button Variants Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="variant-buttons">
@@ -241,7 +249,8 @@ class TestButtonVariantsComponent {}
 
 // Badge Button Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-button label="Messages" icon="pi pi-envelope" [badge]="badge" [badgeSeverity]="badgeSeverity"> </p-button> `
 })
@@ -252,7 +261,8 @@ class TestBadgeButtonComponent {
 
 // Icon Button Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="icon-buttons">
@@ -276,7 +286,11 @@ describe('Button', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
+                Button,
+                ButtonDirective,
+                ButtonIcon,
+                ButtonLabel,
                 TestBasicButtonComponent,
                 TestTemplatePButtonComponent,
                 TestContentTemplateButtonComponent,
@@ -288,7 +302,6 @@ describe('Button', () => {
                 TestBadgeButtonComponent,
                 TestIconButtonComponent
             ],
-            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -438,7 +451,7 @@ describe('Button', () => {
 
     describe('Event Handling', () => {
         it('should emit onClick event', async () => {
-            const clickSpy = spyOn(component, 'onButtonClick');
+            const clickSpy = vi.spyOn(component, 'onButtonClick').mockImplementation(() => undefined);
 
             buttonElement.click();
             await fixture.whenStable();
@@ -448,7 +461,7 @@ describe('Button', () => {
         });
 
         it('should emit onFocus event', async () => {
-            const focusSpy = spyOn(component, 'onButtonFocus');
+            const focusSpy = vi.spyOn(component, 'onButtonFocus').mockImplementation(() => undefined);
 
             buttonElement.dispatchEvent(new FocusEvent('focus'));
             await fixture.whenStable();
@@ -458,7 +471,7 @@ describe('Button', () => {
         });
 
         it('should emit onBlur event', async () => {
-            const blurSpy = spyOn(component, 'onButtonBlur');
+            const blurSpy = vi.spyOn(component, 'onButtonBlur').mockImplementation(() => undefined);
 
             buttonElement.dispatchEvent(new FocusEvent('blur'));
             await fixture.whenStable();
@@ -468,7 +481,7 @@ describe('Button', () => {
         });
 
         it('should not emit events when disabled', async () => {
-            const clickSpy = spyOn(component, 'onButtonClick');
+            const clickSpy = vi.spyOn(component, 'onButtonClick').mockImplementation(() => undefined);
             component.disabled = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -850,7 +863,7 @@ describe('Button', () => {
 
                 // @ContentChild('content') should set contentTemplate
                 expect(buttonInstance.contentTemplate).toBeDefined();
-                expect(buttonInstance.contentTemplate?.constructor.name).toBe('TemplateRef');
+                expect(buttonInstance.contentTemplate?.constructor.name.replace(/^_+/, '')).toBe('TemplateRef');
             });
 
             it("should process loadingIconTemplate from @ContentChild('loadingicon')", async () => {
@@ -1488,8 +1501,7 @@ describe('ButtonDirective', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestButtonDirectiveComponent, TestButtonWithIconLabelDirectiveComponent],
-            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
+            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel, TestButtonDirectiveComponent, TestButtonWithIconLabelDirectiveComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 

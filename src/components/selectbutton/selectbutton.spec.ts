@@ -14,8 +14,18 @@ describe('SelectButton', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestSelectButtonPTemplateComponent, TestSelectButtonRefTemplateComponent],
-            declarations: [TestFormSelectButtonComponent, TestPrimeTemplateSelectButtonComponent],
+            imports: [
+                SelectButton,
+                SelectButtonModule,
+                FormsModule,
+                ReactiveFormsModule,
+                CommonModule,
+                SharedModule,
+                TestSelectButtonPTemplateComponent,
+                TestSelectButtonRefTemplateComponent,
+                TestFormSelectButtonComponent,
+                TestPrimeTemplateSelectButtonComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -187,8 +197,8 @@ describe('SelectButton', () => {
         });
 
         it('should emit onChange and onOptionClick events', () => {
-            spyOn(component.onChange, 'emit');
-            spyOn(component.onOptionClick, 'emit');
+            vi.spyOn(component.onChange, 'emit').mockImplementation(() => undefined);
+            vi.spyOn(component.onOptionClick, 'emit').mockImplementation(() => undefined);
 
             const mockEvent = new Event('click');
             component.onOptionSelect(mockEvent, component.options![0], 0);
@@ -345,7 +355,7 @@ describe('SelectButton', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             // Mock the disabled state by creating a spy
-            spyOn(component, '$disabled').and.returnValue(true);
+            vi.spyOn(component, '$disabled').mockReturnValue(true);
             const mockEvent = new Event('click');
             const initialValue = component.value;
 
@@ -422,7 +432,8 @@ describe('SelectButton', () => {
 
 // Test Components
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <form [formGroup]="form">
@@ -443,7 +454,8 @@ class TestFormSelectButtonComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-selectbutton [options]="options">
@@ -845,21 +857,22 @@ describe('SelectButton PassThrough Tests', () => {
     });
 
     describe('PT Case 5: Event binding', () => {
-        it('should handle onclick event through PT', (done) => {
-            let clicked = false;
-            fixture.componentRef.setInput('pt', {
-                root: {
-                    onclick: () => {
-                        clicked = true;
-                        done();
+        it('should handle onclick event through PT', () =>
+            new Promise<void>((done) => {
+                let clicked = false;
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        onclick: () => {
+                            clicked = true;
+                            done();
+                        }
                     }
-                }
-            });
-            fixture.detectChanges();
+                });
+                fixture.detectChanges();
 
-            hostElement.click();
-            expect(clicked).toBe(true);
-        });
+                hostElement.click();
+                expect(clicked).toBe(true);
+            }));
 
         it('should modify instance through PT event', () => {
             fixture.componentRef.setInput('pt', {

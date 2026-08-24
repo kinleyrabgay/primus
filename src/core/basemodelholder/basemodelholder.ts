@@ -1,5 +1,5 @@
 import { computed, Directive, signal } from '@angular/core';
-import { isNotEmpty } from '@primeuix/utils';
+import { isNotEmpty } from '@primus/primeuix/utils';
 import { BaseComponent } from '@primus/core/basecomponent';
 
 @Directive({ standalone: true })

@@ -8,7 +8,8 @@ import { Dialog } from './dialog';
 
 // Basic Dialog Test Component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-dialog
@@ -138,7 +139,8 @@ class TestBasicDialogComponent {
 
 // Dialog with pTemplate Templates
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-dialog [(visible)]="visible" [modal]="true">
@@ -169,7 +171,8 @@ class TestPTemplateDialogComponent {
 
 // Dialog with #template Templates
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-dialog [(visible)]="visible" [modal]="true" [maximizable]="true">
@@ -200,7 +203,8 @@ class TestHashTemplateDialogComponent {
 
 // Dialog with Headless Template
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-dialog [(visible)]="visible">
@@ -220,7 +224,8 @@ class TestHeadlessDialogComponent {
 
 // Dialog for Position Testing
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-dialog [(visible)]="visible" [position]="position" header="Position Test">
@@ -235,7 +240,8 @@ class TestPositionDialogComponent {
 
 // Dialog for Maximizable Testing
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-dialog [(visible)]="visible" [maximizable]="maximizable" header="Maximizable Test" (onMaximize)="onMaximize($event)">
@@ -255,7 +261,8 @@ class TestMaximizableDialogComponent {
 
 // Dialog for Accessibility Testing
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-dialog [(visible)]="visible" [modal]="true" header="Accessibility Test" [closeAriaLabel]="closeAriaLabel" [role]="role" [focusTrap]="focusTrap">
@@ -278,8 +285,7 @@ describe('Dialog', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicDialogComponent, TestPTemplateDialogComponent, TestHashTemplateDialogComponent, TestHeadlessDialogComponent, TestPositionDialogComponent, TestMaximizableDialogComponent, TestAccessibilityDialogComponent],
-            imports: [Dialog, ButtonModule, FocusTrap],
+            imports: [Dialog, ButtonModule, FocusTrap, TestBasicDialogComponent, TestPTemplateDialogComponent, TestHashTemplateDialogComponent, TestHeadlessDialogComponent, TestPositionDialogComponent, TestMaximizableDialogComponent, TestAccessibilityDialogComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -396,7 +402,7 @@ describe('Dialog', () => {
 
             expect(dialogInstance.visible).toBe(true);
 
-            spyOn(component, 'onVisibleChangeEvent');
+            vi.spyOn(component, 'onVisibleChangeEvent').mockImplementation(() => undefined);
             dialogInstance.close(new MouseEvent('click'));
             await new Promise((resolve) => setTimeout(resolve, 0));
             fixture.changeDetectorRef.markForCheck();
@@ -484,7 +490,7 @@ describe('Dialog', () => {
         });
 
         it('should emit visibleChange event when close method is called', async () => {
-            spyOn(dialogInstance.visibleChange, 'emit');
+            vi.spyOn(dialogInstance.visibleChange, 'emit').mockImplementation(() => undefined);
 
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
@@ -497,7 +503,7 @@ describe('Dialog', () => {
         });
 
         it('should emit onMaximize event when maximize button is clicked', async () => {
-            spyOn(component, 'onMaximizeEvent');
+            vi.spyOn(component, 'onMaximizeEvent').mockImplementation(() => undefined);
             component.maximizable = true;
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
@@ -513,7 +519,7 @@ describe('Dialog', () => {
         });
 
         it('should emit onResizeInit event when resizing starts', async () => {
-            spyOn(component, 'onResizeInitEvent');
+            vi.spyOn(component, 'onResizeInitEvent').mockImplementation(() => undefined);
 
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
@@ -527,7 +533,7 @@ describe('Dialog', () => {
         });
 
         it('should emit onDragEnd event when dragging ends', async () => {
-            spyOn(component, 'onDragEndEvent');
+            vi.spyOn(component, 'onDragEndEvent').mockImplementation(() => undefined);
 
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
@@ -576,7 +582,7 @@ describe('Dialog', () => {
                 dialogInstance.enableModality();
                 await new Promise((resolve) => setTimeout(resolve, 50));
 
-                spyOn(dialogInstance.visibleChange, 'emit');
+                vi.spyOn(dialogInstance.visibleChange, 'emit').mockImplementation(() => undefined);
 
                 // Simulate mousedown on wrapper (which is what the mask click listener listens to)
                 const mouseDownEvent = new MouseEvent('mousedown', { bubbles: true });
@@ -816,7 +822,7 @@ describe('Dialog', () => {
                 code: 'Escape'
             });
 
-            spyOn(dialogInstance, 'close');
+            vi.spyOn(dialogInstance, 'close').mockImplementation(() => undefined);
             document.dispatchEvent(escapeEvent);
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -1242,7 +1248,7 @@ describe('Dialog', () => {
             // Set breakpoints on dialogInstance directly since it's an input property
             dialogInstance.breakpoints = { '960px': '75vw', '640px': '90vw' };
 
-            spyOn(dialogInstance, 'createStyle');
+            vi.spyOn(dialogInstance, 'createStyle').mockImplementation(() => undefined);
             dialogInstance.ngOnInit();
 
             expect(dialogInstance.createStyle).toHaveBeenCalled();
@@ -1273,7 +1279,7 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const mouseEvent = new MouseEvent('mousedown', { clientX: 100, clientY: 100 });
-            spyOn(dialogInstance, 'initDrag');
+            vi.spyOn(dialogInstance, 'initDrag').mockImplementation(() => undefined);
 
             const titleBar = fixture.debugElement.query(By.css('[class*="header"]'));
             if (titleBar) {
@@ -1300,7 +1306,7 @@ describe('Dialog', () => {
 
         it('should emit onResizeInit event', () => {
             const mouseEvent = new MouseEvent('mousedown');
-            spyOn(component, 'onResizeInitEvent');
+            vi.spyOn(component, 'onResizeInitEvent').mockImplementation(() => undefined);
 
             dialogInstance.onResizeInit.emit(mouseEvent);
 
@@ -1309,7 +1315,7 @@ describe('Dialog', () => {
 
         it('should emit onDragEnd event', () => {
             const dragEvent = new DragEvent('dragend');
-            spyOn(component, 'onDragEndEvent');
+            vi.spyOn(component, 'onDragEndEvent').mockImplementation(() => undefined);
 
             dialogInstance.onDragEnd.emit(dragEvent);
 
@@ -1320,7 +1326,8 @@ describe('Dialog', () => {
     describe('PT (PassThrough) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })
             class TestPTCase1Component {
@@ -1340,8 +1347,7 @@ describe('Dialog', () => {
             it('should apply simple string classes to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase1Component],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1368,7 +1374,8 @@ describe('Dialog', () => {
 
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })
             class TestPTCase2Component {
@@ -1393,8 +1400,7 @@ describe('Dialog', () => {
             it('should apply object properties to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase2Component],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1424,7 +1430,8 @@ describe('Dialog', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })
             class TestPTCase3Component {
@@ -1443,8 +1450,7 @@ describe('Dialog', () => {
             it('should apply mixed object and string values correctly', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase3Component],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1471,7 +1477,8 @@ describe('Dialog', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="pt" [visible]="visible" [maximizable]="isMaximizable" header="Test Dialog">Content</p-dialog>`
             })
             class TestPTCase4Component {
@@ -1496,8 +1503,7 @@ describe('Dialog', () => {
             it('should use instance variables in PT functions', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase4Component],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1519,7 +1525,8 @@ describe('Dialog', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })
             class TestPTCase5Component {
@@ -1542,8 +1549,7 @@ describe('Dialog', () => {
             it('should bind click events through PT', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase5Component],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1568,7 +1574,8 @@ describe('Dialog', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="{ mask: 'INLINE_MASK_CLASS', header: 'INLINE_HEADER_CLASS' }" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })
             class TestPTCase6InlineComponent {
@@ -1576,7 +1583,8 @@ describe('Dialog', () => {
             }
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="{ mask: { class: 'INLINE_MASK_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })
             class TestPTCase6InlineObjectComponent {
@@ -1586,8 +1594,7 @@ describe('Dialog', () => {
             it('should apply inline PT string classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineComponent],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase6InlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1609,8 +1616,7 @@ describe('Dialog', () => {
             it('should apply inline PT object classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase6InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1632,7 +1638,8 @@ describe('Dialog', () => {
 
         describe('Case 7: Test from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Dialog, ButtonModule, FocusTrap],
                 template: `
                     <p-dialog [visible]="visible1" header="Dialog 1">Content 1</p-dialog>
                     <p-dialog [visible]="visible2" header="Dialog 2">Content 2</p-dialog>
@@ -1646,8 +1653,7 @@ describe('Dialog', () => {
             it('should apply global PT configuration from PrimeNGConfig', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase7GlobalComponent],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         {
@@ -1675,7 +1681,8 @@ describe('Dialog', () => {
 
         describe('Case 8: Test hooks', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })
             class TestPTCase8HooksComponent {
@@ -1703,8 +1710,7 @@ describe('Dialog', () => {
             it('should call PT hooks on Angular lifecycle events', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase8HooksComponent],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase8HooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 

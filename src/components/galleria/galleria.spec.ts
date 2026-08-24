@@ -18,7 +18,8 @@ const mockImages = [
 
 // Test Components for different scenarios
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-galleria
@@ -104,7 +105,8 @@ class TestBasicGalleriaComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-galleria [value]="images" [fullScreen]="true" [visible]="true">
@@ -122,7 +124,8 @@ class TestFullScreenGalleriaComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-galleria [value]="images" [autoPlay]="true" [circular]="true" [transitionInterval]="1000">
@@ -137,7 +140,8 @@ class TestAutoPlayGalleriaComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-galleria [value]="images" [responsiveOptions]="responsiveOptions">
@@ -157,7 +161,8 @@ class TestResponsiveGalleriaComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-galleria [value]="images" [showIndicators]="true" [showThumbnails]="false">
@@ -172,7 +177,8 @@ class TestIndicatorsGalleriaComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-galleria [value]="images" [numVisible]="3">
@@ -199,7 +205,8 @@ class TestTemplateGalleriaComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-galleria [value]="images">
@@ -225,8 +232,19 @@ class TestPTemplateGalleriaComponent {
 describe('Galleria', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate],
-            declarations: [TestBasicGalleriaComponent, TestFullScreenGalleriaComponent, TestAutoPlayGalleriaComponent, TestResponsiveGalleriaComponent, TestIndicatorsGalleriaComponent, TestTemplateGalleriaComponent, TestPTemplateGalleriaComponent],
+            imports: [
+                CommonModule,
+                GalleriaModule,
+                SharedModule,
+                PrimeTemplate,
+                TestBasicGalleriaComponent,
+                TestFullScreenGalleriaComponent,
+                TestAutoPlayGalleriaComponent,
+                TestResponsiveGalleriaComponent,
+                TestIndicatorsGalleriaComponent,
+                TestTemplateGalleriaComponent,
+                TestPTemplateGalleriaComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -359,7 +377,7 @@ describe('Galleria', () => {
         });
 
         it('should emit activeIndexChange event', () => {
-            spyOn(component, 'onActiveIndexChange');
+            vi.spyOn(component, 'onActiveIndexChange').mockImplementation(() => undefined);
 
             galleriaInstance.onActiveItemChange(2);
 
@@ -368,7 +386,7 @@ describe('Galleria', () => {
         });
 
         it('should not emit activeIndexChange if index is same', () => {
-            spyOn(galleriaInstance.activeIndexChange, 'emit');
+            vi.spyOn(galleriaInstance.activeIndexChange, 'emit').mockImplementation(() => undefined);
 
             galleriaInstance.activeIndex = 1;
             galleriaInstance.onActiveItemChange(1);
@@ -377,7 +395,7 @@ describe('Galleria', () => {
         });
 
         it('should emit visibleChange event', () => {
-            spyOn(component, 'onVisibleChange');
+            vi.spyOn(component, 'onVisibleChange').mockImplementation(() => undefined);
 
             galleriaInstance.onMaskHide();
 
@@ -391,7 +409,7 @@ describe('Galleria', () => {
                 currentTarget: document.createElement('div')
             } as any;
 
-            spyOn(galleriaInstance.visibleChange, 'emit');
+            vi.spyOn(galleriaInstance.visibleChange, 'emit').mockImplementation(() => undefined);
 
             // Different target and currentTarget - should not hide
             galleriaInstance.onMaskHide(mockEvent);
@@ -851,7 +869,7 @@ describe('Galleria', () => {
         });
 
         it('should handle mask hide without event', () => {
-            spyOn(galleriaInstance.visibleChange, 'emit');
+            vi.spyOn(galleriaInstance.visibleChange, 'emit').mockImplementation(() => undefined);
 
             galleriaInstance.onMaskHide();
 

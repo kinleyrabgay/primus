@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, provideZonelessChangeDetection, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -53,7 +54,8 @@ const mockCountries = [
 ];
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, CascadeSelectModule, SharedModule, FormsModule, ReactiveFormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-cascadeselect
@@ -231,7 +233,7 @@ class TestCascadeSelectComponent {
         this.blurEvent = event;
     }
 
-    onClearEvent() {
+    onClearEvent(event?: any) {
         this.clearEvent = true;
     }
 
@@ -275,7 +277,8 @@ class TestCascadeSelectComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, CascadeSelectModule, SharedModule, FormsModule, ReactiveFormsModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-cascadeselect
@@ -371,8 +374,7 @@ describe('CascadeSelect', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CascadeSelectModule, SharedModule, FormsModule, ReactiveFormsModule],
-            declarations: [TestCascadeSelectComponent, TestPTemplateCascadeSelectComponent],
+            imports: [CascadeSelectModule, SharedModule, FormsModule, ReactiveFormsModule, TestCascadeSelectComponent, TestPTemplateCascadeSelectComponent],
             providers: [provideZonelessChangeDetection(), provideNoopAnimations()]
         }).compileComponents();
 

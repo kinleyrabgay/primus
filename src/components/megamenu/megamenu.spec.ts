@@ -1,4 +1,5 @@
 import { Component, DebugElement, Input, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -8,7 +9,8 @@ import { providePrimus } from '@primus/core/config';
 import { MegaMenu } from './megamenu';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MegaMenu, CommonModule, SharedModule, RouterTestingModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-megamenu
@@ -79,7 +81,8 @@ class TestBasicMegaMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MegaMenu, CommonModule, SharedModule, RouterTestingModule],
     selector: 'test-vertical-megamenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-megamenu [model]="verticalModel" orientation="vertical"></p-megamenu> `
@@ -112,7 +115,8 @@ class TestVerticalMegaMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MegaMenu, CommonModule, SharedModule, RouterTestingModule],
     selector: 'test-router-megamenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-megamenu [model]="routerModel"></p-megamenu> `
@@ -150,7 +154,8 @@ class TestRouterMegaMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MegaMenu, CommonModule, SharedModule, RouterTestingModule],
     selector: 'test-template-megamenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -184,7 +189,8 @@ class TestTemplateMegaMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MegaMenu, CommonModule, SharedModule, RouterTestingModule],
     selector: 'test-ptemplate-megamenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -209,7 +215,8 @@ class TestPTemplateMegaMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MegaMenu, CommonModule, SharedModule, RouterTestingModule],
     selector: 'test-disabled-megamenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-megamenu [model]="disabledModel"></p-megamenu> `
@@ -219,7 +226,8 @@ class TestDisabledMegaMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MegaMenu, CommonModule, SharedModule, RouterTestingModule],
     selector: 'test-styled-megamenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-megamenu [model]="model" [styleClass]="customStyleClass"></p-megamenu> `
@@ -230,7 +238,8 @@ class TestStyledMegaMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MegaMenu, CommonModule, SharedModule, RouterTestingModule],
     selector: 'test-minimal-megamenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-megamenu></p-megamenu>`
@@ -238,7 +247,8 @@ class TestStyledMegaMenuComponent {
 class TestMinimalMegaMenuComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MegaMenu, CommonModule, SharedModule, RouterTestingModule],
     selector: 'test-dynamic-megamenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-megamenu [model]="dynamicModel"></p-megamenu> `
@@ -260,7 +270,8 @@ class TestDynamicMegaMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MegaMenu, CommonModule, SharedModule, RouterTestingModule],
     selector: 'test-command-megamenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-megamenu [model]="commandModel"></p-megamenu> `
@@ -298,7 +309,8 @@ class TestCommandMegaMenuComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [MegaMenu, CommonModule, SharedModule, RouterTestingModule],
     selector: 'test-responsive-megamenu',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-megamenu [model]="model" [breakpoint]="breakpoint"></p-megamenu> `
@@ -323,7 +335,7 @@ describe('MegaMenu', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
                 TestBasicMegaMenuComponent,
                 TestVerticalMegaMenuComponent,
                 TestRouterMegaMenuComponent,
@@ -334,9 +346,7 @@ describe('MegaMenu', () => {
                 TestMinimalMegaMenuComponent,
                 TestDynamicMegaMenuComponent,
                 TestCommandMegaMenuComponent,
-                TestResponsiveMegaMenuComponent
-            ],
-            imports: [
+                TestResponsiveMegaMenuComponent,
                 MegaMenu,
                 TestTargetComponent,
 
@@ -364,7 +374,7 @@ describe('MegaMenu', () => {
 
         it('should have required dependencies injected', () => {
             expect(megaMenuInstance._componentStyle).toBeTruthy();
-            expect(megaMenuInstance.constructor.name).toBe('MegaMenu');
+            expect(megaMenuInstance.constructor.name.replace(/^_+/, '')).toBe('MegaMenu');
         });
 
         it('should have default values', () => {
@@ -756,7 +766,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle arrow down key', () => {
-            spyOn(megaMenuInstance, 'onArrowDownKey');
+            vi.spyOn(megaMenuInstance, 'onArrowDownKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
 
             megaMenuInstance.onKeyDown(keyEvent);
@@ -765,7 +775,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle arrow up key', () => {
-            spyOn(megaMenuInstance, 'onArrowUpKey');
+            vi.spyOn(megaMenuInstance, 'onArrowUpKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
 
             megaMenuInstance.onKeyDown(keyEvent);
@@ -774,7 +784,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle arrow left key', () => {
-            spyOn(megaMenuInstance, 'onArrowLeftKey');
+            vi.spyOn(megaMenuInstance, 'onArrowLeftKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
 
             megaMenuInstance.onKeyDown(keyEvent);
@@ -783,7 +793,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle arrow right key', () => {
-            spyOn(megaMenuInstance, 'onArrowRightKey');
+            vi.spyOn(megaMenuInstance, 'onArrowRightKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
 
             megaMenuInstance.onKeyDown(keyEvent);
@@ -792,7 +802,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle home key', () => {
-            spyOn(megaMenuInstance, 'onHomeKey');
+            vi.spyOn(megaMenuInstance, 'onHomeKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'Home' });
 
             megaMenuInstance.onKeyDown(keyEvent);
@@ -801,7 +811,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle end key', () => {
-            spyOn(megaMenuInstance, 'onEndKey');
+            vi.spyOn(megaMenuInstance, 'onEndKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'End' });
 
             megaMenuInstance.onKeyDown(keyEvent);
@@ -810,7 +820,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle enter key', () => {
-            spyOn(megaMenuInstance, 'onEnterKey');
+            vi.spyOn(megaMenuInstance, 'onEnterKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
 
             megaMenuInstance.onKeyDown(keyEvent);
@@ -819,7 +829,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle space key', () => {
-            spyOn(megaMenuInstance, 'onSpaceKey');
+            vi.spyOn(megaMenuInstance, 'onSpaceKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'Space' });
 
             megaMenuInstance.onKeyDown(keyEvent);
@@ -828,7 +838,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle escape key', () => {
-            spyOn(megaMenuInstance, 'onEscapeKey');
+            vi.spyOn(megaMenuInstance, 'onEscapeKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'Escape' });
 
             megaMenuInstance.onKeyDown(keyEvent);
@@ -837,7 +847,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle tab key', () => {
-            spyOn(megaMenuInstance, 'onTabKey');
+            vi.spyOn(megaMenuInstance, 'onTabKey').mockImplementation(() => undefined);
             const keyEvent = new KeyboardEvent('keydown', { code: 'Tab' });
 
             megaMenuInstance.onKeyDown(keyEvent);
@@ -846,7 +856,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle printable characters for search', () => {
-            spyOn(megaMenuInstance, 'searchItems');
+            vi.spyOn(megaMenuInstance, 'searchItems').mockImplementation(() => undefined as any);
             const keyEvent = new KeyboardEvent('keydown', { key: 'f' });
 
             megaMenuInstance.onKeyDown(keyEvent);
@@ -866,18 +876,18 @@ describe('MegaMenu', () => {
         });
 
         it('should handle blur events', () => {
-            jasmine.clock().install();
+            vi.useFakeTimers();
             const blurEvent = new FocusEvent('blur');
             megaMenuInstance.focused = true;
 
             megaMenuInstance.onMenuBlur(blurEvent);
-            jasmine.clock().tick(10);
+            vi.advanceTimersByTime(10);
 
             expect(megaMenuInstance.focused).toBe(false);
             expect(megaMenuInstance.focusedItemInfo().index).toBe(-1);
             expect(megaMenuInstance.searchValue).toBe('' as any);
             expect(megaMenuInstance.dirty).toBe(false);
-            jasmine.clock().uninstall();
+            vi.useRealTimers();
         });
 
         it('should get focusedItemId correctly', () => {
@@ -891,8 +901,8 @@ describe('MegaMenu', () => {
         it('should change focused item info', () => {
             const mockEvent = new KeyboardEvent('keydown');
 
-            spyOn(megaMenuInstance, 'changeFocusedItemInfo').and.callThrough();
-            spyOn(megaMenuInstance, 'findVisibleItem').and.returnValue({ key: 'test', parentKey: '', item: null });
+            vi.spyOn(megaMenuInstance, 'changeFocusedItemInfo');
+            vi.spyOn(megaMenuInstance, 'findVisibleItem').mockReturnValue({ key: 'test', parentKey: '', item: null });
 
             megaMenuInstance.changeFocusedItemInfo(mockEvent, 0);
 
@@ -1127,7 +1137,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle menu button click', () => {
-            spyOn(megaMenuInstance, 'toggle');
+            vi.spyOn(megaMenuInstance, 'toggle').mockImplementation(() => undefined);
             megaMenuInstance.queryMatches.set(true);
             fixture.detectChanges();
 
@@ -1206,9 +1216,9 @@ describe('MegaMenu', () => {
         });
 
         it('should handle memory cleanup on destroy', () => {
-            spyOn(megaMenuInstance, 'unbindOutsideClickListener');
-            spyOn(megaMenuInstance, 'unbindResizeListener');
-            spyOn(megaMenuInstance, 'unbindMatchMediaListener');
+            vi.spyOn(megaMenuInstance, 'unbindOutsideClickListener').mockImplementation(() => undefined);
+            vi.spyOn(megaMenuInstance, 'unbindResizeListener').mockImplementation(() => undefined);
+            vi.spyOn(megaMenuInstance, 'unbindMatchMediaListener').mockImplementation(() => undefined);
 
             megaMenuInstance.ngOnDestroy();
 
@@ -1230,16 +1240,16 @@ describe('MegaMenu', () => {
         });
 
         it('should handle search timeout correctly', async () => {
-            jasmine.clock().install();
+            vi.useFakeTimers();
             megaMenuInstance.searchValue = '';
 
             megaMenuInstance.searchItems(new KeyboardEvent('keydown', { key: 'f' }), 'f');
             expect(megaMenuInstance.searchValue).toBe('f');
 
-            jasmine.clock().tick(600); // Wait for search timeout
+            vi.advanceTimersByTime(600); // Wait for search timeout
 
             expect(megaMenuInstance.searchValue).toBe('' as any);
-            jasmine.clock().uninstall();
+            vi.useRealTimers();
         });
     });
 
@@ -1554,8 +1564,7 @@ describe('MegaMenu', () => {
             it('should apply global PT configuration from PrimeNG config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestBasicMegaMenuComponent],
-                    imports: [MegaMenu, SharedModule, RouterTestingModule],
+                    imports: [TestBasicMegaMenuComponent, MegaMenu, SharedModule, RouterTestingModule],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimus({
@@ -1581,8 +1590,7 @@ describe('MegaMenu', () => {
             it('should apply global CSS from PrimeNG config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestBasicMegaMenuComponent],
-                    imports: [MegaMenu, SharedModule, RouterTestingModule],
+                    imports: [TestBasicMegaMenuComponent, MegaMenu, SharedModule, RouterTestingModule],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimus({
@@ -1612,8 +1620,7 @@ describe('MegaMenu', () => {
             it('should merge instance PT with global PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestBasicMegaMenuComponent],
-                    imports: [MegaMenu, SharedModule, RouterTestingModule],
+                    imports: [TestBasicMegaMenuComponent, MegaMenu, SharedModule, RouterTestingModule],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimus({

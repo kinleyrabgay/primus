@@ -4,6 +4,7 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { PrimeTemplate } from '@primus/core/api';
 import { providePrimus } from '@primus/core/config';
 import {
     PickListMoveAllToSourceEvent,
@@ -18,7 +19,8 @@ import {
 import { PickList } from './picklist';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, PickList, DragDropModule, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-picklist
@@ -136,8 +138,7 @@ describe('PickList', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestPickListComponent],
-            imports: [CommonModule, PickList, DragDropModule],
+            imports: [CommonModule, PickList, DragDropModule, TestPickListComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 

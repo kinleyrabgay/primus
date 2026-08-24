@@ -4,7 +4,8 @@ import { By } from '@angular/platform-browser';
 import { Bind } from './bind';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Bind],
     selector: 'test-basic-bind',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<div [pBind]="attrs"></div>`
@@ -14,7 +15,8 @@ class TestBasicBindComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Bind],
     selector: 'test-bind-attributes',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<div [pBind]="attrs"></div>`
@@ -28,7 +30,8 @@ class TestBindAttributesComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Bind],
     selector: 'test-bind-classes',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<div [pBind]="attrs"></div>`
@@ -40,7 +43,8 @@ class TestBindClassesComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Bind],
     selector: 'test-bind-classes-array',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<div [pBind]="attrs"></div>`
@@ -52,7 +56,8 @@ class TestBindClassesArrayComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Bind],
     selector: 'test-bind-classes-object',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<div [pBind]="attrs"></div>`
@@ -68,7 +73,8 @@ class TestBindClassesObjectComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Bind],
     selector: 'test-bind-styles',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<div [pBind]="attrs"></div>`
@@ -83,14 +89,15 @@ class TestBindStylesComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Bind],
     selector: 'test-bind-listeners',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<div [pBind]="attrs"></div>`
 })
 class TestBindListenersComponent {
-    clickHandler = jasmine.createSpy('click');
-    hoverHandler = jasmine.createSpy('hover');
+    clickHandler = vi.fn();
+    hoverHandler = vi.fn();
 
     attrs = {
         onclick: this.clickHandler,
@@ -99,13 +106,14 @@ class TestBindListenersComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Bind],
     selector: 'test-bind-mixed',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<div [pBind]="attrs" class="existing-class" style="margin: 10px;"></div>`
 })
 class TestBindMixedComponent {
-    clickHandler = jasmine.createSpy('click');
+    clickHandler = vi.fn();
 
     attrs = {
         id: 'mixed-id',
@@ -119,7 +127,8 @@ class TestBindMixedComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Bind],
     selector: 'test-bind-dynamic',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<div [pBind]="attrs"></div>`
@@ -140,7 +149,8 @@ class TestBindDynamicComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Bind],
     selector: 'test-set-attrs',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<div [pBind]="undefined"></div>`
@@ -150,8 +160,8 @@ class TestSetAttrsComponent {}
 describe('Bind', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [Bind],
-            declarations: [
+            imports: [
+                Bind,
                 TestBasicBindComponent,
                 TestBindAttributesComponent,
                 TestBindClassesComponent,

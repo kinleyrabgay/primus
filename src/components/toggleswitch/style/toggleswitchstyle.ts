@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { style as toggleswitch_style } from '@primeuix/styles/toggleswitch';
+import { style as toggleswitch_style } from '@primus/primeuix/styles/toggleswitch';
 import { BaseStyle } from '@primus/core/base';
 
 const style = /*css*/ `

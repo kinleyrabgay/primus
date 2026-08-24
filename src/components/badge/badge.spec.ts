@@ -5,17 +5,19 @@ import { SharedModule } from '@primus/core/api';
 import { Badge, BadgeDirective, BadgeModule } from './badge';
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-basic-badge',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [BadgeModule, SharedModule],
     template: `<p-badge></p-badge>`
 })
 class TestBasicBadgeComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-value-badge',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [BadgeModule, SharedModule],
     template: `<p-badge [value]="value"></p-badge>`
 })
 class TestValueBadgeComponent {
@@ -23,9 +25,10 @@ class TestValueBadgeComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-size-badge',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [BadgeModule, SharedModule],
     template: `<p-badge [badgeSize]="badgeSize" value="1"></p-badge>`
 })
 class TestSizeBadgeComponent {
@@ -33,9 +36,10 @@ class TestSizeBadgeComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-severity-badge',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [BadgeModule, SharedModule],
     template: `<p-badge [severity]="severity" value="1"></p-badge>`
 })
 class TestSeverityBadgeComponent {
@@ -43,9 +47,10 @@ class TestSeverityBadgeComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-disabled-badge',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [BadgeModule, SharedModule],
     template: `<p-badge [badgeDisabled]="disabled" value="1"></p-badge>`
 })
 class TestDisabledBadgeComponent {
@@ -53,9 +58,10 @@ class TestDisabledBadgeComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-style-class-badge',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [BadgeModule, SharedModule],
     template: `<p-badge [styleClass]="styleClass" value="1"></p-badge>`
 })
 class TestStyleClassBadgeComponent {
@@ -63,9 +69,10 @@ class TestStyleClassBadgeComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-directive-badge',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [BadgeModule, SharedModule],
     template: `<button #button pBadge [value]="value">Button</button>`
 })
 class TestDirectiveBadgeComponent {
@@ -74,9 +81,10 @@ class TestDirectiveBadgeComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-directive-size-badge',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [BadgeModule, SharedModule],
     template: `<button pBadge [value]="value" [size]="size">Button</button>`
 })
 class TestDirectiveSizeBadgeComponent {
@@ -85,9 +93,10 @@ class TestDirectiveSizeBadgeComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-directive-severity-badge',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [BadgeModule, SharedModule],
     template: `<button pBadge [value]="value" [severity]="severity">Button</button>`
 })
 class TestDirectiveSeverityBadgeComponent {
@@ -96,9 +105,10 @@ class TestDirectiveSeverityBadgeComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-directive-disabled-badge',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [BadgeModule, SharedModule],
     template: `<button pBadge [value]="value" [badgeDisabled]="disabled">Button</button>`
 })
 class TestDirectiveDisabledBadgeComponent {
@@ -107,9 +117,10 @@ class TestDirectiveDisabledBadgeComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-directive-style-badge',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [BadgeModule, SharedModule],
     template: `<button pBadge [value]="value" [badgeStyle]="badgeStyle" [badgeStyleClass]="badgeStyleClass">Button</button>`
 })
 class TestDirectiveStyleBadgeComponent {
@@ -119,9 +130,10 @@ class TestDirectiveStyleBadgeComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-deprecated-size-badge',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [BadgeModule, SharedModule],
     template: `<button pBadge [value]="value" [size]="size">Button</button>`
 })
 class TestDeprecatedSizeBadgeComponent {
@@ -130,9 +142,10 @@ class TestDeprecatedSizeBadgeComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'test-dynamic-badge',
     changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [BadgeModule, SharedModule],
     template: ` <p-badge [value]="value" [badgeSize]="badgeSize" [severity]="severity" [badgeDisabled]="disabled" [styleClass]="styleClass"> </p-badge> `
 })
 class TestDynamicBadgeComponent {
@@ -146,8 +159,9 @@ class TestDynamicBadgeComponent {
 describe('Badge', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [BadgeModule, SharedModule],
-            declarations: [
+            imports: [
+                BadgeModule,
+                SharedModule,
                 TestBasicBadgeComponent,
                 TestValueBadgeComponent,
                 TestSizeBadgeComponent,

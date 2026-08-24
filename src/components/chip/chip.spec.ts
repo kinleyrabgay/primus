@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, input, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -7,7 +8,8 @@ import { ChipProps } from '@primus/core/types/chip';
 import { Chip, ChipModule } from './chip';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ChipModule, SharedModule],
     selector: 'test-basic-chip',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-chip></p-chip>`
@@ -15,7 +17,8 @@ import { Chip, ChipModule } from './chip';
 class TestBasicChipComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ChipModule, SharedModule],
     selector: 'test-label-chip',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-chip [label]="label"></p-chip>`
@@ -25,7 +28,8 @@ class TestLabelChipComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ChipModule, SharedModule],
     selector: 'test-icon-chip',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-chip [icon]="icon" [label]="label"></p-chip>`
@@ -36,7 +40,8 @@ class TestIconChipComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ChipModule, SharedModule],
     selector: 'test-image-chip',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-chip [image]="image" [alt]="alt" [label]="label" (onImageError)="onImageError($event)"></p-chip>`
@@ -53,7 +58,8 @@ class TestImageChipComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ChipModule, SharedModule],
     selector: 'test-removable-chip',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-chip [label]="label" [removable]="removable" (onRemove)="onRemove($event)"></p-chip>`
@@ -71,7 +77,8 @@ class TestRemovableChipComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ChipModule, SharedModule],
     selector: 'test-custom-remove-icon-chip',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-chip [label]="label" [removable]="removable" [removeIcon]="removeIcon" (onRemove)="onRemove($event)"></p-chip>`
@@ -88,7 +95,8 @@ class TestCustomRemoveIconChipComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ChipModule, SharedModule],
     selector: 'test-template-chip',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -110,7 +118,8 @@ class TestTemplateChipComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ChipModule, SharedModule],
     selector: 'test-content-chip',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -122,7 +131,8 @@ class TestTemplateChipComponent {
 class TestContentChipComponent {}
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ChipModule, SharedModule],
     selector: 'test-style-class-chip',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-chip [label]="label" [styleClass]="styleClass"></p-chip>`
@@ -133,7 +143,8 @@ class TestStyleClassChipComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ChipModule, SharedModule],
     selector: 'test-chip-props',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-chip [chipProps]="chipProps"></p-chip>`
@@ -148,7 +159,8 @@ class TestChipPropsComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ChipModule, SharedModule, CommonModule],
     selector: 'test-dynamic-chip',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -181,7 +193,8 @@ class TestDynamicChipComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [ChipModule, SharedModule],
     selector: 'test-visibility-chip',
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `<p-chip [label]="label"></p-chip>`
@@ -193,8 +206,9 @@ class TestVisibilityChipComponent {
 describe('Chip', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ChipModule, SharedModule],
-            declarations: [
+            imports: [
+                ChipModule,
+                SharedModule,
                 TestBasicChipComponent,
                 TestLabelChipComponent,
                 TestIconChipComponent,
@@ -402,7 +416,7 @@ describe('Chip', () => {
         });
 
         it('should emit onImageError event', async () => {
-            spyOn(component, 'onImageError');
+            vi.spyOn(component, 'onImageError').mockImplementation(() => undefined);
             const imageElement = fixture.debugElement.query(By.css('.p-chip-image'));
             const errorEvent = new Event('error');
 
@@ -479,7 +493,7 @@ describe('Chip', () => {
         });
 
         it('should emit onRemove event', async () => {
-            spyOn(component, 'onRemove');
+            vi.spyOn(component, 'onRemove').mockImplementation(() => undefined);
             const removeIconElement = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
 
             removeIconElement.triggerEventHandler('click', new MouseEvent('click'));
@@ -507,7 +521,7 @@ describe('Chip', () => {
         });
 
         it('should handle keyboard events on remove icon', async () => {
-            spyOn(component, 'onRemove');
+            vi.spyOn(component, 'onRemove').mockImplementation(() => undefined);
             const removeIconElement = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
 
             // Test Enter key
@@ -517,7 +531,7 @@ describe('Chip', () => {
             expect(component.onRemove).toHaveBeenCalled();
 
             // Reset spy
-            (component.onRemove as jasmine.Spy).calls.reset();
+            (component.onRemove as any).mockClear();
 
             // Test Backspace key
             const backspaceEvent = new KeyboardEvent('keydown', { key: 'Backspace' });
@@ -527,7 +541,7 @@ describe('Chip', () => {
         });
 
         it('should not handle other keyboard events', async () => {
-            spyOn(component, 'onRemove');
+            vi.spyOn(component, 'onRemove').mockImplementation(() => undefined);
             const removeIconElement = fixture.debugElement.query(By.css('[data-pc-section="removeicon"]'));
 
             const spaceEvent = new KeyboardEvent('keydown', { key: ' ' });
@@ -860,7 +874,7 @@ describe('Chip', () => {
         });
 
         it('should emit onRemove event on close', async () => {
-            spyOn(chipComponent.onRemove, 'emit');
+            vi.spyOn(chipComponent.onRemove, 'emit').mockImplementation(() => undefined);
             const mockEvent = new MouseEvent('click');
 
             chipComponent.close(mockEvent);
@@ -870,7 +884,7 @@ describe('Chip', () => {
         });
 
         it('should handle keydown events correctly', async () => {
-            spyOn(chipComponent, 'close');
+            vi.spyOn(chipComponent, 'close').mockImplementation(() => undefined);
 
             // Test Enter key
             const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
@@ -884,7 +898,7 @@ describe('Chip', () => {
 
             // Test other key (should not trigger close)
             const spaceEvent = new KeyboardEvent('keydown', { key: ' ' });
-            (chipComponent.close as jasmine.Spy).calls.reset();
+            (chipComponent.close as any).mockClear();
             chipComponent.onKeydown(spaceEvent);
             expect(chipComponent.close).not.toHaveBeenCalled();
         });

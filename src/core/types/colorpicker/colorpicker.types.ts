@@ -1,4 +1,4 @@
-import type { MotionOptions } from '@primeuix/motion';
+import type { MotionOptions } from '@primus/primeuix/motion';
 import type { PassThrough, PassThroughOption } from '@primus/core/api';
 
 /**

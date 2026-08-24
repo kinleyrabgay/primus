@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { equals } from '@primeuix/utils';
+import { equals } from '@primus/primeuix/utils';
 import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from '@primus/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
 import { Bind, BindModule } from '@primus/core/bind';

@@ -2,14 +2,15 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MenuItem } from '@primus/core/api';
+import { MenuItem, PrimeTemplate } from '@primus/core/api';
 import { ButtonDirective } from '@primus/components/button';
 import { TieredMenu } from '@primus/components/tieredmenu';
 import { SplitButton } from './splitbutton';
 
 // Basic SplitButton Test Component
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SplitButton, ButtonDirective, TieredMenu],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-splitbutton
@@ -127,7 +128,8 @@ class TestBasicSplitButtonComponent {
 
 // SplitButton with Templates
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SplitButton, ButtonDirective, TieredMenu, PrimeTemplate],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-splitbutton [model]="model" [label]="label">
@@ -150,7 +152,8 @@ class TestTemplateSplitButtonComponent {
 
 // SplitButton with #template approach
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SplitButton, ButtonDirective, TieredMenu],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-splitbutton [model]="model">
@@ -172,7 +175,8 @@ class TestContentTemplateSplitButtonComponent {
 
 // Severity SplitButton Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SplitButton, ButtonDirective, TieredMenu],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="severity-buttons">
@@ -193,7 +197,8 @@ class TestSeveritySplitButtonComponent {
 
 // SplitButton Variants Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SplitButton, ButtonDirective, TieredMenu],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="variant-buttons">
@@ -213,7 +218,8 @@ class TestSplitButtonVariantsComponent {
 
 // Disabled SplitButton Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SplitButton, ButtonDirective, TieredMenu],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="disabled-buttons">
@@ -229,7 +235,8 @@ class TestDisabledSplitButtonComponent {
 
 // Icon SplitButton Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SplitButton, ButtonDirective, TieredMenu],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <div class="icon-buttons">
@@ -246,7 +253,8 @@ class TestIconSplitButtonComponent {
 
 // Dropdown Icon SplitButton Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SplitButton, ButtonDirective, TieredMenu],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-splitbutton label="Custom Dropdown" [dropdownIcon]="dropdownIcon" [model]="model"> </p-splitbutton> `
 })
@@ -257,7 +265,8 @@ class TestDropdownIconSplitButtonComponent {
 
 // Command SplitButton Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SplitButton, ButtonDirective, TieredMenu],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-splitbutton label="Actions" [model]="model" (onClick)="onMainClick()"></p-splitbutton> `
 })
@@ -284,7 +293,8 @@ class TestCommandSplitButtonComponent {
 
 // Tooltip SplitButton Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SplitButton, ButtonDirective, TieredMenu],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-splitbutton label="Tooltip Button" [tooltip]="tooltip" [tooltipOptions]="tooltipOptions" [model]="model"> </p-splitbutton> `
 })
@@ -296,7 +306,8 @@ class TestTooltipSplitButtonComponent {
 
 // Autofocus SplitButton Test
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [SplitButton, ButtonDirective, TieredMenu],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-splitbutton label="Autofocus" [autofocus]="autofocus" [model]="model"></p-splitbutton> `
 })
@@ -315,7 +326,10 @@ describe('SplitButton', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
+                SplitButton,
+                ButtonDirective,
+                TieredMenu,
                 TestBasicSplitButtonComponent,
                 TestTemplateSplitButtonComponent,
                 TestContentTemplateSplitButtonComponent,
@@ -328,7 +342,6 @@ describe('SplitButton', () => {
                 TestTooltipSplitButtonComponent,
                 TestAutofocusSplitButtonComponent
             ],
-            imports: [SplitButton, ButtonDirective, TieredMenu],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -541,7 +554,7 @@ describe('SplitButton', () => {
 
     describe('Event Handling', () => {
         it('should emit onClick event when default button is clicked', async () => {
-            const clickSpy = spyOn(component, 'onButtonClick');
+            const clickSpy = vi.spyOn(component, 'onButtonClick').mockImplementation(() => undefined);
 
             defaultButton.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -552,7 +565,7 @@ describe('SplitButton', () => {
         });
 
         it('should emit onDropdownClick event when dropdown button is clicked', async () => {
-            const dropdownClickSpy = spyOn(component, 'onDropdownClick');
+            const dropdownClickSpy = vi.spyOn(component, 'onDropdownClick').mockImplementation(() => undefined);
 
             dropdownButton.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -592,7 +605,7 @@ describe('SplitButton', () => {
         });
 
         it('should emit onMenuShow event when menu is shown', async () => {
-            const showSpy = spyOn(component, 'onMenuShow');
+            const showSpy = vi.spyOn(component, 'onMenuShow').mockImplementation(() => undefined);
 
             splitButtonInstance.onShow();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -603,7 +616,7 @@ describe('SplitButton', () => {
         });
 
         it('should emit onMenuHide event when menu is hidden', async () => {
-            const hideSpy = spyOn(component, 'onMenuHide');
+            const hideSpy = vi.spyOn(component, 'onMenuHide').mockImplementation(() => undefined);
 
             splitButtonInstance.onHide();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -614,8 +627,8 @@ describe('SplitButton', () => {
         });
 
         it('should not emit events when disabled', async () => {
-            const clickSpy = spyOn(component, 'onButtonClick');
-            const dropdownClickSpy = spyOn(component, 'onDropdownClick');
+            const clickSpy = vi.spyOn(component, 'onButtonClick').mockImplementation(() => undefined);
+            const dropdownClickSpy = vi.spyOn(component, 'onDropdownClick').mockImplementation(() => undefined);
 
             component.disabled = true;
             fixture.changeDetectorRef.markForCheck();
@@ -636,8 +649,8 @@ describe('SplitButton', () => {
         it('should open menu with ArrowDown key on dropdown button', async () => {
             const keydownEvent = new KeyboardEvent('keydown', { code: 'ArrowDown', bubbles: true });
             Object.defineProperty(keydownEvent, 'currentTarget', { value: dropdownButton, writable: false, configurable: true });
-            const preventDefaultSpy = spyOn(keydownEvent, 'preventDefault');
-            const toggleSpy = spyOn(splitButtonInstance.menu!, 'toggle');
+            const preventDefaultSpy = vi.spyOn(keydownEvent, 'preventDefault').mockImplementation(() => undefined);
+            const toggleSpy = vi.spyOn(splitButtonInstance.menu!, 'toggle').mockImplementation(() => undefined);
 
             splitButtonInstance.onDropdownButtonKeydown(keydownEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -651,8 +664,8 @@ describe('SplitButton', () => {
         it('should open menu with ArrowUp key on dropdown button', async () => {
             const keydownEvent = new KeyboardEvent('keydown', { code: 'ArrowUp', bubbles: true });
             Object.defineProperty(keydownEvent, 'currentTarget', { value: dropdownButton, writable: false, configurable: true });
-            const preventDefaultSpy = spyOn(keydownEvent, 'preventDefault');
-            const toggleSpy = spyOn(splitButtonInstance.menu!, 'toggle');
+            const preventDefaultSpy = vi.spyOn(keydownEvent, 'preventDefault').mockImplementation(() => undefined);
+            const toggleSpy = vi.spyOn(splitButtonInstance.menu!, 'toggle').mockImplementation(() => undefined);
 
             splitButtonInstance.onDropdownButtonKeydown(keydownEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -665,7 +678,7 @@ describe('SplitButton', () => {
         it('should not handle other keys', async () => {
             const keydownEvent = new KeyboardEvent('keydown', { code: 'Enter', bubbles: true });
             Object.defineProperty(keydownEvent, 'currentTarget', { value: dropdownButton, writable: false, configurable: true });
-            const preventDefaultSpy = spyOn(keydownEvent, 'preventDefault');
+            const preventDefaultSpy = vi.spyOn(keydownEvent, 'preventDefault').mockImplementation(() => undefined);
 
             splitButtonInstance.onDropdownButtonKeydown(keydownEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1003,7 +1016,7 @@ describe('SplitButton', () => {
 
                 // @ContentChild('content') should set contentTemplate
                 expect(splitButtonInstance.contentTemplate).toBeDefined();
-                expect(splitButtonInstance.contentTemplate?.constructor.name).toBe('TemplateRef');
+                expect(splitButtonInstance.contentTemplate?.constructor.name.replace(/^_+/, '')).toBe('TemplateRef');
             });
 
             it("should process dropdownIconTemplate from @ContentChild('dropdownicon')", async () => {
@@ -1016,7 +1029,7 @@ describe('SplitButton', () => {
 
                 // @ContentChild('dropdownicon') should set dropdownIconTemplate
                 expect(splitButtonInstance.dropdownIconTemplate).toBeDefined();
-                expect(splitButtonInstance.dropdownIconTemplate?.constructor.name).toBe('TemplateRef');
+                expect(splitButtonInstance.dropdownIconTemplate?.constructor.name.replace(/^_+/, '')).toBe('TemplateRef');
             });
         });
 
@@ -1254,7 +1267,7 @@ describe('SplitButton', () => {
         });
 
         it('should call onClick.emit in onDefaultButtonClick', () => {
-            const emitSpy = spyOn(splitButtonInstance.onClick, 'emit');
+            const emitSpy = vi.spyOn(splitButtonInstance.onClick, 'emit').mockImplementation(() => undefined);
             const mockEvent = new MouseEvent('click');
 
             splitButtonInstance.onDefaultButtonClick(mockEvent);
@@ -1263,7 +1276,7 @@ describe('SplitButton', () => {
         });
 
         it('should call onDropdownClick.emit in onDropdownButtonClick', () => {
-            const emitSpy = spyOn(splitButtonInstance.onDropdownClick, 'emit');
+            const emitSpy = vi.spyOn(splitButtonInstance.onDropdownClick, 'emit').mockImplementation(() => undefined);
             const mockEvent = new MouseEvent('click');
 
             splitButtonInstance.onDropdownButtonClick(mockEvent);

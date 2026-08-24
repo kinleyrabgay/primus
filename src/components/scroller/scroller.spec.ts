@@ -8,7 +8,8 @@ import type { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexCha
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Scroller } from './scroller';
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Scroller],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-scroller
@@ -90,7 +91,8 @@ class TestBasicScrollerComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Scroller, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
@@ -117,7 +119,8 @@ class TestContentTemplateComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Scroller, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
@@ -148,7 +151,8 @@ class TestItemTemplateComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Scroller],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [lazy]="true" [showLoader]="true">
@@ -172,7 +176,8 @@ class TestLoaderTemplateComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Scroller],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [orientation]="'both'" [columns]="columns"> </p-scroller> `
 })
@@ -189,7 +194,8 @@ class TestBothOrientationComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Scroller],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [lazy]="true" [step]="step" (onLazyLoad)="onLazyLoad($event)"> </p-scroller> `
 })
@@ -211,7 +217,8 @@ class TestLazyLoadingComponent {
 }
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [Scroller, CommonModule],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: ` <p-scroller [items]="dynamicItems$ | async" [itemSize]="dynamicItemSize" [scrollHeight]="dynamicScrollHeight" [orientation]="dynamicOrientation" [loading]="dynamicLoading" [disabled]="dynamicDisabled"> </p-scroller> `
 })
@@ -256,9 +263,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestBasicScrollerComponent]
+                imports: [Scroller, TestBasicScrollerComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicScrollerComponent);
@@ -315,9 +321,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestBasicScrollerComponent]
+                imports: [Scroller, TestBasicScrollerComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicScrollerComponent);
@@ -611,9 +616,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestBasicScrollerComponent]
+                imports: [Scroller, TestBasicScrollerComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicScrollerComponent);
@@ -744,9 +748,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestBasicScrollerComponent]
+                imports: [Scroller, TestBasicScrollerComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicScrollerComponent);
@@ -793,7 +796,7 @@ describe('Scroller', () => {
         });
 
         it('should scroll to specified options', async () => {
-            const scrollToSpy = spyOn(scroller.elementViewChild?.nativeElement, 'scrollTo');
+            const scrollToSpy = vi.spyOn(scroller.elementViewChild?.nativeElement, 'scrollTo').mockImplementation(() => undefined);
             const scrollOptions: ScrollToOptions = { left: 100, top: 200, behavior: 'smooth' };
 
             scroller.scrollTo(scrollOptions);
@@ -801,7 +804,7 @@ describe('Scroller', () => {
         });
 
         it('should scroll to index for vertical orientation', async () => {
-            spyOn(scroller, 'scrollTo');
+            vi.spyOn(scroller, 'scrollTo').mockImplementation(() => undefined);
             component.orientation = 'vertical';
             component.itemSize = 50;
 
@@ -813,11 +816,11 @@ describe('Scroller', () => {
             scroller.first = 0;
             scroller.last = 10;
             scroller.numItemsInViewport = 5;
-            spyOn(scroller, 'calculateNumItems').and.returnValue({
+            vi.spyOn(scroller, 'calculateNumItems').mockReturnValue({
                 numItemsInViewport: 5,
                 numToleratedItems: 2
             });
-            spyOn(scroller, 'getContentPosition').and.returnValue({
+            vi.spyOn(scroller, 'getContentPosition').mockReturnValue({
                 left: 0,
                 right: 0,
                 top: 0,
@@ -831,7 +834,7 @@ describe('Scroller', () => {
         });
 
         it('should scroll to index for both orientation', async () => {
-            spyOn(scroller, 'scrollTo');
+            vi.spyOn(scroller, 'scrollTo').mockImplementation(() => undefined);
             component.orientation = 'both';
             component.itemSize = [50, 100];
 
@@ -842,11 +845,11 @@ describe('Scroller', () => {
             // Set up required properties for scrollToIndex to work
             scroller.first = { rows: 0, cols: 0 };
             scroller.last = { rows: 10, cols: 10 };
-            spyOn(scroller, 'calculateNumItems').and.returnValue({
+            vi.spyOn(scroller, 'calculateNumItems').mockReturnValue({
                 numItemsInViewport: { rows: 5, cols: 5 },
                 numToleratedItems: [2, 2]
             });
-            spyOn(scroller, 'getContentPosition').and.returnValue({
+            vi.spyOn(scroller, 'getContentPosition').mockReturnValue({
                 left: 0,
                 right: 0,
                 top: 0,
@@ -860,7 +863,7 @@ describe('Scroller', () => {
         });
 
         it('should handle invalid scroll index gracefully', async () => {
-            spyOn(scroller, 'scrollTo');
+            vi.spyOn(scroller, 'scrollTo').mockImplementation(() => undefined);
             component.orientation = 'vertical';
 
             fixture.changeDetectorRef.markForCheck();
@@ -872,7 +875,7 @@ describe('Scroller', () => {
         });
 
         it('should scroll item into view with to-start', async () => {
-            spyOn(scroller, 'scrollTo');
+            vi.spyOn(scroller, 'scrollTo').mockImplementation(() => undefined);
             component.orientation = 'vertical';
             component.itemSize = 50;
 
@@ -883,7 +886,7 @@ describe('Scroller', () => {
             // Set up required properties for scrollInView to work
             // The condition for scrolling is: viewport.first - first > index
             // So: 8 - 0 > 5 = 8 > 5 = true, so scrolling should occur
-            spyOn(scroller, 'getRenderedRange').and.returnValue({
+            vi.spyOn(scroller, 'getRenderedRange').mockReturnValue({
                 first: 0,
                 last: 10,
                 viewport: {
@@ -897,7 +900,7 @@ describe('Scroller', () => {
         });
 
         it('should scroll item into view with to-end', async () => {
-            spyOn(scroller, 'scrollTo');
+            vi.spyOn(scroller, 'scrollTo').mockImplementation(() => undefined);
             component.orientation = 'vertical';
             component.itemSize = 50;
 
@@ -908,7 +911,7 @@ describe('Scroller', () => {
             // Set up required properties for scrollInView to work
             // The condition for scrolling is: viewport.last - first <= index + 1
             // So: 4 - 0 <= 5 + 1 = 4 <= 6 = true, so scrolling should occur
-            spyOn(scroller, 'getRenderedRange').and.returnValue({
+            vi.spyOn(scroller, 'getRenderedRange').mockReturnValue({
                 first: 0,
                 last: 10,
                 viewport: {
@@ -933,7 +936,7 @@ describe('Scroller', () => {
         });
 
         it('should calculate number of items in viewport', async () => {
-            spyOn(scroller, 'getContentPosition').and.returnValue({
+            vi.spyOn(scroller, 'getContentPosition').mockReturnValue({
                 left: 0,
                 right: 0,
                 top: 0,
@@ -1031,9 +1034,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestBasicScrollerComponent]
+                imports: [Scroller, TestBasicScrollerComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicScrollerComponent);
@@ -1053,7 +1055,7 @@ describe('Scroller', () => {
         });
 
         it('should emit onLazyLoad event', async () => {
-            spyOn(component, 'onLazyLoad');
+            vi.spyOn(component, 'onLazyLoad').mockImplementation(() => undefined);
 
             scroller._lazy = true;
             scroller._step = 10;
@@ -1071,8 +1073,8 @@ describe('Scroller', () => {
         });
 
         it('should emit onScroll event', async () => {
-            spyOn(component, 'onScroll');
-            spyOn(scroller, 'onScrollChange'); // Mock to prevent null access
+            vi.spyOn(component, 'onScroll').mockImplementation(() => undefined);
+            vi.spyOn(scroller, 'onScrollChange').mockImplementation(() => undefined); // Mock to prevent null access
             const mockEvent = new Event('scroll');
 
             scroller.onContainerScroll(mockEvent);
@@ -1080,14 +1082,14 @@ describe('Scroller', () => {
         });
 
         it('should emit onScrollIndexChange event', async () => {
-            spyOn(component, 'onScrollIndexChange');
-            spyOn(scroller, 'onScrollPositionChange').and.returnValue({
+            vi.spyOn(component, 'onScrollIndexChange').mockImplementation(() => undefined);
+            vi.spyOn(scroller, 'onScrollPositionChange').mockReturnValue({
                 first: 5,
                 last: 10,
                 isRangeChanged: true,
                 scrollPos: 100
             });
-            spyOn(scroller, 'setContentPosition');
+            vi.spyOn(scroller, 'setContentPosition').mockImplementation(() => undefined);
 
             // Set up initial state
             scroller.first = 0;
@@ -1109,8 +1111,8 @@ describe('Scroller', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            spyOn(scroller, 'onScrollChange');
-            spyOn(scroller, 'isPageChanged').and.returnValue(false);
+            vi.spyOn(scroller, 'onScrollChange').mockImplementation(() => undefined);
+            vi.spyOn(scroller, 'isPageChanged').mockReturnValue(false);
             const mockEvent = new Event('scroll');
 
             scroller.onContainerScroll(mockEvent);
@@ -1122,7 +1124,7 @@ describe('Scroller', () => {
         });
 
         it('should handle events through options', async () => {
-            const mockOnScroll = jasmine.createSpy('onScroll');
+            const mockOnScroll = vi.fn();
             component.options = { onScroll: mockOnScroll };
 
             fixture.changeDetectorRef.markForCheck();
@@ -1137,9 +1139,8 @@ describe('Scroller', () => {
     describe('Template Content Projection Tests', () => {
         it('should render with content template', async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestContentTemplateComponent]
+                imports: [Scroller, TestContentTemplateComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestContentTemplateComponent);
@@ -1163,9 +1164,8 @@ describe('Scroller', () => {
 
         it('should configure with item template without rendering errors', async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestItemTemplateComponent]
+                imports: [Scroller, TestItemTemplateComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             // Test that the component can be created without throwing errors
@@ -1187,9 +1187,8 @@ describe('Scroller', () => {
 
         it('should render with loader template', async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestLoaderTemplateComponent]
+                imports: [Scroller, TestLoaderTemplateComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestLoaderTemplateComponent);
@@ -1218,7 +1217,8 @@ describe('Scroller', () => {
 
         it('should handle disabled state with content projection', async () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Scroller],
                 template: `
                     <p-scroller [disabled]="true">
                         <div class="disabled-content">Disabled Scroller Content</div>
@@ -1228,9 +1228,8 @@ describe('Scroller', () => {
             class TestDisabledComponent {}
 
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestDisabledComponent]
+                imports: [Scroller, TestDisabledComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestDisabledComponent);
@@ -1248,9 +1247,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestLazyLoadingComponent]
+                imports: [Scroller, TestLazyLoadingComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestLazyLoadingComponent);
@@ -1283,7 +1281,7 @@ describe('Scroller', () => {
 
         it('should handle scroll position changes', async () => {
             const mockEvent = { target: { scrollTop: 100, scrollLeft: 0 } } as any;
-            spyOn(scroller, 'getContentPosition').and.returnValue({
+            vi.spyOn(scroller, 'getContentPosition').mockReturnValue({
                 left: 0,
                 right: 0,
                 top: 0,
@@ -1300,7 +1298,7 @@ describe('Scroller', () => {
         });
 
         it('should calculate viewport items correctly', async () => {
-            spyOn(scroller, 'getContentPosition').and.returnValue({
+            vi.spyOn(scroller, 'getContentPosition').mockReturnValue({
                 left: 0,
                 right: 0,
                 top: 10,
@@ -1360,9 +1358,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestBothOrientationComponent]
+                imports: [Scroller, TestBothOrientationComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBothOrientationComponent);
@@ -1396,16 +1393,16 @@ describe('Scroller', () => {
         });
 
         it('should scroll to index for both orientation', async () => {
-            spyOn(scroller, 'scrollTo');
+            vi.spyOn(scroller, 'scrollTo').mockImplementation(() => undefined);
 
             // Set up required properties for scrollToIndex to work
             scroller.first = { rows: 0, cols: 0 };
             scroller.last = { rows: 10, cols: 10 };
-            spyOn(scroller, 'calculateNumItems').and.returnValue({
+            vi.spyOn(scroller, 'calculateNumItems').mockReturnValue({
                 numItemsInViewport: { rows: 5, cols: 5 },
                 numToleratedItems: [2, 2]
             });
-            spyOn(scroller, 'getContentPosition').and.returnValue({
+            vi.spyOn(scroller, 'getContentPosition').mockReturnValue({
                 left: 0,
                 right: 0,
                 top: 0,
@@ -1426,9 +1423,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestDynamicPropertiesComponent]
+                imports: [Scroller, TestDynamicPropertiesComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestDynamicPropertiesComponent);
@@ -1505,9 +1501,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestBasicScrollerComponent]
+                imports: [Scroller, TestBasicScrollerComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicScrollerComponent);
@@ -1578,9 +1573,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestBasicScrollerComponent]
+                imports: [Scroller, TestBasicScrollerComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicScrollerComponent);
@@ -1729,7 +1723,7 @@ describe('Scroller', () => {
         });
 
         it('should handle window resize gracefully', async () => {
-            spyOn(scroller, 'init');
+            vi.spyOn(scroller, 'init').mockImplementation(() => undefined);
 
             // Trigger window resize
             scroller.onWindowResize();
@@ -1742,7 +1736,7 @@ describe('Scroller', () => {
         });
 
         it('should clean up resources on destroy', async () => {
-            spyOn(scroller, 'unbindResizeListener');
+            vi.spyOn(scroller, 'unbindResizeListener').mockImplementation(() => undefined);
 
             fixture.destroy();
             expect(scroller.unbindResizeListener).toHaveBeenCalled();
@@ -1756,9 +1750,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestBasicScrollerComponent]
+                imports: [Scroller, TestBasicScrollerComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicScrollerComponent);
@@ -1843,9 +1836,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestBasicScrollerComponent]
+                imports: [Scroller, TestBasicScrollerComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicScrollerComponent);
@@ -2625,7 +2617,8 @@ describe('Scroller', () => {
 
     describe('Dynamic and Observable Input Tests', () => {
         @Component({
-            standalone: false,
+            standalone: true,
+            imports: [Scroller, CommonModule],
             template: `
                 <p-scroller
                     [id]="dynamicId$ | async"
@@ -2691,9 +2684,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestDynamicInputsComponent]
+                imports: [Scroller, TestDynamicInputsComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestDynamicInputsComponent);
@@ -3051,9 +3043,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
-                providers: [provideZonelessChangeDetection()],
-                declarations: [TestBasicScrollerComponent]
+                imports: [Scroller, TestBasicScrollerComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicScrollerComponent);
@@ -3294,7 +3285,8 @@ describe('Scroller', () => {
     describe('Complete Content Projection Tests', () => {
         describe('pTemplate Content Projection Tests', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Scroller, CommonModule],
                 template: `
                     <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
                         <ng-template pTemplate="content" let-items let-options="options">
@@ -3329,7 +3321,8 @@ describe('Scroller', () => {
             }
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Scroller, CommonModule],
                 template: `
                     <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
                         <ng-template pTemplate="item" let-item let-options="options">
@@ -3367,7 +3360,8 @@ describe('Scroller', () => {
             }
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Scroller],
                 template: `
                     <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [showLoader]="true" [loading]="loading">
                         <ng-template pTemplate="loader" let-options="options">
@@ -3396,7 +3390,8 @@ describe('Scroller', () => {
             }
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Scroller],
                 template: `
                     <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [showLoader]="true" [loading]="loading">
                         <ng-template pTemplate="loadericon" let-options="options">
@@ -3417,9 +3412,8 @@ describe('Scroller', () => {
 
             it('should render pTemplate="content" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
-                    providers: [provideZonelessChangeDetection()],
-                    declarations: [TestPTemplateContentComponent]
+                    imports: [Scroller, TestPTemplateContentComponent],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const fixture = TestBed.createComponent(TestPTemplateContentComponent);
@@ -3445,9 +3439,8 @@ describe('Scroller', () => {
 
             it('should render pTemplate="item" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
-                    providers: [provideZonelessChangeDetection()],
-                    declarations: [TestPTemplateItemComponent]
+                    imports: [Scroller, TestPTemplateItemComponent],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const fixture = TestBed.createComponent(TestPTemplateItemComponent);
@@ -3483,9 +3476,8 @@ describe('Scroller', () => {
 
             it('should render pTemplate="loader" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
-                    providers: [provideZonelessChangeDetection()],
-                    declarations: [TestPTemplateLoaderComponent]
+                    imports: [Scroller, TestPTemplateLoaderComponent],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const fixture = TestBed.createComponent(TestPTemplateLoaderComponent);
@@ -3512,9 +3504,8 @@ describe('Scroller', () => {
 
             it('should render pTemplate="loadericon" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
-                    providers: [provideZonelessChangeDetection()],
-                    declarations: [TestPTemplateLoaderIconComponent]
+                    imports: [Scroller, TestPTemplateLoaderIconComponent],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const fixture = TestBed.createComponent(TestPTemplateLoaderIconComponent);
@@ -3535,7 +3526,8 @@ describe('Scroller', () => {
 
         describe('#template Content Projection Tests', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Scroller, CommonModule],
                 template: `
                     <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
                         <ng-template #content let-items let-options="options">
@@ -3560,7 +3552,8 @@ describe('Scroller', () => {
             }
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Scroller, CommonModule],
                 template: `
                     <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
                         <ng-template #item let-item let-options="options">
@@ -3586,7 +3579,8 @@ describe('Scroller', () => {
             }
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Scroller],
                 template: `
                     <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [showLoader]="true" [loading]="loading">
                         <ng-template #loader let-options="options">
@@ -3608,7 +3602,8 @@ describe('Scroller', () => {
             }
 
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Scroller],
                 template: `
                     <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [showLoader]="true" [loading]="loading">
                         <ng-template #loadericon let-options="options">
@@ -3629,9 +3624,8 @@ describe('Scroller', () => {
 
             it('should render #content template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
-                    providers: [provideZonelessChangeDetection()],
-                    declarations: [TestHashTemplateContentComponent]
+                    imports: [Scroller, TestHashTemplateContentComponent],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const fixture = TestBed.createComponent(TestHashTemplateContentComponent);
@@ -3651,9 +3645,8 @@ describe('Scroller', () => {
 
             it('should render #item template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
-                    providers: [provideZonelessChangeDetection()],
-                    declarations: [TestHashTemplateItemComponent]
+                    imports: [Scroller, TestHashTemplateItemComponent],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const fixture = TestBed.createComponent(TestHashTemplateItemComponent);
@@ -3678,9 +3671,8 @@ describe('Scroller', () => {
 
             it('should render #loader template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
-                    providers: [provideZonelessChangeDetection()],
-                    declarations: [TestHashTemplateLoaderComponent]
+                    imports: [Scroller, TestHashTemplateLoaderComponent],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const fixture = TestBed.createComponent(TestHashTemplateLoaderComponent);
@@ -3697,9 +3689,8 @@ describe('Scroller', () => {
 
             it('should render #loadericon template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
-                    providers: [provideZonelessChangeDetection()],
-                    declarations: [TestHashTemplateLoaderIconComponent]
+                    imports: [Scroller, TestHashTemplateLoaderIconComponent],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const fixture = TestBed.createComponent(TestHashTemplateLoaderIconComponent);
@@ -3717,7 +3708,8 @@ describe('Scroller', () => {
 
         describe('Mixed Content Projection Tests', () => {
             @Component({
-                standalone: false,
+                standalone: true,
+                imports: [Scroller, CommonModule],
                 template: `
                     <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
                         <!-- Both pTemplate and #template should work together -->
@@ -3750,9 +3742,8 @@ describe('Scroller', () => {
 
             it('should handle mixed pTemplate and #template projections', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
-                    providers: [provideZonelessChangeDetection()],
-                    declarations: [TestMixedTemplateComponent]
+                    imports: [Scroller, TestMixedTemplateComponent],
+                    providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const fixture = TestBed.createComponent(TestMixedTemplateComponent);

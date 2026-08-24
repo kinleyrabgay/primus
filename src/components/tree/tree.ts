@@ -26,7 +26,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { find, findSingle, focus, getOuterHeight, getOuterWidth, removeAccents, resolveFieldData } from '@primeuix/utils';
+import { find, findSingle, focus, getOuterHeight, getOuterWidth, removeAccents, resolveFieldData } from '@primus/primeuix/utils';
 import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from '@primus/core/api';
 import { AutoFocusModule } from '@primus/components/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
