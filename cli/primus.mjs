@@ -71,10 +71,12 @@ const ok = (msg) => console.log(`  ✓ ${msg}`);
 
 // ─────────────────────────────────────────────────────────────── init ──
 function init() {
-    const dir = flags.dir ?? 'libs/primus';
-    const target = resolve(cwd, dir);
+    const dir = flags.dir ?? 'src/primus';
 
-    // 1. primus.json — the app-side config (shadcn's components.json equivalent)
+    // primus.json — the app-side config ONLY (shadcn's components.json equivalent).
+    // init copies NOTHING: no core/, no theme/, no gap folders. The base layer
+    // (core + theme + primus.config.ts) is initialized lazily on the first
+    // `primus add`. All paths derive from a single root so they never drift.
     const primusJson = {
         $schema: 'https://selise.internal/primus.schema.json',
         version: registry.version,
@@ -90,34 +92,9 @@ function init() {
         }
     };
     writeFileSync(join(cwd, 'primus.json'), JSON.stringify(primusJson, null, 4) + '\n');
-    ok(`primus.json (components will be created under ${dir}/)`);
+    ok(`primus.json written — paths under ${dir}/ (nothing copied yet)`);
 
-    // 2. core/ — always-installed base layer (basecomponent, api, dom, icons, ...)
-    mkdirSync(target, { recursive: true });
-    if (existsSync(join(SRC, 'core'))) {
-        cpSync(join(SRC, 'core'), join(target, 'core'), { recursive: true, filter: copyFilter });
-        ok(`core/ copied (${readdirSync(join(target, 'core')).length} modules)`);
-    }
-
-    // 2b. MIT license + notice travel with every copy (see NOTICE.md)
-    for (const f of ['LICENSE.md', 'NOTICE.md']) {
-        if (existsSync(join(PKG_ROOT, f))) cpSync(join(PKG_ROOT, f), join(target, f));
-    }
-
-    // 3. primus.config.ts — single design-system entry (starter template)
-    if (!existsSync(join(cwd, 'primus.config.ts'))) {
-        const tpl = join(PKG_ROOT, 'primus.config.ts');
-        if (existsSync(tpl)) {
-            // starter imports token modules that live in the copied theme/ folder
-            mkdirSync(join(target, 'theme'), { recursive: true });
-            if (existsSync(join(SRC, 'theme'))) cpSync(join(SRC, 'theme'), join(target, 'theme'), { recursive: true, filter: copyFilter });
-            const rewritten = readFileSync(tpl, 'utf8').replaceAll("'./src/theme/", `'./${dir}/theme/`);
-            writeFileSync(join(cwd, 'primus.config.ts'), rewritten);
-            ok('primus.config.ts scaffolded (edit this to restyle everything)');
-        }
-    }
-
-    // 4. tsconfig paths — wildcards, set ONCE; `add` never touches tsconfig again
+    // tsconfig paths — wildcards, set ONCE; `add` never touches tsconfig again
     const tsconfigPath = ['tsconfig.base.json', 'tsconfig.json'].map((f) => join(cwd, f)).find(existsSync);
     if (tsconfigPath) {
         const tsconfig = parseJsonc(readFileSync(tsconfigPath, 'utf8'));
@@ -144,7 +121,33 @@ function init() {
         console.warn('  ! no tsconfig.base.json/tsconfig.json found — add @selisedev/primus-beta/* paths manually');
     }
 
-    console.log('\nNext: `primus add button`, then `primus theme` to generate CSS.');
+    console.log('\nNext: `primus add button` — core/ + theme/ initialize automatically on first add.');
+}
+
+// Base layer (core + theme + primus.config.ts) is copied on demand by `add`, so
+// `init` stays config-only and never leaves unwanted folders behind.
+function ensureBase(cfg) {
+    const rootDst = resolve(cwd, cfg.paths.root);
+    const coreDst = resolve(cwd, cfg.paths.core);
+    const themeDst = resolve(cwd, cfg.paths.theme);
+
+    if (!existsSync(coreDst) && existsSync(join(SRC, 'core'))) {
+        cpSync(join(SRC, 'core'), coreDst, { recursive: true, filter: copyFilter });
+        ok(`core/ initialized (${readdirSync(coreDst).length} modules)`);
+        // MIT license + notice travel with every copy (see NOTICE.md)
+        for (const f of ['LICENSE.md', 'NOTICE.md']) {
+            if (existsSync(join(PKG_ROOT, f))) cpSync(join(PKG_ROOT, f), join(rootDst, f));
+        }
+    }
+
+    if (!existsSync(themeDst) && existsSync(join(SRC, 'theme'))) {
+        cpSync(join(SRC, 'theme'), themeDst, { recursive: true, filter: copyFilter });
+        ok('theme/ initialized (edit tokens here — primitives / semantic / components / preset)');
+    }
+    // NOTE: no primus.config.ts. Theming is runtime via providePrimus({ theme:
+    // { preset: AppPreset } }) — AppPreset lives in the copied theme/ folder.
+    // primus.config.ts was only the input to the optional static-CSS `primus theme`
+    // generator; it duplicated the tokens already in theme/, so it's dropped.
 }
 
 // ──────────────────────────────────────────────────────────────── add ──
@@ -196,6 +199,7 @@ async function promptComponents() {
 async function add() {
     if (!positional.length) positional.push(...(await promptComponents()));
     const cfg = loadAppConfig();
+    ensureBase(cfg); // lazily initialize core/ + theme/ on first add
     const closure = resolveClosure(positional);
     const npmDeps = new Set();
     let copied = 0;
