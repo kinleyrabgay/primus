@@ -1,15 +1,21 @@
-# @selise/primus
+# @selisedev/primus-beta
 
-**Internal Angular UI component library** — a shadcn-style, source-first toolkit of
-100 components. Fork of **PrimeNG 21.1.9** (the last MIT release before PrimeNG v22
+**Angular UI component library** — a shadcn-style, source-first toolkit of 100
+components. Fork of **PrimeNG 21.1.9** (the last MIT release before PrimeNG v22
 moved to a paid license), retargeted to **Angular 22 + TypeScript 6**, with the entire
-**PrimeUIX theming engine vendored in-tree**. Consumed as *source* through the `primus`
-CLI — the app owns every file it copies. Never published to npm.
+**PrimeUIX theming engine vendored in-tree**.
+
+Published on npm as a **source registry + CLI**, not an importable library: you
+`primus add` components, the CLI **copies the source into your app**, and you own
+and edit every file. Components are *not* importable from the package directly.
 
 - **100 components**, 17 core modules, one design-token theme system.
 - **Zero third-party runtime deps** beyond Angular + `tslib`. No `@primeuix/*`, no `primeng`.
 - **You own the code.** Components are copied into your app; upgrades are opt-in diffs.
 - Design docs: `../primus-doc` · runnable demo: `../primus-demo` · manual setup: [`INTEGRATION.md`](./INTEGRATION.md).
+
+> **Beta channel.** `@selisedev/primus-beta` is the pre-release line; the stable
+> package will be `@selisedev/primus`.
 
 ---
 
@@ -24,9 +30,10 @@ CLI — the app owns every file it copies. Never published to npm.
 8. [The vendored PrimeUIX engine](#the-vendored-primeuix-engine)
 9. [Component catalog](#component-catalog)
 10. [Build & test (this repo = harness)](#build--test-this-repo--harness)
-11. [Entry-point architecture](#entry-point-architecture)
-12. [Relationship to PrimeNG / PrimeUIX](#relationship-to-primeng--primeuix)
-13. [License](#license)
+11. [Publishing model](#publishing-model)
+12. [Entry-point architecture](#entry-point-architecture)
+13. [Relationship to PrimeNG / PrimeUIX](#relationship-to-primeng--primeuix)
+14. [License](#license)
 
 ---
 
@@ -68,43 +75,55 @@ src/
   public_api.ts  ng-package.json                                   (root primary entry point)
 
 cli/             primus CLI + component registry (init / add / diff / theme)
-tools/           generate-theme.mjs   (compiles primus.config.ts -> static CSS)
-scripts/         build harness (prebuild / postbuild for ng-packagr)
+tools/           generate-theme.mjs   (optional static-CSS generator)
+scripts/         build harness (prebuild / postbuild / pack-prep for ng-packagr)
 angular.json  tsconfig.json  vitest setup                          (build + test config)
 ```
 
-The published/built package (`dist/`) is renamed **`@primus`** so every folder above is a
-secondary entry point of one package — `@selisedev/primus-beta/components/button`, `@selisedev/primus-beta/core/config`,
-`@selisedev/primus-beta/primeuix/styled`, and so on. See [Entry-point architecture](#entry-point-architecture).
+Every folder above is a secondary entry point of the one package
+**`@selisedev/primus-beta`**. The **published** package trims its exports to the
+`primeuix` engine only (so components/core/theme are *not* importable — you copy
+them) and ships the `src/` source + `cli/` for the copy flow; see
+[Publishing model](#publishing-model) and [Entry-point architecture](#entry-point-architecture).
 
 ---
 
 ## Quick start (CLI)
 
-primus is consumed like shadcn/ui: install the package as a **git devDependency**, then let
-the CLI copy source into your app.
+primus is consumed like shadcn/ui. Install the package (source registry + CLI),
+then let the CLI copy components into your app.
 
 ```bash
-# 1. add the built primus package as a git devDependency — the CLI copies from
-#    node_modules/@primus (source of truth). Install spec depends on how the
-#    package is published/pinned in your org.
-pnpm add -D <primus-git-dep>
+# 1. install — the CLI + component sources live in this dev dependency,
+#    the primeuix engine ships as the only importable runtime part
+pnpm add -D @selisedev/primus-beta
+pnpm add primeicons              # icon font for the pi pi-* classes
+#    optional peers, only if you use them: chart.js (p-chart), quill (p-editor)
 
-# 2. scaffold: writes primus.json, copies core/ + theme entry, wires tsconfig paths
-pnpm primus init            # optional: --dir libs/primus
+# 2. init — writes primus.json ONLY (default root src/primus) + tsconfig paths.
+#    Copies nothing; no folders created.
+pnpm primus init                 # optional: --dir <path>
 
-# 3. add the components you need — transitive deps are pulled in automatically
-pnpm primus add button table dialog
-
-# 4. generate the theme CSS from your primus.config.ts
-pnpm primus theme
+# 3. add — copies the components (+ transitive deps) into src/primus/components.
+#    core/ + theme/ initialize automatically on the first add. No arg = interactive picker.
+pnpm primus add button card inputtext tag
 ```
 
-Then wire the provider once, in `app.config.ts`:
+Align your app's `tsconfig.json` to primus's compile settings (init warns if not):
+
+```jsonc
+"compilerOptions": {
+  "strict": false, "strictNullChecks": true,
+  "noImplicitOverride": false, "noPropertyAccessFromIndexSignature": false
+},
+"angularCompilerOptions": { "strictTemplates": false }
+```
+
+Wire the provider once, in `app.config.ts`:
 
 ```ts
 import { providePrimus } from '@selisedev/primus-beta/core/config';
-import { AppPreset }     from '@selisedev/primus-beta/theme';
+import { AppPreset }     from '@selisedev/primus-beta/theme';   // your copied theme
 
 providePrimus({
   theme: { preset: AppPreset, options: { darkModeSelector: '.dark' } },
@@ -112,29 +131,34 @@ providePrimus({
 });
 ```
 
-Use components as standalone imports:
+Use components — the `@selisedev/primus-beta/components/*` specifier resolves to your
+**local copies** via the tsconfig paths `init` added (not the package):
 
 ```ts
-import { Button } from '@selisedev/primus-beta/components/button';
-import { Table }  from '@selisedev/primus-beta/components/table';
+import { Button } from '@selisedev/primus-beta/components/button';  // -> src/primus/components/button
+import { Card }   from '@selisedev/primus-beta/components/card';
 
-@Component({ imports: [Button, Table], /* … */ })
+@Component({ imports: [Button, Card], /* … */ })
 export class MyComponent {}
 ```
+
+Edit those files freely — they're yours. `primus diff button` shows what changed vs
+the package before you re-copy. Theming lives in the copied `theme/` folder
+(`primitives / semantic / components / preset`) — no separate config file.
 
 ---
 
 ## CLI reference
 
-Source of truth: the primus package installed at `node_modules/@primus`. The CLI only ever
-**copies** from it — your app owns every file afterwards.
+Source of truth: the package installed at `node_modules/@selisedev/primus-beta`. The
+CLI only ever **copies** from it — your app owns every file afterwards.
 
 | Command | What it does |
 |---|---|
-| `primus init [--dir <path>]` | Scaffolds `primus.json`, copies `core/` (all infra modules) and the `theme/` entry wholesale, and adds `@selisedev/primus-beta/*` wildcard paths to `tsconfig.base.json` / `tsconfig.json` **once**. Default dir `libs/primus`. |
-| `primus add <component…>` | Copies the component folder(s) **plus their transitive component dependencies** into the app. Spec files are skipped unless `--with-specs`. Reports any npm peers to install (e.g. `chart.js`, `quill`). |
-| `primus theme` | Compiles your `primus.config.ts` design tokens into a static `primus.theme.css`, generating structural CSS only for the components actually installed. |
-| `primus diff <component>` | Compares your local copy against the installed package file-by-file (`+` local-only, `-` missing, `~` modified) so upgrades are reviewable, never silent. |
+| `primus init [--dir <path>]` | Writes `primus.json` **only** (default root `src/primus`, all paths derived from it) and adds the `@selisedev/primus-beta/{theme,core,components}` wildcard paths to `tsconfig(.base).json`. **Copies nothing** — no gap folders. |
+| `primus add <component…>` | Copies the component folder(s) **plus their transitive component deps** into `<root>/components`. On the **first add**, `core/` + `theme/` initialize automatically. No component named → interactive picker. `--with-specs` keeps spec files. Reports npm peers (e.g. `chart.js`, `quill`). |
+| `primus diff <component>` | Compares your local copy against the package file-by-file (`+` local-only, `-` missing, `~` modified) so upgrades are reviewable, never silent. |
+| `primus theme` | *(optional, off the default path)* compiles design tokens to a static `primus.theme.css`. Not needed for runtime theming, which comes from the copied `theme/` via `providePrimus`. |
 
 Dependency resolution is registry-driven (`cli/registry.json`, auto-generated by
 `cli/build-registry.mjs`). Example entry:
@@ -146,7 +170,7 @@ Dependency resolution is registry-driven (`cli/registry.json`, auto-generated by
 }
 ```
 
-`core/` and `theme/` are installed wholesale by `init`, so the registry only tracks
+`core/` + `theme/` initialize lazily on the first `add`, so the registry only tracks
 cross-component and npm dependencies — adding a component needs no config change anywhere.
 
 ---
@@ -296,10 +320,29 @@ Build outputs to `dist/` (git-ignored). `dist/package.json` runtime deps are **`
 
 ---
 
+## Publishing model
+
+The published npm package is a **source registry + CLI**, produced by `pnpm run
+release:beta` (build → `scripts/pack-prep.mjs` → `npm publish ./dist`):
+
+- **Exports trimmed to the `primeuix` engine only.** `@selisedev/primus-beta/components|core|theme/*`
+  are deliberately **not** importable from the package — resolving them fails with
+  `ERR_PACKAGE_PATH_NOT_EXPORTED` until `primus init` remaps those specifiers to your
+  local copies. This enforces copy-and-own; the engine stays importable because the
+  copied components need it at runtime.
+- **Ships `src/` source + `cli/` + `bin`** so the CLI can copy components/core/theme
+  and `pnpm primus` works.
+- Runtime deps reduce to `tslib`; Angular + `primeicons` are peers.
+
+Versioning: `@selisedev/primus-beta` is the beta channel (`0.0.x`); the stable line
+will be `@selisedev/primus`.
+
+---
+
 ## Entry-point architecture
 
 primus is a multi-entry [ng-packagr](https://github.com/ng-packagr/ng-packagr) library.
-`scripts/build-helper.mjs` renames the built package to **`@primus`** so every subdirectory
+The built package keeps its npm name **`@selisedev/primus-beta`**, so every subdirectory
 containing an `ng-package.json` becomes a secondary entry point named `@selisedev/primus-beta/<path>`.
 That's why sources import each other as `@selisedev/primus-beta/core/api`, `@selisedev/primus-beta/components/button`,
 `@selisedev/primus-beta/primeuix/styled` — each resolves to a sibling entry point rather than falling back
