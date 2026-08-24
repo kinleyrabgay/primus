@@ -80,6 +80,12 @@ export function clearPackageJson(localPackageJson, callback) {
     delete pkg?.devDependencies;
     delete pkg?.publishConfig?.directory;
     delete pkg?.publishConfig?.linkDirectory;
+    // The repo root is `private` (build harness) and carries the `primus` CLI bin
+    // (copy-source model, needs the .ts repo — not the compiled dist). The published
+    // dist is the consumable npm lib, so strip both: keep it publishable and drop the
+    // bin that would dangle without cli/ + source in the package.
+    delete pkg?.private;
+    delete pkg?.bin;
 
     callback?.(pkg);
 

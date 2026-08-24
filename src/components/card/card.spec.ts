@@ -1666,10 +1666,8 @@ describe('Card', () => {
                 component.pt = { root: 'UPDATED_CLASS' };
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
-                const cardInstanceDbg = fixture.debugElement.query(By.directive(Card)).componentInstance;
-                console.log('DEBUG pt()', cardInstanceDbg.pt());
-                console.log('DEBUG $pt()', cardInstanceDbg.$pt());
-                console.log('DEBUG className', cardEl.nativeElement.className);
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 expect(cardEl.nativeElement.className).toContain('UPDATED_CLASS');
             });

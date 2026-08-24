@@ -3392,23 +3392,16 @@ describe('Select PT (PassThrough)', () => {
             expect(label.nativeElement.classList.contains('NO_VALUE')).toBeTruthy();
 
             component.selectedValue = 'opt1';
-            console.log('DEBUG1 selectedValue set, modelValue=', selectInstance.modelValue());
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            console.log('DEBUG2 after whenStable, modelValue=', selectInstance.modelValue());
             fixture.detectChanges();
-            console.log('DEBUG3 after detectChanges, modelValue=', selectInstance.modelValue());
             await new Promise((resolve) => setTimeout(resolve, 100));
-            console.log('DEBUG3b after setTimeout, modelValue=', selectInstance.modelValue(), 'rawValue=', (selectInstance as any).value);
             await fixture.whenStable();
-            console.log('DEBUG3c after whenStable, modelValue=', selectInstance.modelValue());
             fixture.detectChanges(); // Extra change detection for reactive PT
-            console.log('DEBUG3d after 2nd detectChanges, modelValue=', selectInstance.modelValue());
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
             // eslint-disable-next-line no-console
-            console.log('DEBUG modelValue=', selectInstance.modelValue(), 'classList=', label.nativeElement.className, 'selectedValue=', component.selectedValue);
 
             expect(label.nativeElement.classList.contains('HAS_VALUE')).toBeTruthy();
         });
@@ -3651,13 +3644,11 @@ describe('Select PT (PassThrough)', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            console.log('DEBUG-B modelValue after set=', selectInstance.modelValue());
 
             selectInstance.show();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
             fixture.detectChanges();
-            console.log('DEBUG-C modelValue after show=', selectInstance.modelValue());
 
             // Check if we captured the selected state
             const selectedContext = contextStates.find((ctx) => ctx.selected === true);
