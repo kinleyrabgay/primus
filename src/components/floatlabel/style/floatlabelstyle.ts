@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as floatlabel_style } from '@primus/primeuix/styles/floatlabel';
-import { BaseStyle } from '@primus/core/base';
+import { style as floatlabel_style } from '@selisedev/primus-beta/primeuix/styles/floatlabel';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
     ${floatlabel_style}

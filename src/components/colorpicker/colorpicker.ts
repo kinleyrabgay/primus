@@ -1,19 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, input, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MotionOptions } from '@primus/primeuix/motion';
-import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from '@primus/core/api';
-import { AutoFocusModule } from '@primus/components/autofocus';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Bind } from '@primus/core/bind';
-import { ConnectedOverlayScrollHandler } from '@primus/core/dom';
-import { MotionModule } from '@primus/core/motion';
-import { OverlayModule } from '@primus/components/overlay';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
-import type { ColorPickerChangeEvent } from '@primus/core/types/colorpicker';
-import { ColorPickerPassThrough } from '@primus/core/types/colorpicker';
-import { ZIndexUtils } from '@primus/core/utils';
+import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { AutoFocusModule } from '@selisedev/primus-beta/components/autofocus';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { ConnectedOverlayScrollHandler } from '@selisedev/primus-beta/core/dom';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { OverlayModule } from '@selisedev/primus-beta/components/overlay';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
+import type { ColorPickerChangeEvent } from '@selisedev/primus-beta/core/types/colorpicker';
+import { ColorPickerPassThrough } from '@selisedev/primus-beta/core/types/colorpicker';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { ColorPickerStyle } from './style/colorpickerstyle';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {

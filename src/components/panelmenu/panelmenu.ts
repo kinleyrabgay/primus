@@ -24,15 +24,15 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MotionOptions } from '@primus/primeuix/motion';
-import { equals, findLast, findSingle, focus, getAttribute, isEmpty, isNotEmpty, isPrintableCharacter, resolve, uuid } from '@primus/primeuix/utils';
-import { MenuItem, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { ChevronDownIcon, ChevronRightIcon } from '@primus/core/icons';
-import { MotionModule } from '@primus/core/motion';
-import { TooltipModule } from '@primus/components/tooltip';
-import { PanelMenuItemTemplateContext, PanelMenuPassThrough } from '@primus/core/types/panelmenu';
+import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { equals, findLast, findSingle, focus, getAttribute, isEmpty, isNotEmpty, isPrintableCharacter, resolve, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { MenuItem, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { ChevronDownIcon, ChevronRightIcon } from '@selisedev/primus-beta/core/icons';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { TooltipModule } from '@selisedev/primus-beta/components/tooltip';
+import { PanelMenuItemTemplateContext, PanelMenuPassThrough } from '@selisedev/primus-beta/core/types/panelmenu';
 import { PanelMenuStyle } from './style/panelmenustyle';
 
 const PANELMENU_INSTANCE = new InjectionToken<PanelMenu>('PANELMENU_INSTANCE');

@@ -20,16 +20,16 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { findIndexInList, setAttribute, uuid } from '@primus/primeuix/utils';
-import { FilterService, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { ButtonModule, ButtonProps } from '@primus/components/button';
-import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon } from '@primus/core/icons';
-import { Listbox, ListboxChangeEvent } from '@primus/components/listbox';
-import { Ripple } from '@primus/components/ripple';
-import { Nullable } from '@primus/core/ts-helpers';
-import { OrderListFilterEvent, OrderListFilterOptions, OrderListFilterTemplateContext, OrderListItemTemplateContext, OrderListPassThrough, OrderListSelectionChangeEvent } from '@primus/core/types/orderlist';
+import { findIndexInList, setAttribute, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { FilterService, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { ButtonModule, ButtonProps } from '@selisedev/primus-beta/components/button';
+import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon } from '@selisedev/primus-beta/core/icons';
+import { Listbox, ListboxChangeEvent } from '@selisedev/primus-beta/components/listbox';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { OrderListFilterEvent, OrderListFilterOptions, OrderListFilterTemplateContext, OrderListItemTemplateContext, OrderListPassThrough, OrderListSelectionChangeEvent } from '@selisedev/primus-beta/core/types/orderlist';
 import { OrderListStyle } from './style/orderliststyle';
 
 const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');

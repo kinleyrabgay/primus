@@ -25,15 +25,15 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Aria, PrimeTemplate, SelectItem, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { Select, SelectChangeEvent } from '@primus/components/select';
-import { AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon } from '@primus/core/icons';
-import { InputNumber } from '@primus/components/inputnumber';
-import { Ripple } from '@primus/components/ripple';
-import { Nullable } from '@primus/core/ts-helpers';
-import { PaginatorDropdownItemTemplateContext, PaginatorPassThrough, PaginatorState, PaginatorTemplateContext } from '@primus/core/types/paginator';
+import { Aria, PrimeTemplate, SelectItem, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { Select, SelectChangeEvent } from '@selisedev/primus-beta/components/select';
+import { AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon } from '@selisedev/primus-beta/core/icons';
+import { InputNumber } from '@selisedev/primus-beta/components/inputnumber';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { PaginatorDropdownItemTemplateContext, PaginatorPassThrough, PaginatorState, PaginatorTemplateContext } from '@selisedev/primus-beta/core/types/paginator';
 import { PaginatorStyle } from './style/paginatorstyle';
 
 const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');

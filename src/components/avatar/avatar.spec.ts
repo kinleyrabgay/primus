@@ -1,7 +1,7 @@
 import { Component, input, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '@primus/core/api';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
 import { Avatar, AvatarModule } from './avatar';
 
 @Component({

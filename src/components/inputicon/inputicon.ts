@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { InputIconPassThrough } from '@primus/core/types/inputicon';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { InputIconPassThrough } from '@selisedev/primus-beta/core/types/inputicon';
 import { InputIconStyle } from './style/inputiconstyle';
 
 const INPUTICON_INSTANCE = new InjectionToken<InputIcon>('INPUTICON_INSTANCE');

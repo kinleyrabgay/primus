@@ -1,8 +1,8 @@
 import { TemplateRef } from '@angular/core';
-import type { MotionOptions } from '@primus/primeuix/motion';
-import type { PassThrough, PassThroughOption } from '@primus/core/api';
-import type { InputTextPassThrough } from '@primus/core/types/inputtext';
-import type { OverlayPassThrough } from '@primus/core/types/overlay';
+import type { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import type { PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
+import type { InputTextPassThrough } from '@selisedev/primus-beta/core/types/inputtext';
+import type { OverlayPassThrough } from '@selisedev/primus-beta/core/types/overlay';
 
 /**
  * Custom pass-through(pt) options.

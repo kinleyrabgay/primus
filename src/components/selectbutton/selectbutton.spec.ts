@@ -4,8 +4,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 import { SelectButton, SelectButtonModule } from './selectbutton';
 
 describe('SelectButton', () => {

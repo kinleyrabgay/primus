@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { TreeNode } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
+import { TreeNode } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 import { of } from 'rxjs';
 import { TreeTable, TreeTableModule } from './treetable';
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as panelmenu_style } from '@primus/primeuix/styles/panelmenu';
-import { BaseStyle } from '@primus/core/base';
+import { style as panelmenu_style } from '@selisedev/primus-beta/primeuix/styles/panelmenu';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
     ${panelmenu_style}

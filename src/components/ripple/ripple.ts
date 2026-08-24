@@ -1,8 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Directive, effect, inject, NgModule, NgZone } from '@angular/core';
-import { addClass, getHeight, getOffset, getOuterHeight, getOuterWidth, getWidth, removeClass, remove as utils_remove } from '@primus/primeuix/utils';
-import { BaseComponent } from '@primus/core/basecomponent';
-import { VoidListener } from '@primus/core/ts-helpers';
+import { addClass, getHeight, getOffset, getOuterHeight, getOuterWidth, getWidth, removeClass, remove as utils_remove } from '@selisedev/primus-beta/primeuix/utils';
+import { BaseComponent } from '@selisedev/primus-beta/core/basecomponent';
+import { VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
 import { RippleStyle } from './style/ripplestyle';
 
 /**

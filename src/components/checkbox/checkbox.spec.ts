@@ -3,8 +3,8 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '@primus/core/api';
-import { CheckboxChangeEvent } from '@primus/core/types/checkbox';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { CheckboxChangeEvent } from '@selisedev/primus-beta/core/types/checkbox';
 import { Checkbox } from './checkbox';
 
 // Mock data for testing

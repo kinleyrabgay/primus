@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, InjectionToken, NgModule, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { FluidPassThrough } from '@primus/core/types/fluid';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { FluidPassThrough } from '@selisedev/primus-beta/core/types/fluid';
 import { FluidStyle } from './style/fluidstyle';
 
 const FLUID_INSTANCE = new InjectionToken<Fluid>('FLUID_INSTANCE');

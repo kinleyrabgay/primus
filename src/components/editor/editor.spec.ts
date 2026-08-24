@@ -4,9 +4,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
-import type { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from '@primus/core/types/editor';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
+import type { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from '@selisedev/primus-beta/core/types/editor';
 import { Editor } from './editor';
 // Test Components for different scenarios
 @Component({

@@ -23,14 +23,14 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { findSingle, setAttribute, uuid } from '@primus/primeuix/utils';
-import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { Button } from '@primus/components/button';
-import { Dialog } from '@primus/components/dialog';
-import { Nullable } from '@primus/core/ts-helpers';
-import { ConfirmDialogHeadlessTemplateContext, ConfirmDialogMessageTemplateContext, ConfirmDialogPassThrough } from '@primus/core/types/confirmdialog';
+import { findSingle, setAttribute, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { Button } from '@selisedev/primus-beta/components/button';
+import { Dialog } from '@selisedev/primus-beta/components/dialog';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { ConfirmDialogHeadlessTemplateContext, ConfirmDialogMessageTemplateContext, ConfirmDialogPassThrough } from '@selisedev/primus-beta/core/types/confirmdialog';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
 

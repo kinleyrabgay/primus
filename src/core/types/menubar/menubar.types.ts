@@ -1,7 +1,7 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from '@primus/core/api';
-import { MenuItem } from '@primus/core/api';
-import type { BadgePassThrough } from '@primus/core/types/badge';
+import type { PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
+import { MenuItem } from '@selisedev/primus-beta/core/api';
+import type { BadgePassThrough } from '@selisedev/primus-beta/core/types/badge';
 
 /**
  * Custom pass-through(pt) options.

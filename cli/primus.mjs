@@ -8,7 +8,7 @@
  *   primus diff  <component>             compare local copy against the installed package
  *
  * Source of truth: the primus package installed as a git devDependency
- * (node_modules/@primus). The CLI only ever COPIES from it — the app owns
+ * (node_modules/@selisedev/primus-beta). The CLI only ever COPIES from it — the app owns
  * every file after that.
  */
 import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
@@ -16,7 +16,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const PKG_ROOT = resolve(__dirname, '..'); // the installed @primus package root
+const PKG_ROOT = resolve(__dirname, '..'); // the installed @selisedev/primus-beta package root
 const cwd = process.cwd();
 
 const [cmd, ...rest] = process.argv.slice(2);
@@ -125,24 +125,24 @@ function init() {
         tsconfig.compilerOptions.paths ??= {};
         // relative path values — valid without a baseUrl (TS5090).
         // TypeScript picks the pattern with the longest literal prefix, so the order of
-        // specificity is: exact '@primus/theme' > '@primus/core/*' > '@primus/components/*'
-        // > '@primus/*'. That lets apps write the short form `@primus/button` while the
-        // library's own sources keep resolving their internal '@primus/components/*' and
-        // '@primus/core/*' imports.
+        // specificity is: exact '@selisedev/primus-beta/theme' > '@selisedev/primus-beta/core/*' > '@selisedev/primus-beta/components/*'
+        // > '@selisedev/primus-beta/*'. That lets apps write the short form `@selisedev/primus-beta/button` while the
+        // library's own sources keep resolving their internal '@selisedev/primus-beta/components/*' and
+        // '@selisedev/primus-beta/core/*' imports.
         const rel = tsconfig.compilerOptions.baseUrl ? '' : './';
         Object.assign(tsconfig.compilerOptions.paths, {
-            '@primus/theme': [`${rel}${dir}/theme/public_api.ts`],
-            '@primus/core/*': [`${rel}${dir}/core/*/public_api.ts`],
-            '@primus/components/*': [`${rel}${dir}/components/*/public_api.ts`],
-            '@primus/*': [`${rel}${dir}/components/*/public_api.ts`]
+            '@selisedev/primus-beta/theme': [`${rel}${dir}/theme/public_api.ts`],
+            '@selisedev/primus-beta/core/*': [`${rel}${dir}/core/*/public_api.ts`],
+            '@selisedev/primus-beta/components/*': [`${rel}${dir}/components/*/public_api.ts`],
+            '@selisedev/primus-beta/*': [`${rel}${dir}/components/*/public_api.ts`]
         });
         if (tsconfig.compilerOptions.strict === true) {
             console.warn('  ! this tsconfig has strict:true — primus sources compile with strict:false + strictNullChecks:true (and strictTemplates:false); align these or the build will fail');
         }
         writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 4) + '\n');
-        ok(`${tsconfigPath.split('/').pop()} paths added (@primus/components/*, @primus/core/*, @primus/theme)`);
+        ok(`${tsconfigPath.split('/').pop()} paths added (@selisedev/primus-beta/components/*, @selisedev/primus-beta/core/*, @selisedev/primus-beta/theme)`);
     } else {
-        console.warn('  ! no tsconfig.base.json/tsconfig.json found — add @primus/* paths manually');
+        console.warn('  ! no tsconfig.base.json/tsconfig.json found — add @selisedev/primus-beta/* paths manually');
     }
 
     console.log('\nNext: `primus add button`, then `primus theme` to generate CSS.');

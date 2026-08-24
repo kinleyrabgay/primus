@@ -1,6 +1,6 @@
 import { booleanAttribute, Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2 } from '@angular/core';
-import { addClass, getTargetElement, hasClass, isElement, removeClass } from '@primus/primeuix/utils';
-import { VoidListener } from '@primus/core/ts-helpers';
+import { addClass, getTargetElement, hasClass, isElement, removeClass } from '@selisedev/primus-beta/primeuix/utils';
+import { VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
 
 /**
  * StyleClass manages css classes declaratively to during enter/leave animations or just to toggle classes on an element.

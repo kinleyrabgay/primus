@@ -1,4 +1,4 @@
-import { createStyleMarkup, isNotEmpty } from '@primus/primeuix/utils';
+import { createStyleMarkup, isNotEmpty } from '@selisedev/primus-beta/primeuix/utils';
 
 export interface StyleSheetProps {
     attrs?: Record<string, unknown>;

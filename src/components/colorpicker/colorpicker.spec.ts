@@ -2,8 +2,8 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { providePrimus } from '@primus/core/config';
-import { ColorPickerChangeEvent } from '@primus/core/types/colorpicker';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
+import { ColorPickerChangeEvent } from '@selisedev/primus-beta/core/types/colorpicker';
 import { ColorPicker } from './colorpicker';
 
 @Component({

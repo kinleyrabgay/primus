@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { ApplicationRef, ComponentRef, EmbeddedViewRef, Inject, Injectable, Injector, Type, createComponent } from '@angular/core';
-import { appendChild } from '@primus/primeuix/utils';
+import { appendChild } from '@selisedev/primus-beta/primeuix/utils';
 import { DynamicDialog } from './dynamicdialog';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogInjector } from './dynamicdialog-injector';

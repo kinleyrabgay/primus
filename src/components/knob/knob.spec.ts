@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { providePrimus } from '@primus/core/config';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 import { Knob } from './knob';
 
 // Temel test component'i

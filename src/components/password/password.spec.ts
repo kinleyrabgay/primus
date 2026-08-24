@@ -4,8 +4,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 import { MapperPipe, Password, PasswordDirective, PasswordModule } from './password';
 
 // Test Components
@@ -1401,11 +1401,24 @@ describe('PasswordDirective', () => {
         });
 
         it('should handle window resize', () => {
-            vi.spyOn(directive, 'hideOverlay').mockImplementation(() => undefined);
-            directive.onWindowResize();
+            // jsdom defines `ontouchstart` as an own property on `window` (unlike real
+            // non-touch browsers), which makes `isTouchDevice()` always report `true`.
+            // Remove it for the duration of this test so the non-touch branch is exercised.
+            const hadOwnOntouchstart = Object.prototype.hasOwnProperty.call(window, 'ontouchstart');
+            const originalOntouchstart = (window as unknown as { ontouchstart?: unknown }).ontouchstart;
+            delete (window as unknown as { ontouchstart?: unknown }).ontouchstart;
 
-            // Should call hideOverlay on non-touch devices
-            expect(directive.hideOverlay).toHaveBeenCalled();
+            try {
+                vi.spyOn(directive, 'hideOverlay').mockImplementation(() => undefined);
+                directive.onWindowResize();
+
+                // Should call hideOverlay on non-touch devices
+                expect(directive.hideOverlay).toHaveBeenCalled();
+            } finally {
+                if (hadOwnOntouchstart) {
+                    (window as unknown as { ontouchstart?: unknown }).ontouchstart = originalOntouchstart;
+                }
+            }
         });
     });
 

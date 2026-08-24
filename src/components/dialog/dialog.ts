@@ -26,19 +26,19 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
-import { addStyle, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primus/primeuix/utils';
-import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { Button, ButtonProps } from '@primus/components/button';
-import { blockBodyScroll, DomHandler, unblockBodyScroll } from '@primus/core/dom';
-import { FocusTrap } from '@primus/components/focustrap';
-import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from '@primus/core/icons';
-import { MotionModule } from '@primus/core/motion';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
-import { DialogPassThrough } from '@primus/core/types/dialog';
-import { ZIndexUtils } from '@primus/core/utils';
+import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { addStyle, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { Button, ButtonProps } from '@selisedev/primus-beta/components/button';
+import { blockBodyScroll, DomHandler, unblockBodyScroll } from '@selisedev/primus-beta/core/dom';
+import { FocusTrap } from '@selisedev/primus-beta/components/focustrap';
+import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from '@selisedev/primus-beta/core/icons';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
+import { DialogPassThrough } from '@selisedev/primus-beta/core/types/dialog';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { DialogStyle } from './style/dialogstyle';
 
 const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');

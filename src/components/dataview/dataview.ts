@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, numberAttribute, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { resolveFieldData } from '@primus/primeuix/utils';
-import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { SpinnerIcon } from '@primus/core/icons';
-import { PaginatorModule } from '@primus/components/paginator';
-import { Nullable } from '@primus/core/ts-helpers';
+import { resolveFieldData } from '@selisedev/primus-beta/primeuix/utils';
+import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { SpinnerIcon } from '@selisedev/primus-beta/core/icons';
+import { PaginatorModule } from '@selisedev/primus-beta/components/paginator';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     DataViewGridTemplateContext,
     DataViewLayoutChangeEvent,
@@ -19,7 +19,7 @@ import {
     DataViewPaginatorState,
     DataViewPassThrough,
     DataViewSortEvent
-} from '@primus/core/types/dataview';
+} from '@selisedev/primus-beta/core/types/dataview';
 import { Subscription } from 'rxjs';
 import { DataViewStyle } from './style/dataviewstyle';
 

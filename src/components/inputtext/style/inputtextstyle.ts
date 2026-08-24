@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as inputtext_style } from '@primus/primeuix/styles/inputtext';
-import { BaseStyle } from '@primus/core/base';
+import { style as inputtext_style } from '@selisedev/primus-beta/primeuix/styles/inputtext';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
     ${inputtext_style}

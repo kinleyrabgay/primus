@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { SkeletonPassThrough } from '@primus/core/types/skeleton';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { SkeletonPassThrough } from '@selisedev/primus-beta/core/types/skeleton';
 import { SkeletonStyle } from './style/skeletonstyle';
 
 const SKELETON_INSTANCE = new InjectionToken<Skeleton>('SKELETON_INSTANCE');

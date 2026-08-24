@@ -1,4 +1,4 @@
-import { MotionOptions } from '@primus/primeuix/motion';
+import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
 
 /**
  * Represents the type of overlay mode, which can be 'modal', 'overlay', or undefined.

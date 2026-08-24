@@ -2,7 +2,7 @@ import { Component, DebugElement, provideZonelessChangeDetection, ChangeDetectio
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { providePrimus } from '@primus/core/config';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 import { Divider, DividerModule } from './divider';
 
 @Component({

@@ -1,15 +1,15 @@
 import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, Input, NgModule, NgZone, numberAttribute, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primus/primeuix/utils';
-import { TooltipOptions } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BindModule } from '@primus/core/bind';
-import { ConnectedOverlayScrollHandler } from '@primus/core/dom';
-import { Nullable } from '@primus/core/ts-helpers';
-import { TooltipPassThroughOptions } from '@primus/core/types/tooltip';
-import { ZIndexUtils } from '@primus/core/utils';
+import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { TooltipOptions } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BindModule } from '@selisedev/primus-beta/core/bind';
+import { ConnectedOverlayScrollHandler } from '@selisedev/primus-beta/core/dom';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { TooltipPassThroughOptions } from '@selisedev/primus-beta/core/types/tooltip';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { TooltipStyle } from './style/tooltipstyle';
-import type { TooltipPassThrough } from '@primus/core/types/tooltip';
+import type { TooltipPassThrough } from '@selisedev/primus-beta/core/types/tooltip';
 
 const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
 

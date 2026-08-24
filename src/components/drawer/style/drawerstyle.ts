@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as drawer_style } from '@primus/primeuix/styles/drawer';
-import { BaseStyle } from '@primus/core/base';
+import { style as drawer_style } from '@selisedev/primus-beta/primeuix/styles/drawer';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
 ${drawer_style}

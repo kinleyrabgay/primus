@@ -1,13 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { HttpEventType } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MessageService, PrimeTemplate } from '@primus/core/api';
+import { MessageService, PrimeTemplate } from '@selisedev/primus-beta/core/api';
 import { BehaviorSubject, delay, of, Subscription, timer } from 'rxjs';
 import { FileUpload } from './fileupload';
+
+// jsdom does not implement DragEvent (https://github.com/jsdom/jsdom/issues/2913).
+// Polyfill it for tests only so `new DragEvent(...)` works in this environment.
+if (typeof (globalThis as any).DragEvent === 'undefined') {
+    class DragEventPolyfill extends Event {
+        dataTransfer: DataTransfer | null;
+        constructor(type: string, eventInitDict: DragEventInit = {}) {
+            super(type, eventInitDict);
+            this.dataTransfer = eventInitDict.dataTransfer ?? null;
+        }
+    }
+    (globalThis as any).DragEvent = DragEventPolyfill;
+}
 
 describe('FileUpload', () => {
     let component: FileUpload;
@@ -1362,9 +1375,19 @@ describe('FileUpload Template Tests', () => {
             fileUploadComponent = testFixture.debugElement.query(By.directive(FileUpload))?.componentInstance;
         });
 
+        // The header's ngTemplateOutlet context binds `chooseCallback: choose.bind(this)`
+        // (and clear/upload) fresh on every CD pass of FileUpload's own view. FileUpload is
+        // OnPush, so after the initial render it will not re-check (and thus never rebind the
+        // callback to a spy installed afterwards) unless explicitly marked dirty again.
+        function markFileUploadDirtyAndDetectChanges() {
+            testFixture.debugElement.query(By.directive(FileUpload)).injector.get(ChangeDetectorRef).markForCheck();
+            testFixture.detectChanges();
+        }
+
         it('should execute chooseCallback from template context', () => {
             if (fileUploadComponent) {
                 vi.spyOn(fileUploadComponent, 'choose').mockImplementation(() => undefined);
+                markFileUploadDirtyAndDetectChanges();
 
                 const chooseBtn = testFixture.debugElement.query(By.css('.choose-btn'));
                 if (chooseBtn) {
@@ -1383,6 +1406,7 @@ describe('FileUpload Template Tests', () => {
         it('should execute clearCallback from template context', () => {
             if (fileUploadComponent) {
                 vi.spyOn(fileUploadComponent, 'clear').mockImplementation(() => undefined);
+                markFileUploadDirtyAndDetectChanges();
 
                 const clearBtn = testFixture.debugElement.query(By.css('.clear-btn'));
                 if (clearBtn) {
@@ -1401,6 +1425,7 @@ describe('FileUpload Template Tests', () => {
         it('should execute uploadCallback from template context', () => {
             if (fileUploadComponent) {
                 vi.spyOn(fileUploadComponent, 'upload').mockImplementation(() => undefined);
+                markFileUploadDirtyAndDetectChanges();
 
                 const uploadBtn = testFixture.debugElement.query(By.css('.upload-btn'));
                 if (uploadBtn) {
@@ -2712,6 +2737,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
                 standalone: true,
+                selector: 'test-pt-case1',
                 imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
             })
@@ -2757,6 +2783,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
                 standalone: true,
+                selector: 'test-pt-case2',
                 imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
             })
@@ -2812,6 +2839,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
         describe('Case 3: Mixed object and string values', () => {
             @Component({
                 standalone: true,
+                selector: 'test-pt-case3',
                 imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
             })
@@ -2857,6 +2885,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
         describe('Case 4: Use variables from instance', () => {
             @Component({
                 standalone: true,
+                selector: 'test-pt-case4',
                 imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="pt" [name]="fileName" url="./upload" [disabled]="isDisabled"></p-fileupload>`
             })
@@ -2904,6 +2933,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
         describe('Case 5: Event binding', () => {
             @Component({
                 standalone: true,
+                selector: 'test-pt-case5',
                 imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
             })
@@ -2951,6 +2981,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
         describe('Case 6: Inline test', () => {
             @Component({
                 standalone: true,
+                selector: 'test-pt-case6-inline',
                 imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="{ root: 'INLINE_ROOT_CLASS', header: 'INLINE_HEADER_CLASS' }" name="test" url="./upload"></p-fileupload>`
             })
@@ -2958,6 +2989,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
             @Component({
                 standalone: true,
+                selector: 'test-pt-case6-inline-object',
                 imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" name="test" url="./upload"></p-fileupload>`
             })
@@ -3009,6 +3041,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
         describe('Case 7: Test from PrimeNGConfig', () => {
             @Component({
                 standalone: true,
+                selector: 'test-pt-case7-global',
                 imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `
                     <p-fileupload name="file1" url="./upload"></p-fileupload>
@@ -3056,6 +3089,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
         describe('Case 8: Test hooks', () => {
             @Component({
                 standalone: true,
+                selector: 'test-pt-case8-hooks',
                 imports: [FileUpload, HttpClientTestingModule, CommonModule, PrimeTemplate],
                 template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
             })

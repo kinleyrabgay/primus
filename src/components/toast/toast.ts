@@ -22,15 +22,15 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
-import { isEmpty, setAttribute, uuid } from '@primus/primeuix/utils';
-import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from '@primus/core/icons';
-import { MotionModule } from '@primus/core/motion';
-import { ToastCloseEvent, ToastHeadlessTemplateContext, ToastItemCloseEvent, ToastMessageTemplateContext, ToastPassThrough, ToastPositionType } from '@primus/core/types/toast';
-import { ZIndexUtils } from '@primus/core/utils';
+import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { isEmpty, setAttribute, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from '@selisedev/primus-beta/core/icons';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { ToastCloseEvent, ToastHeadlessTemplateContext, ToastItemCloseEvent, ToastMessageTemplateContext, ToastPassThrough, ToastPositionType } from '@selisedev/primus-beta/core/types/toast';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { Subscription } from 'rxjs';
 import { ToastStyle } from './style/toaststyle';
 

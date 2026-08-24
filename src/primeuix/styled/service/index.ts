@@ -1,4 +1,4 @@
-import { EventBus } from '@primus/primeuix/utils';
+import { EventBus } from '@selisedev/primus-beta/primeuix/utils';
 
 const ThemeService = EventBus();
 

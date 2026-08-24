@@ -1,4 +1,4 @@
-import { addClass, removeClass } from '@primus/primeuix/utils';
+import { addClass, removeClass } from '@selisedev/primus-beta/primeuix/utils';
 import type { MotionClassNamesWithPhase, MotionHooksWithPhase, MotionInstance, MotionOptions, MotionPhase, MotionType } from '../types';
 import { getMotionHooks, getMotionMetadata, mergeOptions, removeMotionPhase, removeMotionState, resolveClassNames, resolveDuration, setAutoDimensionVariables, setMotionPhase, setMotionState, shouldSkipMotion } from '../utils';
 

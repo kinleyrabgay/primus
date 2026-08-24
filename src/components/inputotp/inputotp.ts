@@ -21,14 +21,14 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { InputText } from '@primus/components/inputtext';
-import { Nullable } from '@primus/core/ts-helpers';
-import { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpPassThrough } from '@primus/core/types/inputotp';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { InputText } from '@selisedev/primus-beta/components/inputtext';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpPassThrough } from '@selisedev/primus-beta/core/types/inputotp';
 import { InputOtpStyle } from './style/inputotpstyle';
 
 const INPUTOTP_INSTANCE = new InjectionToken<InputOtp>('INPUTOTP_INSTANCE');
@@ -40,7 +40,7 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
 };
 
 // Re-export interfaces from types for backwards compatibility
-export { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpTemplateEvents } from '@primus/core/types/inputotp';
+export { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpTemplateEvents } from '@selisedev/primus-beta/core/types/inputotp';
 
 /**
  * Input Otp is used to enter one time passwords.

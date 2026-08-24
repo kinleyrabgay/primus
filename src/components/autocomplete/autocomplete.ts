@@ -25,21 +25,21 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MotionOptions } from '@primus/primeuix/motion';
-import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primus/primeuix/utils';
-import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseInput } from '@primus/core/baseinput';
-import { Bind, BindModule } from '@primus/core/bind';
-import { Chip } from '@primus/components/chip';
-import { ConnectedOverlayScrollHandler } from '@primus/core/dom';
-import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon, TimesIcon } from '@primus/core/icons';
-import { InputText } from '@primus/components/inputtext';
-import { Overlay } from '@primus/components/overlay';
-import { Ripple } from '@primus/components/ripple';
-import { Scroller } from '@primus/components/scroller';
-import { Nullable } from '@primus/core/ts-helpers';
+import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseInput } from '@selisedev/primus-beta/core/baseinput';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { Chip } from '@selisedev/primus-beta/components/chip';
+import { ConnectedOverlayScrollHandler } from '@selisedev/primus-beta/core/dom';
+import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon, TimesIcon } from '@selisedev/primus-beta/core/icons';
+import { InputText } from '@selisedev/primus-beta/components/inputtext';
+import { Overlay } from '@selisedev/primus-beta/components/overlay';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { Scroller } from '@selisedev/primus-beta/components/scroller';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     AutoCompleteAddEvent,
     AutoCompleteCompleteEvent,
@@ -53,7 +53,7 @@ import {
     AutoCompleteSelectedItemTemplateContext,
     AutoCompleteSelectEvent,
     AutoCompleteUnselectEvent
-} from '@primus/core/types/autocomplete';
+} from '@selisedev/primus-beta/core/types/autocomplete';
 import { AutoCompleteStyle } from './style/autocompletestyle';
 
 const AUTOCOMPLETE_INSTANCE = new InjectionToken<AutoComplete>('AUTOCOMPLETE_INSTANCE');

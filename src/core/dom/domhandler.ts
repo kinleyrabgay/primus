@@ -1,4 +1,4 @@
-import { getCSSVariableByRegex } from '@primus/primeuix/utils';
+import { getCSSVariableByRegex } from '@selisedev/primus-beta/primeuix/utils';
 /**
  * @dynamic is for runtime initializing DomHandler.browser
  *
@@ -853,8 +853,8 @@ export class DomHandler {
     }
 }
 
-import { $dt } from '@primus/primeuix/styled';
-import * as utils from '@primus/primeuix/utils';
+import { $dt } from '@selisedev/primus-beta/primeuix/styled';
+import * as utils from '@selisedev/primus-beta/primeuix/utils';
 
 // @todo: update this when we remove the old domhandler
 export function blockBodyScroll() {

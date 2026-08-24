@@ -21,16 +21,16 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, createElement, findSingle, isEmpty } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { BadgeModule } from '@primus/components/badge';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { Fluid } from '@primus/components/fluid';
-import { SpinnerIcon } from '@primus/core/icons';
-import { Ripple } from '@primus/components/ripple';
-import type { ButtonIconTemplateContext, ButtonLoadingIconTemplateContext, ButtonPassThrough, ButtonProps, ButtonSeverity } from '@primus/core/types/button';
+import { addClass, createElement, findSingle, isEmpty } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { BadgeModule } from '@selisedev/primus-beta/components/badge';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { Fluid } from '@selisedev/primus-beta/components/fluid';
+import { SpinnerIcon } from '@selisedev/primus-beta/core/icons';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import type { ButtonIconTemplateContext, ButtonLoadingIconTemplateContext, ButtonPassThrough, ButtonProps, ButtonSeverity } from '@selisedev/primus-beta/core/types/button';
 import { ButtonStyle } from './style/buttonstyle';
 
 const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');

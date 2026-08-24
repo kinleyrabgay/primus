@@ -1,5 +1,5 @@
 import { Directive, NgModule, computed, input } from '@angular/core';
-import { cn } from '@primus/primeuix/utils';
+import { cn } from '@selisedev/primus-beta/primeuix/utils';
 /**
  * Represents the suitable value types of pClass directive.
  * @group Types

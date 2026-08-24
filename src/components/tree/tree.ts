@@ -26,19 +26,19 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { find, findSingle, focus, getOuterHeight, getOuterWidth, removeAccents, resolveFieldData } from '@primus/primeuix/utils';
-import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from '@primus/core/api';
-import { AutoFocusModule } from '@primus/components/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { Checkbox } from '@primus/components/checkbox';
-import { IconField } from '@primus/components/iconfield';
-import { ChevronDownIcon, ChevronRightIcon, SearchIcon, SpinnerIcon } from '@primus/core/icons';
-import { InputIcon } from '@primus/components/inputicon';
-import { InputText } from '@primus/components/inputtext';
-import { Ripple } from '@primus/components/ripple';
-import { Scroller } from '@primus/components/scroller';
-import { Nullable } from '@primus/core/ts-helpers';
+import { find, findSingle, focus, getOuterHeight, getOuterWidth, removeAccents, resolveFieldData } from '@selisedev/primus-beta/primeuix/utils';
+import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from '@selisedev/primus-beta/core/api';
+import { AutoFocusModule } from '@selisedev/primus-beta/components/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { Checkbox } from '@selisedev/primus-beta/components/checkbox';
+import { IconField } from '@selisedev/primus-beta/components/iconfield';
+import { ChevronDownIcon, ChevronRightIcon, SearchIcon, SpinnerIcon } from '@selisedev/primus-beta/core/icons';
+import { InputIcon } from '@selisedev/primus-beta/components/inputicon';
+import { InputText } from '@selisedev/primus-beta/components/inputtext';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { Scroller } from '@selisedev/primus-beta/components/scroller';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     TreeCheckboxIconTemplateContext,
     TreeFilterEvent,
@@ -56,7 +56,7 @@ import {
     TreeScrollEvent,
     TreeScrollIndexChangeEvent,
     TreeTogglerIconTemplateContext
-} from '@primus/core/types/tree';
+} from '@selisedev/primus-beta/core/types/tree';
 import { Subscription } from 'rxjs';
 import { TreeStyle } from './style/treestyle';
 

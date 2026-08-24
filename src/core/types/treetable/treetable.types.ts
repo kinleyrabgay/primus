@@ -1,9 +1,9 @@
 import { TemplateRef } from '@angular/core';
-import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption, SortMeta, TreeNode, TreeTableNode } from '@primus/core/api';
-import type { BadgePassThrough } from '@primus/core/types/badge';
-import type { CheckboxPassThrough } from '@primus/core/types/checkbox';
-import type { PaginatorPassThrough } from '@primus/core/types/paginator';
-import type { VirtualScrollerPassThrough } from '@primus/core/types/scroller';
+import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption, SortMeta, TreeNode, TreeTableNode } from '@selisedev/primus-beta/core/api';
+import type { BadgePassThrough } from '@selisedev/primus-beta/core/types/badge';
+import type { CheckboxPassThrough } from '@selisedev/primus-beta/core/types/checkbox';
+import type { PaginatorPassThrough } from '@selisedev/primus-beta/core/types/paginator';
+import type { VirtualScrollerPassThrough } from '@selisedev/primus-beta/core/types/scroller';
 
 /**
  * Custom pass-through(pt) options.

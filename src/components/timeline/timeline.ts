@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BlockableUI, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { Nullable } from '@primus/core/ts-helpers';
-import { TimelineItemTemplateContext, TimelinePassThrough } from '@primus/core/types/timeline';
+import { BlockableUI, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { TimelineItemTemplateContext, TimelinePassThrough } from '@selisedev/primus-beta/core/types/timeline';
 import { TimelineStyle } from './style/timelinestyle';
 
 const TIMELINE_INSTANCE = new InjectionToken<Timeline>('TIMELINE_INSTANCE');

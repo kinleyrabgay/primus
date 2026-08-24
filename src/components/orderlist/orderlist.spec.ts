@@ -5,10 +5,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { SharedModule } from '@primus/core/api';
-import { ButtonModule } from '@primus/components/button';
-import { ListboxModule } from '@primus/components/listbox';
-import { RippleModule } from '@primus/components/ripple';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { ButtonModule } from '@selisedev/primus-beta/components/button';
+import { ListboxModule } from '@selisedev/primus-beta/components/listbox';
+import { RippleModule } from '@selisedev/primus-beta/components/ripple';
 import { OrderList } from './orderlist';
 
 interface Product {

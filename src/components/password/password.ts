@@ -29,21 +29,21 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MotionOptions } from '@primus/primeuix/motion';
-import { absolutePosition, addClass, hasClass, isTouchDevice, removeClass } from '@primus/primeuix/utils';
-import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { BaseInput } from '@primus/core/baseinput';
-import { Bind, BindModule } from '@primus/core/bind';
-import { ConnectedOverlayScrollHandler, DomHandler } from '@primus/core/dom';
-import { Fluid } from '@primus/components/fluid';
-import { EyeIcon, EyeSlashIcon, TimesIcon } from '@primus/core/icons';
-import { InputText } from '@primus/components/inputtext';
-import { Overlay } from '@primus/components/overlay';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
-import type { PasswordIconTemplateContext, PasswordPassThrough } from '@primus/core/types/password';
+import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { absolutePosition, addClass, hasClass, isTouchDevice, removeClass } from '@selisedev/primus-beta/primeuix/utils';
+import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { BaseInput } from '@selisedev/primus-beta/core/baseinput';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { ConnectedOverlayScrollHandler, DomHandler } from '@selisedev/primus-beta/core/dom';
+import { Fluid } from '@selisedev/primus-beta/components/fluid';
+import { EyeIcon, EyeSlashIcon, TimesIcon } from '@selisedev/primus-beta/core/icons';
+import { InputText } from '@selisedev/primus-beta/components/inputtext';
+import { Overlay } from '@selisedev/primus-beta/components/overlay';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
+import type { PasswordIconTemplateContext, PasswordPassThrough } from '@selisedev/primus-beta/core/types/password';
 import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
 

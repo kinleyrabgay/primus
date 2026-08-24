@@ -2,7 +2,7 @@ import { Component, ElementRef, input, provideZonelessChangeDetection, ViewChild
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from '@primus/core/api';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
 import { BlockUI, BlockUIModule } from './blockui';
 
 @Component({

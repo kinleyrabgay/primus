@@ -1,11 +1,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, InjectionToken, Input, NgModule, numberAttribute, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { blockBodyScroll, unblockBodyScroll } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { BlockUIPassThrough } from '@primus/core/types/blockui';
-import { ZIndexUtils } from '@primus/core/utils';
+import { blockBodyScroll, unblockBodyScroll } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { BlockUIPassThrough } from '@selisedev/primus-beta/core/types/blockui';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { BlockUiStyle } from './style/blockuistyle';
 
 const BLOCKUI_INSTANCE = new InjectionToken<BlockUI>('BLOCKUI_INSTANCE');

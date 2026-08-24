@@ -19,13 +19,13 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { hasClass, isAttributeEquals } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule, TreeNode } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { ChevronDownIcon, ChevronUpIcon } from '@primus/core/icons';
-import { Nullable } from '@primus/core/ts-helpers';
-import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, OrganizationChartNodeSelectEvent, OrganizationChartNodeUnSelectEvent, OrganizationChartPassThrough } from '@primus/core/types/organizationchart';
+import { hasClass, isAttributeEquals } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule, TreeNode } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { ChevronDownIcon, ChevronUpIcon } from '@selisedev/primus-beta/core/icons';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, OrganizationChartNodeSelectEvent, OrganizationChartNodeUnSelectEvent, OrganizationChartPassThrough } from '@selisedev/primus-beta/core/types/organizationchart';
 import { Subject, Subscription } from 'rxjs';
 import { OrganizationChartStyle } from './style/organizationchartstyle';
 

@@ -1,14 +1,14 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, effect, ElementRef, forwardRef, inject, InjectionToken, QueryList, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { ChevronLeftIcon, ChevronRightIcon } from '@primus/core/icons';
-import { RippleModule } from '@primus/components/ripple';
+import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { ChevronLeftIcon, ChevronRightIcon } from '@selisedev/primus-beta/core/icons';
+import { RippleModule } from '@selisedev/primus-beta/components/ripple';
 import { TabListStyle } from './style/tabliststyle';
 import { Tabs } from './tabs';
-import { TabListPassThrough } from '@primus/core/types/tabs';
+import { TabListPassThrough } from '@selisedev/primus-beta/core/types/tabs';
 
 const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
 

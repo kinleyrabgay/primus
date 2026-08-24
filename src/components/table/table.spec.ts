@@ -4,8 +4,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from '@primus/core/api';
-import { Select } from '@primus/components/select';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { Select } from '@selisedev/primus-beta/components/select';
 import { Table, TableModule, TableService } from './table';
 
 describe('Table', () => {

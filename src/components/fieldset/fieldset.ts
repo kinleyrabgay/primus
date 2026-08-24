@@ -19,14 +19,14 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
-import { uuid } from '@primus/primeuix/utils';
-import { BlockableUI, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { MinusIcon, PlusIcon } from '@primus/core/icons';
-import { MotionModule } from '@primus/core/motion';
-import type { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent, FieldsetPassThrough } from '@primus/core/types/fieldset';
+import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { BlockableUI, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { MinusIcon, PlusIcon } from '@selisedev/primus-beta/core/icons';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import type { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent, FieldsetPassThrough } from '@selisedev/primus-beta/core/types/fieldset';
 import { FieldsetStyle } from './style/fieldsetstyle';
 
 const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');

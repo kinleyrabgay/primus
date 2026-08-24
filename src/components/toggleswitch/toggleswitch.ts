@@ -22,12 +22,12 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Bind, BindModule } from '@primus/core/bind';
-import { ToggleSwitchChangeEvent, ToggleSwitchHandleTemplateContext, ToggleSwitchPassThrough } from '@primus/core/types/toggleswitch';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { ToggleSwitchChangeEvent, ToggleSwitchHandleTemplateContext, ToggleSwitchPassThrough } from '@selisedev/primus-beta/core/types/toggleswitch';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 
 const TOGGLESWITCH_INSTANCE = new InjectionToken<ToggleSwitch>('TOGGLESWITCH_INSTANCE');

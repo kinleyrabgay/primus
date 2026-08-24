@@ -2,7 +2,7 @@ import { Component, ElementRef, TemplateRef, ViewChild, provideZonelessChangeDet
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { TooltipOptions } from '@primus/core/api';
+import { TooltipOptions } from '@selisedev/primus-beta/core/api';
 import { Tooltip } from './tooltip';
 
 @Component({
@@ -653,6 +653,7 @@ describe('Tooltip', () => {
         @Component({
             standalone: true,
             imports: [Tooltip],
+            changeDetection: ChangeDetectionStrategy.Eager,
             template: ` <input #inputElement pTooltip="PT Test Tooltip" [pt]="pt" type="text" /> `
         })
         class TestPTTooltipComponent {

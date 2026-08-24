@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as password_style } from '@primus/primeuix/styles/password';
-import { BaseStyle } from '@primus/core/base';
+import { style as password_style } from '@selisedev/primus-beta/primeuix/styles/password';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
 ${password_style}

@@ -1,11 +1,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, HostListener, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
-import { equals, focus, getAttribute } from '@primus/primeuix/utils';
-import { SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { Ripple } from '@primus/components/ripple';
-import { TabPassThrough } from '@primus/core/types/tabs';
+import { equals, focus, getAttribute } from '@selisedev/primus-beta/primeuix/utils';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { TabPassThrough } from '@selisedev/primus-beta/core/types/tabs';
 import { TabStyle } from './style/tabstyle';
 import { TabList } from './tablist';
 import { Tabs } from './tabs';

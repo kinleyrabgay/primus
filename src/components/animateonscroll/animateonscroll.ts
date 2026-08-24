@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, Directive, Input, NgModule, numberAttribute } from '@angular/core';
-import { addClass, removeClass } from '@primus/primeuix/utils';
-import { BaseComponent } from '@primus/core/basecomponent';
+import { addClass, removeClass } from '@selisedev/primus-beta/primeuix/utils';
+import { BaseComponent } from '@selisedev/primus-beta/core/basecomponent';
 
 interface AnimateOnScrollOptions {
     root?: HTMLElement | null;

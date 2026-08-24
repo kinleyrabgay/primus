@@ -4,9 +4,9 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
-import { SliderChangeEvent, SliderSlideEndEvent } from '@primus/core/types/slider';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
+import { SliderChangeEvent, SliderSlideEndEvent } from '@selisedev/primus-beta/core/types/slider';
 import { Slider, SliderModule } from './slider';
 
 // Test Components

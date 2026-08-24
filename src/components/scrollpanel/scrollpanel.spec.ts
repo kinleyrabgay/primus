@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, DebugElement, Input, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '@primus/core/api';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
 
 import { ScrollPanel } from './scrollpanel';
 
@@ -378,8 +378,10 @@ describe('ScrollPanel', () => {
 
             scrollPanel.onKeyUp();
 
-            // clearTimer calls clearTimeout but doesn't set timer to undefined
-            expect(typeof timerId).toBe('number');
+            // clearTimer calls clearTimeout but doesn't set timer to undefined.
+            // Note: in Node's test environment setTimeout returns a Timeout object (not a
+            // number as in browsers), so we assert the handle was captured rather than its type.
+            expect(timerId).toBeDefined();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
         });
@@ -754,8 +756,10 @@ describe('ScrollPanel', () => {
 
             scrollPanel.clearTimer();
 
-            // clearTimer calls clearTimeout but timer reference remains
-            expect(typeof timerId).toBe('number');
+            // clearTimer calls clearTimeout but timer reference remains.
+            // Note: in Node's test environment setTimeout returns a Timeout object (not a
+            // number as in browsers), so we assert the handle was captured rather than its type.
+            expect(timerId).toBeDefined();
 
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -770,7 +774,9 @@ describe('ScrollPanel', () => {
 
             const timerId = scrollPanel.timer;
             scrollPanel.clearTimer();
-            expect(typeof timerId).toBe('number');
+            // Note: in Node's test environment setTimeout returns a Timeout object (not a
+            // number as in browsers), so we assert the handle was captured rather than its type.
+            expect(timerId).toBeDefined();
 
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -826,6 +832,15 @@ describe('ScrollPanel', () => {
         });
 
         it('should calculate scroll ratios correctly', async () => {
+            // jsdom does not perform layout, so scrollWidth/clientWidth etc. default to 0.
+            // Mock non-zero dimensions so the ratio calculation produces a real number instead of NaN.
+            if (scrollPanel.contentViewChild) {
+                Object.defineProperty(scrollPanel.contentViewChild.nativeElement, 'scrollWidth', { value: 200, writable: true, configurable: true });
+                Object.defineProperty(scrollPanel.contentViewChild.nativeElement, 'scrollHeight', { value: 600, writable: true, configurable: true });
+                Object.defineProperty(scrollPanel.contentViewChild.nativeElement, 'clientWidth', { value: 100, writable: true, configurable: true });
+                Object.defineProperty(scrollPanel.contentViewChild.nativeElement, 'clientHeight', { value: 200, writable: true, configurable: true });
+            }
+
             scrollPanel.moveBar();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -928,6 +943,15 @@ describe('ScrollPanel', () => {
         });
 
         it('should apply mixed object and string PT values', async () => {
+            // jsdom performs no layout, so contentViewChild's dimensions default to 0. That makes
+            // ScrollPanel's moveBar() (triggered on init/mouseenter via requestAnimationFrame)
+            // compute NaN scroll ratios and assign an unparsable cssText to the yBar element,
+            // which wipes out any previously-applied inline style — including the PT-driven
+            // "opacity" style this test asserts on. Stub requestAnimationFrame on the prototype
+            // so that unrelated async style mutation never runs, isolating this test to what it
+            // actually verifies: PT option application via the `pBind` directive.
+            const rafSpy = vi.spyOn(ScrollPanel.prototype, 'requestAnimationFrame').mockImplementation(() => undefined);
+
             ptComponent.pt = {
                 root: {
                     class: 'MIXED_ROOT_CLASS'
@@ -950,6 +974,8 @@ describe('ScrollPanel', () => {
             expect(hostEl.nativeElement.className).toContain('MIXED_ROOT_CLASS');
             expect(content.nativeElement.className).toContain('MIXED_CONTENT_CLASS');
             expect(barY.nativeElement.style.opacity).toBe('0.5');
+
+            rafSpy.mockRestore();
         });
 
         it('should use instance variables in PT functions', async () => {

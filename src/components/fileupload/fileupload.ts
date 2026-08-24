@@ -23,16 +23,16 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { addClass, removeClass } from '@primus/primeuix/utils';
-import { BlockableUI, PrimeTemplate, SharedModule, TranslationKeys } from '@primus/core/api';
-import { Badge } from '@primus/components/badge';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { Button, ButtonProps } from '@primus/components/button';
-import { PlusIcon, TimesIcon, UploadIcon } from '@primus/core/icons';
-import { Message } from '@primus/components/message';
-import { ProgressBar } from '@primus/components/progressbar';
-import { VoidListener } from '@primus/core/ts-helpers';
+import { addClass, removeClass } from '@selisedev/primus-beta/primeuix/utils';
+import { BlockableUI, PrimeTemplate, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { Badge } from '@selisedev/primus-beta/components/badge';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { Button, ButtonProps } from '@selisedev/primus-beta/components/button';
+import { PlusIcon, TimesIcon, UploadIcon } from '@selisedev/primus-beta/core/icons';
+import { Message } from '@selisedev/primus-beta/components/message';
+import { ProgressBar } from '@selisedev/primus-beta/components/progressbar';
+import { VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     FileBeforeUploadEvent,
     FileProgressEvent,
@@ -47,7 +47,7 @@ import {
     FileUploadHeaderTemplateContext,
     FileUploadPassThrough,
     RemoveUploadedFileEvent
-} from '@primus/core/types/fileupload';
+} from '@selisedev/primus-beta/core/types/fileupload';
 import { Subscription } from 'rxjs';
 import { FileUploadStyle } from './style/fileuploadstyle';
 

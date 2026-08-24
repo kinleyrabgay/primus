@@ -17,11 +17,11 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate, SharedModule, TranslationKeys } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { TimesCircleIcon } from '@primus/core/icons';
-import { ChipProps, ChipPassThrough } from '@primus/core/types/chip';
+import { PrimeTemplate, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { TimesCircleIcon } from '@selisedev/primus-beta/core/icons';
+import { ChipProps, ChipPassThrough } from '@selisedev/primus-beta/core/types/chip';
 import { ChipStyle } from './style/chipstyle';
 
 const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');

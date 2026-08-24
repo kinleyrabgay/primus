@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as ripple_style } from '@primus/primeuix/styles/ripple';
-import { BaseStyle } from '@primus/core/base';
+import { style as ripple_style } from '@selisedev/primus-beta/primeuix/styles/ripple';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
     ${ripple_style}

@@ -1,4 +1,4 @@
-import { isEmpty, matchRegex } from '@primus/primeuix/utils';
+import { isEmpty, matchRegex } from '@selisedev/primus-beta/primeuix/utils';
 import Theme from '../config/index';
 import { EXPR_REGEX, getVariableValue } from '../utils/index';
 

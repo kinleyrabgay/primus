@@ -19,13 +19,13 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, find, findSingle, getAttribute, removeClass, setAttribute, uuid } from '@primus/primeuix/utils';
-import { Footer, Header, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { ButtonModule, ButtonProps } from '@primus/components/button';
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from '@primus/core/icons';
-import { CarouselItemTemplateContext, CarouselPageEvent, CarouselResponsiveOptions } from '@primus/core/types/carousel';
+import { addClass, find, findSingle, getAttribute, removeClass, setAttribute, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { Footer, Header, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { ButtonModule, ButtonProps } from '@selisedev/primus-beta/components/button';
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from '@selisedev/primus-beta/core/icons';
+import { CarouselItemTemplateContext, CarouselPageEvent, CarouselResponsiveOptions } from '@selisedev/primus-beta/core/types/carousel';
 import { CarouselStyle } from './style/carouselstyle';
 
 /**

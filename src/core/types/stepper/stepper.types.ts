@@ -1,5 +1,5 @@
-import type { MotionOptions } from '@primus/primeuix/motion';
-import type { PassThrough, PassThroughOption } from '@primus/core/api';
+import type { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import type { PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
 
 /**
  * Defines valid pass-through options in Stepper component.

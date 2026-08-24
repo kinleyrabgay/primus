@@ -24,19 +24,19 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
-import { addClass, find, findSingle, focus, getAttribute, removeClass, setAttribute, uuid } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { blockBodyScroll, unblockBodyScroll } from '@primus/core/dom';
-import { FocusTrap } from '@primus/components/focustrap';
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from '@primus/core/icons';
-import { MotionModule } from '@primus/core/motion';
-import { Ripple } from '@primus/components/ripple';
-import { VoidListener } from '@primus/core/ts-helpers';
-import { GalleriaCaptionTemplateContext, GalleriaIndicatorTemplateContext, GalleriaItemTemplateContext, GalleriaPassThrough, GalleriaResponsiveOptions, GalleriaThumbnailTemplateContext } from '@primus/core/types/galleria';
-import { ZIndexUtils } from '@primus/core/utils';
+import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { addClass, find, findSingle, focus, getAttribute, removeClass, setAttribute, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { blockBodyScroll, unblockBodyScroll } from '@selisedev/primus-beta/core/dom';
+import { FocusTrap } from '@selisedev/primus-beta/components/focustrap';
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from '@selisedev/primus-beta/core/icons';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
+import { GalleriaCaptionTemplateContext, GalleriaIndicatorTemplateContext, GalleriaItemTemplateContext, GalleriaPassThrough, GalleriaResponsiveOptions, GalleriaThumbnailTemplateContext } from '@selisedev/primus-beta/core/types/galleria';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { GalleriaStyle } from './style/galleriastyle';
 
 const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');

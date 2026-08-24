@@ -2,7 +2,7 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MeterItem } from '@primus/core/types/metergroup';
+import { MeterItem } from '@selisedev/primus-beta/core/types/metergroup';
 import { MeterGroup, MeterGroupLabel, MeterGroupModule } from './metergroup';
 
 @Component({

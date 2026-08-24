@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, InjectionToken, Input, NgModule, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { find } from '@primus/primeuix/utils';
-import { SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { TerminalPassThrough } from '@primus/core/types/terminal';
+import { find } from '@selisedev/primus-beta/primeuix/utils';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { TerminalPassThrough } from '@selisedev/primus-beta/core/types/terminal';
 import { Subscription } from 'rxjs';
 import { TerminalStyle } from './style/terminalstyle';
 import { TerminalService } from './terminalservice';

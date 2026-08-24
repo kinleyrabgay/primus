@@ -19,17 +19,17 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { focus, getFirstFocusableElement, uuid } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Bind } from '@primus/core/bind';
-import { BindModule } from '@primus/core/bind';
-import { StarFillIcon, StarIcon } from '@primus/core/icons';
-import { Nullable } from '@primus/core/ts-helpers';
-import { RatingIconTemplateContext, RatingPassThrough } from '@primus/core/types/rating';
-import type { RatingRateEvent } from '@primus/core/types/rating';
+import { focus, getFirstFocusableElement, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { BindModule } from '@selisedev/primus-beta/core/bind';
+import { StarFillIcon, StarIcon } from '@selisedev/primus-beta/core/icons';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { RatingIconTemplateContext, RatingPassThrough } from '@selisedev/primus-beta/core/types/rating';
+import type { RatingRateEvent } from '@selisedev/primus-beta/core/types/rating';
 import { RatingStyle } from './style/ratingstyle';
 
 const RATING_INSTANCE = new InjectionToken<Rating>('RATING_INSTANCE');

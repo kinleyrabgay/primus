@@ -19,16 +19,16 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
-import { uuid } from '@primus/primeuix/utils';
-import { BlockableUI, Footer, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { ButtonModule } from '@primus/components/button';
-import { MinusIcon, PlusIcon } from '@primus/core/icons';
-import { MotionModule } from '@primus/core/motion';
-import { Nullable } from '@primus/core/ts-helpers';
-import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelPassThrough } from '@primus/core/types/panel';
+import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { BlockableUI, Footer, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { ButtonModule } from '@selisedev/primus-beta/components/button';
+import { MinusIcon, PlusIcon } from '@selisedev/primus-beta/core/icons';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelPassThrough } from '@selisedev/primus-beta/core/types/panel';
 import { PanelStyle } from './style/panelstyle';
 
 const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');

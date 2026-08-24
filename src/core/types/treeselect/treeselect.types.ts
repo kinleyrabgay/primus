@@ -1,8 +1,8 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption, TreeNode } from '@primus/core/api';
-import { ChipPassThrough } from '@primus/core/types/chip';
-import { OverlayPassThrough } from '@primus/core/types/overlay';
-import { TreePassThrough } from '@primus/core/types/tree';
+import type { PassThrough, PassThroughOption, TreeNode } from '@selisedev/primus-beta/core/api';
+import { ChipPassThrough } from '@selisedev/primus-beta/core/types/chip';
+import { OverlayPassThrough } from '@selisedev/primus-beta/core/types/overlay';
+import { TreePassThrough } from '@selisedev/primus-beta/core/types/tree';
 
 /**
  * Custom pass-through(pt) options.

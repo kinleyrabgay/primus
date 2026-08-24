@@ -27,19 +27,19 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
-import { absolutePosition, addStyle, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primus/primeuix/utils';
-import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { ConnectedOverlayScrollHandler } from '@primus/core/dom';
-import { AngleRightIcon } from '@primus/core/icons';
-import { MotionModule } from '@primus/core/motion';
-import { Ripple } from '@primus/components/ripple';
-import { TooltipModule } from '@primus/components/tooltip';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
-import { TieredMenuItemTemplateContext, TieredMenuPassThrough } from '@primus/core/types/tieredmenu';
-import { ZIndexUtils } from '@primus/core/utils';
+import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { absolutePosition, addStyle, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { ConnectedOverlayScrollHandler } from '@selisedev/primus-beta/core/dom';
+import { AngleRightIcon } from '@selisedev/primus-beta/core/icons';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { TooltipModule } from '@selisedev/primus-beta/components/tooltip';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
+import { TieredMenuItemTemplateContext, TieredMenuPassThrough } from '@selisedev/primus-beta/core/types/tieredmenu';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { TieredMenuStyle } from './style/tieredmenustyle';
 
 const TIEREDMENU_INSTANCE = new InjectionToken<TieredMenu>('TIEREDMENU_INSTANCE');

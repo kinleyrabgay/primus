@@ -3,10 +3,10 @@ import { Component, DebugElement, provideZonelessChangeDetection, ChangeDetectio
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '@primus/core/api';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
 import { Rating } from './rating';
 
-import { providePrimus } from '@primus/core/config';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 
 // Basic Rating test component
 @Component({

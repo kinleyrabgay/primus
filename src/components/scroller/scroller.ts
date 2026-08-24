@@ -19,12 +19,12 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { findSingle, getHeight, getWidth, isTouchDevice, isVisible } from '@primus/primeuix/utils';
-import { PrimeTemplate, ScrollerOptions, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { SpinnerIcon } from '@primus/core/icons';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
+import { findSingle, getHeight, getWidth, isTouchDevice, isVisible } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, ScrollerOptions, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { SpinnerIcon } from '@selisedev/primus-beta/core/icons';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     ScrollerContentTemplateContext,
     ScrollerItemTemplateContext,
@@ -35,7 +35,7 @@ import {
     ScrollerScrollIndexChangeEvent,
     ScrollerToType,
     VirtualScrollerPassThrough
-} from '@primus/core/types/scroller';
+} from '@selisedev/primus-beta/core/types/scroller';
 import { ScrollerStyle } from './style/scrollerstyle';
 
 const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');

@@ -51,17 +51,17 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { getUserAgent, isClient } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseInput } from '@primus/core/baseinput';
-import { Bind, BindModule } from '@primus/core/bind';
-import { TimesIcon } from '@primus/core/icons';
-import { InputText } from '@primus/components/inputtext';
-import { Nullable } from '@primus/core/ts-helpers';
-import type { Caret } from '@primus/core/types/inputmask';
-import { InputMaskPassThrough } from '@primus/core/types/inputmask';
+import { getUserAgent, isClient } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseInput } from '@selisedev/primus-beta/core/baseinput';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { TimesIcon } from '@selisedev/primus-beta/core/icons';
+import { InputText } from '@selisedev/primus-beta/components/inputtext';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import type { Caret } from '@selisedev/primus-beta/core/types/inputmask';
+import { InputMaskPassThrough } from '@selisedev/primus-beta/core/types/inputmask';
 import { InputMaskStyle } from './style/inputmaskstyle';
 
 const INPUTMASK_INSTANCE = new InjectionToken<InputMask>('INPUTMASK_INSTANCE');

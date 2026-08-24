@@ -3,8 +3,8 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { GalleriaResponsiveOptions } from '@primus/core/types/galleria';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { GalleriaResponsiveOptions } from '@selisedev/primus-beta/core/types/galleria';
 import { Galleria, GalleriaModule } from './galleria';
 
 // Mock data for testing

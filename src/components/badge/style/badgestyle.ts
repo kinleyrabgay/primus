@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { style as badge_style } from '@primus/primeuix/styles/badge';
-import { isEmpty, isNotEmpty } from '@primus/primeuix/utils';
-import { BaseStyle } from '@primus/core/base';
+import { style as badge_style } from '@selisedev/primus-beta/primeuix/styles/badge';
+import { isEmpty, isNotEmpty } from '@selisedev/primus-beta/primeuix/utils';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
     ${badge_style}

@@ -2,9 +2,9 @@
 /**
  * Generates cli/registry.json by scanning src/components/*.
  *
- * - `dependencies`: other primus components imported via '@primus/components/<name>'
+ * - `dependencies`: other primus components imported via '@selisedev/primus-beta/components/<name>'
  * - `npm`: third-party runtime peers imported by the component (anything that is
- *   not @angular/*, @primus/*, @primeuix/*, rxjs, or a relative path)
+ *   not @angular/*, @selisedev/primus-beta/*, @primeuix/*, rxjs, or a relative path)
  *
  * Run from the repo root:  node cli/build-registry.mjs
  * CI check:                node cli/build-registry.mjs --check   (exit 1 if stale)
@@ -47,12 +47,12 @@ for (const name of readdirSync(COMPONENTS).sort()) {
     for (const file of tsFilesIn(dir)) {
         const code = readFileSync(file, 'utf8');
         for (const [, spec] of code.matchAll(IMPORT_RE)) {
-            const compMatch = spec.match(/^@primus\/components\/([\w-]+)/);
+            const compMatch = spec.match(/^@selisedev/primus-beta\/components\/([\w-]+)/);
             if (compMatch) {
                 if (compMatch[1] !== name) deps.add(compMatch[1]);
                 continue;
             }
-            if (spec.startsWith('.') || spec.startsWith('@primus/') || spec.startsWith('@primeuix/') || spec.startsWith('@angular/')) continue;
+            if (spec.startsWith('.') || spec.startsWith('@selisedev/primus-beta/') || spec.startsWith('@primeuix/') || spec.startsWith('@angular/')) continue;
             const pkg = spec.startsWith('@') ? spec.split('/').slice(0, 2).join('/') : spec.split('/')[0];
             if (!IGNORED_NPM.has(pkg)) npm.add(pkg);
         }

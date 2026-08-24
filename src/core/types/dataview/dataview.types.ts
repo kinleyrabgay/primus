@@ -1,6 +1,6 @@
-import type { PassThrough, PassThroughOption } from '@primus/core/api';
+import type { PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
 import { TemplateRef } from '@angular/core';
-import { PaginatorPassThrough } from '@primus/core/types/paginator';
+import { PaginatorPassThrough } from '@selisedev/primus-beta/core/types/paginator';
 
 /**
  * Custom pass-through(pt) options.

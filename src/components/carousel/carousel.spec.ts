@@ -3,10 +3,10 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { ButtonModule } from '@primus/components/button';
-import { providePrimus } from '@primus/core/config';
-import type { CarouselPageEvent, CarouselResponsiveOptions } from '@primus/core/types/carousel';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { ButtonModule } from '@selisedev/primus-beta/components/button';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
+import type { CarouselPageEvent, CarouselResponsiveOptions } from '@selisedev/primus-beta/core/types/carousel';
 import { Carousel } from './carousel';
 
 // Mock data for testing

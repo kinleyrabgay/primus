@@ -1,8 +1,8 @@
 import { Component, HostBinding, inject, InjectionToken, Input, NgModule, ChangeDetectionStrategy } from '@angular/core';
-import { SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { InputGroupAddonPassThrough } from '@primus/core/types/inputgroupaddon';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { InputGroupAddonPassThrough } from '@selisedev/primus-beta/core/types/inputgroupaddon';
 import { InputGroupAddonStyle } from './style/inputgroupaddonstyle';
 
 const INPUTGROUPADDON_INSTANCE = new InjectionToken<InputGroupAddon>('INPUTGROUPADDON_INSTANCE');

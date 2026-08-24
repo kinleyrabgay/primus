@@ -1,6 +1,6 @@
 import type { TemplateRef } from '@angular/core';
-import type { MotionOptions } from '@primus/primeuix/motion';
-import type { OverlayModeType, PassThrough, PassThroughOption } from '@primus/core/api';
+import type { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import type { OverlayModeType, PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
 
 /**
  * Custom content template context.

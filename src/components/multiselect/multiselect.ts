@@ -26,25 +26,25 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MotionOptions } from '@primus/primeuix/motion';
-import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isArray, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primus/primeuix/utils';
-import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Bind, BindModule } from '@primus/core/bind';
-import { Checkbox } from '@primus/components/checkbox';
-import { Chip } from '@primus/components/chip';
-import { DomHandler, unblockBodyScroll } from '@primus/core/dom';
-import { Fluid } from '@primus/components/fluid';
-import { IconField } from '@primus/components/iconfield';
-import { CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from '@primus/core/icons';
-import { InputIcon } from '@primus/components/inputicon';
-import { InputText } from '@primus/components/inputtext';
-import { Overlay } from '@primus/components/overlay';
-import { Scroller } from '@primus/components/scroller';
-import { Tooltip } from '@primus/components/tooltip';
-import { Nullable } from '@primus/core/ts-helpers';
+import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isArray, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { Checkbox } from '@selisedev/primus-beta/components/checkbox';
+import { Chip } from '@selisedev/primus-beta/components/chip';
+import { DomHandler, unblockBodyScroll } from '@selisedev/primus-beta/core/dom';
+import { Fluid } from '@selisedev/primus-beta/components/fluid';
+import { IconField } from '@selisedev/primus-beta/components/iconfield';
+import { CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from '@selisedev/primus-beta/core/icons';
+import { InputIcon } from '@selisedev/primus-beta/components/inputicon';
+import { InputText } from '@selisedev/primus-beta/components/inputtext';
+import { Overlay } from '@selisedev/primus-beta/components/overlay';
+import { Scroller } from '@selisedev/primus-beta/components/scroller';
+import { Tooltip } from '@selisedev/primus-beta/components/tooltip';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     MultiSelectBlurEvent,
     MultiSelectChangeEvent,
@@ -64,8 +64,8 @@ import {
     MultiSelectRemoveEvent,
     MultiSelectSelectAllChangeEvent,
     MultiSelectSelectedItemsTemplateContext
-} from '@primus/core/types/multiselect';
-import { ObjectUtils } from '@primus/core/utils';
+} from '@selisedev/primus-beta/core/types/multiselect';
+import { ObjectUtils } from '@selisedev/primus-beta/core/utils';
 import { MultiSelectStyle } from './style/multiselectstyle';
 
 const MULTISELECT_INSTANCE = new InjectionToken<MultiSelect>('MULTISELECT_INSTANCE');

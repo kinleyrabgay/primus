@@ -22,16 +22,16 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { getSelection } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseInput } from '@primus/core/baseinput';
-import { Bind, BindModule } from '@primus/core/bind';
-import { AngleDownIcon, AngleUpIcon, TimesIcon } from '@primus/core/icons';
-import { InputText } from '@primus/components/inputtext';
-import { Nullable } from '@primus/core/ts-helpers';
-import type { InputNumberInputEvent, InputNumberPassThrough } from '@primus/core/types/inputnumber';
+import { getSelection } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseInput } from '@selisedev/primus-beta/core/baseinput';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { AngleDownIcon, AngleUpIcon, TimesIcon } from '@selisedev/primus-beta/core/icons';
+import { InputText } from '@selisedev/primus-beta/components/inputtext';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import type { InputNumberInputEvent, InputNumberPassThrough } from '@selisedev/primus-beta/core/types/inputnumber';
 import { InputNumberStyle } from './style/inputnumberstyle';
 
 const INPUTNUMBER_INSTANCE = new InjectionToken<InputNumber>('INPUTNUMBER_INSTANCE');

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { BaseIcon } from '@primus/core/icons/baseicon';
+import { BaseIcon } from '@selisedev/primus-beta/core/icons/baseicon';
 
 @Component({
     selector: '[data-p-icon="times"]',

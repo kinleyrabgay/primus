@@ -19,16 +19,16 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionOptions } from '@primus/primeuix/motion';
-import { findSingle, focus, getAttribute, uuid } from '@primus/primeuix/utils';
-import { BlockableUI, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { ChevronDownIcon, ChevronUpIcon } from '@primus/core/icons';
-import { MotionModule } from '@primus/core/motion';
-import { Ripple } from '@primus/components/ripple';
-import { AccordionContentPassThrough, AccordionHeaderPassThrough, AccordionPanelPassThrough, AccordionPassThrough } from '@primus/core/types/accordion';
-import { transformToBoolean } from '@primus/core/utils';
+import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { findSingle, focus, getAttribute, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { BlockableUI, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { ChevronDownIcon, ChevronUpIcon } from '@selisedev/primus-beta/core/icons';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { AccordionContentPassThrough, AccordionHeaderPassThrough, AccordionPanelPassThrough, AccordionPassThrough } from '@selisedev/primus-beta/core/types/accordion';
+import { transformToBoolean } from '@selisedev/primus-beta/core/utils';
 import { AccordionStyle } from './style/accordionstyle';
 
 /**

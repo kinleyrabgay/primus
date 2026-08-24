@@ -1,11 +1,11 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
-import { equals } from '@primus/primeuix/utils';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
+import { equals } from '@selisedev/primus-beta/primeuix/utils';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
 import { TabPanelStyle } from './style/tabpanelstyle';
 import { Tabs } from './tabs';
-import { TabPanelPassThrough } from '@primus/core/types/tabs';
+import { TabPanelPassThrough } from '@selisedev/primus-beta/core/types/tabs';
 
 const TABPANEL_INSTANCE = new InjectionToken<TabPanel>('TABPANEL_INSTANCE');
 

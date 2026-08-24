@@ -1,11 +1,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { addClass, getHeight, removeClass, uuid } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { Nullable } from '@primus/core/ts-helpers';
-import { ScrollPanelPassThrough } from '@primus/core/types/scrollpanel';
+import { addClass, getHeight, removeClass, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { ScrollPanelPassThrough } from '@selisedev/primus-beta/core/types/scrollpanel';
 import { ScrollPanelStyle } from './style/scrollpanelstyle';
 
 const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTANCE');

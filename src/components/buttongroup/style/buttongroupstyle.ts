@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as buttongroup_style } from '@primus/primeuix/styles/buttongroup';
-import { BaseStyle } from '@primus/core/base';
+import { style as buttongroup_style } from '@selisedev/primus-beta/primeuix/styles/buttongroup';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
     ${buttongroup_style}

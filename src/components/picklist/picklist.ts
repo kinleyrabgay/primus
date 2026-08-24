@@ -21,15 +21,15 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { find, findIndexInList, isEmpty, setAttribute, uuid } from '@primus/primeuix/utils';
-import { FilterService, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { ButtonModule, ButtonProps } from '@primus/components/button';
-import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from '@primus/core/icons';
-import { Listbox, ListboxChangeEvent } from '@primus/components/listbox';
-import { Ripple } from '@primus/components/ripple';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
+import { find, findIndexInList, isEmpty, setAttribute, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { FilterService, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { ButtonModule, ButtonProps } from '@selisedev/primus-beta/components/button';
+import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from '@selisedev/primus-beta/core/icons';
+import { Listbox, ListboxChangeEvent } from '@selisedev/primus-beta/components/listbox';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     PickListFilterOptions,
     PickListFilterTemplateContext,
@@ -45,7 +45,7 @@ import {
     PickListTargetReorderEvent,
     PickListTargetSelectEvent,
     PickListTransferIconTemplateContext
-} from '@primus/core/types/picklist';
+} from '@selisedev/primus-beta/core/types/picklist';
 import { PickListStyle } from './style/pickliststyle';
 
 const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');

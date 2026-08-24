@@ -47,18 +47,18 @@ import {
     removeClass,
     reorderArray,
     resolveFieldData
-} from '@primus/primeuix/utils';
-import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from '@primus/core/api';
-import { BadgeModule } from '@primus/components/badge';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { Checkbox } from '@primus/components/checkbox';
-import { DomHandler } from '@primus/core/dom';
-import { ArrowDownIcon, ArrowUpIcon, CheckIcon, ChevronDownIcon, ChevronRightIcon, SortAltIcon, SortAmountDownIcon, SortAmountUpAltIcon, SpinnerIcon } from '@primus/core/icons';
-import { PaginatorModule } from '@primus/components/paginator';
-import { Ripple } from '@primus/components/ripple';
-import { Scroller } from '@primus/components/scroller';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
+} from '@selisedev/primus-beta/primeuix/utils';
+import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from '@selisedev/primus-beta/core/api';
+import { BadgeModule } from '@selisedev/primus-beta/components/badge';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { Checkbox } from '@selisedev/primus-beta/components/checkbox';
+import { DomHandler } from '@selisedev/primus-beta/core/dom';
+import { ArrowDownIcon, ArrowUpIcon, CheckIcon, ChevronDownIcon, ChevronRightIcon, SortAltIcon, SortAmountDownIcon, SortAmountUpAltIcon, SpinnerIcon } from '@selisedev/primus-beta/core/icons';
+import { PaginatorModule } from '@selisedev/primus-beta/components/paginator';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { Scroller } from '@selisedev/primus-beta/components/scroller';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     TreeTableBodyTemplateContext,
     TreeTableCheckboxIconTemplateContext,
@@ -81,7 +81,7 @@ import {
     TreeTableSortEvent,
     TreeTableSortIconTemplateContext,
     TreeTableTogglerIconTemplateContext
-} from '@primus/core/types/treetable';
+} from '@selisedev/primus-beta/core/types/treetable';
 import { Subject, Subscription } from 'rxjs';
 import { TreeTableStyle } from './style/treetablestyle';
 

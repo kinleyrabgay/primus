@@ -1,10 +1,13 @@
 {
-    "name": "@selise/primus",
-    "version": "21.1.9",
+    "name": "@selisedev/primus-beta",
+    "version": "0.0.1",
     "author": "SELISE",
-    "description": "Internal Angular UI component library. Fork of PrimeNG 21.1.9 (MIT). Built + tested locally; never published to npm.",
+    "description": "Angular UI component library (beta). shadcn-style, source-first fork of PrimeNG 21.1.9 (MIT) on Angular 22, with the PrimeUIX theming engine vendored in-tree. Beta channel for @selisedev/primus.",
     "license": "MIT",
     "private": true,
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "build": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ pnpm run build:package",
         "build:package": "pnpm run build:prebuild && ng build primus && pnpm run build:postbuild",
@@ -67,8 +70,26 @@
             "prettier --write"
         ]
     },
-    "repository": {},
-    "bugs": {},
+    "homepage": "https://github.com/kinleyrabgay/primus#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kinleyrabgay/primus.git"
+    },
+    "bugs": {
+        "url": "https://github.com/kinleyrabgay/primus/issues"
+    },
+    "keywords": [
+        "angular",
+        "angular-components",
+        "ui",
+        "component-library",
+        "primeng",
+        "primeng-fork",
+        "design-system",
+        "shadcn",
+        "tailwind",
+        "primus"
+    ],
     "bin": {
         "primus": "./cli/primus.mjs"
     }

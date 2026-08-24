@@ -1,4 +1,4 @@
-import type { PassThrough, PassThroughOption } from '@primus/core/api';
+import type { PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
 
 /**
  * Custom pass-through(pt) options.

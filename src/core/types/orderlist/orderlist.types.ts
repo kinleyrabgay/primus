@@ -1,7 +1,7 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from '@primus/core/api';
-import type { ButtonPassThrough } from '@primus/core/types/button';
-import type { ListBoxPassThrough } from '@primus/core/types/listbox';
+import type { PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
+import type { ButtonPassThrough } from '@selisedev/primus-beta/core/types/button';
+import type { ListBoxPassThrough } from '@selisedev/primus-beta/core/types/listbox';
 
 /**
  * Custom pass-through(pt) options.

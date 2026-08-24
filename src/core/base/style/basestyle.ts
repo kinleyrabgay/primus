@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { css as Css, dt, Theme } from '@primus/primeuix/styled';
-import { style as base_style } from '@primus/primeuix/styles/base';
-import { minifyCSS, resolve } from '@primus/primeuix/utils';
-import { UseStyle } from '@primus/core/usestyle';
+import { css as Css, dt, Theme } from '@selisedev/primus-beta/primeuix/styled';
+import { style as base_style } from '@selisedev/primus-beta/primeuix/styles/base';
+import { minifyCSS, resolve } from '@selisedev/primus-beta/primeuix/utils';
+import { UseStyle } from '@selisedev/primus-beta/core/usestyle';
 
 const css = /*css*/ `
 .p-hidden-accessible {

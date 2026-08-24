@@ -1,4 +1,4 @@
-import { getKeyValue, isArray, isNotEmpty, isNumber, isObject, isString, matchRegex, toKebabCase } from '@primus/primeuix/utils';
+import { getKeyValue, isArray, isNotEmpty, isNumber, isObject, isString, matchRegex, toKebabCase } from '@selisedev/primus-beta/primeuix/utils';
 
 export const EXPR_REGEX = /{([^}]*)}/g; // Exp: '{a}', '{a.b}', '{a.b.c}' etc.
 export const CALC_REGEX = /(\d+\s+[\+\-\*\/]\s+\d+)/g;

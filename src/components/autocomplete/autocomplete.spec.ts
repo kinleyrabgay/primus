@@ -3,8 +3,8 @@ import { Component, provideZonelessChangeDetection, signal, ChangeDetectionStrat
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '@primus/core/api';
-import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from '@primus/core/types/autocomplete';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from '@selisedev/primus-beta/core/types/autocomplete';
 import { BehaviorSubject } from 'rxjs';
 import { AUTOCOMPLETE_VALUE_ACCESSOR, AutoComplete, AutoCompleteModule } from './autocomplete';
 

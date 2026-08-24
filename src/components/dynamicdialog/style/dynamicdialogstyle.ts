@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DialogStyle } from '@primus/components/dialog';
+import { DialogStyle } from '@selisedev/primus-beta/components/dialog';
 
 @Injectable()
 export class DynamicDialogStyle extends DialogStyle {

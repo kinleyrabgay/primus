@@ -4,10 +4,10 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { providePrimus } from '@primus/core/config';
-import { ToggleSwitchChangeEvent } from '@primus/core/types/toggleswitch';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
+import { ToggleSwitchChangeEvent } from '@selisedev/primus-beta/core/types/toggleswitch';
 import { ToggleSwitch, ToggleSwitchModule } from './toggleswitch';
 
 describe('ToggleSwitch', () => {

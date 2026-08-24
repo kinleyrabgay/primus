@@ -3,7 +3,7 @@ import { Component, ElementRef, provideZonelessChangeDetection, ViewChild, Chang
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { OverlayService, PrimeTemplate } from '@primus/core/api';
+import { OverlayService, PrimeTemplate } from '@selisedev/primus-beta/core/api';
 import { Popover } from './popover';
 
 // function createMockAnimationEvent(toState: string, fromState: string = 'void'): AnimationEvent {
@@ -688,8 +688,20 @@ describe('Popover', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
-            popoverInstance.onWindowResize();
-            expect(popoverInstance.overlayVisible).toBe(false);
+            // jsdom's window defines the `ontouchstart` handler property by default (unlike a real
+            // non-touch browser where it is absent), which makes isTouchDevice() report a false
+            // positive. Remove it for this assertion so the "non-touch device" branch is exercised.
+            const ontouchstartDescriptor = Object.getOwnPropertyDescriptor(window, 'ontouchstart');
+            delete (window as any).ontouchstart;
+
+            try {
+                popoverInstance.onWindowResize();
+                expect(popoverInstance.overlayVisible).toBe(false);
+            } finally {
+                if (ontouchstartDescriptor) {
+                    Object.defineProperty(window, 'ontouchstart', ontouchstartDescriptor);
+                }
+            }
         });
 
         it('should handle overlay clicks correctly', () => {

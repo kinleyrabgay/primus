@@ -1,15 +1,15 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, inject, InjectionToken, input, Input, NgModule, numberAttribute, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
-import { getWindowScrollTop } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { Button, ButtonProps } from '@primus/components/button';
-import { ChevronUpIcon } from '@primus/core/icons';
-import { MotionDirective } from '@primus/core/motion';
-import { ScrollTopIconTemplateContext, ScrollTopPassThrough } from '@primus/core/types/scrolltop';
-import { ZIndexUtils } from '@primus/core/utils';
+import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { getWindowScrollTop } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { Button, ButtonProps } from '@selisedev/primus-beta/components/button';
+import { ChevronUpIcon } from '@selisedev/primus-beta/core/icons';
+import { MotionDirective } from '@selisedev/primus-beta/core/motion';
+import { ScrollTopIconTemplateContext, ScrollTopPassThrough } from '@selisedev/primus-beta/core/types/scrolltop';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { ScrollTopStyle } from './style/scrolltopstyle';
 
 const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');

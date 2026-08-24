@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as checkbox_style } from '@primus/primeuix/styles/checkbox';
-import { BaseStyle } from '@primus/core/base';
+import { style as checkbox_style } from '@selisedev/primus-beta/primeuix/styles/checkbox';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
     ${checkbox_style}

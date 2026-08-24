@@ -25,19 +25,19 @@ import {
     signal
 } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primus/primeuix/utils';
-import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from '@primus/core/api';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Bind, BindModule } from '@primus/core/bind';
-import { Checkbox } from '@primus/components/checkbox';
-import { IconField } from '@primus/components/iconfield';
-import { BlankIcon, CheckIcon, SearchIcon } from '@primus/core/icons';
-import { InputIcon } from '@primus/components/inputicon';
-import { InputText } from '@primus/components/inputtext';
-import { Ripple } from '@primus/components/ripple';
-import { Scroller, ScrollerLazyLoadEvent } from '@primus/components/scroller';
-import { Nullable } from '@primus/core/ts-helpers';
+import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from '@selisedev/primus-beta/core/api';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { Checkbox } from '@selisedev/primus-beta/components/checkbox';
+import { IconField } from '@selisedev/primus-beta/components/iconfield';
+import { BlankIcon, CheckIcon, SearchIcon } from '@selisedev/primus-beta/core/icons';
+import { InputIcon } from '@selisedev/primus-beta/components/inputicon';
+import { InputText } from '@selisedev/primus-beta/components/inputtext';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { Scroller, ScrollerLazyLoadEvent } from '@selisedev/primus-beta/components/scroller';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     ListBoxPassThrough,
     ListboxChangeEvent,
@@ -54,7 +54,7 @@ import {
     ListboxItemTemplateContext,
     ListboxLoaderTemplateContext,
     ListboxSelectAllChangeEvent
-} from '@primus/core/types/listbox';
+} from '@selisedev/primus-beta/core/types/listbox';
 import { Subscription } from 'rxjs';
 import { ListBoxStyle } from './style/listboxstyle';
 

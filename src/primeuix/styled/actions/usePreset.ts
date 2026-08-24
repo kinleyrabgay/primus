@@ -1,4 +1,4 @@
-import { deepMerge } from '@primus/primeuix/utils';
+import { deepMerge } from '@selisedev/primus-beta/primeuix/utils';
 import Theme from '../config/index';
 
 export default function usePreset<T extends Record<string, unknown>>(...presets: T[]): T {

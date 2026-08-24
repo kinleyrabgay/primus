@@ -22,17 +22,17 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
-import { $dt } from '@primus/primeuix/styled';
-import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primus/primeuix/utils';
-import { OverlayService, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { ConnectedOverlayScrollHandler } from '@primus/core/dom';
-import { MotionModule } from '@primus/core/motion';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
-import { PopoverContentTemplateContext, PopoverPassThrough } from '@primus/core/types/popover';
-import { ZIndexUtils } from '@primus/core/utils';
+import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { $dt } from '@selisedev/primus-beta/primeuix/styled';
+import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@selisedev/primus-beta/primeuix/utils';
+import { OverlayService, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { ConnectedOverlayScrollHandler } from '@selisedev/primus-beta/core/dom';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
+import { PopoverContentTemplateContext, PopoverPassThrough } from '@selisedev/primus-beta/core/types/popover';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
 

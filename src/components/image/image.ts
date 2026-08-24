@@ -22,18 +22,18 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
-import { appendChild, focus } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { blockBodyScroll, unblockBodyScroll } from '@primus/core/dom';
-import { FocusTrap } from '@primus/components/focustrap';
-import { EyeIcon, RefreshIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, UndoIcon } from '@primus/core/icons';
-import { MotionModule } from '@primus/core/motion';
-import { Nullable } from '@primus/core/ts-helpers';
-import { ImageImageTemplateContext, ImagePassThrough, ImagePreviewTemplateContext } from '@primus/core/types/image';
-import { ZIndexUtils } from '@primus/core/utils';
+import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { appendChild, focus } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { blockBodyScroll, unblockBodyScroll } from '@selisedev/primus-beta/core/dom';
+import { FocusTrap } from '@selisedev/primus-beta/components/focustrap';
+import { EyeIcon, RefreshIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, UndoIcon } from '@selisedev/primus-beta/core/icons';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { ImageImageTemplateContext, ImagePassThrough, ImagePreviewTemplateContext } from '@selisedev/primus-beta/core/types/image';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { ImageStyle } from './style/imagestyle';
 
 const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');

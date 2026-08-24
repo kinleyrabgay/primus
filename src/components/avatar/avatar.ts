@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, inject, InjectionToken, Input, NgModule, Output, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { AvatarPassThrough } from '@primus/core/types/avatar';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { AvatarPassThrough } from '@selisedev/primus-beta/core/types/avatar';
 import { AvatarStyle } from './style/avatarstyle';
 
 const AVATAR_INSTANCE = new InjectionToken<Avatar>('AVATAR_INSTANCE');

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primus/primeuix/styles/galleria';
-import { BaseStyle } from '@primus/core/base';
+import { style } from '@selisedev/primus-beta/primeuix/styles/galleria';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const classes = {
     mask: 'p-galleria-mask p-overlay-mask',

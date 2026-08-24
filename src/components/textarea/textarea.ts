@@ -1,10 +1,10 @@
 import { booleanAttribute, computed, Directive, effect, EventEmitter, HostListener, inject, InjectionToken, input, Input, NgModule, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseModelHolder } from '@primus/core/basemodelholder';
-import { Bind } from '@primus/core/bind';
-import { Fluid } from '@primus/components/fluid';
-import { TextareaPassThrough } from '@primus/core/types/textarea';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseModelHolder } from '@selisedev/primus-beta/core/basemodelholder';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { Fluid } from '@selisedev/primus-beta/components/fluid';
+import { TextareaPassThrough } from '@selisedev/primus-beta/core/types/textarea';
 import { Subscription } from 'rxjs';
 import { TextareaStyle } from './style/textareastyle';
 

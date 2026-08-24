@@ -61,10 +61,10 @@ primus freezes the last-MIT surface and makes it **ours**:
 
 ```
 src/
-  components/    100 UI components     -> @primus/components/*   (e.g. @primus/components/button)
-  core/          infra + provider      -> @primus/core/*         (api, base, config, dom, utils, icons, types, …)
-  theme/         design system         -> @primus/theme          (primitives, semantic, components, tokens, preset)
-  primeuix/      vendored engine       -> @primus/primeuix/*      (utils, styled, styles, motion, themes)
+  components/    100 UI components     -> @selisedev/primus-beta/components/*   (e.g. @selisedev/primus-beta/components/button)
+  core/          infra + provider      -> @selisedev/primus-beta/core/*         (api, base, config, dom, utils, icons, types, …)
+  theme/         design system         -> @selisedev/primus-beta/theme          (primitives, semantic, components, tokens, preset)
+  primeuix/      vendored engine       -> @selisedev/primus-beta/primeuix/*      (utils, styled, styles, motion, themes)
   public_api.ts  ng-package.json                                   (root primary entry point)
 
 cli/             primus CLI + component registry (init / add / diff / theme)
@@ -74,8 +74,8 @@ angular.json  tsconfig.json  vitest setup                          (build + test
 ```
 
 The published/built package (`dist/`) is renamed **`@primus`** so every folder above is a
-secondary entry point of one package — `@primus/components/button`, `@primus/core/config`,
-`@primus/primeuix/styled`, and so on. See [Entry-point architecture](#entry-point-architecture).
+secondary entry point of one package — `@selisedev/primus-beta/components/button`, `@selisedev/primus-beta/core/config`,
+`@selisedev/primus-beta/primeuix/styled`, and so on. See [Entry-point architecture](#entry-point-architecture).
 
 ---
 
@@ -103,8 +103,8 @@ pnpm primus theme
 Then wire the provider once, in `app.config.ts`:
 
 ```ts
-import { providePrimus } from '@primus/core/config';
-import { AppPreset }     from '@primus/theme';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
+import { AppPreset }     from '@selisedev/primus-beta/theme';
 
 providePrimus({
   theme: { preset: AppPreset, options: { darkModeSelector: '.dark' } },
@@ -115,8 +115,8 @@ providePrimus({
 Use components as standalone imports:
 
 ```ts
-import { Button } from '@primus/components/button';
-import { Table }  from '@primus/components/table';
+import { Button } from '@selisedev/primus-beta/components/button';
+import { Table }  from '@selisedev/primus-beta/components/table';
 
 @Component({ imports: [Button, Table], /* … */ })
 export class MyComponent {}
@@ -131,7 +131,7 @@ Source of truth: the primus package installed at `node_modules/@primus`. The CLI
 
 | Command | What it does |
 |---|---|
-| `primus init [--dir <path>]` | Scaffolds `primus.json`, copies `core/` (all infra modules) and the `theme/` entry wholesale, and adds `@primus/*` wildcard paths to `tsconfig.base.json` / `tsconfig.json` **once**. Default dir `libs/primus`. |
+| `primus init [--dir <path>]` | Scaffolds `primus.json`, copies `core/` (all infra modules) and the `theme/` entry wholesale, and adds `@selisedev/primus-beta/*` wildcard paths to `tsconfig.base.json` / `tsconfig.json` **once**. Default dir `libs/primus`. |
 | `primus add <component…>` | Copies the component folder(s) **plus their transitive component dependencies** into the app. Spec files are skipped unless `--with-specs`. Reports any npm peers to install (e.g. `chart.js`, `quill`). |
 | `primus theme` | Compiles your `primus.config.ts` design tokens into a static `primus.theme.css`, generating structural CSS only for the components actually installed. |
 | `primus diff <component>` | Compares your local copy against the installed package file-by-file (`+` local-only, `-` missing, `~` modified) so upgrades are reviewable, never silent. |
@@ -162,13 +162,13 @@ Summary:
 3. Add tsconfig path aliases:
    ```jsonc
    "paths": {
-     "@primus/theme":        ["libs/primus/theme/public_api.ts"],
-     "@primus/core/*":       ["libs/primus/core/*/public_api.ts"],
-     "@primus/components/*": ["libs/primus/components/*/public_api.ts"],
-     "@primus/primeuix/*":   ["libs/primus/primeuix/*"]
+     "@selisedev/primus-beta/theme":        ["libs/primus/theme/public_api.ts"],
+     "@selisedev/primus-beta/core/*":       ["libs/primus/core/*/public_api.ts"],
+     "@selisedev/primus-beta/components/*": ["libs/primus/components/*/public_api.ts"],
+     "@selisedev/primus-beta/primeuix/*":   ["libs/primus/primeuix/*"]
    }
    ```
-4. Swap `primeng/*` imports for `@primus/*` (the doc includes a `perl` sweep).
+4. Swap `primeng/*` imports for `@selisedev/primus-beta/*` (the doc includes a `perl` sweep).
 
 No `@primeuix/*` install is required — the theming engine is vendored in-tree.
 
@@ -177,7 +177,7 @@ No `@primeuix/*` install is required — the theming engine is vendored in-tree.
 ## Design system & theming
 
 Components are **brand-neutral**: their `*/style/*style.ts` files pull CSS from
-`@primus/primeuix/styles/<component>` as strings of `dt('token.name')` — never literal colors.
+`@selisedev/primus-beta/primeuix/styles/<component>` as strings of `dt('token.name')` — never literal colors.
 The token *values* are your design system, defined under `src/theme/`:
 
 ```
@@ -200,7 +200,7 @@ export const AppPreset = definePreset({
 ```
 
 Edit tokens in `theme/` and **every component restyles** — no per-component CSS edits.
-The runtime engine (`@primus/primeuix/styled`) turns preset tokens into CSS variables;
+The runtime engine (`@selisedev/primus-beta/primeuix/styled`) turns preset tokens into CSS variables;
 `primus theme` can also compile them to a static stylesheet.
 
 primus ships **its own** preset only — the upstream Aura / Lara / Material / Nora presets
@@ -211,16 +211,16 @@ are intentionally **not** included.
 ## The vendored PrimeUIX engine
 
 The five MIT PrimeUIX packages are forked in-tree under `src/primeuix/`, exposed as
-`@primus/primeuix/*` secondary entry points. primus owns the full stack; there is **no
+`@selisedev/primus-beta/primeuix/*` secondary entry points. primus owns the full stack; there is **no
 external `@primeuix/*` runtime dependency**.
 
 | Vendored package | Entry point | Role |
 |---|---|---|
-| `utils` | `@primus/primeuix/utils` | DOM / object / event helpers (single bundled entry point) |
-| `styled` | `@primus/primeuix/styled` | Theming engine: `definePreset`, `$dt`, `ThemeService` — tokens → CSS vars |
-| `styles` | `@primus/primeuix/styles/<component>` | Per-component CSS-in-JS token strings (97 entry points) |
-| `motion` | `@primus/primeuix/motion` | Enter/leave animation helpers |
-| `themes` | `@primus/primeuix/themes` | `definePreset` wrapper + design-token types (presets stripped) |
+| `utils` | `@selisedev/primus-beta/primeuix/utils` | DOM / object / event helpers (single bundled entry point) |
+| `styled` | `@selisedev/primus-beta/primeuix/styled` | Theming engine: `definePreset`, `$dt`, `ThemeService` — tokens → CSS vars |
+| `styles` | `@selisedev/primus-beta/primeuix/styles/<component>` | Per-component CSS-in-JS token strings (97 entry points) |
+| `motion` | `@selisedev/primus-beta/primeuix/motion` | Enter/leave animation helpers |
+| `themes` | `@selisedev/primus-beta/primeuix/themes` | `definePreset` wrapper + design-token types (presets stripped) |
 
 **Slimming:** the ~7 MB of shipped theme presets (Aura/Lara/Material/Nora) are dropped;
 only the `definePreset` engine and design-token types are kept, since primus uses its own
@@ -233,7 +233,7 @@ are recorded in `NOTICE.md`.
 
 ## Component catalog
 
-100 components, each a standalone entry point at `@primus/components/<name>`.
+100 components, each a standalone entry point at `@selisedev/primus-beta/components/<name>`.
 
 **Form & input** — autocomplete · cascadeselect · checkbox · colorpicker · datepicker ·
 editor · floatlabel · fluid · iconfield · iftalabel · inputgroup · inputgroupaddon ·
@@ -266,7 +266,7 @@ overlaybadge · progressbar · progressspinner · scrolltop · skeleton · tag �
 
 **Directives** — animateonscroll · autofocus · dragdrop · focustrap · ripple · styleclass
 
-**Core modules** (`@primus/core/*`) — api · base · basecomponent · baseeditableholder ·
+**Core modules** (`@selisedev/primus-beta/core/*`) — api · base · basecomponent · baseeditableholder ·
 baseinput · basemodelholder · bind · classnames · config · dom · icons · motion ·
 passthrough · ts-helpers · types · usestyle · utils
 
@@ -300,14 +300,14 @@ Build outputs to `dist/` (git-ignored). `dist/package.json` runtime deps are **`
 
 primus is a multi-entry [ng-packagr](https://github.com/ng-packagr/ng-packagr) library.
 `scripts/build-helper.mjs` renames the built package to **`@primus`** so every subdirectory
-containing an `ng-package.json` becomes a secondary entry point named `@primus/<path>`.
-That's why sources import each other as `@primus/core/api`, `@primus/components/button`,
-`@primus/primeuix/styled` — each resolves to a sibling entry point rather than falling back
+containing an `ng-package.json` becomes a secondary entry point named `@selisedev/primus-beta/<path>`.
+That's why sources import each other as `@selisedev/primus-beta/core/api`, `@selisedev/primus-beta/components/button`,
+`@selisedev/primus-beta/primeuix/styled` — each resolves to a sibling entry point rather than falling back
 to raw source (which would trip ng-packagr's `rootDir` guard).
 
 Rules that keep it building:
 
-- A directory imported via a **subpath** specifier (`@primus/primeuix/styles/button`) needs
+- A directory imported via a **subpath** specifier (`@selisedev/primus-beta/primeuix/styles/button`) needs
   its own `ng-package.json`. A directory imported **relatively** (`../config`) is inlined —
   never both across an entry-point boundary.
 - `utils` is a **single** entry point (subfolders inlined; barrel uses relative imports).
@@ -324,9 +324,9 @@ external `@primeuix` references.
 | | Upstream | primus |
 |---|---|---|
 | Component logic | PrimeNG 21.1.9 (MIT) | forked, retargeted to Angular 22 / TS 6 |
-| Theming engine | `@primeuix/*` (archived, went commercial) | vendored in-tree as `@primus/primeuix/*` (MIT fork) |
+| Theming engine | `@primeuix/*` (archived, went commercial) | vendored in-tree as `@selisedev/primus-beta/primeuix/*` (MIT fork) |
 | Distribution | npm package `primeng` | source, copied by the `primus` CLI |
-| Import prefix | `primeng/*`, `@primeuix/*` | `@primus/components/*`, `@primus/core/*`, `@primus/primeuix/*` |
+| Import prefix | `primeng/*`, `@primeuix/*` | `@selisedev/primus-beta/components/*`, `@selisedev/primus-beta/core/*`, `@selisedev/primus-beta/primeuix/*` |
 | Theme presets | Aura / Lara / Material / Nora | primus `AppPreset` only |
 
 The package version (`21.1.9`) tracks the PrimeNG release it forked.

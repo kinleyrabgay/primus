@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, DebugElement, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '@primus/core/api';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
 
 import { Timeline } from './timeline';
 

@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { Badge } from '@primus/components/badge';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { ChevronRightIcon, HomeIcon } from '@primus/core/icons';
-import { TooltipModule } from '@primus/components/tooltip';
-import { BreadcrumbItemClickEvent, BreadcrumbItemTemplateContext, BreadcrumbPassThrough } from '@primus/core/types/breadcrumb';
+import { MenuItem, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { Badge } from '@selisedev/primus-beta/components/badge';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { ChevronRightIcon, HomeIcon } from '@selisedev/primus-beta/core/icons';
+import { TooltipModule } from '@selisedev/primus-beta/components/tooltip';
+import { BreadcrumbItemClickEvent, BreadcrumbItemTemplateContext, BreadcrumbPassThrough } from '@selisedev/primus-beta/core/types/breadcrumb';
 import { BreadCrumbStyle } from './style/breadcrumbstyle';
 
 const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE');

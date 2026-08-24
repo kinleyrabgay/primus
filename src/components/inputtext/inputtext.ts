@@ -1,10 +1,10 @@
 import { booleanAttribute, computed, Directive, effect, HostListener, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseModelHolder } from '@primus/core/basemodelholder';
-import { Bind } from '@primus/core/bind';
-import { Fluid } from '@primus/components/fluid';
-import { InputTextPassThrough } from '@primus/core/types/inputtext';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseModelHolder } from '@selisedev/primus-beta/core/basemodelholder';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { Fluid } from '@selisedev/primus-beta/components/fluid';
+import { InputTextPassThrough } from '@selisedev/primus-beta/core/types/inputtext';
 import { InputTextStyle } from './style/inputtextstyle';
 
 const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');

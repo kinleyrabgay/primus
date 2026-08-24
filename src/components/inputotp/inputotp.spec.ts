@@ -3,7 +3,7 @@ import { Component, DebugElement, provideZonelessChangeDetection, ChangeDetectio
 import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputOtp, InputOtpChangeEvent } from './inputotp';
-import { providePrimus } from '@primus/core/config';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 
 // Temel test component'i
 @Component({
@@ -338,7 +338,10 @@ describe('InputOtp', () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
             const firstInput = inputs[0].nativeElement;
 
-            const pasteEvent = new ClipboardEvent('paste');
+            // jsdom does not implement the ClipboardEvent constructor, so we use a plain
+            // Event and attach a fake clipboardData payload (the component only reads
+            // event.clipboardData.getData(...) and calls event.preventDefault()).
+            const pasteEvent = new Event('paste', { cancelable: true });
             Object.defineProperty(pasteEvent, 'clipboardData', {
                 value: {
                     getData: () => '1234'
@@ -359,7 +362,10 @@ describe('InputOtp', () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
             const firstInput = inputs[0].nativeElement;
 
-            const pasteEvent = new ClipboardEvent('paste');
+            // jsdom does not implement the ClipboardEvent constructor, so we use a plain
+            // Event and attach a fake clipboardData payload (the component only reads
+            // event.clipboardData.getData(...) and calls event.preventDefault()).
+            const pasteEvent = new Event('paste', { cancelable: true });
             Object.defineProperty(pasteEvent, 'clipboardData', {
                 value: {
                     getData: () => '123456789'

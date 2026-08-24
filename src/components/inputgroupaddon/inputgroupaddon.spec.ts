@@ -3,7 +3,7 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputGroupAddon } from './inputgroupaddon';
-import { providePrimus } from '@primus/core/config';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 
 @Component({
     standalone: true,

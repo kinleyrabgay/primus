@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption, ScrollerOptions } from '@primus/core/api';
+import type { PassThrough, PassThroughOption, ScrollerOptions } from '@selisedev/primus-beta/core/api';
 /**
  * Defines valid pass-through options in ListBox component.
  * @template I Type of instance.

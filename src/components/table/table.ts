@@ -29,36 +29,36 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
-import { absolutePosition, addStyle, appendChild, find, findSingle, getAttribute, isClickable, setAttribute } from '@primus/primeuix/utils';
-import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from '@primus/core/api';
-import { BadgeModule } from '@primus/components/badge';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { Button, ButtonModule } from '@primus/components/button';
-import { CheckboxChangeEvent, CheckboxModule } from '@primus/components/checkbox';
-import { DatePickerModule } from '@primus/components/datepicker';
-import { ConnectedOverlayScrollHandler, DomHandler } from '@primus/core/dom';
-import { ArrowDownIcon } from '@primus/core/icons/arrowdown';
-import { ArrowUpIcon } from '@primus/core/icons/arrowup';
-import { FilterIcon } from '@primus/core/icons/filter';
-import { FilterFillIcon } from '@primus/core/icons/filterfill';
-import { FilterSlashIcon } from '@primus/core/icons/filterslash';
-import { PlusIcon } from '@primus/core/icons/plus';
-import { SortAltIcon } from '@primus/core/icons/sortalt';
-import { SortAmountDownIcon } from '@primus/core/icons/sortamountdown';
-import { SortAmountUpAltIcon } from '@primus/core/icons/sortamountupalt';
-import { SpinnerIcon } from '@primus/core/icons/spinner';
-import { TrashIcon } from '@primus/core/icons/trash';
-import { InputNumberModule } from '@primus/components/inputnumber';
-import { InputTextModule } from '@primus/components/inputtext';
-import { MotionModule } from '@primus/core/motion';
-import { PaginatorModule } from '@primus/components/paginator';
-import { RadioButton, RadioButtonClickEvent, RadioButtonModule } from '@primus/components/radiobutton';
-import { Scroller, ScrollerModule } from '@primus/components/scroller';
-import { SelectModule } from '@primus/components/select';
-import { SelectButtonModule } from '@primus/components/selectbutton';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
+import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { absolutePosition, addStyle, appendChild, find, findSingle, getAttribute, isClickable, setAttribute } from '@selisedev/primus-beta/primeuix/utils';
+import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { BadgeModule } from '@selisedev/primus-beta/components/badge';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { Button, ButtonModule } from '@selisedev/primus-beta/components/button';
+import { CheckboxChangeEvent, CheckboxModule } from '@selisedev/primus-beta/components/checkbox';
+import { DatePickerModule } from '@selisedev/primus-beta/components/datepicker';
+import { ConnectedOverlayScrollHandler, DomHandler } from '@selisedev/primus-beta/core/dom';
+import { ArrowDownIcon } from '@selisedev/primus-beta/core/icons/arrowdown';
+import { ArrowUpIcon } from '@selisedev/primus-beta/core/icons/arrowup';
+import { FilterIcon } from '@selisedev/primus-beta/core/icons/filter';
+import { FilterFillIcon } from '@selisedev/primus-beta/core/icons/filterfill';
+import { FilterSlashIcon } from '@selisedev/primus-beta/core/icons/filterslash';
+import { PlusIcon } from '@selisedev/primus-beta/core/icons/plus';
+import { SortAltIcon } from '@selisedev/primus-beta/core/icons/sortalt';
+import { SortAmountDownIcon } from '@selisedev/primus-beta/core/icons/sortamountdown';
+import { SortAmountUpAltIcon } from '@selisedev/primus-beta/core/icons/sortamountupalt';
+import { SpinnerIcon } from '@selisedev/primus-beta/core/icons/spinner';
+import { TrashIcon } from '@selisedev/primus-beta/core/icons/trash';
+import { InputNumberModule } from '@selisedev/primus-beta/components/inputnumber';
+import { InputTextModule } from '@selisedev/primus-beta/components/inputtext';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { PaginatorModule } from '@selisedev/primus-beta/components/paginator';
+import { RadioButton, RadioButtonClickEvent, RadioButtonModule } from '@selisedev/primus-beta/components/radiobutton';
+import { Scroller, ScrollerModule } from '@selisedev/primus-beta/components/scroller';
+import { SelectModule } from '@selisedev/primus-beta/components/select';
+import { SelectButtonModule } from '@selisedev/primus-beta/components/selectbutton';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     ColumnFilterPassThrough,
     ExportCSVOptions,
@@ -80,8 +80,8 @@ import {
     TableRowSelectEvent,
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
-} from '@primus/core/types/table';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from '@primus/core/utils';
+} from '@selisedev/primus-beta/core/types/table';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { Subject, Subscription } from 'rxjs';
 import { TableStyle } from './style/tablestyle';
 

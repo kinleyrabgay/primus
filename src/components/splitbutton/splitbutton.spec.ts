@@ -2,9 +2,9 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MenuItem, PrimeTemplate } from '@primus/core/api';
-import { ButtonDirective } from '@primus/components/button';
-import { TieredMenu } from '@primus/components/tieredmenu';
+import { MenuItem, PrimeTemplate } from '@selisedev/primus-beta/core/api';
+import { ButtonDirective } from '@selisedev/primus-beta/components/button';
+import { TieredMenu } from '@selisedev/primus-beta/components/tieredmenu';
 import { SplitButton } from './splitbutton';
 
 // Basic SplitButton Test Component

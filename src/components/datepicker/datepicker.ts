@@ -23,20 +23,20 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
-import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primus/primeuix/utils';
-import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseInput } from '@primus/core/baseinput';
-import { Bind, BindModule } from '@primus/core/bind';
-import { Button } from '@primus/components/button';
-import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from '@primus/core/dom';
-import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from '@primus/core/icons';
-import { InputText } from '@primus/components/inputtext';
-import { MotionModule } from '@primus/core/motion';
-import { Ripple } from '@primus/components/ripple';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
+import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseInput } from '@selisedev/primus-beta/core/baseinput';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { Button } from '@selisedev/primus-beta/components/button';
+import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from '@selisedev/primus-beta/core/dom';
+import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from '@selisedev/primus-beta/core/icons';
+import { InputText } from '@selisedev/primus-beta/components/inputtext';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     DatePickerButtonBarTemplateContext,
     DatePickerDateTemplateContext,
@@ -51,8 +51,8 @@ import {
     LocaleSettings,
     Month,
     NavigationState
-} from '@primus/core/types/datepicker';
-import { ZIndexUtils } from '@primus/core/utils';
+} from '@selisedev/primus-beta/core/types/datepicker';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { Subscription } from 'rxjs';
 import { DatePickerStyle } from './style/datepickerstyle';
 

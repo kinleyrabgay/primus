@@ -1,11 +1,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, NgZone, Output, ViewEncapsulation } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { SharedModule } from '@primus/core/api';
-import { BaseComponent } from '@primus/core/basecomponent';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent } from '@selisedev/primus-beta/core/basecomponent';
 import { ChartStyle } from './style/chartstyle';
-import { Bind, BindModule } from '@primus/core/bind';
-import type { ChartPassThrough } from '@primus/core/types/chart';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import type { ChartPassThrough } from '@selisedev/primus-beta/core/types/chart';
 
 const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
 

@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { uuid } from '@primus/primeuix/utils';
-import { BaseIcon } from '@primus/core/icons/baseicon';
+import { uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { BaseIcon } from '@selisedev/primus-beta/core/icons/baseicon';
 
 @Component({
     selector: '[data-p-icon="window-minimize"]',

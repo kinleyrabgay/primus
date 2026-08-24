@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import type { MenuItem, PassThrough, PassThroughOption } from '@primus/core/api';
+import type { MenuItem, PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
 
 /**
  * Custom pass-through(pt) options.

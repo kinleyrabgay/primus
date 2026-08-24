@@ -1,15 +1,15 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { addClass, getWindowScrollLeft, getWindowScrollTop, isRTL, removeClass } from '@primus/primeuix/utils';
-import { SharedModule } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Bind, BindModule } from '@primus/core/bind';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
-import type { SliderChangeEvent, SliderSlideEndEvent } from '@primus/core/types/slider';
-import { SliderPassThrough } from '@primus/core/types/slider';
+import { addClass, getWindowScrollLeft, getWindowScrollTop, isRTL, removeClass } from '@selisedev/primus-beta/primeuix/utils';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
+import type { SliderChangeEvent, SliderSlideEndEvent } from '@selisedev/primus-beta/core/types/slider';
+import { SliderPassThrough } from '@selisedev/primus-beta/core/types/slider';
 import { SliderStyle } from './style/sliderstyle';
 
 const SLIDER_INSTANCE = new InjectionToken<Slider>('SLIDER_INSTANCE');

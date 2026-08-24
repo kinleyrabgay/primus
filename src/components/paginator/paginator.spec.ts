@@ -4,11 +4,11 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Paginator, PaginatorModule } from './paginator';
-import { Select } from '@primus/components/select';
-import { InputNumber } from '@primus/components/inputnumber';
-import { Ripple } from '@primus/components/ripple';
-import { SharedModule } from '@primus/core/api';
-import { PaginatorState } from '@primus/core/types/paginator';
+import { Select } from '@selisedev/primus-beta/components/select';
+import { InputNumber } from '@selisedev/primus-beta/components/inputnumber';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { PaginatorState } from '@selisedev/primus-beta/core/types/paginator';
 
 // Test component for basic paginator functionality
 @Component({

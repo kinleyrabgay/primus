@@ -1,10 +1,10 @@
 import { HttpEvent } from '@angular/common/http';
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from '@primus/core/api';
-import type { BadgePassThrough } from '@primus/core/types/badge';
-import type { ButtonPassThrough } from '@primus/core/types/button';
-import type { MessagePassThrough } from '@primus/core/types/message';
-import type { ProgressBarPassThrough } from '@primus/core/types/progressbar';
+import type { PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
+import type { BadgePassThrough } from '@selisedev/primus-beta/core/types/badge';
+import type { ButtonPassThrough } from '@selisedev/primus-beta/core/types/button';
+import type { MessagePassThrough } from '@selisedev/primus-beta/core/types/message';
+import type { ProgressBarPassThrough } from '@selisedev/primus-beta/core/types/progressbar';
 
 /**
  * Custom pass-through(pt) options.

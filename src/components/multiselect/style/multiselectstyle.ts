@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as multiselect_style } from '@primus/primeuix/styles/multiselect';
-import { BaseStyle } from '@primus/core/base';
+import { style as multiselect_style } from '@selisedev/primus-beta/primeuix/styles/multiselect';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
     ${multiselect_style}

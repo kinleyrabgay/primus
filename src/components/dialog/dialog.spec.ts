@@ -2,13 +2,29 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ButtonModule } from '@primus/components/button';
-import { FocusTrap } from '@primus/components/focustrap';
+import { ButtonModule } from '@selisedev/primus-beta/components/button';
+import { FocusTrap } from '@selisedev/primus-beta/components/focustrap';
 import { Dialog } from './dialog';
+
+// jsdom does not implement DragEvent (it only implements MouseEvent), so tests that
+// construct `new DragEvent(...)` throw `ReferenceError: DragEvent is not defined`.
+// Polyfill it locally for this spec file with a minimal MouseEvent-based subclass,
+// since the component only relies on it being an Event/MouseEvent-shaped object.
+if (typeof (globalThis as any).DragEvent === 'undefined') {
+    (globalThis as any).DragEvent = class DragEvent extends MouseEvent {
+        dataTransfer: DataTransfer | null = null;
+
+        constructor(type: string, eventInitDict: MouseEventInit & { dataTransfer?: DataTransfer | null } = {}) {
+            super(type, eventInitDict);
+            this.dataTransfer = eventInitDict.dataTransfer ?? null;
+        }
+    };
+}
 
 // Basic Dialog Test Component
 @Component({
     standalone: true,
+    selector: 'test-dialog-basic',
     imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -140,6 +156,7 @@ class TestBasicDialogComponent {
 // Dialog with pTemplate Templates
 @Component({
     standalone: true,
+    selector: 'test-dialog-ptemplate',
     imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -172,6 +189,7 @@ class TestPTemplateDialogComponent {
 // Dialog with #template Templates
 @Component({
     standalone: true,
+    selector: 'test-dialog-hashtemplate',
     imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -204,6 +222,7 @@ class TestHashTemplateDialogComponent {
 // Dialog with Headless Template
 @Component({
     standalone: true,
+    selector: 'test-dialog-headless',
     imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -225,6 +244,7 @@ class TestHeadlessDialogComponent {
 // Dialog for Position Testing
 @Component({
     standalone: true,
+    selector: 'test-dialog-position',
     imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -241,6 +261,7 @@ class TestPositionDialogComponent {
 // Dialog for Maximizable Testing
 @Component({
     standalone: true,
+    selector: 'test-dialog-maximizable',
     imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -262,6 +283,7 @@ class TestMaximizableDialogComponent {
 // Dialog for Accessibility Testing
 @Component({
     standalone: true,
+    selector: 'test-dialog-accessibility',
     imports: [Dialog, ButtonModule, FocusTrap],
     changeDetection: ChangeDetectionStrategy.Eager,
     template: `
@@ -1327,6 +1349,7 @@ describe('Dialog', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
                 standalone: true,
+                selector: 'test-dialog-pt-case1',
                 imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })
@@ -1375,6 +1398,7 @@ describe('Dialog', () => {
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
                 standalone: true,
+                selector: 'test-dialog-pt-case2',
                 imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })
@@ -1431,6 +1455,7 @@ describe('Dialog', () => {
         describe('Case 3: Mixed object and string values', () => {
             @Component({
                 standalone: true,
+                selector: 'test-dialog-pt-case3',
                 imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })
@@ -1478,6 +1503,7 @@ describe('Dialog', () => {
         describe('Case 4: Use variables from instance', () => {
             @Component({
                 standalone: true,
+                selector: 'test-dialog-pt-case4',
                 imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="pt" [visible]="visible" [maximizable]="isMaximizable" header="Test Dialog">Content</p-dialog>`
             })
@@ -1526,6 +1552,7 @@ describe('Dialog', () => {
         describe('Case 5: Event binding', () => {
             @Component({
                 standalone: true,
+                selector: 'test-dialog-pt-case5',
                 imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })
@@ -1575,6 +1602,7 @@ describe('Dialog', () => {
         describe('Case 6: Inline test', () => {
             @Component({
                 standalone: true,
+                selector: 'test-dialog-pt-case6-inline',
                 imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="{ mask: 'INLINE_MASK_CLASS', header: 'INLINE_HEADER_CLASS' }" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })
@@ -1584,6 +1612,7 @@ describe('Dialog', () => {
 
             @Component({
                 standalone: true,
+                selector: 'test-dialog-pt-case6-inline-object',
                 imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="{ mask: { class: 'INLINE_MASK_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })
@@ -1639,6 +1668,7 @@ describe('Dialog', () => {
         describe('Case 7: Test from PrimeNGConfig', () => {
             @Component({
                 standalone: true,
+                selector: 'test-dialog-pt-case7-global',
                 imports: [Dialog, ButtonModule, FocusTrap],
                 template: `
                     <p-dialog [visible]="visible1" header="Dialog 1">Content 1</p-dialog>
@@ -1682,6 +1712,7 @@ describe('Dialog', () => {
         describe('Case 8: Test hooks', () => {
             @Component({
                 standalone: true,
+                selector: 'test-dialog-pt-case8-hooks',
                 imports: [Dialog, ButtonModule, FocusTrap],
                 template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
             })

@@ -1,14 +1,14 @@
 import { TemplateRef } from '@angular/core';
-import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption } from '@primus/core/api';
-import type { ButtonPassThrough, ButtonProps } from '@primus/core/types/button';
-import type { CheckboxPassThrough } from '@primus/core/types/checkbox';
-import type { PaginatorPassThrough } from '@primus/core/types/paginator';
-import type { VirtualScrollerPassThrough } from '@primus/core/types/scroller';
-import type { InputTextPassThrough } from '@primus/core/types/inputtext';
-import type { SelectPassThrough } from '@primus/core/types/select';
-import type { InputNumberPassThrough } from '@primus/core/types/inputnumber';
-import type { DatePickerPassThrough } from '@primus/core/types/datepicker';
-import type { MotionOptions } from '@primus/primeuix/motion';
+import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
+import type { ButtonPassThrough, ButtonProps } from '@selisedev/primus-beta/core/types/button';
+import type { CheckboxPassThrough } from '@selisedev/primus-beta/core/types/checkbox';
+import type { PaginatorPassThrough } from '@selisedev/primus-beta/core/types/paginator';
+import type { VirtualScrollerPassThrough } from '@selisedev/primus-beta/core/types/scroller';
+import type { InputTextPassThrough } from '@selisedev/primus-beta/core/types/inputtext';
+import type { SelectPassThrough } from '@selisedev/primus-beta/core/types/select';
+import type { InputNumberPassThrough } from '@selisedev/primus-beta/core/types/inputnumber';
+import type { DatePickerPassThrough } from '@selisedev/primus-beta/core/types/datepicker';
+import type { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
 
 /**
  * Custom pass-through(pt) options for ColumnFilter.

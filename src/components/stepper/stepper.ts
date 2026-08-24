@@ -23,14 +23,14 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
-import { MotionOptions } from '@primus/primeuix/motion';
-import { find, findIndexInList, uuid } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { MotionModule } from '@primus/core/motion';
-import { StepItemPassThrough, StepListPassThrough, StepPanelPassThrough, StepPanelsPassThrough, StepPassThrough, StepperPassThrough, StepperSeparatorPassThrough } from '@primus/core/types/stepper';
-import { transformToBoolean } from '@primus/core/utils';
+import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { find, findIndexInList, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { StepItemPassThrough, StepListPassThrough, StepPanelPassThrough, StepPanelsPassThrough, StepPassThrough, StepperPassThrough, StepperSeparatorPassThrough } from '@selisedev/primus-beta/core/types/stepper';
+import { transformToBoolean } from '@selisedev/primus-beta/core/utils';
 import { StepItemStyle } from './style/stepitemstyle';
 import { StepListStyle } from './style/stepliststyle';
 import { StepPanelsStyle } from './style/steppanelsstyle';

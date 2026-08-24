@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import type { MotionOptions } from '@primus/primeuix/motion';
-import type { MenuItem, PassThrough, PassThroughOption } from '@primus/core/api';
+import type { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import type { MenuItem, PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
 
 /**
  * Custom pass-through(pt) options.

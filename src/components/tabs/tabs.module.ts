@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BindModule } from '@primus/core/bind';
+import { BindModule } from '@selisedev/primus-beta/core/bind';
 import { Tab } from './tab';
 import { TabList } from './tablist';
 import { TabPanel } from './tabpanel';

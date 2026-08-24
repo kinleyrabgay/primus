@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as selectbutton_style } from '@primus/primeuix/styles/selectbutton';
-import { BaseStyle } from '@primus/core/base';
+import { style as selectbutton_style } from '@selisedev/primus-beta/primeuix/styles/selectbutton';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
     ${selectbutton_style}

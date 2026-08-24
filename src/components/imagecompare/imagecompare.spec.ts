@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Component, DebugElement, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ImageCompare, ImageCompareModule } from './imagecompare';
-import { SharedModule } from '@primus/core/api';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
 
 // Using image paths from photoservice.ts to ensure consistency
 const mockImages = {
@@ -443,9 +443,11 @@ describe('ImageCompare', () => {
         });
 
         it('should observeDirectionChanges method setup mutation observer correctly', () => {
-            const mockMutationObserver = vi.fn().mockReturnValue({
-                observe: vi.fn(),
-                disconnect: vi.fn()
+            const mockMutationObserver = vi.fn().mockImplementation(function () {
+                return {
+                    observe: vi.fn(),
+                    disconnect: vi.fn()
+                };
             });
             (window as any).MutationObserver = mockMutationObserver;
 

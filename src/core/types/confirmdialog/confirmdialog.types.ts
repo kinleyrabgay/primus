@@ -1,7 +1,7 @@
 import { TemplateRef } from '@angular/core';
-import type { Confirmation, PassThrough, PassThroughOption } from '@primus/core/api';
-import { DialogPassThrough } from '@primus/core/types/dialog';
-import type { ButtonPassThrough } from '@primus/core/types/button';
+import type { Confirmation, PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
+import { DialogPassThrough } from '@selisedev/primus-beta/core/types/dialog';
+import type { ButtonPassThrough } from '@selisedev/primus-beta/core/types/button';
 
 /**
  * Custom pass-through(pt) options.

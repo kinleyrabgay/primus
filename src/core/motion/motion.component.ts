@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { afterRenderEffect, Component, computed, effect, inject, InjectionToken, input, output, signal, untracked, ChangeDetectionStrategy } from '@angular/core';
-import { type ClassNameOptions, createMotion, resolveDuration, type MotionEvent, type MotionInstance, type MotionOptions, type MotionPhase } from '@primus/primeuix/motion';
-import { nextFrame } from '@primus/primeuix/utils';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import type { MotionPassThrough } from '@primus/core/types/motion';
+import { type ClassNameOptions, createMotion, resolveDuration, type MotionEvent, type MotionInstance, type MotionOptions, type MotionPhase } from '@selisedev/primus-beta/primeuix/motion';
+import { nextFrame } from '@selisedev/primus-beta/primeuix/utils';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import type { MotionPassThrough } from '@selisedev/primus-beta/core/types/motion';
 import { applyHiddenStyles, resetStyles } from './motion.utils';
 import { MotionStyle } from './style/motion.style';
 

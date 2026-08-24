@@ -2,8 +2,8 @@ import { Component, provideZonelessChangeDetection, TemplateRef, ChangeDetection
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule, TreeNode } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
+import { SharedModule, TreeNode } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 import { OrganizationChart, OrganizationChartNode } from './organizationchart';
 
 // Test component for basic use cases

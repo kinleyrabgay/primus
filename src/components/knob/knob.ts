@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, numberAttribute, Output, signal, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { $dt } from '@primus/primeuix/styled';
-import { SharedModule } from '@primus/core/api';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Bind } from '@primus/core/bind';
-import { BindModule } from '@primus/core/bind';
-import { VoidListener } from '@primus/core/ts-helpers';
-import { KnobPassThrough } from '@primus/core/types/knob';
+import { $dt } from '@selisedev/primus-beta/primeuix/styled';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { BindModule } from '@selisedev/primus-beta/core/bind';
+import { VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
+import { KnobPassThrough } from '@selisedev/primus-beta/core/types/knob';
 import { KnobStyle } from './style/knobstyle';
 
 const KNOB_INSTANCE = new InjectionToken<Knob>('KNOB_INSTANCE');

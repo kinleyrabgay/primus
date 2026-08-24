@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import type { DatePickerMonthChangeEvent, DatePickerYearChangeEvent } from '@primus/core/types/datepicker';
+import type { DatePickerMonthChangeEvent, DatePickerYearChangeEvent } from '@selisedev/primus-beta/core/types/datepicker';
 import { DatePicker } from './datepicker';
 @Component({
     standalone: true,

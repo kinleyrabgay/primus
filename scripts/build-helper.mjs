@@ -63,13 +63,11 @@ export function createPackageJson_For_NG_Packager(localPackageJson, INPUT_PATH, 
         delete pkg?.main;
         delete pkg?.module;
         delete pkg?.types;
-        // The library's own sources import each other as '@primus/core/*' and
-        // '@primus/components/*'. ng-packagr names every secondary entry point after
-        // this package, so the built package must be '@primus' for those imports to
-        // resolve to entry points rather than falling back to source (TS6059 rootDir).
-        // The repo root keeps the npm-valid '@selise/primus' so it can be installed as
-        // a git dependency; dist/ is never published or consumed.
-        pkg.name = '@primus';
+        // ng-packagr names every secondary entry point after this package, and the
+        // library's own sources import each other by that name (e.g.
+        // '@selisedev/primus-beta/core/*', '@selisedev/primus-beta/primeuix/*'). The
+        // root package.json already carries that npm-valid name, so no override is
+        // needed — the built package keeps it and is publishable + consumable as-is.
     });
 
     callback?.(pkg);

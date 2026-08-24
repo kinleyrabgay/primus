@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, effect, inject, InjectionToken, Input, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from '@primus/primeuix/utils';
-import { SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import type { BadgePassThrough } from '@primus/core/types/badge';
+import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import type { BadgePassThrough } from '@selisedev/primus-beta/core/types/badge';
 import { BadgeStyle } from './style/badgestyle';
 
 const BADGE_INSTANCE = new InjectionToken<Badge>('BADGE_INSTANCE');

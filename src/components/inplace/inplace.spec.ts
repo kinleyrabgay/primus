@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from '@primus/core/api';
-import { ButtonModule } from '@primus/components/button';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { ButtonModule } from '@selisedev/primus-beta/components/button';
 import { Inplace, InplaceContent, InplaceDisplay, InplaceModule } from './inplace';
 
 @Component({

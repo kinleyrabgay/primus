@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
-import { TreeDragDropService, TreeNode } from '@primus/core/api';
+import { TreeDragDropService, TreeNode } from '@selisedev/primus-beta/core/api';
 import { Tree, UITreeNode } from './tree';
 
 // Test component for basic use cases

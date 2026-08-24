@@ -3,8 +3,8 @@ import { Component, DebugElement, input, provideZonelessChangeDetection, ChangeD
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { providePrimus } from '@primus/core/config';
-import type { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent } from '@primus/core/types/scroller';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
+import type { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent } from '@selisedev/primus-beta/core/types/scroller';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Scroller } from './scroller';
 @Component({
@@ -1344,6 +1344,10 @@ describe('Scroller', () => {
             scroller.first = 5;
             scroller._itemSize = 50;
             scroller._appendOnly = false;
+            // jsdom never reports elements as "visible" (no layout), so viewInit()
+            // never runs setContentEl() for us; set it explicitly like production
+            // code does once the element becomes visible.
+            scroller.setContentEl(scroller.contentViewChild?.nativeElement);
 
             scroller.setContentPosition({ first: 5 });
             expect(scroller.contentStyle).toBeDefined();

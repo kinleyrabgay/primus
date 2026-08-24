@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primus/primeuix/styles/scrolltop';
-import { BaseStyle } from '@primus/core/base';
+import { style } from '@selisedev/primus-beta/primeuix/styles/scrolltop';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const classes = {
     root: ({ instance }) => ['p-scrolltop', { 'p-scrolltop-sticky': instance.target !== 'window' }],

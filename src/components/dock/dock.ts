@@ -19,15 +19,15 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
-import { find, findSingle, resolve, uuid } from '@primus/primeuix/utils';
-import { MenuItem, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { Badge } from '@primus/components/badge';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { Ripple } from '@primus/components/ripple';
-import { TooltipModule } from '@primus/components/tooltip';
-import { Nullable } from '@primus/core/ts-helpers';
-import { DockItemTemplateContext, DockPassThrough } from '@primus/core/types/dock';
+import { find, findSingle, resolve, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { MenuItem, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { Badge } from '@selisedev/primus-beta/components/badge';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { TooltipModule } from '@selisedev/primus-beta/components/tooltip';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { DockItemTemplateContext, DockPassThrough } from '@selisedev/primus-beta/core/types/dock';
 import { DockStyle } from './style/dockstyle';
 
 const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');

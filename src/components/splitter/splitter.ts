@@ -1,13 +1,13 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, contentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, numberAttribute, Output, QueryList, ViewEncapsulation } from '@angular/core';
-import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, isRTL, removeClass } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
-import type { SplitterResizeEndEvent, SplitterResizeStartEvent } from '@primus/core/types/splitter';
+import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, isRTL, removeClass } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
+import type { SplitterResizeEndEvent, SplitterResizeStartEvent } from '@selisedev/primus-beta/core/types/splitter';
 import { SplitterStyle } from './style/splitterstyle';
-import { SplitterPassThrough } from '@primus/core/types/splitter';
+import { SplitterPassThrough } from '@selisedev/primus-beta/core/types/splitter';
 
 const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
 

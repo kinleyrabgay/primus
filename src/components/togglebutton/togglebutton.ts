@@ -19,14 +19,14 @@ import {
     TemplateRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Bind } from '@primus/core/bind';
-import { BindModule } from '@primus/core/bind';
-import { Ripple } from '@primus/components/ripple';
-import { Nullable } from '@primus/core/ts-helpers';
-import { ToggleButtonChangeEvent, ToggleButtonContentTemplateContext, ToggleButtonIconTemplateContext, ToggleButtonPassThrough } from '@primus/core/types/togglebutton';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { BindModule } from '@selisedev/primus-beta/core/bind';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { ToggleButtonChangeEvent, ToggleButtonContentTemplateContext, ToggleButtonIconTemplateContext, ToggleButtonPassThrough } from '@selisedev/primus-beta/core/types/togglebutton';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
 
 const TOGGLEBUTTON_INSTANCE = new InjectionToken<ToggleButton>('TOGGLEBUTTON_INSTANCE');

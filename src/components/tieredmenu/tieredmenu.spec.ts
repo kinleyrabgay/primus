@@ -5,9 +5,9 @@ import { CommonModule } from '@angular/common';
 
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem, SharedModule } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
-import { Tooltip } from '@primus/components/tooltip';
+import { MenuItem, SharedModule } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
+import { Tooltip } from '@selisedev/primus-beta/components/tooltip';
 import { TieredMenu } from './tieredmenu';
 
 @Component({
@@ -1245,6 +1245,7 @@ describe('TieredMenu', () => {
             @Component({
                 standalone: true,
                 imports: [TieredMenu],
+                changeDetection: ChangeDetectionStrategy.Eager,
                 template: `<p-tieredmenu [model]="model" [pt]="pt" [disabled]="disabled"></p-tieredmenu>`
             })
             class PTInstanceTestComponent {

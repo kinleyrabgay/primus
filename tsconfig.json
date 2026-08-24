@@ -31,13 +31,13 @@
         /* baseUrl removed: deprecated in TypeScript 6, removed in 7. "paths" values below are
            relative to this file, which is the forward-compatible form. */
         "paths": {                                           /* (UPDATED) Specify a set of entries that re-map imports to additional lookup locations. */
-            "@primus/theme": ["./src/theme/public_api"],
-            "@primus/core/*": ["./src/core/*/public_api"],
-            "@primus/components/*": ["./src/components/*/public_api"],
+            "@selisedev/primus-beta/theme": ["./src/theme/public_api"],
+            "@selisedev/primus-beta/core/*": ["./src/core/*/public_api"],
+            "@selisedev/primus-beta/components/*": ["./src/components/*/public_api"],
             /* Vendored PrimeUIX (MIT, archived upstream). Owned in-tree under
-               src/primeuix as @primus secondary entry points — see LICENSE files
-               there. Mirrors the @primus/core|components entry-point convention. */
-            "@primus/primeuix/*": ["./src/primeuix/*"]
+               src/primeuix as @selisedev/primus-beta secondary entry points — see LICENSE files
+               there. Mirrors the @selisedev/primus-beta/core|components entry-point convention. */
+            "@selisedev/primus-beta/primeuix/*": ["./src/primeuix/*"]
         },
         // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
         // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */

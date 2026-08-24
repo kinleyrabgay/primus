@@ -1,6 +1,6 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation } from '@angular/core';
-import { cn } from '@primus/primeuix/utils';
-import { BaseComponent } from '@primus/core/basecomponent';
+import { cn } from '@selisedev/primus-beta/primeuix/utils';
+import { BaseComponent } from '@selisedev/primus-beta/core/basecomponent';
 import { BaseIconStyle } from './style/baseiconstyle';
 
 @Component({

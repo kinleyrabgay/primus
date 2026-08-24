@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { providePrimus } from '@primus/core/config';
-import { TextareaPassThrough } from '@primus/core/types/textarea';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
+import { TextareaPassThrough } from '@selisedev/primus-beta/core/types/textarea';
 import { Textarea } from './textarea';
 
 @Component({

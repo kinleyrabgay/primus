@@ -3,7 +3,7 @@ import { Component, ViewChild, signal, provideZonelessChangeDetection, ChangeDet
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { DataView } from './dataview';
-import { PaginatorModule } from '@primus/components/paginator';
+import { PaginatorModule } from '@selisedev/primus-beta/components/paginator';
 
 @Component({
     standalone: true,

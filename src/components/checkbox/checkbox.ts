@@ -24,15 +24,15 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { contains, equals } from '@primus/primeuix/utils';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Bind, BindModule } from '@primus/core/bind';
-import { CheckIcon } from '@primus/core/icons/check';
-import { MinusIcon } from '@primus/core/icons/minus';
-import { Nullable } from '@primus/core/ts-helpers';
-import { CheckboxChangeEvent, CheckboxIconTemplateContext, CheckboxPassThrough } from '@primus/core/types/checkbox';
+import { contains, equals } from '@selisedev/primus-beta/primeuix/utils';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { CheckIcon } from '@selisedev/primus-beta/core/icons/check';
+import { MinusIcon } from '@selisedev/primus-beta/core/icons/minus';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { CheckboxChangeEvent, CheckboxIconTemplateContext, CheckboxPassThrough } from '@selisedev/primus-beta/core/types/checkbox';
 import { CheckboxStyle } from './style/checkboxstyle';
 
 const CHECKBOX_INSTANCE = new InjectionToken<Checkbox>('CHECKBOX_INSTANCE');

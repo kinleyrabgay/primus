@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from '@primus/core/base';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const classes = {
     root: 'p-avatar-group p-component'

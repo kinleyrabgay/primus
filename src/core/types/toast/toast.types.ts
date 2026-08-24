@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import type { MotionOptions } from '@primus/primeuix/motion';
-import type { PassThrough, PassThroughOption, ToastMessageOptions } from '@primus/core/api';
+import type { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import type { PassThrough, PassThroughOption, ToastMessageOptions } from '@selisedev/primus-beta/core/api';
 
 /**
  * Custom pass-through(pt) options for Toast.

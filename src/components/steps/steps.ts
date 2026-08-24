@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { find, findSingle } from '@primus/primeuix/utils';
-import { MenuItem, SharedModule } from '@primus/core/api';
-import { BaseComponent } from '@primus/core/basecomponent';
-import { TooltipModule } from '@primus/components/tooltip';
-import { Nullable } from '@primus/core/ts-helpers';
+import { find, findSingle } from '@selisedev/primus-beta/primeuix/utils';
+import { MenuItem, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent } from '@selisedev/primus-beta/core/basecomponent';
+import { TooltipModule } from '@selisedev/primus-beta/components/tooltip';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
 import { Subscription } from 'rxjs';
 import { StepsStyle } from './style/stepsstyle';
 

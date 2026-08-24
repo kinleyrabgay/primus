@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { BaseComponent } from '@primus/core/basecomponent';
+import { BaseComponent } from '@selisedev/primus-beta/core/basecomponent';
 import { Skeleton, SkeletonModule } from './skeleton';
 
 @Component({
@@ -1288,7 +1288,7 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 7: Test from PrimeNGConfig', () => {
         it('should apply global pt configuration from PrimeNGConfig', () => {
-            const { providePrimus } = require('@primus/core/config');
+            const { providePrimus } = require('@selisedev/primus-beta/core/config');
 
             @Component({
                 standalone: true,
@@ -1330,7 +1330,7 @@ describe('Skeleton', () => {
         });
 
         it('should merge local pt with global pt configuration', () => {
-            const { providePrimus } = require('@primus/core/config');
+            const { providePrimus } = require('@selisedev/primus-beta/core/config');
 
             @Component({
                 standalone: true,

@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem, SharedModule } from '@primus/core/api';
-import { ButtonModule } from '@primus/components/button';
+import { MenuItem, SharedModule } from '@selisedev/primus-beta/core/api';
+import { ButtonModule } from '@selisedev/primus-beta/components/button';
 import { SpeedDial } from './speeddial';
 
 // Basic SpeedDial Test Component

@@ -26,18 +26,18 @@ import {
     viewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
-import { absolutePosition, addClass, appendChild, findSingle, focus, getOffset, isIOS, isTouchDevice } from '@primus/primeuix/utils';
-import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { ButtonModule } from '@primus/components/button';
-import { ConnectedOverlayScrollHandler } from '@primus/core/dom';
-import { FocusTrap } from '@primus/components/focustrap';
-import { MotionModule } from '@primus/core/motion';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
-import { ConfirmPopupContentTemplateContext, ConfirmPopupHeadlessTemplateContext, ConfirmPopupPassThrough } from '@primus/core/types/confirmpopup';
-import { ZIndexUtils } from '@primus/core/utils';
+import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { absolutePosition, addClass, appendChild, findSingle, focus, getOffset, isIOS, isTouchDevice } from '@selisedev/primus-beta/primeuix/utils';
+import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { ButtonModule } from '@selisedev/primus-beta/components/button';
+import { ConnectedOverlayScrollHandler } from '@selisedev/primus-beta/core/dom';
+import { FocusTrap } from '@selisedev/primus-beta/components/focustrap';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
+import { ConfirmPopupContentTemplateContext, ConfirmPopupHeadlessTemplateContext, ConfirmPopupPassThrough } from '@selisedev/primus-beta/core/types/confirmpopup';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { Subscription } from 'rxjs';
 import { ConfirmPopupStyle } from './style/confirmpopupstyle';
 

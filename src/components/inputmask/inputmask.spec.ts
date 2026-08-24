@@ -3,7 +3,7 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { FormsModule, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputMask, InputMaskModule, InputMaskDirective } from './inputmask';
-import { SharedModule } from '@primus/core/api';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
 import { CommonModule } from '@angular/common';
 
 // Test Components
@@ -386,15 +386,25 @@ describe('InputMask', () => {
         });
 
         it('should emit onComplete when mask is fully filled', async () => {
-            vi.spyOn(testComponent, 'onMaskComplete').mockImplementation(() => undefined);
-            testComponent.mask = '999';
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
+            // Use a fresh fixture with `mask` set before the first change detection run.
+            // The `mask` setter synchronously calls writeValue('') + onModelChange(), which
+            // updates the host's `value` via the ngModel two-way binding. Mutating `mask` on
+            // an already-checked fixture (as the shared `testFixture` is, from the outer
+            // beforeEach) makes that update land after `[(ngModel)]="value"` was already
+            // checked this pass, causing a false-positive ExpressionChangedAfterItHasBeenChecked.
+            // Setting it pre-creation avoids that entirely since there is no prior checked value
+            // to conflict with.
+            const localFixture = TestBed.createComponent(TestBasicInputMaskComponent);
+            const localComponent = localFixture.componentInstance;
+            localComponent.mask = '999';
+            vi.spyOn(localComponent, 'onMaskComplete').mockImplementation(() => undefined);
+            localFixture.detectChanges();
+            await localFixture.whenStable();
 
-            const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
+            const inputMask = localFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
             if (inputMask.onComplete) {
                 inputMask.onComplete.emit();
-                expect(testComponent.onMaskComplete).toHaveBeenCalled();
+                expect(localComponent.onMaskComplete).toHaveBeenCalled();
             } else {
                 // If onComplete is not available, just check that the component exists
                 expect(inputMask).toBeTruthy();

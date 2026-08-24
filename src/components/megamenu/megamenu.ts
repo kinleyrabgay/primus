@@ -22,17 +22,17 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, resolve, uuid } from '@primus/primeuix/utils';
-import { MegaMenuItem, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BadgeModule } from '@primus/components/badge';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { AngleDownIcon, AngleRightIcon, BarsIcon } from '@primus/core/icons';
-import { Ripple } from '@primus/components/ripple';
-import { TooltipModule } from '@primus/components/tooltip';
-import { VoidListener } from '@primus/core/ts-helpers';
-import { MegaMenuItemTemplateContext, MegaMenuPassThrough } from '@primus/core/types/megamenu';
-import { ZIndexUtils } from '@primus/core/utils';
+import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, resolve, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { MegaMenuItem, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BadgeModule } from '@selisedev/primus-beta/components/badge';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { AngleDownIcon, AngleRightIcon, BarsIcon } from '@selisedev/primus-beta/core/icons';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { TooltipModule } from '@selisedev/primus-beta/components/tooltip';
+import { VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
+import { MegaMenuItemTemplateContext, MegaMenuPassThrough } from '@selisedev/primus-beta/core/types/megamenu';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { MegaMenuStyle } from './style/megamenustyle';
 
 const MEGAMENU_INSTANCE = new InjectionToken<MegaMenu>('MEGAMENU_INSTANCE');

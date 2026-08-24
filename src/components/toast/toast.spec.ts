@@ -3,8 +3,8 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
+import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 import { Toast, ToastItem } from './toast';
 
 // Test Components for different scenarios
@@ -843,6 +843,7 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 1: Simple string classes', () => {
         @Component({
+            selector: 'test-toast-pt',
             standalone: true,
             imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
@@ -889,6 +890,7 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 2: Objects', () => {
         @Component({
+            selector: 'test-toast-pt-object',
             standalone: true,
             imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
@@ -951,6 +953,7 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 3: Mixed object and string values', () => {
         @Component({
+            selector: 'test-toast-pt-mixed',
             standalone: true,
             imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
@@ -995,6 +998,7 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 4: Use variables from instance', () => {
         @Component({
+            selector: 'test-toast-pt-instance',
             standalone: true,
             imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [position]="position" [pt]="pt"></p-toast> `
@@ -1068,6 +1072,7 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 5: Event binding', () => {
         @Component({
+            selector: 'test-toast-pt-event',
             standalone: true,
             imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
@@ -1258,6 +1263,7 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 8: Test hooks', () => {
         @Component({
+            selector: 'test-toast-pt-hooks',
             standalone: true,
             imports: [CommonModule, Toast, ToastItem, SharedModule, PrimeTemplate],
             template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
@@ -1395,6 +1401,14 @@ describe('ToastItem', () => {
             imports: [CommonModule, ToastItem, SharedModule],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
+    });
+
+    // Vitest spies/mocks (unlike Jasmine's `spyOn`) are not auto-restored between tests.
+    // Without this, a leaked `window.setTimeout`/`clearTimeout` mock from one test (e.g.
+    // "should not initialize timeout for sticky messages") silently breaks unrelated
+    // later tests that rely on real timers (causing hangs/timeouts).
+    afterEach(() => {
+        vi.restoreAllMocks();
     });
 
     describe('Component Initialization', () => {

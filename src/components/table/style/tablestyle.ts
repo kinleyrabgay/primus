@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as datatable_style } from '@primus/primeuix/styles/datatable';
-import { BaseStyle } from '@primus/core/base';
+import { style as datatable_style } from '@selisedev/primus-beta/primeuix/styles/datatable';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
 ${datatable_style}

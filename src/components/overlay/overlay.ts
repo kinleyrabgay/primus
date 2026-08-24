@@ -20,17 +20,17 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionEvent, MotionOptions } from '@primus/primeuix/motion';
-import { absolutePosition, addClass, appendChild, focus, getOuterWidth, getTargetElement, isTouchDevice, relativePosition, removeClass } from '@primus/primeuix/utils';
-import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { ConnectedOverlayScrollHandler } from '@primus/core/dom';
-import { MotionModule } from '@primus/core/motion';
+import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { absolutePosition, addClass, appendChild, focus, getOuterWidth, getTargetElement, isTouchDevice, relativePosition, removeClass } from '@selisedev/primus-beta/primeuix/utils';
+import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { ConnectedOverlayScrollHandler } from '@selisedev/primus-beta/core/dom';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
 import { Subscription } from 'rxjs';
-import { VoidListener } from '@primus/core/ts-helpers';
-import { ObjectUtils, ZIndexUtils } from '@primus/core/utils';
-import { OverlayContentTemplateContext } from '@primus/core/types/overlay';
+import { VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
+import { ObjectUtils, ZIndexUtils } from '@selisedev/primus-beta/core/utils';
+import { OverlayContentTemplateContext } from '@selisedev/primus-beta/core/types/overlay';
 import { OverlayStyle } from './style/overlaystyle';
 
 const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');

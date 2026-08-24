@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from '@primus/core/api';
-import type { ToggleButtonPassThrough } from '@primus/core/types/togglebutton';
+import type { PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
+import type { ToggleButtonPassThrough } from '@selisedev/primus-beta/core/types/togglebutton';
 
 /**
  * Custom pass-through(pt) options.

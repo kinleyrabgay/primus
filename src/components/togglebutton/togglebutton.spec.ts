@@ -4,9 +4,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
-import { ToggleButtonChangeEvent } from '@primus/core/types/togglebutton';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
+import { ToggleButtonChangeEvent } from '@selisedev/primus-beta/core/types/togglebutton';
 import { ToggleButton } from './togglebutton';
 
 @Component({

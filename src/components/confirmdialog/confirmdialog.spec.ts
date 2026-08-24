@@ -2,9 +2,9 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ConfirmationService } from '@primus/core/api';
-import { Button } from '@primus/components/button';
-import { Dialog } from '@primus/components/dialog';
+import { ConfirmationService } from '@selisedev/primus-beta/core/api';
+import { Button } from '@selisedev/primus-beta/components/button';
+import { Dialog } from '@selisedev/primus-beta/components/dialog';
 import { ConfirmDialog } from './confirmdialog';
 
 // Basic ConfirmDialog Component Test

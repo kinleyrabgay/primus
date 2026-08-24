@@ -1,4 +1,4 @@
-import { mergeKeys } from '@primus/primeuix/utils';
+import { mergeKeys } from '@selisedev/primus-beta/primeuix/utils';
 import Theme from '../config/index';
 
 export const $t = (theme: any = {}) => {

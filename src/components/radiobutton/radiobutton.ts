@@ -21,15 +21,15 @@ import {
     ViewChild
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { SharedModule } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Bind } from '@primus/core/bind';
-import { BindModule } from '@primus/core/bind';
-import { Nullable } from '@primus/core/ts-helpers';
-import { RadioButtonPassThrough } from '@primus/core/types/radiobutton';
-import type { RadioButtonClickEvent } from '@primus/core/types/radiobutton';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { BindModule } from '@selisedev/primus-beta/core/bind';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { RadioButtonPassThrough } from '@selisedev/primus-beta/core/types/radiobutton';
+import type { RadioButtonClickEvent } from '@selisedev/primus-beta/core/types/radiobutton';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
 
 const RADIOBUTTON_INSTANCE = new InjectionToken<RadioButton>('RADIOBUTTON_INSTANCE');

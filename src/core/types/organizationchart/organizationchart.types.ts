@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from '@primus/core/api';
-import { TreeNode } from '@primus/core/api';
+import type { PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
+import { TreeNode } from '@selisedev/primus-beta/core/api';
 
 /**
  * Custom pass-through(pt) options.

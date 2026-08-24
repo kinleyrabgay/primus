@@ -1,10 +1,10 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from '@primus/core/api';
-import { ScrollerOptions } from '@primus/core/api';
-import type { ChipPassThrough } from '@primus/core/types/chip';
-import type { InputTextPassThrough } from '@primus/core/types/inputtext';
-import type { OverlayPassThrough } from '@primus/core/types/overlay';
-import type { VirtualScrollerPassThrough } from '@primus/core/types/scroller';
+import type { PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
+import { ScrollerOptions } from '@selisedev/primus-beta/core/api';
+import type { ChipPassThrough } from '@selisedev/primus-beta/core/types/chip';
+import type { InputTextPassThrough } from '@selisedev/primus-beta/core/types/inputtext';
+import type { OverlayPassThrough } from '@selisedev/primus-beta/core/types/overlay';
+import type { VirtualScrollerPassThrough } from '@selisedev/primus-beta/core/types/scroller';
 
 /**
  * Custom pass-through(pt) options.

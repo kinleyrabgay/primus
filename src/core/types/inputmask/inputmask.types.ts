@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from '@primus/core/api';
-import type { InputTextPassThrough } from '@primus/core/types/inputtext';
+import type { PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
+import type { InputTextPassThrough } from '@selisedev/primus-beta/core/types/inputtext';
 
 /**
  * Custom pass-through(pt) options.

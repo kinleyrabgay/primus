@@ -3,9 +3,9 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputIcon } from './inputicon';
-import { IconField } from '@primus/components/iconfield';
-import { InputText } from '@primus/components/inputtext';
-import { providePrimus } from '@primus/core/config';
+import { IconField } from '@selisedev/primus-beta/components/iconfield';
+import { InputText } from '@selisedev/primus-beta/components/inputtext';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 
 @Component({
     standalone: true,

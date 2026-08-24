@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, DebugElement, provideZonelessChangeDetection, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 import { Message } from './message';
 
 @Component({

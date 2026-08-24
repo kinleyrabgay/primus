@@ -2,7 +2,7 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from '@primus/core/api';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
 import { Image, ImageModule } from './image';
 
 // Using image paths from photoservice.ts to ensure consistency
@@ -972,7 +972,7 @@ describe('Image', () => {
             });
 
             it('should apply global PT configuration from PrimeNGConfig', async () => {
-                const { providePrimus } = await import('@primus/core/config');
+                const { providePrimus } = await import('@selisedev/primus-beta/core/config');
 
                 @Component({
                     standalone: true,

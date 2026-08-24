@@ -4,8 +4,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem, OverlayService, SharedModule } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
+import { MenuItem, OverlayService, SharedModule } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 import { Menu } from './menu';
 
 @Component({

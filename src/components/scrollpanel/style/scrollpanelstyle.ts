@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as scrollpanel_style } from '@primus/primeuix/styles/scrollpanel';
-import { BaseStyle } from '@primus/core/base';
+import { style as scrollpanel_style } from '@selisedev/primus-beta/primeuix/styles/scrollpanel';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
     ${scrollpanel_style}

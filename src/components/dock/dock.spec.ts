@@ -4,8 +4,8 @@ import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem, SharedModule } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
+import { MenuItem, SharedModule } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 import { Dock } from './dock';
 
 @Component({

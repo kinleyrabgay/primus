@@ -1,4 +1,4 @@
-import { resolve } from '@primus/primeuix/utils';
+import { resolve } from '@selisedev/primus-beta/primeuix/utils';
 import { evaluateDtExpressions, type StyleType } from '..';
 import { dt } from './dt';
 

@@ -1,4 +1,4 @@
 // Backward compatibility
-export * from '@primus/core/types/button';
+export * from '@selisedev/primus-beta/core/types/button';
 export * from './button';
 export * from './style/buttonstyle';

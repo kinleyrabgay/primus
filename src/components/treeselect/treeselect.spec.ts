@@ -3,9 +3,9 @@ import { Component, provideZonelessChangeDetection, signal, ChangeDetectionStrat
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SharedModule, TreeNode } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
-import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from '@primus/core/types/treeselect';
+import { SharedModule, TreeNode } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
+import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from '@selisedev/primus-beta/core/types/treeselect';
 import { BehaviorSubject } from 'rxjs';
 import { TreeSelect, TreeSelectModule } from './treeselect';
 

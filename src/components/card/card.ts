@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { equals } from '@primus/primeuix/utils';
-import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
+import { equals } from '@selisedev/primus-beta/primeuix/utils';
+import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
 import { CardStyle } from './style/cardstyle';
-import { CardPassThrough } from '@primus/core/types/card';
+import { CardPassThrough } from '@selisedev/primus-beta/core/types/card';
 
 const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
 

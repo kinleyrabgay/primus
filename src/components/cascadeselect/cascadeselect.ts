@@ -26,18 +26,18 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MotionOptions } from '@primus/primeuix/motion';
-import { calculateScrollbarWidth, equals, findLastIndex, findSingle, focus, getHiddenElementOuterWidth, getOffset, getOuterWidth, getViewport, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primus/primeuix/utils';
-import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Bind } from '@primus/core/bind';
-import { Fluid } from '@primus/components/fluid';
-import { AngleRightIcon, ChevronDownIcon, TimesIcon } from '@primus/core/icons';
-import { Overlay } from '@primus/components/overlay';
-import { Ripple } from '@primus/components/ripple';
-import { Nullable, VoidListener } from '@primus/core/ts-helpers';
+import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { calculateScrollbarWidth, equals, findLastIndex, findSingle, focus, getHiddenElementOuterWidth, getOffset, getOuterWidth, getViewport, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { Fluid } from '@selisedev/primus-beta/components/fluid';
+import { AngleRightIcon, ChevronDownIcon, TimesIcon } from '@selisedev/primus-beta/core/icons';
+import { Overlay } from '@selisedev/primus-beta/components/overlay';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { Nullable, VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     CascadeSelectBeforeHideEvent,
     CascadeSelectBeforeShowEvent,
@@ -47,7 +47,7 @@ import {
     CascadeSelectPassThrough,
     CascadeSelectShowEvent,
     CascadeSelectValueTemplateContext
-} from '@primus/core/types/cascadeselect';
+} from '@selisedev/primus-beta/core/types/cascadeselect';
 import { CascadeSelectStyle } from './style/cascadeselectstyle';
 
 const CASCADESELECT_INSTANCE = new InjectionToken<CascadeSelect>('CASCADESELECT_INSTANCE');

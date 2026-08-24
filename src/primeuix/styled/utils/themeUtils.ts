@@ -1,4 +1,4 @@
-import { isEmpty, isNotEmpty, isObject, matchRegex, minifyCSS, resolve } from '@primus/primeuix/utils';
+import { isEmpty, isNotEmpty, isObject, matchRegex, minifyCSS, resolve } from '@selisedev/primus-beta/primeuix/utils';
 import { dt, toVariables } from '../helpers/index';
 import { CALC_REGEX, EXPR_REGEX, getRule, toTokenKey, VAR_REGEX } from './sharedUtils';
 

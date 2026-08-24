@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primus/primeuix/styles/contextmenu';
-import { BaseStyle } from '@primus/core/base';
+import { style } from '@selisedev/primus-beta/primeuix/styles/contextmenu';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const inlineStyles = {
     root: { position: 'absolute' }

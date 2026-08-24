@@ -1,13 +1,13 @@
 import { CommonModule, isPlatformServer } from '@angular/common';
 import { afterNextRender, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { findSingle } from '@primus/primeuix/utils';
-import { Header, PrimeTemplate, SharedModule } from '@primus/core/api';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Bind, BindModule } from '@primus/core/bind';
-import { Nullable } from '@primus/core/ts-helpers';
-import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorPassThrough, EditorSelectionChangeEvent, EditorTextChangeEvent } from '@primus/core/types/editor';
+import { findSingle } from '@selisedev/primus-beta/primeuix/utils';
+import { Header, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
+import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorPassThrough, EditorSelectionChangeEvent, EditorTextChangeEvent } from '@selisedev/primus-beta/core/types/editor';
 import { EditorStyle } from './style/editorstyle';
 
 const EDITOR_INSTANCE = new InjectionToken<Editor>('EDITOR_INSTANCE');

@@ -28,23 +28,23 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MotionOptions } from '@primus/primeuix/motion';
-import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primus/primeuix/utils';
-import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseInput } from '@primus/core/baseinput';
-import { Bind, BindModule } from '@primus/core/bind';
-import { unblockBodyScroll } from '@primus/core/dom';
-import { IconField } from '@primus/components/iconfield';
-import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from '@primus/core/icons';
-import { InputIcon } from '@primus/components/inputicon';
-import { InputText } from '@primus/components/inputtext';
-import { Overlay } from '@primus/components/overlay';
-import { Ripple } from '@primus/components/ripple';
-import { Scroller } from '@primus/components/scroller';
-import { Tooltip } from '@primus/components/tooltip';
-import { Nullable } from '@primus/core/ts-helpers';
+import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseInput } from '@selisedev/primus-beta/core/baseinput';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { unblockBodyScroll } from '@selisedev/primus-beta/core/dom';
+import { IconField } from '@selisedev/primus-beta/components/iconfield';
+import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from '@selisedev/primus-beta/core/icons';
+import { InputIcon } from '@selisedev/primus-beta/components/inputicon';
+import { InputText } from '@selisedev/primus-beta/components/inputtext';
+import { Overlay } from '@selisedev/primus-beta/components/overlay';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { Scroller } from '@selisedev/primus-beta/components/scroller';
+import { Tooltip } from '@selisedev/primus-beta/components/tooltip';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     SelectChangeEvent,
     SelectFilterEvent,
@@ -57,7 +57,7 @@ import {
     SelectLoaderTemplateContext,
     SelectPassThrough,
     SelectSelectedItemTemplateContext
-} from '@primus/core/types/select';
+} from '@selisedev/primus-beta/core/types/select';
 import { SelectStyle } from './style/selectstyle';
 
 const SELECT_INSTANCE = new InjectionToken<Select>('SELECT_INSTANCE');

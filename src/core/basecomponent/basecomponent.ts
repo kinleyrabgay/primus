@@ -1,10 +1,10 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { ChangeDetectorRef, computed, Directive, effect, ElementRef, inject, InjectionToken, Injector, input, PLATFORM_ID, Renderer2, signal, SimpleChanges } from '@angular/core';
-import { Theme, ThemeService } from '@primus/primeuix/styled';
-import { cn, getKeyValue, isArray, isFunction, isNotEmpty, isString, mergeProps, resolve, toFlatCase, uuid } from '@primus/primeuix/utils';
-import type { Lifecycle, PassThroughOptions } from '@primus/core/api';
-import { Base, BaseStyle } from '@primus/core/base';
-import { PrimeNG } from '@primus/core/config';
+import { Theme, ThemeService } from '@selisedev/primus-beta/primeuix/styled';
+import { cn, getKeyValue, isArray, isFunction, isNotEmpty, isString, mergeProps, resolve, toFlatCase, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import type { Lifecycle, PassThroughOptions } from '@selisedev/primus-beta/core/api';
+import { Base, BaseStyle } from '@selisedev/primus-beta/core/base';
+import { PrimeNG } from '@selisedev/primus-beta/core/config';
 import { BaseComponentStyle } from './style/basecomponentstyle';
 
 export const PARENT_INSTANCE = new InjectionToken<BaseComponent>('PARENT_INSTANCE');

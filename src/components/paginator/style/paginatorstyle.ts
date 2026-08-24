@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primus/primeuix/styles/paginator';
-import { BaseStyle } from '@primus/core/base';
+import { style } from '@selisedev/primus-beta/primeuix/styles/paginator';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const classes = {
     paginator: ({ instance }) => ['p-paginator p-component'],

@@ -3,9 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
-import { BaseComponent } from '@primus/core/basecomponent';
-import { Button } from '@primus/components/button';
-import { ZIndexUtils } from '@primus/core/utils';
+import { BaseComponent } from '@selisedev/primus-beta/core/basecomponent';
+import { Button } from '@selisedev/primus-beta/components/button';
+import { ZIndexUtils } from '@selisedev/primus-beta/core/utils';
 import { ScrollTop, ScrollTopModule } from './scrolltop';
 
 @Component({
@@ -114,6 +114,15 @@ describe('ScrollTop', () => {
         });
     });
 
+    // Unlike Jasmine (which auto-tears-down spies after every spec), Vitest's vi.spyOn
+    // leaves mocks in place until explicitly restored. Several tests here spy on
+    // `document.defaultView` (a shared, global object across fixtures), so without an
+    // explicit restore that mock leaks into the next test's TestBed.createComponent()/
+    // fixture.detectChanges() call and breaks bindDocumentScrollListener() there.
+    afterEach(() => {
+        vi.restoreAllMocks();
+    });
+
     describe('Component Initialization', () => {
         let fixture: ComponentFixture<TestBasicScrollTopComponent>;
         let component: TestBasicScrollTopComponent;
@@ -132,6 +141,7 @@ describe('ScrollTop', () => {
         it('should create the component', () => {
             expect(scrollTop).toBeTruthy();
         });
+
 
         it('should have default values', () => {
             const newFixture = TestBed.createComponent(TestBasicScrollTopComponent);
@@ -854,6 +864,7 @@ describe('ScrollTop', () => {
             @Component({
                 standalone: true,
                 imports: [ScrollTopModule],
+                selector: 'test-scrolltop-multiple',
                 template: `
                     <p-scrolltop [threshold]="100"></p-scrolltop>
                     <p-scrolltop [threshold]="200"></p-scrolltop>
@@ -878,6 +889,7 @@ describe('ScrollTop', () => {
             @Component({
                 standalone: true,
                 imports: [ScrollTopModule],
+                selector: 'test-scrolltop-nested',
                 template: `
                     <div class="outer" style="height: 300px; overflow: auto;">
                         <div style="height: 1000px;">
@@ -910,6 +922,13 @@ describe('ScrollTop', () => {
         @Component({
             standalone: true,
             imports: [ScrollTopModule],
+            selector: 'test-scrolltop-pt-case1',
+            // Eager CD is required here (unlike the other PassThrough cases) because this
+            // component's `pt` value is mutated *after* the initial fixture.detectChanges()
+            // in beforeEach — under zoneless CD, the default strategy on a plain inline test
+            // host won't re-run its template bindings on a later markForCheck()+detectChanges()
+            // unless Eager, so the child ScrollTop's `pt` input never picks up the new value.
+            changeDetection: ChangeDetectionStrategy.Eager,
             template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
         })
         class TestScrollTopPtComponent {
@@ -960,6 +979,7 @@ describe('ScrollTop', () => {
         @Component({
             standalone: true,
             imports: [ScrollTopModule],
+            selector: 'test-scrolltop-pt-case2',
             template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
         })
         class TestScrollTopPtObjectComponent {
@@ -1019,6 +1039,7 @@ describe('ScrollTop', () => {
         @Component({
             standalone: true,
             imports: [ScrollTopModule],
+            selector: 'test-scrolltop-pt-case3',
             template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
         })
         class TestScrollTopPtMixedComponent {
@@ -1061,6 +1082,7 @@ describe('ScrollTop', () => {
         @Component({
             standalone: true,
             imports: [ScrollTopModule],
+            selector: 'test-scrolltop-pt-case4',
             template: ` <p-scrolltop [threshold]="threshold" [target]="target" [pt]="pt"></p-scrolltop> `
         })
         class TestScrollTopPtInstanceComponent {
@@ -1128,6 +1150,7 @@ describe('ScrollTop', () => {
         @Component({
             standalone: true,
             imports: [ScrollTopModule],
+            selector: 'test-scrolltop-pt-case5',
             template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
         })
         class TestScrollTopPtEventComponent {
@@ -1195,6 +1218,7 @@ describe('ScrollTop', () => {
         @Component({
             standalone: true,
             imports: [ScrollTopModule],
+            selector: 'test-scrolltop-pt-case6-string',
             template: ` <p-scrolltop [threshold]="100" [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-scrolltop> `
         })
         class TestScrollTopInlineStringPtComponent {}
@@ -1202,6 +1226,7 @@ describe('ScrollTop', () => {
         @Component({
             standalone: true,
             imports: [ScrollTopModule],
+            selector: 'test-scrolltop-pt-case6-object',
             template: ` <p-scrolltop [threshold]="100" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-scrolltop> `
         })
         class TestScrollTopInlineObjectPtComponent {}
@@ -1240,11 +1265,12 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 7: Test from PrimeNGConfig', () => {
         it('should apply global pt configuration from PrimeNGConfig', () => {
-            const { providePrimus } = require('@primus/core/config');
+            const { providePrimus } = require('@selisedev/primus-beta/core/config');
 
             @Component({
                 standalone: true,
                 imports: [ScrollTopModule],
+                selector: 'test-scrolltop-pt-case7-global',
                 template: `
                     <p-scrolltop [threshold]="100"></p-scrolltop>
                     <p-scrolltop [threshold]="200"></p-scrolltop>
@@ -1283,11 +1309,12 @@ describe('ScrollTop', () => {
         });
 
         it('should merge local pt with global pt configuration', () => {
-            const { providePrimus } = require('@primus/core/config');
+            const { providePrimus } = require('@selisedev/primus-beta/core/config');
 
             @Component({
                 standalone: true,
                 imports: [ScrollTopModule],
+                selector: 'test-scrolltop-pt-case7-merged',
                 template: ` <p-scrolltop [threshold]="100" [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-scrolltop> `
             })
             class TestScrollTopMergedPtComponent {}
@@ -1323,6 +1350,7 @@ describe('ScrollTop', () => {
         @Component({
             standalone: true,
             imports: [ScrollTopModule],
+            selector: 'test-scrolltop-pt-case8',
             template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
         })
         class TestScrollTopPtHooksComponent {

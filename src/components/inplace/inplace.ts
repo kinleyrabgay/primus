@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { ButtonModule } from '@primus/components/button';
-import { TimesIcon } from '@primus/core/icons';
-import { Ripple } from '@primus/components/ripple';
-import { InplaceContentTemplateContext, InplacePassThrough } from '@primus/core/types/inplace';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { ButtonModule } from '@selisedev/primus-beta/components/button';
+import { TimesIcon } from '@selisedev/primus-beta/core/icons';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { InplaceContentTemplateContext, InplacePassThrough } from '@selisedev/primus-beta/core/types/inplace';
 import { InplaceStyle } from './style/inplacestyle';
 
 const INPLACE_INSTANCE = new InjectionToken<Inplace>('INPLACE_INSTANCE');

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, NgModule, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from '@primus/core/basecomponent';
+import { BaseComponent } from '@selisedev/primus-beta/core/basecomponent';
 import { ButtonGroupStyle } from './style/buttongroupstyle';
 
 @Component({

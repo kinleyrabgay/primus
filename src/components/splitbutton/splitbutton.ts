@@ -21,18 +21,18 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionOptions } from '@primus/primeuix/motion';
-import { uuid } from '@primus/primeuix/utils';
-import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { ButtonDirective } from '@primus/components/button';
-import { ChevronDownIcon } from '@primus/core/icons';
-import { Ripple } from '@primus/components/ripple';
-import { TieredMenu } from '@primus/components/tieredmenu';
-import { TooltipModule } from '@primus/components/tooltip';
-import { ButtonProps, MenuButtonProps, SplitButtonPassThrough } from '@primus/core/types/splitbutton';
+import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { ButtonDirective } from '@selisedev/primus-beta/components/button';
+import { ChevronDownIcon } from '@selisedev/primus-beta/core/icons';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { TieredMenu } from '@selisedev/primus-beta/components/tieredmenu';
+import { TooltipModule } from '@selisedev/primus-beta/components/tooltip';
+import { ButtonProps, MenuButtonProps, SplitButtonPassThrough } from '@selisedev/primus-beta/core/types/splitbutton';
 import { SplitButtonStyle } from './style/splitbuttonstyle';
 
 const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTANCE');

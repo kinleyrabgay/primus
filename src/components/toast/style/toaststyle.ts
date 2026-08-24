@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primus/primeuix/styles/toast';
-import { BaseStyle } from '@primus/core/base';
+import { style } from '@selisedev/primus-beta/primeuix/styles/toast';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 // Position
 const inlineStyles = {

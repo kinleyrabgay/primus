@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as stepper_style } from '@primus/primeuix/styles/stepper';
-import { BaseStyle } from '@primus/core/base';
+import { style as stepper_style } from '@selisedev/primus-beta/primeuix/styles/stepper';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
 ${stepper_style}

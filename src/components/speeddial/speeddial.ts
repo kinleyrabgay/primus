@@ -20,15 +20,15 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { find, findSingle, focus, hasClass, uuid } from '@primus/primeuix/utils';
-import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { ButtonModule, ButtonProps } from '@primus/components/button';
-import { PlusIcon } from '@primus/core/icons';
-import { Ripple } from '@primus/components/ripple';
-import { TooltipModule } from '@primus/components/tooltip';
-import { SpeedDialButtonTemplateContext, SpeedDialItemTemplateContext, SpeedDialPassThrough } from '@primus/core/types/speeddial';
+import { find, findSingle, focus, hasClass, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { ButtonModule, ButtonProps } from '@selisedev/primus-beta/components/button';
+import { PlusIcon } from '@selisedev/primus-beta/core/icons';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { TooltipModule } from '@selisedev/primus-beta/components/tooltip';
+import { SpeedDialButtonTemplateContext, SpeedDialItemTemplateContext, SpeedDialPassThrough } from '@selisedev/primus-beta/core/types/speeddial';
 import { asapScheduler } from 'rxjs';
 import { SpeedDialStyle } from './style/speeddialstyle';
 

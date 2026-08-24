@@ -4,8 +4,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { providePrimus } from '@primus/core/config';
-import type { InputNumberInputEvent } from '@primus/core/types/inputnumber';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
+import type { InputNumberInputEvent } from '@selisedev/primus-beta/core/types/inputnumber';
 import { InputNumber, InputNumberModule } from './inputnumber';
 
 // Test Components

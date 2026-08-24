@@ -1,7 +1,7 @@
 import { AfterViewInit, booleanAttribute, Directive, ElementRef, EventEmitter, HostListener, Input, NgModule, NgZone, OnDestroy, Output, Renderer2 } from '@angular/core';
-import { addClass, removeClass } from '@primus/primeuix/utils';
-import { DomHandler } from '@primus/core/dom';
-import { VoidListener } from '@primus/core/ts-helpers';
+import { addClass, removeClass } from '@selisedev/primus-beta/primeuix/utils';
+import { DomHandler } from '@selisedev/primus-beta/core/dom';
+import { VoidListener } from '@selisedev/primus-beta/core/ts-helpers';
 
 /**
  * pDraggable directive apply draggable behavior to any element.

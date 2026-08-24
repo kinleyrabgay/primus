@@ -1,6 +1,6 @@
 import { booleanAttribute, computed, Directive, inject, input } from '@angular/core';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Fluid } from '@primus/components/fluid';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Fluid } from '@selisedev/primus-beta/components/fluid';
 
 @Directive({ standalone: true })
 export class BaseInput<PT = any> extends BaseEditableHolder<PT> {

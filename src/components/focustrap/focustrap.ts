@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, Directive, inject, Input, NgModule, PLATFORM_ID, SimpleChanges } from '@angular/core';
-import { createElement, focus, getFirstFocusableElement, getLastFocusableElement } from '@primus/primeuix/utils';
-import { BaseComponent } from '@primus/core/basecomponent';
+import { createElement, focus, getFirstFocusableElement, getLastFocusableElement } from '@selisedev/primus-beta/primeuix/utils';
+import { BaseComponent } from '@selisedev/primus-beta/core/basecomponent';
 
 /**
  * Focus Trap keeps focus within a certain DOM element while tabbing.

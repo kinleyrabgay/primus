@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as card_style } from '@primus/primeuix/styles/card';
-import { BaseStyle } from '@primus/core/base';
+import { style as card_style } from '@selisedev/primus-beta/primeuix/styles/card';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
     ${card_style}

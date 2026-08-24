@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, input, Input, NgModule, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { MotionOptions } from '@primus/primeuix/motion';
-import { PrimeTemplate, SharedModule } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { TimesIcon } from '@primus/core/icons';
-import { MotionModule } from '@primus/core/motion';
-import { Ripple } from '@primus/components/ripple';
-import { MessageContainerTemplateContext, MessagePassThrough } from '@primus/core/types/message';
+import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { TimesIcon } from '@selisedev/primus-beta/core/icons';
+import { MotionModule } from '@selisedev/primus-beta/core/motion';
+import { Ripple } from '@selisedev/primus-beta/components/ripple';
+import { MessageContainerTemplateContext, MessagePassThrough } from '@selisedev/primus-beta/core/types/message';
 import { MessageStyle } from './style/messagestyle';
 
 const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');

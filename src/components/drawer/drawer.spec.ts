@@ -2,7 +2,7 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate } from '@primus/core/api';
+import { PrimeTemplate } from '@selisedev/primus-beta/core/api';
 import { Drawer } from './drawer';
 
 @Component({

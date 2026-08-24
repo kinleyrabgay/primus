@@ -5,8 +5,8 @@ import { By } from '@angular/platform-browser';
 
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem } from '@primus/core/api';
-import { BreadcrumbItemClickEvent } from '@primus/core/types/breadcrumb';
+import { MenuItem } from '@selisedev/primus-beta/core/api';
+import { BreadcrumbItemClickEvent } from '@selisedev/primus-beta/core/types/breadcrumb';
 import { Breadcrumb } from './breadcrumb';
 
 @Component({

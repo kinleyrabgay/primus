@@ -22,19 +22,19 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MotionOptions } from '@primus/primeuix/motion';
-import { focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isNotEmpty, uuid } from '@primus/primeuix/utils';
-import { OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from '@primus/core/api';
-import { AutoFocus } from '@primus/components/autofocus';
-import { PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { BaseEditableHolder } from '@primus/core/baseeditableholder';
-import { Bind } from '@primus/core/bind';
-import { Chip } from '@primus/components/chip';
-import { Fluid } from '@primus/components/fluid';
-import { ChevronDownIcon, TimesIcon } from '@primus/core/icons';
-import { Overlay } from '@primus/components/overlay';
-import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from '@primus/components/tree';
-import { Nullable } from '@primus/core/ts-helpers';
+import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
+import { focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isNotEmpty, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from '@selisedev/primus-beta/core/api';
+import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
+import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { BaseEditableHolder } from '@selisedev/primus-beta/core/baseeditableholder';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { Chip } from '@selisedev/primus-beta/components/chip';
+import { Fluid } from '@selisedev/primus-beta/components/fluid';
+import { ChevronDownIcon, TimesIcon } from '@selisedev/primus-beta/core/icons';
+import { Overlay } from '@selisedev/primus-beta/components/overlay';
+import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from '@selisedev/primus-beta/components/tree';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
 import {
     TreeSelectHeaderTemplateContext,
     TreeSelectItemCheckboxIconTemplateContext,
@@ -43,7 +43,7 @@ import {
     TreeSelectNodeExpandEvent,
     TreeSelectPassThrough,
     TreeSelectValueTemplateContext
-} from '@primus/core/types/treeselect';
+} from '@selisedev/primus-beta/core/types/treeselect';
 import { TreeSelectStyle } from './style/treeselectstyle';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {

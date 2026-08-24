@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { PassThrough, PassThroughOption } from '@primus/core/api';
+import { PassThrough, PassThroughOption } from '@selisedev/primus-beta/core/api';
 
 /**
  * Custom passthrough(pt) options.

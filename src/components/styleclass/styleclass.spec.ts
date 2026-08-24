@@ -838,7 +838,7 @@ describe('StyleClass', () => {
             expect(styleClassInstance.animating).toBe(true);
 
             const targetElement = styleClassInstance.target as HTMLElement;
-            const animationEndEvent = new AnimationEvent('animationend');
+            const animationEndEvent = new Event('animationend');
             targetElement.dispatchEvent(animationEndEvent);
 
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -859,7 +859,7 @@ describe('StyleClass', () => {
             expect(styleClassInstance.animating).toBe(true);
 
             const targetElement = styleClassInstance.target as HTMLElement;
-            const animationEndEvent = new AnimationEvent('animationend');
+            const animationEndEvent = new Event('animationend');
             targetElement.dispatchEvent(animationEndEvent);
 
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -878,7 +878,7 @@ describe('StyleClass', () => {
             const targetElement = styleClassInstance.target as HTMLElement;
             styleClassInstance.enter();
 
-            const animationEndEvent = new AnimationEvent('animationend');
+            const animationEndEvent = new Event('animationend');
             targetElement.dispatchEvent(animationEndEvent);
 
             await new Promise((resolve) => setTimeout(resolve, 100));

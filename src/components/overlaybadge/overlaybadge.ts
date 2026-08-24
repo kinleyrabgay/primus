@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from '@primus/core/api';
-import { BadgeModule } from '@primus/components/badge';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind } from '@primus/core/bind';
-import { OverlayBadgePassThrough } from '@primus/core/types/overlaybadge';
+import { SharedModule } from '@selisedev/primus-beta/core/api';
+import { BadgeModule } from '@selisedev/primus-beta/components/badge';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind } from '@selisedev/primus-beta/core/bind';
+import { OverlayBadgePassThrough } from '@selisedev/primus-beta/core/types/overlaybadge';
 import { OverlayBadgeStyle } from './style/overlaybadgestyle';
 
 const OVERLAYBADGE_INSTANCE = new InjectionToken<OverlayBadge>('OVERLAYBADGE_INSTANCE');

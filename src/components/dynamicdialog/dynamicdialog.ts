@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ComponentRef, inject, InjectionToken, NgModule, Type, ViewChild, ViewEncapsulation } from '@angular/core';
-import { uuid } from '@primus/primeuix/utils';
-import { SharedModule, TranslationKeys } from '@primus/core/api';
-import { BaseComponent, PARENT_INSTANCE } from '@primus/core/basecomponent';
-import { Bind, BindModule } from '@primus/core/bind';
-import { Dialog, DialogPassThrough } from '@primus/components/dialog';
-import { Nullable } from '@primus/core/ts-helpers';
+import { uuid } from '@selisedev/primus-beta/primeuix/utils';
+import { SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
+import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
+import { Dialog, DialogPassThrough } from '@selisedev/primus-beta/components/dialog';
+import { Nullable } from '@selisedev/primus-beta/core/ts-helpers';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';

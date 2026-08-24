@@ -4,8 +4,8 @@ import { Component, provideZonelessChangeDetection, ChangeDetectionStrategy } fr
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate } from '@primus/core/api';
-import { providePrimus } from '@primus/core/config';
+import { PrimeTemplate } from '@selisedev/primus-beta/core/api';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
 import {
     PickListMoveAllToSourceEvent,
     PickListMoveAllToTargetEvent,
@@ -15,7 +15,7 @@ import {
     PickListSourceSelectEvent,
     PickListTargetReorderEvent,
     PickListTargetSelectEvent
-} from '@primus/core/types/picklist';
+} from '@selisedev/primus-beta/core/types/picklist';
 import { PickList } from './picklist';
 
 @Component({

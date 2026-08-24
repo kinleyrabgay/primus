@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as cascadeselect_style } from '@primus/primeuix/styles/cascadeselect';
-import { BaseStyle } from '@primus/core/base';
+import { style as cascadeselect_style } from '@selisedev/primus-beta/primeuix/styles/cascadeselect';
+import { BaseStyle } from '@selisedev/primus-beta/core/base';
 
 const style = /*css*/ `
     ${cascadeselect_style}

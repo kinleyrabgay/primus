@@ -4,8 +4,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { providePrimus } from '@primus/core/config';
-import { ListboxChangeEvent } from '@primus/core/types/listbox';
+import { providePrimus } from '@selisedev/primus-beta/core/config';
+import { ListboxChangeEvent } from '@selisedev/primus-beta/core/types/listbox';
 import { BehaviorSubject, Observable, delay, of } from 'rxjs';
 import { Listbox } from './listbox';
 
