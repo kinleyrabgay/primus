@@ -124,17 +124,16 @@ function init() {
         tsconfig.compilerOptions ??= {};
         tsconfig.compilerOptions.paths ??= {};
         // relative path values — valid without a baseUrl (TS5090).
-        // TypeScript picks the pattern with the longest literal prefix, so the order of
-        // specificity is: exact '@selisedev/primus-beta/theme' > '@selisedev/primus-beta/core/*' > '@selisedev/primus-beta/components/*'
-        // > '@selisedev/primus-beta/*'. That lets apps write the short form `@selisedev/primus-beta/button` while the
-        // library's own sources keep resolving their internal '@selisedev/primus-beta/components/*' and
-        // '@selisedev/primus-beta/core/*' imports.
+        // Redirect ONLY the copied, app-owned layers (components / core / theme) to the
+        // local folders. The primeuix engine is deliberately NOT remapped: it keeps
+        // resolving to node_modules/@selisedev/primus-beta (the compiled engine the copied
+        // components import at runtime). No catch-all '@selisedev/primus-beta/*' mapping —
+        // that would swallow '@selisedev/primus-beta/primeuix/*' and break the engine.
         const rel = tsconfig.compilerOptions.baseUrl ? '' : './';
         Object.assign(tsconfig.compilerOptions.paths, {
             '@selisedev/primus-beta/theme': [`${rel}${dir}/theme/public_api.ts`],
             '@selisedev/primus-beta/core/*': [`${rel}${dir}/core/*/public_api.ts`],
-            '@selisedev/primus-beta/components/*': [`${rel}${dir}/components/*/public_api.ts`],
-            '@selisedev/primus-beta/*': [`${rel}${dir}/components/*/public_api.ts`]
+            '@selisedev/primus-beta/components/*': [`${rel}${dir}/components/*/public_api.ts`]
         });
         if (tsconfig.compilerOptions.strict === true) {
             console.warn('  ! this tsconfig has strict:true — primus sources compile with strict:false + strictNullChecks:true (and strictTemplates:false); align these or the build will fail');
@@ -164,8 +163,38 @@ function resolveClosure(names) {
     return order;
 }
 
-function add() {
-    if (!positional.length) fail('usage: primus add <component...>');
+async function promptComponents() {
+    const all = Object.keys(registry.components).sort();
+    if (!process.stdin.isTTY) fail('usage: primus add <component...>  (no TTY for interactive select)');
+    const { createInterface } = await import('node:readline/promises');
+    const rl = createInterface({ input: process.stdin, output: process.stdout });
+
+    console.log('\nSelect components to add (shadcn-style):\n');
+    all.forEach((n, i) => console.log(`  ${String(i + 1).padStart(3)}. ${n}`));
+    console.log('\nEnter names or numbers (comma/space separated), or "all".');
+    const answer = (await rl.question('› ')).trim();
+
+    let picked;
+    if (answer.toLowerCase() === 'all') picked = all;
+    else
+        picked = answer
+            .split(/[\s,]+/)
+            .filter(Boolean)
+            .map((tok) => (/^\d+$/.test(tok) ? all[Number(tok) - 1] : tok))
+            .filter(Boolean);
+
+    if (!picked.length) {
+        rl.close();
+        fail('nothing selected.');
+    }
+    const confirm = (await rl.question(`\nAdd: ${picked.join(', ')} ?  (Y/n) `)).trim().toLowerCase();
+    rl.close();
+    if (confirm && confirm !== 'y' && confirm !== 'yes') fail('aborted.');
+    return picked;
+}
+
+async function add() {
+    if (!positional.length) positional.push(...(await promptComponents()));
     const cfg = loadAppConfig();
     const closure = resolveClosure(positional);
     const npmDeps = new Set();
@@ -255,7 +284,7 @@ switch (cmd) {
         init();
         break;
     case 'add':
-        add();
+        await add();
         break;
     case 'theme':
         await theme();

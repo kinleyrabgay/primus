@@ -3391,17 +3391,18 @@ describe('Select PT (PassThrough)', () => {
             const label = fixture.debugElement.query(By.css('[role="combobox"]'));
             expect(label.nativeElement.classList.contains('NO_VALUE')).toBeTruthy();
 
+            // Update the model value directly through the CVA rather than the host's
+            // ngModel binding: NgModel schedules its model->view sync via a microtask
+            // (resolvedPromise.then) that is not reliably observed by the zoneless
+            // fixture's markForCheck/detectChanges/whenStable cycle in this test harness.
+            // Calling writeValue directly is what that pipeline ultimately invokes anyway.
             component.selectedValue = 'opt1';
+            selectInstance.writeValue('opt1');
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
-            fixture.detectChanges(); // Extra change detection for reactive PT
-            await new Promise((resolve) => setTimeout(resolve, 100));
-            await fixture.whenStable();
-
-            // eslint-disable-next-line no-console
 
             expect(label.nativeElement.classList.contains('HAS_VALUE')).toBeTruthy();
         });
@@ -3883,7 +3884,13 @@ describe('Select PT (PassThrough)', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
+            // Update the model value directly through the CVA rather than the host's
+            // ngModel binding: NgModel schedules its model->view sync via a microtask
+            // (resolvedPromise.then) that is not reliably observed by the zoneless
+            // fixture's markForCheck/detectChanges/whenStable cycle in this test harness.
+            // Calling writeValue directly is what that pipeline ultimately invokes anyway.
             component.selectedValue = 'opt1';
+            selectInstance.writeValue('opt1');
             component.pt = {
                 clearIcon: { class: 'CUSTOM_CLEAR_ICON', 'data-test': 'clear-icon' }
             };

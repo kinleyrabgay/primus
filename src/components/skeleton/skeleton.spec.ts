@@ -165,6 +165,15 @@ describe('Skeleton', () => {
         });
     });
 
+    // Unlike Jasmine (which auto-tears-down spies after every spec), Vitest's vi.spyOn
+    // leaves mocks in place until explicitly restored. The "Lifecycle Hooks" tests below
+    // spy on `BaseComponent.prototype` (shared across every Skeleton instance in this file),
+    // so without an explicit restore those mocks leak into later tests (e.g. the PassThrough
+    // hook tests) and silently no-op real lifecycle methods like ngOnInit/ngOnDestroy.
+    afterEach(() => {
+        vi.restoreAllMocks();
+    });
+
     describe('Component Initialization', () => {
         let fixture: ComponentFixture<TestBasicSkeletonComponent>;
         let component: TestBasicSkeletonComponent;
@@ -746,6 +755,7 @@ describe('Skeleton', () => {
             @Component({
                 standalone: true,
                 imports: [SkeletonModule, CommonModule],
+                selector: 'test-skeleton-multiple',
                 template: `
                     <div *ngFor="let item of items; trackBy: trackByFn">
                         <p-skeleton [width]="item.width" [height]="item.height"></p-skeleton>
@@ -807,6 +817,7 @@ describe('Skeleton', () => {
             @Component({
                 standalone: true,
                 imports: [SkeletonModule],
+                selector: 'test-skeleton-nested',
                 template: `
                     <div class="container">
                         <div class="header">
@@ -851,6 +862,13 @@ describe('Skeleton', () => {
             @Component({
                 standalone: true,
                 imports: [SkeletonModule, CommonModule],
+                selector: 'test-skeleton-conditional',
+                // Eager CD is required here (unlike a plain single detectChanges() call)
+                // because this test mutates `showSkeletons` *after* the initial render and
+                // then relies on markForCheck()+detectChanges() to pick it up. Under zoneless
+                // CD, the default strategy on a plain inline test host won't re-run its
+                // template bindings on that later check unless Eager.
+                changeDetection: ChangeDetectionStrategy.Eager,
                 template: `
                     <div *ngIf="showSkeletons">
                         <p-skeleton *ngFor="let item of skeletonItems" [width]="item.width" [height]="item.height" [shape]="item.shape"> </p-skeleton>
@@ -961,6 +979,7 @@ describe('Skeleton', () => {
         @Component({
             standalone: true,
             imports: [SkeletonModule],
+            selector: 'test-skeleton-pt',
             template: ` <p-skeleton [pt]="pt"></p-skeleton> `
         })
         class TestSkeletonPtComponent {
@@ -1004,6 +1023,7 @@ describe('Skeleton', () => {
         @Component({
             standalone: true,
             imports: [SkeletonModule],
+            selector: 'test-skeleton-pt-object',
             template: ` <p-skeleton [pt]="pt"></p-skeleton> `
         })
         class TestSkeletonPtObjectComponent {
@@ -1063,6 +1083,7 @@ describe('Skeleton', () => {
         @Component({
             standalone: true,
             imports: [SkeletonModule],
+            selector: 'test-skeleton-pt-mixed',
             template: ` <p-skeleton [pt]="pt"></p-skeleton> `
         })
         class TestSkeletonPtMixedComponent {
@@ -1105,6 +1126,7 @@ describe('Skeleton', () => {
         @Component({
             standalone: true,
             imports: [SkeletonModule],
+            selector: 'test-skeleton-pt-instance',
             template: ` <p-skeleton [shape]="shape" [animation]="animation" [pt]="pt"></p-skeleton> `
         })
         class TestSkeletonPtInstanceComponent {
@@ -1176,6 +1198,7 @@ describe('Skeleton', () => {
         @Component({
             standalone: true,
             imports: [SkeletonModule],
+            selector: 'test-skeleton-pt-event',
             template: ` <p-skeleton [pt]="pt"></p-skeleton> `
         })
         class TestSkeletonPtEventComponent {
@@ -1243,6 +1266,7 @@ describe('Skeleton', () => {
         @Component({
             standalone: true,
             imports: [SkeletonModule],
+            selector: 'test-skeleton-inline-string-pt',
             template: ` <p-skeleton [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-skeleton> `
         })
         class TestSkeletonInlineStringPtComponent {}
@@ -1250,6 +1274,7 @@ describe('Skeleton', () => {
         @Component({
             standalone: true,
             imports: [SkeletonModule],
+            selector: 'test-skeleton-inline-object-pt',
             template: ` <p-skeleton [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-skeleton> `
         })
         class TestSkeletonInlineObjectPtComponent {}
@@ -1293,6 +1318,7 @@ describe('Skeleton', () => {
             @Component({
                 standalone: true,
                 imports: [SkeletonModule],
+                selector: 'test-skeleton-global-pt',
                 template: `
                     <p-skeleton></p-skeleton>
                     <p-skeleton></p-skeleton>
@@ -1335,6 +1361,7 @@ describe('Skeleton', () => {
             @Component({
                 standalone: true,
                 imports: [SkeletonModule],
+                selector: 'test-skeleton-merged-pt',
                 template: ` <p-skeleton [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-skeleton> `
             })
             class TestSkeletonMergedPtComponent {}
@@ -1369,6 +1396,7 @@ describe('Skeleton', () => {
         @Component({
             standalone: true,
             imports: [SkeletonModule],
+            selector: 'test-skeleton-pt-hooks',
             template: ` <p-skeleton [pt]="pt"></p-skeleton> `
         })
         class TestSkeletonPtHooksComponent {
