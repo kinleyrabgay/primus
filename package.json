@@ -1,6 +1,6 @@
 {
     "name": "@selisedev/primus-beta",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": "SELISE",
     "description": "Angular UI component library (beta). shadcn-style, source-first fork of PrimeNG 21.1.9 (MIT) on Angular 22, with the PrimeUIX theming engine vendored in-tree. Beta channel for @selisedev/primus.",
     "license": "MIT",
