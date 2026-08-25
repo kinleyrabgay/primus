@@ -2,6 +2,7 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "outDir": "./out-tsc/spec",
+        "composite": true,
         "types": ["vitest/globals", "node"]
     },
     "angularCompilerOptions": {
@@ -13,6 +14,6 @@
     },
     /* The base config excludes *.spec.ts (they must never ship in the package);
        for the test build they are the entry points. */
-    "include": ["src/**/*.spec.ts", "src/**/*.d.ts", "src/test-setup.ts"],
+    "include": ["src/**/*.ts", "src/**/*.d.ts"],
     "exclude": ["node_modules"]
 }

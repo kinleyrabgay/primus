@@ -62,9 +62,7 @@ for (const file of specs(root)) {
     // make sure the symbol is actually imported
     if (!/import\s*\{[^}]*\bCommonModule\b[^}]*\}\s*from\s*'@angular\/common'/.test(s)) {
         const common = s.match(/import\s*\{([^}]*)\}\s*from\s*'@angular\/common';/);
-        s = common
-            ? s.replace(common[0], `import {${common[1].replace(/\s+$/, '')}, CommonModule } from '@angular/common';`)
-            : `import { CommonModule } from '@angular/common';\n${s}`;
+        s = common ? s.replace(common[0], `import {${common[1].replace(/\s+$/, '')}, CommonModule } from '@angular/common';`) : `import { CommonModule } from '@angular/common';\n${s}`;
     }
 
     changed++;

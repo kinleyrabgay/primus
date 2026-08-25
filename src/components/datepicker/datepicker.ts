@@ -24,7 +24,24 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
-import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import {
+    absolutePosition,
+    addClass,
+    addStyle,
+    appendChild,
+    find,
+    findSingle,
+    getFocusableElements,
+    getIndex,
+    getOuterWidth,
+    hasClass,
+    isDate,
+    isNotEmpty,
+    isTouchDevice,
+    relativePosition,
+    setAttribute,
+    uuid
+} from '@selisedev/primus-beta/primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
 import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
 import { PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';

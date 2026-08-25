@@ -144,7 +144,16 @@ class TestConditionalFocusTrapComponent {
 describe('FocusTrap', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [FocusTrapModule, TestBasicFocusTrapComponent, TestDisabledFocusTrapComponent, TestDynamicFocusTrapComponent, TestNestedFocusTrapComponent, TestComplexFocusTrapComponent, TestEmptyFocusTrapComponent, TestConditionalFocusTrapComponent],
+            imports: [
+                FocusTrapModule,
+                TestBasicFocusTrapComponent,
+                TestDisabledFocusTrapComponent,
+                TestDynamicFocusTrapComponent,
+                TestNestedFocusTrapComponent,
+                TestComplexFocusTrapComponent,
+                TestEmptyFocusTrapComponent,
+                TestConditionalFocusTrapComponent
+            ],
             providers: [{ provide: PLATFORM_ID, useValue: 'browser' }, provideZonelessChangeDetection()]
         });
     });

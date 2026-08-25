@@ -28,7 +28,23 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
-import { absolutePosition, addStyle, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import {
+    absolutePosition,
+    addStyle,
+    appendChild,
+    findLastIndex,
+    findSingle,
+    focus,
+    getOuterWidth,
+    isEmpty,
+    isNotEmpty,
+    isPrintableCharacter,
+    isTouchDevice,
+    nestedPosition,
+    relativePosition,
+    resolve,
+    uuid
+} from '@selisedev/primus-beta/primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from '@selisedev/primus-beta/core/api';
 import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
 import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';

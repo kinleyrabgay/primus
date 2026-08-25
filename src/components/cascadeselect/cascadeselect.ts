@@ -27,7 +27,22 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
-import { calculateScrollbarWidth, equals, findLastIndex, findSingle, focus, getHiddenElementOuterWidth, getOffset, getOuterWidth, getViewport, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@selisedev/primus-beta/primeuix/utils';
+import {
+    calculateScrollbarWidth,
+    equals,
+    findLastIndex,
+    findSingle,
+    focus,
+    getHiddenElementOuterWidth,
+    getOffset,
+    getOuterWidth,
+    getViewport,
+    isEmpty,
+    isNotEmpty,
+    isPrintableCharacter,
+    resolveFieldData,
+    uuid
+} from '@selisedev/primus-beta/primeuix/utils';
 import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@selisedev/primus-beta/core/api';
 import { AutoFocus } from '@selisedev/primus-beta/components/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';

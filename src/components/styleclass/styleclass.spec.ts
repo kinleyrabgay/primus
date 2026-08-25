@@ -120,15 +120,7 @@ describe('StyleClass', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                StyleClass,
-                TestBasicStyleClassComponent,
-                TestSelectorStyleClassComponent,
-                TestGrandparentSelectorComponent,
-                TestAnimationStyleClassComponent,
-                TestSlidedownStyleClassComponent,
-                TestResizeStyleClassComponent
-            ],
+            imports: [StyleClass, TestBasicStyleClassComponent, TestSelectorStyleClassComponent, TestGrandparentSelectorComponent, TestAnimationStyleClassComponent, TestSlidedownStyleClassComponent, TestResizeStyleClassComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 

@@ -21,8 +21,8 @@
         "test:unit": "ng test primus --watch=false",
         "test:unit:watch": "ng test primus",
         "test:unit:coverage": "ng test primus --coverage",
-        "format": "prettier --write \"src/**/*.{js,mjs,ts,mts,d.ts,html}\" --cache",
-        "format:check": "prettier --check \"src/**/*.{js,mjs,ts,mts,d.ts,html}\""
+        "format": "prettier --write \"{src,cli,scripts,tools}/**/*.{js,mjs,ts,mts,d.ts,html,json,scss,css}\" \"*.{json,md,ts,mts,mjs}\" --cache",
+        "format:check": "prettier --check \"{src,cli,scripts,tools}/**/*.{js,mjs,ts,mts,d.ts,html,json,scss,css}\" \"*.{json,md,ts,mts,mjs}\""
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "catalog:angular22",

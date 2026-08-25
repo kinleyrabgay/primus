@@ -22,8 +22,8 @@ if (!window.matchMedia) {
                 removeListener: () => {},
                 addEventListener: () => {},
                 removeEventListener: () => {},
-                dispatchEvent: () => false,
-            }) as unknown as MediaQueryList,
+                dispatchEvent: () => false
+            }) as unknown as MediaQueryList
     });
 }
 

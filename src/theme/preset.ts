@@ -14,30 +14,30 @@ const components = rawComponents as unknown as ComponentsDesignTokens;
  * Main Application Theme Preset (Light theme)
  */
 export const AppPreset = definePreset({
-  primitive: {
-    ...primitives,
-    ...typography,
-    ...spacing,
-  },
-  semantic: {
-    ...semanticLight,
-    ...appColors,
-  },
-  components,
+    primitive: {
+        ...primitives,
+        ...typography,
+        ...spacing
+    },
+    semantic: {
+        ...semanticLight,
+        ...appColors
+    },
+    components
 });
 
 /**
  * Dark Theme Preset (uses semantic/ structure)
  */
 export const AppDarkPreset = definePreset({
-  primitive: {
-    ...primitives,
-    ...typography,
-    ...spacing,
-  },
-  semantic: {
-    ...semanticDark,
-    ...appColors,
-  },
-  components,
+    primitive: {
+        ...primitives,
+        ...typography,
+        ...spacing
+    },
+    semantic: {
+        ...semanticDark,
+        ...appColors
+    },
+    components
 });

@@ -5,9 +5,7 @@
     "components": {
         "accordion": {
             "dir": "components/accordion",
-            "dependencies": [
-                "ripple"
-            ]
+            "dependencies": ["ripple"]
         },
         "animateonscroll": {
             "dir": "components/animateonscroll",
@@ -15,14 +13,7 @@
         },
         "autocomplete": {
             "dir": "components/autocomplete",
-            "dependencies": [
-                "autofocus",
-                "chip",
-                "inputtext",
-                "overlay",
-                "ripple",
-                "scroller"
-            ]
+            "dependencies": ["autofocus", "chip", "inputtext", "overlay", "ripple", "scroller"]
         },
         "autofocus": {
             "dir": "components/autofocus",
@@ -46,19 +37,11 @@
         },
         "breadcrumb": {
             "dir": "components/breadcrumb",
-            "dependencies": [
-                "badge",
-                "tooltip"
-            ]
+            "dependencies": ["badge", "tooltip"]
         },
         "button": {
             "dir": "components/button",
-            "dependencies": [
-                "autofocus",
-                "badge",
-                "fluid",
-                "ripple"
-            ]
+            "dependencies": ["autofocus", "badge", "fluid", "ripple"]
         },
         "buttongroup": {
             "dir": "components/buttongroup",
@@ -70,25 +53,16 @@
         },
         "carousel": {
             "dir": "components/carousel",
-            "dependencies": [
-                "button"
-            ]
+            "dependencies": ["button"]
         },
         "cascadeselect": {
             "dir": "components/cascadeselect",
-            "dependencies": [
-                "autofocus",
-                "fluid",
-                "overlay",
-                "ripple"
-            ]
+            "dependencies": ["autofocus", "fluid", "overlay", "ripple"]
         },
         "chart": {
             "dir": "components/chart",
             "dependencies": [],
-            "npm": [
-                "chart.js"
-            ]
+            "npm": ["chart.js"]
         },
         "checkbox": {
             "dir": "components/checkbox",
@@ -100,54 +74,31 @@
         },
         "colorpicker": {
             "dir": "components/colorpicker",
-            "dependencies": [
-                "autofocus",
-                "overlay"
-            ]
+            "dependencies": ["autofocus", "overlay"]
         },
         "confirmdialog": {
             "dir": "components/confirmdialog",
-            "dependencies": [
-                "button",
-                "dialog"
-            ]
+            "dependencies": ["button", "dialog"]
         },
         "confirmpopup": {
             "dir": "components/confirmpopup",
-            "dependencies": [
-                "button",
-                "focustrap"
-            ]
+            "dependencies": ["button", "focustrap"]
         },
         "contextmenu": {
             "dir": "components/contextmenu",
-            "dependencies": [
-                "badge",
-                "ripple",
-                "tooltip"
-            ]
+            "dependencies": ["badge", "ripple", "tooltip"]
         },
         "dataview": {
             "dir": "components/dataview",
-            "dependencies": [
-                "paginator"
-            ]
+            "dependencies": ["paginator"]
         },
         "datepicker": {
             "dir": "components/datepicker",
-            "dependencies": [
-                "autofocus",
-                "button",
-                "inputtext",
-                "ripple"
-            ]
+            "dependencies": ["autofocus", "button", "inputtext", "ripple"]
         },
         "dialog": {
             "dir": "components/dialog",
-            "dependencies": [
-                "button",
-                "focustrap"
-            ]
+            "dependencies": ["button", "focustrap"]
         },
         "divider": {
             "dir": "components/divider",
@@ -155,11 +106,7 @@
         },
         "dock": {
             "dir": "components/dock",
-            "dependencies": [
-                "badge",
-                "ripple",
-                "tooltip"
-            ]
+            "dependencies": ["badge", "ripple", "tooltip"]
         },
         "dragdrop": {
             "dir": "components/dragdrop",
@@ -167,23 +114,16 @@
         },
         "drawer": {
             "dir": "components/drawer",
-            "dependencies": [
-                "button",
-                "focustrap"
-            ]
+            "dependencies": ["button", "focustrap"]
         },
         "dynamicdialog": {
             "dir": "components/dynamicdialog",
-            "dependencies": [
-                "dialog"
-            ]
+            "dependencies": ["dialog"]
         },
         "editor": {
             "dir": "components/editor",
             "dependencies": [],
-            "npm": [
-                "quill"
-            ]
+            "npm": ["quill"]
         },
         "fieldset": {
             "dir": "components/fieldset",
@@ -191,12 +131,7 @@
         },
         "fileupload": {
             "dir": "components/fileupload",
-            "dependencies": [
-                "badge",
-                "button",
-                "message",
-                "progressbar"
-            ]
+            "dependencies": ["badge", "button", "message", "progressbar"]
         },
         "floatlabel": {
             "dir": "components/floatlabel",
@@ -212,10 +147,7 @@
         },
         "galleria": {
             "dir": "components/galleria",
-            "dependencies": [
-                "focustrap",
-                "ripple"
-            ]
+            "dependencies": ["focustrap", "ripple"]
         },
         "iconfield": {
             "dir": "components/iconfield",
@@ -227,9 +159,7 @@
         },
         "image": {
             "dir": "components/image",
-            "dependencies": [
-                "focustrap"
-            ]
+            "dependencies": ["focustrap"]
         },
         "imagecompare": {
             "dir": "components/imagecompare",
@@ -237,10 +167,7 @@
         },
         "inplace": {
             "dir": "components/inplace",
-            "dependencies": [
-                "button",
-                "ripple"
-            ]
+            "dependencies": ["button", "ripple"]
         },
         "inputgroup": {
             "dir": "components/inputgroup",
@@ -256,30 +183,19 @@
         },
         "inputmask": {
             "dir": "components/inputmask",
-            "dependencies": [
-                "autofocus",
-                "inputtext"
-            ]
+            "dependencies": ["autofocus", "inputtext"]
         },
         "inputnumber": {
             "dir": "components/inputnumber",
-            "dependencies": [
-                "autofocus",
-                "inputtext"
-            ]
+            "dependencies": ["autofocus", "inputtext"]
         },
         "inputotp": {
             "dir": "components/inputotp",
-            "dependencies": [
-                "autofocus",
-                "inputtext"
-            ]
+            "dependencies": ["autofocus", "inputtext"]
         },
         "inputtext": {
             "dir": "components/inputtext",
-            "dependencies": [
-                "fluid"
-            ]
+            "dependencies": ["fluid"]
         },
         "keyfilter": {
             "dir": "components/keyfilter",
@@ -291,44 +207,23 @@
         },
         "listbox": {
             "dir": "components/listbox",
-            "dependencies": [
-                "checkbox",
-                "iconfield",
-                "inputicon",
-                "inputtext",
-                "ripple",
-                "scroller"
-            ]
+            "dependencies": ["checkbox", "iconfield", "inputicon", "inputtext", "ripple", "scroller"]
         },
         "megamenu": {
             "dir": "components/megamenu",
-            "dependencies": [
-                "badge",
-                "ripple",
-                "tooltip"
-            ]
+            "dependencies": ["badge", "ripple", "tooltip"]
         },
         "menu": {
             "dir": "components/menu",
-            "dependencies": [
-                "badge",
-                "ripple",
-                "tooltip"
-            ]
+            "dependencies": ["badge", "ripple", "tooltip"]
         },
         "menubar": {
             "dir": "components/menubar",
-            "dependencies": [
-                "badge",
-                "ripple",
-                "tooltip"
-            ]
+            "dependencies": ["badge", "ripple", "tooltip"]
         },
         "message": {
             "dir": "components/message",
-            "dependencies": [
-                "ripple"
-            ]
+            "dependencies": ["ripple"]
         },
         "metergroup": {
             "dir": "components/metergroup",
@@ -336,26 +231,11 @@
         },
         "multiselect": {
             "dir": "components/multiselect",
-            "dependencies": [
-                "autofocus",
-                "checkbox",
-                "chip",
-                "fluid",
-                "iconfield",
-                "inputicon",
-                "inputtext",
-                "overlay",
-                "scroller",
-                "tooltip"
-            ]
+            "dependencies": ["autofocus", "checkbox", "chip", "fluid", "iconfield", "inputicon", "inputtext", "overlay", "scroller", "tooltip"]
         },
         "orderlist": {
             "dir": "components/orderlist",
-            "dependencies": [
-                "button",
-                "listbox",
-                "ripple"
-            ]
+            "dependencies": ["button", "listbox", "ripple"]
         },
         "organizationchart": {
             "dir": "components/organizationchart",
@@ -367,46 +247,27 @@
         },
         "overlaybadge": {
             "dir": "components/overlaybadge",
-            "dependencies": [
-                "badge"
-            ]
+            "dependencies": ["badge"]
         },
         "paginator": {
             "dir": "components/paginator",
-            "dependencies": [
-                "inputnumber",
-                "ripple",
-                "select"
-            ]
+            "dependencies": ["inputnumber", "ripple", "select"]
         },
         "panel": {
             "dir": "components/panel",
-            "dependencies": [
-                "button"
-            ]
+            "dependencies": ["button"]
         },
         "panelmenu": {
             "dir": "components/panelmenu",
-            "dependencies": [
-                "tooltip"
-            ]
+            "dependencies": ["tooltip"]
         },
         "password": {
             "dir": "components/password",
-            "dependencies": [
-                "autofocus",
-                "fluid",
-                "inputtext",
-                "overlay"
-            ]
+            "dependencies": ["autofocus", "fluid", "inputtext", "overlay"]
         },
         "picklist": {
             "dir": "components/picklist",
-            "dependencies": [
-                "button",
-                "listbox",
-                "ripple"
-            ]
+            "dependencies": ["button", "listbox", "ripple"]
         },
         "popover": {
             "dir": "components/popover",
@@ -422,15 +283,11 @@
         },
         "radiobutton": {
             "dir": "components/radiobutton",
-            "dependencies": [
-                "autofocus"
-            ]
+            "dependencies": ["autofocus"]
         },
         "rating": {
             "dir": "components/rating",
-            "dependencies": [
-                "autofocus"
-            ]
+            "dependencies": ["autofocus"]
         },
         "ripple": {
             "dir": "components/ripple",
@@ -446,28 +303,15 @@
         },
         "scrolltop": {
             "dir": "components/scrolltop",
-            "dependencies": [
-                "button"
-            ]
+            "dependencies": ["button"]
         },
         "select": {
             "dir": "components/select",
-            "dependencies": [
-                "autofocus",
-                "iconfield",
-                "inputicon",
-                "inputtext",
-                "overlay",
-                "ripple",
-                "scroller",
-                "tooltip"
-            ]
+            "dependencies": ["autofocus", "iconfield", "inputicon", "inputtext", "overlay", "ripple", "scroller", "tooltip"]
         },
         "selectbutton": {
             "dir": "components/selectbutton",
-            "dependencies": [
-                "togglebutton"
-            ]
+            "dependencies": ["togglebutton"]
         },
         "skeleton": {
             "dir": "components/skeleton",
@@ -475,27 +319,15 @@
         },
         "slider": {
             "dir": "components/slider",
-            "dependencies": [
-                "autofocus"
-            ]
+            "dependencies": ["autofocus"]
         },
         "speeddial": {
             "dir": "components/speeddial",
-            "dependencies": [
-                "button",
-                "ripple",
-                "tooltip"
-            ]
+            "dependencies": ["button", "ripple", "tooltip"]
         },
         "splitbutton": {
             "dir": "components/splitbutton",
-            "dependencies": [
-                "autofocus",
-                "button",
-                "ripple",
-                "tieredmenu",
-                "tooltip"
-            ]
+            "dependencies": ["autofocus", "button", "ripple", "tieredmenu", "tooltip"]
         },
         "splitter": {
             "dir": "components/splitter",
@@ -507,9 +339,7 @@
         },
         "steps": {
             "dir": "components/steps",
-            "dependencies": [
-                "tooltip"
-            ]
+            "dependencies": ["tooltip"]
         },
         "styleclass": {
             "dir": "components/styleclass",
@@ -517,25 +347,11 @@
         },
         "table": {
             "dir": "components/table",
-            "dependencies": [
-                "badge",
-                "button",
-                "checkbox",
-                "datepicker",
-                "inputnumber",
-                "inputtext",
-                "paginator",
-                "radiobutton",
-                "scroller",
-                "select",
-                "selectbutton"
-            ]
+            "dependencies": ["badge", "button", "checkbox", "datepicker", "inputnumber", "inputtext", "paginator", "radiobutton", "scroller", "select", "selectbutton"]
         },
         "tabs": {
             "dir": "components/tabs",
-            "dependencies": [
-                "ripple"
-            ]
+            "dependencies": ["ripple"]
         },
         "tag": {
             "dir": "components/tag",
@@ -547,16 +363,11 @@
         },
         "textarea": {
             "dir": "components/textarea",
-            "dependencies": [
-                "fluid"
-            ]
+            "dependencies": ["fluid"]
         },
         "tieredmenu": {
             "dir": "components/tieredmenu",
-            "dependencies": [
-                "ripple",
-                "tooltip"
-            ]
+            "dependencies": ["ripple", "tooltip"]
         },
         "timeline": {
             "dir": "components/timeline",
@@ -568,15 +379,11 @@
         },
         "togglebutton": {
             "dir": "components/togglebutton",
-            "dependencies": [
-                "ripple"
-            ]
+            "dependencies": ["ripple"]
         },
         "toggleswitch": {
             "dir": "components/toggleswitch",
-            "dependencies": [
-                "autofocus"
-            ]
+            "dependencies": ["autofocus"]
         },
         "toolbar": {
             "dir": "components/toolbar",
@@ -588,35 +395,15 @@
         },
         "tree": {
             "dir": "components/tree",
-            "dependencies": [
-                "autofocus",
-                "checkbox",
-                "iconfield",
-                "inputicon",
-                "inputtext",
-                "ripple",
-                "scroller"
-            ]
+            "dependencies": ["autofocus", "checkbox", "iconfield", "inputicon", "inputtext", "ripple", "scroller"]
         },
         "treeselect": {
             "dir": "components/treeselect",
-            "dependencies": [
-                "autofocus",
-                "chip",
-                "fluid",
-                "overlay",
-                "tree"
-            ]
+            "dependencies": ["autofocus", "chip", "fluid", "overlay", "tree"]
         },
         "treetable": {
             "dir": "components/treetable",
-            "dependencies": [
-                "badge",
-                "checkbox",
-                "paginator",
-                "ripple",
-                "scroller"
-            ]
+            "dependencies": ["badge", "checkbox", "paginator", "ripple", "scroller"]
         }
     }
 }

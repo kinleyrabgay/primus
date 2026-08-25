@@ -3717,27 +3717,28 @@ describe('TreeTable PT', () => {
 
     // Case 10: Test PT hooks
     describe('Case 10: PT Hooks', () => {
-        it.skip('should execute onAfterViewInit hook', () => new Promise<void>((done) => {
-            let hookCalled = false;
+        it.skip('should execute onAfterViewInit hook', () =>
+            new Promise<void>((done) => {
+                let hookCalled = false;
 
-            fixture.componentRef.setInput('pt', {
-                host: 'TEST_CLASS',
-                hooks: {
-                    onAfterContentInit: () => {
-                        hookCalled = true;
-                        done();
+                fixture.componentRef.setInput('pt', {
+                    host: 'TEST_CLASS',
+                    hooks: {
+                        onAfterContentInit: () => {
+                            hookCalled = true;
+                            done();
+                        }
                     }
-                }
-            });
-            fixture.changeDetectorRef.markForCheck();
-            fixture.whenStable().then(() => {
-                fixture.detectChanges();
+                });
+                fixture.changeDetectorRef.markForCheck();
+                fixture.whenStable().then(() => {
+                    fixture.detectChanges();
 
-                setTimeout(() => {
-                    expect(hookCalled).toBe(true);
-                }, 100);
-            });
-        }));
+                    setTimeout(() => {
+                        expect(hookCalled).toBe(true);
+                    }, 100);
+                });
+            }));
     });
 });
 

@@ -131,16 +131,7 @@ describe('Panel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                Panel,
-                ButtonModule,
-                PlusIcon,
-                MinusIcon,
-                TestBasicPanelComponent,
-                TestTemplatesPanelComponent,
-                TestFacetsPanelComponent,
-                TestKeyboardNavigationComponent
-            ],
+            imports: [Panel, ButtonModule, PlusIcon, MinusIcon, TestBasicPanelComponent, TestTemplatesPanelComponent, TestFacetsPanelComponent, TestKeyboardNavigationComponent],
             providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         });
 

@@ -307,7 +307,18 @@ describe('Dialog', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [Dialog, ButtonModule, FocusTrap, TestBasicDialogComponent, TestPTemplateDialogComponent, TestHashTemplateDialogComponent, TestHeadlessDialogComponent, TestPositionDialogComponent, TestMaximizableDialogComponent, TestAccessibilityDialogComponent],
+            imports: [
+                Dialog,
+                ButtonModule,
+                FocusTrap,
+                TestBasicDialogComponent,
+                TestPTemplateDialogComponent,
+                TestHashTemplateDialogComponent,
+                TestHeadlessDialogComponent,
+                TestPositionDialogComponent,
+                TestMaximizableDialogComponent,
+                TestAccessibilityDialogComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 

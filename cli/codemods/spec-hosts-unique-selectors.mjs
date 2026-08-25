@@ -13,7 +13,10 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
 const args = process.argv.slice(2);
-const opt = (n, d) => { const i = args.indexOf(`--${n}`); return i >= 0 ? args[i + 1] : d; };
+const opt = (n, d) => {
+    const i = args.indexOf(`--${n}`);
+    return i >= 0 ? args[i + 1] : d;
+};
 const dry = args.includes('--dry');
 const root = resolve(process.cwd(), opt('dir', 'src'));
 
@@ -23,7 +26,12 @@ const specs = (dir) =>
         return e.isDirectory() ? specs(p) : e.name.endsWith('.spec.ts') ? [p] : [];
     });
 
-const kebab = (n) => n.replace(/Component$/, '').replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/_/g, '-').toLowerCase();
+const kebab = (n) =>
+    n
+        .replace(/Component$/, '')
+        .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+        .replace(/_/g, '-')
+        .toLowerCase();
 
 let files = 0;
 let added = 0;

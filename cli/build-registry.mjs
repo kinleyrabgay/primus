@@ -47,7 +47,7 @@ for (const name of readdirSync(COMPONENTS).sort()) {
     for (const file of tsFilesIn(dir)) {
         const code = readFileSync(file, 'utf8');
         for (const [, spec] of code.matchAll(IMPORT_RE)) {
-            const compMatch = spec.match(/^@selisedev/primus-beta\/components\/([\w-]+)/);
+            const compMatch = spec.match(/^@selisedev\/primus-beta\/components\/([\w-]+)/);
             if (compMatch) {
                 if (compMatch[1] !== name) deps.add(compMatch[1]);
                 continue;

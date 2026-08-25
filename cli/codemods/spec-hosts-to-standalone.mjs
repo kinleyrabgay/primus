@@ -43,13 +43,22 @@ function matchBracket(s, open, oc = '[', cc = ']') {
     for (let i = open; i < s.length; i++) {
         const c = s[i];
         if (q) {
-            if (c === '\\') { i++; continue; }
+            if (c === '\\') {
+                i++;
+                continue;
+            }
             if (c === q) q = null;
             continue;
         }
-        if (c === '"' || c === "'" || c === '`') { q = c; continue; }
+        if (c === '"' || c === "'" || c === '`') {
+            q = c;
+            continue;
+        }
         if (c === oc) depth++;
-        else if (c === cc) { depth--; if (depth === 0) return i; }
+        else if (c === cc) {
+            depth--;
+            if (depth === 0) return i;
+        }
     }
     return -1;
 }
@@ -166,7 +175,10 @@ for (const file of specs(root)) {
         return `@${kind}({${body.replace('standalone: false', repl)}})`;
     });
 
-    s = s.replace(/,(\s*[\]}])/g, '$1').replace(/\[\s*,/g, '[').replace(/,\s*,/g, ',');
+    s = s
+        .replace(/,(\s*[\]}])/g, '$1')
+        .replace(/\[\s*,/g, '[')
+        .replace(/,\s*,/g, ',');
 
     if (s !== before) {
         changed++;

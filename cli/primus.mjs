@@ -47,12 +47,42 @@ const parseJsonc = (text) => {
     for (let i = 0; i < text.length; i++) {
         const c = text[i];
         const n = text[i + 1];
-        if (inLine) { if (c === '\n') { inLine = false; out += c; } continue; }
-        if (inBlock) { if (c === '*' && n === '/') { inBlock = false; i++; } continue; }
-        if (inStr) { out += c; if (c === '\\') { out += n; i++; } else if (c === '"') inStr = false; continue; }
-        if (c === '"') { inStr = true; out += c; continue; }
-        if (c === '/' && n === '/') { inLine = true; continue; }
-        if (c === '/' && n === '*') { inBlock = true; i++; continue; }
+        if (inLine) {
+            if (c === '\n') {
+                inLine = false;
+                out += c;
+            }
+            continue;
+        }
+        if (inBlock) {
+            if (c === '*' && n === '/') {
+                inBlock = false;
+                i++;
+            }
+            continue;
+        }
+        if (inStr) {
+            out += c;
+            if (c === '\\') {
+                out += n;
+                i++;
+            } else if (c === '"') inStr = false;
+            continue;
+        }
+        if (c === '"') {
+            inStr = true;
+            out += c;
+            continue;
+        }
+        if (c === '/' && n === '/') {
+            inLine = true;
+            continue;
+        }
+        if (c === '/' && n === '*') {
+            inBlock = true;
+            i++;
+            continue;
+        }
         out += c;
     }
     return JSON.parse(out.replace(/,\s*([}\]])/g, '$1'));
@@ -244,9 +274,13 @@ function diffCmd() {
     const appFiles = new Set(walk(to));
     let clean = true;
     for (const f of [...new Set([...pkgFiles, ...appFiles])].sort()) {
-        if (!pkgFiles.has(f)) { console.log(`  + ${f} (local only)`); clean = false; }
-        else if (!appFiles.has(f)) { console.log(`  - ${f} (missing locally)`); clean = false; }
-        else if (readFileSync(join(from, f), 'utf8') !== readFileSync(join(to, f), 'utf8')) {
+        if (!pkgFiles.has(f)) {
+            console.log(`  + ${f} (local only)`);
+            clean = false;
+        } else if (!appFiles.has(f)) {
+            console.log(`  - ${f} (missing locally)`);
+            clean = false;
+        } else if (readFileSync(join(from, f), 'utf8') !== readFileSync(join(to, f), 'utf8')) {
             console.log(`  ~ ${f} (modified — inspect: git diff --no-index ${join(from, f)} ${join(to, f)})`);
             clean = false;
         }

@@ -142,7 +142,6 @@ describe('ScrollTop', () => {
             expect(scrollTop).toBeTruthy();
         });
 
-
         it('should have default values', () => {
             const newFixture = TestBed.createComponent(TestBasicScrollTopComponent);
             const newScrollTop = newFixture.debugElement.query(By.directive(ScrollTop)).componentInstance;

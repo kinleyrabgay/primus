@@ -41,14 +41,25 @@ function splitArgs(s) {
         const c = s[i];
         if (q) {
             cur += c;
-            if (c === '\\') { cur += s[++i]; continue; }
+            if (c === '\\') {
+                cur += s[++i];
+                continue;
+            }
             if (c === q) q = null;
             continue;
         }
-        if (c === '"' || c === "'" || c === '`') { q = c; cur += c; continue; }
+        if (c === '"' || c === "'" || c === '`') {
+            q = c;
+            cur += c;
+            continue;
+        }
         if ('([{'.includes(c)) depth++;
         if (')]}'.includes(c)) depth--;
-        if (c === ',' && depth === 0) { out.push(cur.trim()); cur = ''; continue; }
+        if (c === ',' && depth === 0) {
+            out.push(cur.trim());
+            cur = '';
+            continue;
+        }
         cur += c;
     }
     if (cur.trim()) out.push(cur.trim());
@@ -62,13 +73,22 @@ function matchParen(s, open) {
     for (let i = open; i < s.length; i++) {
         const c = s[i];
         if (q) {
-            if (c === '\\') { i++; continue; }
+            if (c === '\\') {
+                i++;
+                continue;
+            }
             if (c === q) q = null;
             continue;
         }
-        if (c === '"' || c === "'" || c === '`') { q = c; continue; }
+        if (c === '"' || c === "'" || c === '`') {
+            q = c;
+            continue;
+        }
         if (c === '(') depth++;
-        else if (c === ')') { depth--; if (depth === 0) return i; }
+        else if (c === ')') {
+            depth--;
+            if (depth === 0) return i;
+        }
     }
     return -1;
 }
@@ -106,7 +126,9 @@ function convertSpies(src) {
                     call += `.mockReturnValue(${aArgs})`;
                     break;
                 case 'returnValues':
-                    call += splitArgs(aArgs).map((v) => `.mockReturnValueOnce(${v})`).join('');
+                    call += splitArgs(aArgs)
+                        .map((v) => `.mockReturnValueOnce(${v})`)
+                        .join('');
                     break;
                 case 'callFake':
                     call += `.mockImplementation(${aArgs})`;
@@ -173,8 +195,7 @@ const RULES = [
     // Jasmine attaches failure messages to the matcher; Vitest takes them as expect()'s
     // second argument.  expect(x).withContext('m').toBe(y)  ->  expect(x, 'm').toBe(y)
     [/expect\(([\s\S]*?)\)\s*\.withContext\(([^)]*)\)/g, (_, a, m) => `expect(${a}, ${m})`],
-    [/expect\(([^;]*?)\)\.(toBeTruthy|toBeFalsy|toBeDefined|toBeUndefined|toBeNull)\((['"`][^'"`]*['"`])\)/g,
-        (_, a, matcher, msg) => `expect(${a}, ${msg}).${matcher}()`],
+    [/expect\(([^;]*?)\)\.(toBeTruthy|toBeFalsy|toBeDefined|toBeUndefined|toBeNull)\((['"`][^'"`]*['"`])\)/g, (_, a, matcher, msg) => `expect(${a}, ${msg}).${matcher}()`],
     // Jasmine's expectAsync. `toBeResolved` only asserts that the promise settles
     // successfully, which a bare `await` already does (a rejection fails the test).
     [/await\s+expectAsync\s*\(([\s\S]*?)\)\s*\.toBeResolved\s*\(\s*\)/g, (_, p) => `await ${p}`],
@@ -195,17 +216,19 @@ const RULES = [
  * (setTimeout/Promise/subscribe) is left alone and reported instead.
  */
 function convertDone(src) {
-    return src.replace(/\b(x?it|f?it|test|it\.skip|it\.only)\(\s*(['"`])((?:\\.|(?!\2).)*)\2\s*,\s*(async\s+)?\(\s*done\s*\)\s*=>\s*\{/g, (whole, fn, q, name, asyncKw, offset) => {
-        // find this test's body and make sure `done` is not used asynchronously in it
-        const at = src.indexOf(whole);
-        const open = src.indexOf('{', at + whole.length - 1);
-        const body = src.slice(at, open + 4000);
-        const idx = body.search(/\bdone\s*\(\s*\)/);
-        if (idx < 0) return whole;
-        const before = body.slice(0, idx);
-        if (/setTimeout|setInterval|Promise|requestAnimationFrame|\.subscribe\(|whenStable/.test(before)) return whole;
-        return `${fn}(${q}${name}${q}, ${asyncKw || ''}() => {`;
-    }).replace(/^[ \t]*done\(\s*\);?[ \t]*\r?\n/gm, '');
+    return src
+        .replace(/\b(x?it|f?it|test|it\.skip|it\.only)\(\s*(['"`])((?:\\.|(?!\2).)*)\2\s*,\s*(async\s+)?\(\s*done\s*\)\s*=>\s*\{/g, (whole, fn, q, name, asyncKw, offset) => {
+            // find this test's body and make sure `done` is not used asynchronously in it
+            const at = src.indexOf(whole);
+            const open = src.indexOf('{', at + whole.length - 1);
+            const body = src.slice(at, open + 4000);
+            const idx = body.search(/\bdone\s*\(\s*\)/);
+            if (idx < 0) return whole;
+            const before = body.slice(0, idx);
+            if (/setTimeout|setInterval|Promise|requestAnimationFrame|\.subscribe\(|whenStable/.test(before)) return whole;
+            return `${fn}(${q}${name}${q}, ${asyncKw || ''}() => {`;
+        })
+        .replace(/^[ \t]*done\(\s*\);?[ \t]*\r?\n/gm, '');
 }
 
 let changed = 0;
@@ -227,7 +250,11 @@ for (const file of specs(root)) {
         // (name, ['a','b'], { prop: 1 })  ->  { a: vi.fn(), b: vi.fn(), ...({ prop: 1 }) }
         const arr = parts.find((p) => p.startsWith('['));
         const props = parts.find((p) => p.startsWith('{'));
-        const keys = arr ? splitArgs(arr.slice(1, -1)).map((k) => k.replace(/['"`]/g, '').trim()).filter(Boolean) : [];
+        const keys = arr
+            ? splitArgs(arr.slice(1, -1))
+                  .map((k) => k.replace(/['"`]/g, '').trim())
+                  .filter(Boolean)
+            : [];
         const body = keys.map((k) => `${k}: vi.fn()`);
         if (props) body.push(`...(${props})`);
         s = s.slice(0, i) + `{ ${body.join(', ')} }` + s.slice(close + 1);

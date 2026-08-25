@@ -31,7 +31,22 @@ import {
 import { FormsModule } from '@angular/forms';
 import { MotionEvent, MotionOptions } from '@selisedev/primus-beta/primeuix/motion';
 import { absolutePosition, addStyle, appendChild, find, findSingle, getAttribute, isClickable, setAttribute } from '@selisedev/primus-beta/primeuix/utils';
-import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from '@selisedev/primus-beta/core/api';
+import {
+    BlockableUI,
+    FilterMatchMode,
+    FilterMetadata,
+    FilterOperator,
+    FilterService,
+    LazyLoadMeta,
+    OverlayService,
+    PrimeTemplate,
+    ScrollerOptions,
+    SelectItem,
+    SharedModule,
+    SortMeta,
+    TableState,
+    TranslationKeys
+} from '@selisedev/primus-beta/core/api';
 import { BadgeModule } from '@selisedev/primus-beta/components/badge';
 import { BaseComponent, PARENT_INSTANCE } from '@selisedev/primus-beta/core/basecomponent';
 import { Bind, BindModule } from '@selisedev/primus-beta/core/bind';
