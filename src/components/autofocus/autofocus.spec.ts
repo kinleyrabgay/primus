@@ -216,6 +216,13 @@ class TestAutofocusDialogSimulationComponent {
 
 describe('AutoFocus', () => {
     beforeEach(async () => {
+        // jsdom 28's getComputedStyle throws (`Specificity.max(...)` is undefined) when
+        // computing style for standard focusable elements. DomHandler.getFocusableElements()
+        // calls it (some invocations deferred via setTimeout in the directive), which would
+        // otherwise crash the run as an unhandled error. Stub it to a visible style — this is
+        // a jsdom bug, not a directive bug.
+        vi.spyOn(window, 'getComputedStyle').mockReturnValue({ display: 'block', visibility: 'visible' } as CSSStyleDeclaration);
+
         TestBed.configureTestingModule({
             imports: [
                 AutoFocusModule,
