@@ -47,6 +47,37 @@ if (!('MutationObserver' in window)) {
     };
 }
 
+// jsdom 28 bug: window.getComputedStyle can throw
+//   "Cannot destructure property 'value' of 'Specificity.max(...)' as it is undefined"
+// while computing the style cascade for otherwise-ordinary elements. Focus/visibility
+// utilities (DomHandler.getFocusableElements, primeuix getFocusableElements) call it —
+// sometimes deferred via setTimeout — so an uncaught throw there crashes the whole Vitest
+// worker fork ("Worker exited unexpectedly"), not just one test. Wrap it: pass real calls
+// through unchanged, and only on the jsdom crash return a safe, visible default.
+{
+    const nativeGetComputedStyle = window.getComputedStyle.bind(window);
+    const safeStyleFallback = () =>
+        new Proxy({ display: 'block', visibility: 'visible' } as Record<string, unknown>, {
+            get(target, prop) {
+                if (prop === 'getPropertyValue') return () => '';
+
+                return prop in target ? target[prop as string] : '';
+            }
+        }) as unknown as CSSStyleDeclaration;
+
+    Object.defineProperty(window, 'getComputedStyle', {
+        writable: true,
+        configurable: true,
+        value: (element: Element, pseudoElt?: string | null): CSSStyleDeclaration => {
+            try {
+                return nativeGetComputedStyle(element, pseudoElt ?? undefined);
+            } catch {
+                return safeStyleFallback();
+            }
+        }
+    });
+}
+
 // jsdom does not implement layout; these throw "not a function" otherwise.
 if (!Element.prototype.scrollIntoView) {
     Element.prototype.scrollIntoView = () => {};
