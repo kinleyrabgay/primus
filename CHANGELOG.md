@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.4] — 2026-08-25
+
 ### Changed
 
 - Repository-wide formatting unified to 4-space indentation (Prettier + EditorConfig);
@@ -21,14 +23,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `cli/build-registry.mjs`: escaped a `/` in the component-import regex that
-  terminated the pattern early.
+  terminated the pattern early; regenerated `cli/registry.json` (now resolves
+  cross-component deps correctly).
+- Test suite: unblocked a compile error (`*ngFor` → `@for` in a dynamic-dialog spec)
+  and fixed the 3 failures it masked (card dynamic-PT spec pattern, focustrap jsdom
+  `getComputedStyle` crash). Suite is green (7201 passed).
 - Editor tooling: `tsconfig.json` now references `tsconfig.spec.json` (with
   `composite: true`) so spec files resolve Vitest globals (`beforeEach`, etc.) in the
   IDE.
 
 ### Added
 
-- `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, and this `CHANGELOG.md`.
+- Community docs: `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CHANGELOG.md`.
+- `.github/` issue + PR templates and a CI workflow (format, registry check, build,
+  test on Node 22).
+- `.prettierignore` for build output, `node_modules`, generated `cli/registry.json`,
+  and the lockfile.
 
 ## [0.0.3] — 2026-08-24
 
@@ -65,7 +75,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`primitives / semantic / components / preset`).
 - Zero third-party runtime dependencies beyond Angular + `tslib`.
 
-[Unreleased]: https://github.com/kinleyrabgay/primus/compare/v0.0.3...HEAD
+[Unreleased]: https://github.com/kinleyrabgay/primus/compare/v0.0.4...HEAD
+[0.0.4]: https://github.com/kinleyrabgay/primus/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/kinleyrabgay/primus/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/kinleyrabgay/primus/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/kinleyrabgay/primus/releases/tag/v0.0.1
