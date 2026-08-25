@@ -51,7 +51,7 @@ invest time.
 
 | Tool       | Version                              |
 | ---------- | ------------------------------------ |
-| Node.js    | ≥ 20 (Angular 22 requirement)        |
+| Node.js    | ≥ 22.22.3 (Angular 22 requirement)   |
 | pnpm       | 9.6.0 (see `packageManager` in root) |
 | Angular    | 22.x (via catalog)                   |
 | TypeScript | 6.0.3 (via catalog)                  |
