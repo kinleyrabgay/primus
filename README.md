@@ -1,5 +1,14 @@
 # @selisedev/primus-beta
 
+<p>
+  <a href="https://www.npmjs.com/package/@selisedev/primus-beta"><img alt="npm version" src="https://img.shields.io/npm/v/@selisedev/primus-beta?color=cb3837&label=npm"></a>
+  <a href="./LICENSE.md"><img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+  <img alt="Angular" src="https://img.shields.io/badge/Angular-22-dd0031?logo=angular&logoColor=white">
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-6.0-3178c6?logo=typescript&logoColor=white">
+  <img alt="components" src="https://img.shields.io/badge/components-100-6d28d9">
+  <img alt="status" src="https://img.shields.io/badge/status-beta-f59e0b">
+</p>
+
 **Angular UI component library** — a shadcn-style, source-first toolkit of 100
 components. Fork of **PrimeNG 21.1.9** (the last MIT release before PrimeNG v22
 moved to a paid license), retargeted to **Angular 22 + TypeScript 6**, with the entire
@@ -34,7 +43,8 @@ and edit every file. Components are _not_ importable from the package directly.
 11. [Publishing model](#publishing-model)
 12. [Entry-point architecture](#entry-point-architecture)
 13. [Relationship to PrimeNG / PrimeUIX](#relationship-to-primeng--primeuix)
-14. [License](#license)
+14. [Contributing](#contributing)
+15. [License](#license)
 
 ---
 
@@ -374,6 +384,29 @@ external `@primeuix` references.
 | Theme presets   | Aura / Lara / Material / Nora             | primus `AppPreset` only                                                                                     |
 
 The package version (`21.1.9`) tracks the PrimeNG release it forked.
+
+---
+
+## Contributing
+
+Contributions are welcome — bug fixes, ported MIT-era upstream fixes, docs, and tests.
+
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** — dev setup, project layout, coding
+  standards, commit conventions, and the PR checklist.
+- **[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)** — community expectations.
+- **[SECURITY.md](./SECURITY.md)** — how to report a vulnerability (privately).
+- **[CHANGELOG.md](./CHANGELOG.md)** — release history (Keep a Changelog + SemVer).
+
+Quick loop:
+
+```bash
+pnpm install
+pnpm format && pnpm lint && pnpm test    # before every PR
+node cli/build-registry.mjs              # if you changed component/npm deps
+```
+
+Open an issue before large changes so scope can be agreed up front. Issue tracker:
+<https://github.com/kinleyrabgay/primus/issues>.
 
 ---
 

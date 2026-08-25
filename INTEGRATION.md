@@ -1,4 +1,18 @@
-# Integrating @primus into the Nx app
+# Manual integration
+
+How to wire primus into an app **by hand**, without the `primus` CLI — for example
+into an Nx workspace, a monorepo `libs/` folder, or any setup where you'd rather
+manage the copy step yourself.
+
+> **Most users don't need this.** The recommended flow is the CLI:
+> `pnpm add -D @selisedev/primus-beta` → `pnpm primus init` → `pnpm primus add <component>`.
+> See the [README quick start](./README.md#quick-start-cli). This document covers the
+> manual path only.
+
+**Steps:** [copy the source](#lib-layout) → [install peers](#1-install-runtime-deps-in-the-app)
+→ [add tsconfig paths](#2-path-aliases-in-tsconfigbasejson) →
+[remap imports](#3-import-mapping--swap-in-every-app-file) →
+[wire the provider](#4-appconfigts--only-import-sources-change).
 
 ## Lib layout
 

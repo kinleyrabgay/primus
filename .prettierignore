@@ -1,0 +1,13 @@
+# Build output
+dist/
+out-tsc/
+.angular/
+
+# Dependencies
+node_modules/
+
+# Generated — owned by cli/build-registry.mjs (its own formatter is source of truth)
+cli/registry.json
+
+# Lockfile
+pnpm-lock.yaml

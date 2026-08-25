@@ -582,7 +582,14 @@ describe('FocusTrap', () => {
             expect(() => directive.onFirstHiddenElementFocus(focusEvent)).not.toThrow();
         });
 
+        // jsdom 28's getComputedStyle throws (`Specificity.max(...)` is undefined) when
+        // asked to compute style for standard focusable elements, which getFocusableElements()
+        // calls to filter out display:none / visibility:hidden. This is a jsdom bug, not a
+        // directive bug — stub getComputedStyle to a visible style so the trap flow runs.
+        const stubVisibleComputedStyle = () => vi.spyOn(window, 'getComputedStyle').mockReturnValue({ display: 'block', visibility: 'visible' } as CSSStyleDeclaration);
+
         it('should handle readonly elements', async () => {
+            stubVisibleComputedStyle();
             component.textareaReadonly = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -608,6 +615,7 @@ describe('FocusTrap', () => {
         });
 
         it('should handle elements with tabindex', () => {
+            stubVisibleComputedStyle();
             const focusableDiv = element.querySelector('.focusable-div') as HTMLElement;
             expect(focusableDiv.getAttribute('tabindex')).toBe('0');
 

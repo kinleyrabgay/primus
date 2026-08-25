@@ -1641,35 +1641,17 @@ describe('Card', () => {
             });
 
             it('should handle dynamic PT updates', async () => {
-                @Component({
-                    standalone: true,
-                    imports: [CardModule],
-                    template: `<p-card [pt]="pt"></p-card>`
-                })
-                class TestDynamicPTComponent {
-                    pt = { root: 'INITIAL_CLASS' };
-                }
+                const fixture = TestBed.createComponent(Card);
+                const hostElement = fixture.nativeElement;
 
-                TestBed.resetTestingModule();
-                TestBed.configureTestingModule({
-                    imports: [CardModule, TestDynamicPTComponent],
-                    providers: [provideZonelessChangeDetection()]
-                });
-
-                const fixture = TestBed.createComponent(TestDynamicPTComponent);
-                const component = fixture.componentInstance;
+                fixture.componentRef.setInput('pt', { root: 'INITIAL_CLASS' });
                 await fixture.whenStable();
+                expect(hostElement.className).toContain('INITIAL_CLASS');
 
-                let cardEl = fixture.debugElement.query(By.css('p-card'));
-                expect(cardEl.nativeElement.className).toContain('INITIAL_CLASS');
-
-                component.pt = { root: 'UPDATED_CLASS' };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.componentRef.setInput('pt', { root: 'UPDATED_CLASS' });
                 await fixture.whenStable();
-                fixture.changeDetectorRef.markForCheck();
-                await fixture.whenStable();
-
-                expect(cardEl.nativeElement.className).toContain('UPDATED_CLASS');
+                expect(hostElement.className).toContain('UPDATED_CLASS');
+                expect(hostElement.className).not.toContain('INITIAL_CLASS');
             });
 
             it('should apply PT with data attributes and aria labels', async () => {
